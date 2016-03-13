@@ -8,6 +8,7 @@ title: 优雅地使用Mac——iTerm2和oh-my-zsh篇
 这里的参考：[https://www.iterm2.com/features.html](https://www.iterm2.com/features.html)
 
 iTerm这个终端具有比系统默认终端更强的能力，而term3则是最近刚发布的beta版本。它比起系统默认终端具备更加丰富且实用的功能，比如：
+
 * 窗口切分(Split Panes)
 * 即时窗口(Hotkey Window)
 * 搜索，支持正则表达式
