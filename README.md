@@ -1,3 +1,6 @@
+# Linesh's Blog
+This is a blog template forked from here: https://github.com/aigarsdz/brume. I'm currently starting to build and maintain my blog.
+
 # brume
 
 I am not a designer so I cannot impress you with breathtaking Jekyll themes, but brume is something that just came to my mind and I had to build it. It is a clean and simple theme, which has an index page that lists all your blog posts divided by year and an about page. brume uses redcarpet as the Markdown processor with strikethrough extension enabled by default (so you can use ~~ to strike out words).
