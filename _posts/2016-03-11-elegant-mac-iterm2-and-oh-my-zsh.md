@@ -1,7 +1,9 @@
 ---
 layout: post
-title: 优雅地使用Mac——iTerm2和oh-my-zsh篇
+title: Mac优雅的工具集——iTerm2和oh-my-zsh篇
 ---
+
+本篇是我Mac优雅工具集系列下的其中两篇文章，[原文全文](https://linesh.gitbooks.io/gitbook-elegant-mac-tools-system-closure/content/index.html)托管在Gitbook上，分享了Mac系统下一些使工作变得更高效的工具。
 
 # iTerm2实用特性 Handy Features
 
