@@ -1,7 +1,7 @@
-----
- layout: post
- title: 优雅地使用Mac——iTerm2和oh-my-zsh篇
-----
+---
+layout: post
+title: 优雅地使用Mac——iTerm2和oh-my-zsh篇
+---
 
 # iTerm2实用特性 Handy Features
 
