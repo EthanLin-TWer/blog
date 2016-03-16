@@ -10,6 +10,7 @@ title: Mac优雅的工具集——oh-my-zsh篇
 有了一个趁手的终端，大的功能就算有了，接下来是一些小的细节的优化，比如主题，自动补全，三方插件集成等。因为[oh-my-zsh](http://ohmyz.sh/)太过有名，为我节省了一些选择的时间，也就不需要再考察其他选择，用了再说。其主页的介绍也是相当不低调，说用上一个主题，马上就会被别人当成极客中的大神，过来围观问你这个主题这么漂亮是怎么配的。然后深藏功与名的你，马上就会在程序员中作为神话被广泛传颂。
 
 oh-my-zsh的两大主要功能分别是：
+
 * **主題（themes）**
 * **插件（plugins）**
 
@@ -48,7 +49,7 @@ zsh默认的安装位置是在`~/.oh-my-zsh`文件夹下，同时在你的根目
 
 
 ### 更简短的快捷键 Alias
-* `git`。首推git插件，它提供的是一个__全球统一__的alias，只要是使用zsh的终端都可以使用同样的缩略命令，常用的有比如`gst` `gca` `gca!` `gcan!` `gup` `gp` `gcb` `gcf` `gcm` `gco`等，完整的命令列表可以参考[zsh-git github的官方wiki](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugin:git)
+* `git`。首推git插件，它提供的是一个**全球统一**的alias，只要是使用zsh的终端都可以使用同样的缩略命令，常用的有比如`gst` `gca` `gca!` `gcan!` `gup` `gp` `gcb` `gcf` `gcm` `gco`等，完整的命令列表可以参考[zsh-git github的官方wiki](https://github.com/robbyrussell/oh-my-zsh/wiki/Plugin:git)
   ![zsh-plugins-git](http://7xqu8w.com1.z0.glb.clouddn.com/zsh-plugins-git.png)
 * `sublime`。使用统一的`st`命令启动sublime，为你屏蔽了sublime可能混乱的安装位置
 * `history`。提供了`h`代替`history`，提供了`hsi`命令来搜索带特定字符串的历史
