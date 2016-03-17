@@ -19,7 +19,7 @@ module("module.name.bainianlaodian", (function() {
 }()))
 ```
 
-然后在外部引用的时候只需要使用`module.name.bainianlaodian.isValidRequest()`就可以调用模块内的函数了，而且可以引用任意路径下的js文件。我就有点好奇，什么时候JavaScript有模块了？而且引用时的路径是在哪里指定的？问了一下项目组的同事，大家也表示不太清楚这个东西。那就`Ctrl+B`一下，看一下`module`这个变量的定义点吧，Intellij给出的提示是：
+然后在外部引用的时候只需要使用`module.name.bainianlaodian.isValidRequest()`就可以调用模块内的函数了，而且可以引用任意路径下的js文件。我就有点好奇，什么时候JavaScript有模块了？而且引用时的路径是在哪里指定的？虽然靠猜也可以大概猜到，这个只需要通过维护一个全局的map记录模块名和对应的函数即可做到，不过还是挺有兴趣看一下具体的实现。于是问了一下项目组的同事，大家也表示不太清楚这个东西。那就`Ctrl+B`一下，看一下`module`这个变量的定义点吧，Intellij给出的提示是：
 
 ```
 module (externs.js, src/main/webapp/.../bower_components/xdate/build)
@@ -45,4 +45,27 @@ module Window (qunit.js, src/main/webapp/.../bower_components/underscore/test/ve
 
 ### 
 
-有意思。由于搜索的名字太过宽泛，所以必然有很多不相关的结果，应该选择性忽略。比如`pom.xml`、`build.gradle`、`npm-debug.log`、test/`node_modules`/`bower_components`/java代码文件夹下的一切东西，
+有意思。由于搜索的名字太过宽泛，所以必然有很多不相关的结果，应该选择性忽略。比如`pom.xml`、`build.gradle`、`npm-debug.log`、test/`node_modules`/`bower_components`/java代码文件夹下的一切东西，最后发现了两个挺有可能相关的文件，一个在`bainianlaodian-libraries.generated.js`文件中，另一个在`js/common`文件夹下的一个`module.js`文件里。前者一看就是生成的代码，代码如下：
+
+```javascript
+  // Export the Underscore object for **Node.js**, with
+  // backwards-compatibility for the old `require()` API. If we're in
+  // the browser, add `_` as a global object.
+  if (typeof exports !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports) {
+      exports = module.exports = _;
+    }
+    exports._ = _;
+  } else {
+    root._ = _;
+  }
+```
+
+看起来好像有点关系，其实并没有。但是又增长了见识，这段代码是在检测是否运行在nodejs的服务端环境，若是就把`_`注册到`module.exports`变量中作为模块暴露出去，若是在浏览器端，则把`_`注册到全局对象`root`中去，这个`root`在某处其实也是被赋予全局变量`window`的值的。
+
+但是在`js/common/module.js`这个文件里，
+
+
+
+
+
