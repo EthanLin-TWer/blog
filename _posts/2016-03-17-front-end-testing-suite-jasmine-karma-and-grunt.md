@@ -1,8 +1,7 @@
 ---
 layout: post
-title: 前端测试框架搭建相关Jasmine/Karma/Mocha/Grunt
+title: 前端测试框架搭建相关Jasmine/Karma/Mocha/Grunt小记
 ---
-# 前端测试套件Jasmine/Karma/Mocha/Grunt
 
 > 如何搭建前端测试框架？
 
@@ -20,6 +19,7 @@ title: 前端测试框架搭建相关Jasmine/Karma/Mocha/Grunt
 
 
 > trouble shooting?
+> 
 > * `TypeError: Object#<Object> has no method...`
 
 不要使用`require('load-grunt-tasks')(grunt)`，而是使用`grunt.loadNpmTasks('grunt-contrib-jasmine')`的方式来加载npm插件
