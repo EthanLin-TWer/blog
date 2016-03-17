@@ -71,7 +71,7 @@ module Window (qunit.js, src/main/webapp/.../bower_components/underscore/test/ve
 
 看到这里，一开始关于模块如何加载以及为何不需要指定路径的问题似乎就完全清楚了：**这套自定义的`module`加载机制，通过{{ put the implementation here }}的方式维护一个全局的map，统一注册到全局对象`window`下。因此所有javascript代码对“模块”的引用其实都是在直接引用全局对象`window`下的变量，因此也无需配置具体的路径。**
 
-这样，“模块的注册和运行机制”问题就搞清楚了，在浏览器中实际调试一把还发现，`bainianlaodian-libraries.generated.js`是在`module.js`之前运行的。但是这里我发现了一个细节：实际被发送到客户端的js文件并不叫`module.js`，而是叫`bainianlaodian-basic.js`。搜索了一下`module.js`，竟没有被引用的地方！这让我不仅又想探索一个问题：这个js究竟是在什么地方被include到页面上的？什么时候被include进来？发布前又被做了什么操作？作为一个基础设施型的js，应该是每个页面都需要的，那么项目上是采用什么方式来实现这个事情的？
+这样，“模块的注册和运行机制”问题就搞清楚了，在浏览器中实际调试一把还发现，`bainianlaodian-libraries.generated.js`是在`module.js`之前运行的。但是这里我发现了一个细节：实际被发送到客户端的js文件并不叫`module.js`，而是叫`bainianlaodian-basic.js`。搜索了一下`module.js`，**竟没有被引用的地方！**这让我不仅又想探索一个问题：这个js究竟是在什么地方被include到页面上的？什么时候被include进来？发布前又被做了什么操作？作为一个基础设施型的js，应该是每个页面都需要的，那么项目上是采用什么方式来实现这个事情的？
 
 ## 再次出发：这个js如何被引用？
 
