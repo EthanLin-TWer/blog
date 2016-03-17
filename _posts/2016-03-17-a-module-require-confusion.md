@@ -3,6 +3,8 @@ layout: post
 title: 从项目上一个模块疑惑说开去
 ---
 
+> 出于商业机密保护，本博客中出现的所有代码与文字均已隐去所有与客户相关的信息。若仍有泄露请第一时间联系博主我：linesh.simpcity@gmail.com。
+
 ## JavaScirpt也有模块化？
 起因是这样的，今天发现项目上的每个js文件基本都是这样的写法：
 
@@ -40,3 +42,7 @@ module Window (qunit.js, src/main/webapp/.../bower_components/underscore/test/ve
 * `amd javascript module`
 
 用以上的方式作为关键词，均没有找到什么有价值的线索。nodejs中虽然存在`module`这么一个变量，但是js代码没有在服务端执行的可能。Google了一下也没有发现是jQuery或者CommonJS规范里的内容。这下可没有线索了，我更加怀疑这个`module`是项目里自己定义实现的了。但是从定义处入手并不能找到有价值的线索，那怎么办呢？既然IDE也无法给出有效的提示，那我就做一下人肉搜索咯，`Ctrl+Shift+F`全文搜索一下`module`这个关键词！过了两秒钟，IDE弹出一个对话框说"1,001 occurrences found so far. Are you sure you wish to continue?"额的神啊，看来这个刨根问底还真不容易，不过既然这是唯一的线索了，那果断还是要Continue的。于是我拍下了Continue，一共有7455出地方出现了`module`这个词。茫茫词海中，该如何捞到有价值的线索呢……？
+
+### 
+
+有意思。由于搜索的名字太过宽泛，所以必然有很多不相关的结果，应该选择性忽略。比如`pom.xml`、`build.gradle`、`npm-debug.log`、test/`node_modules`/`bower_components`/java代码文件夹下的一切东西，
