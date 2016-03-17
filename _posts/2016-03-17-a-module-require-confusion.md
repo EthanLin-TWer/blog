@@ -41,9 +41,9 @@ module Window (qunit.js, src/main/webapp/.../bower_components/underscore/test/ve
 * `nodejs module`
 * `amd javascript module`
 
-用以上的方式作为关键词，均没有找到什么有价值的线索。nodejs中虽然存在`module`这么一个变量，但是js代码没有在服务端执行的可能。Google了一下也没有发现是jQuery或者CommonJS规范里的内容。这下可没有线索了，我更加怀疑这个`module`是项目里自己定义实现的了。但是从定义处入手并不能找到有价值的线索，那怎么办呢？既然IDE也无法给出有效的提示，那我就做一下人肉搜索咯，`Ctrl+Shift+F`全文搜索一下`module`这个关键词！过了两秒钟，IDE弹出一个对话框说"1,001 occurrences found so far. Are you sure you wish to continue?"额的神啊，看来这个刨根问底还真不容易，不过既然这是唯一的线索了，那果断还是要Continue的。于是我拍下了Continue，一共有7455出地方出现了`module`这个词。茫茫词海中，该如何捞到有价值的线索呢……？
+用以上的方式作为关键词，均没有找到什么有价值的线索。nodejs中虽然存在`module`这么一个变量，但是项目中的这些js代码没有在服务端执行的可能。Google了一下也没有发现是jQuery或者CommonJS规范里的内容。这下可没有线索了，我更加怀疑这个`module`是项目里自己定义实现的了。但是从定义处入手并不能找到有价值的线索，那怎么办呢？既然IDE也无法给出有效的提示，那我就做一下人肉搜索咯，`Ctrl+Shift+F`全文搜索一下`module`这个关键词！过了两秒钟，IDE弹出一个对话框说"1,001 occurrences found so far. Are you sure you wish to continue?"额的神啊，看来这个刨根问底还真不容易，不过既然这是唯一的线索了，那果断还是要Continue的。于是我拍下了Continue，一共有7455处地方出现了`module`这个词。茫茫词海中，该如何捞到有价值的线索呢……？
 
-### 
+### 谜底水落石出
 
 有意思。由于搜索的名字太过宽泛，所以必然有很多不相关的结果，应该选择性忽略。比如`pom.xml`、`build.gradle`、`npm-debug.log`、test/`node_modules`/`bower_components`/java代码文件夹下的一切东西，最后发现了两个挺有可能相关的文件，一个在`bainianlaodian-libraries.generated.js`文件中，另一个在`js/common`文件夹下的一个`module.js`文件里。前者一看就是生成的代码，代码如下：
 
@@ -61,10 +61,30 @@ module Window (qunit.js, src/main/webapp/.../bower_components/underscore/test/ve
   }
 ```
 
-看起来好像有点关系，其实并没有。但是又增长了见识，这段代码是在检测是否运行在nodejs的服务端环境，若是就把`_`注册到`module.exports`变量中作为模块暴露出去，若是在浏览器端，则把`_`注册到全局对象`root`中去，这个`root`在某处其实也是被赋予全局变量`window`的值的。
+看起来好像有点关系，其实并没有。这段代码是在做运行环境的检测，若是underscore是运行在服务端，就把`_`注册到`module.exports`变量中作为模块暴露出去；若是运行在浏览器端，则把`_`注册到全局对象`root`中去。这个`root`在某处其实也是被赋予全局变量`window`的值的。同时，这个文件也确实是打包生成的，打包是由`Gruntfile.js`中配置的`concat` task来完成的。真是又增长了知识。
 
-但是在`js/common/module.js`这个文件里，
+好消息是，在`js/common/module.js`这个文件里，我们似乎找到了想要的答案：
 
+```javascript
+
+```
+
+看到这里，一开始关于模块如何加载以及为何不需要指定路径的问题似乎就完全清楚了：**这套自定义的`module`加载机制，通过{{ put the implementation here }}的方式维护一个全局的map，统一注册到全局对象`window`下。因此所有javascript代码对“模块”的引用其实都是在直接引用全局对象`window`下的变量，因此也无需配置具体的路径。**
+
+这样，“模块的注册和运行机制”问题就搞清楚了，在浏览器中实际调试一把还发现，`bainianlaodian-libraries.generated.js`是在`module.js`之前运行的。但是这里我发现了一个细节：实际被发送到客户端的js文件并不叫`module.js`，而是叫`bainianlaodian-basic.js`。搜索了一下`module.js`，竟没有被引用的地方！这让我不仅又想探索一个问题：这个js究竟是在什么地方被include到页面上的？什么时候被include进来？发布前又被做了什么操作？作为一个基础设施型的js，应该是每个页面都需要的，那么项目上是采用什么方式来实现这个事情的？
+
+## 再次出发：这个js如何被引用？
+
+这次我们又有了四个问题：
+
+* 我们找到的这个js是在什么地方被include到页面上的？
+* 什么时候被include进来的？
+* 发布前又被做了什么操作（发生了文件名的改变）？为什么要做这些操作？
+* 项目上用了什么方式来复用include这个js的那段代码？
+
+一个一个来，笔者先睡个觉……
+
+2016-03-18 01:30 am
 
 
 
