@@ -1,11 +1,11 @@
 ---
 layout: post
-title: 从项目上一个模块疑惑说开去
+title: 从一个JavaScript模块化疑惑说开去
 ---
 
-> 出于商业机密保护，本博客中出现的所有代码与文字均已隐去所有与客户相关的信息。若仍有泄露请第一时间联系博主我：linesh.simpcity@gmail.com。
+> 为保护商业机密，本博客中出现的所有代码与文字均已隐去所有与客户相关的信息。若仍有泄露请第一时间联系博主我：linesh.simpcity@gmail.com。
 
-## JavaScirpt也有模块化？
+## 原生JavaScirpt也自带了模块化支持？
 起因是这样的，今天发现项目上的每个js文件基本都是这样的写法：
 
 ```javascript
@@ -19,7 +19,7 @@ module("module.name.bainianlaodian", (function() {
 }()))
 ```
 
-然后在外部引用的时候只需要使用`module.name.bainianlaodian.isValidRequest()`就可以调用模块内的函数了，而且可以引用任意路径下的js文件。我就有点好奇，什么时候JavaScript有模块了？而且引用时的路径是在哪里指定的？虽然靠猜也可以大概猜到，这个只需要通过维护一个全局的map记录模块名和对应的函数即可做到，不过还是挺有兴趣看一下具体的实现。于是问了一下项目组的同事，大家也表示不太清楚这个东西。那就`Ctrl+B`一下，看一下`module`这个变量的定义点吧，Intellij给出的提示是：
+然后在外部引用的时候只需要使用`module.name.bainianlaodian.isValidRequest()`就可以调用模块内的函数了，而且可以引用任意路径下的js文件。我就有点好奇，什么时候JavaScript有模块了？一般都是通过[IIFE](http://benalman.com/news/2010/11/immediately-invoked-function-expression/)和闭包结合的方式来人为地创建一个“模块”，但并未看过这种直接调用的写法。而且引用时的路径是在哪里指定的？虽然靠猜也可以大概猜到，这个只需要通过维护一个全局的map记录模块名和对应的函数即可做到，不过还是挺有兴趣看一下具体的实现。于是问了一下项目组的同事，大家也表示不太清楚这个`module`及用法。那就`Ctrl+B`一下，看一下`module`这个变量的定义点吧，Intellij给出的提示是：
 
 ```
 module (externs.js, src/main/webapp/.../bower_components/xdate/build)
@@ -113,7 +113,6 @@ module Window (qunit.js, src/main/webapp/.../bower_components/underscore/test/ve
 
 ### js是什么时候被include进来的？
 （更多内容，请星期一来听我的session哈哈哈【其实我是没有项目代码写不下去了】）
-
 
 
 
