@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 前端测试框架搭建相关Jasmine/Karma/Mocha/Grunt小记
+title: 前端测试框架相关Jasmine/Karma/Mocha/Grunt小记
 ---
 
 > 如何搭建前端测试框架？
