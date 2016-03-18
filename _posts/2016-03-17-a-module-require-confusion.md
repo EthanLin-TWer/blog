@@ -115,17 +115,6 @@ module Window (qunit.js, src/main/webapp/.../bower_components/underscore/test/ve
 （更多内容，请星期一来听我的session哈哈哈【其实我是没有项目代码写不下去了】）
 
 
-```
-jawr.js.bundle.laodian.id=/bundles/laodian-basic.js
-<laodian:script bundle="/bundles/laodian-basic.js" useVersionNumber="true" />
-```
-
-```
-america.jsp british.jsp
-<commonjs-laodian.jsp>
-<script type="" src="/laodian/common/js/laodian-libraries.generated.js">
-<script type="" src="/laodian/common/js/bootstrap.generated.js">
-```
 
 
 ---
