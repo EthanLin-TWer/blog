@@ -30,7 +30,7 @@ module Window (qunit.js, src/main/webapp/.../bower_components/underscore/test/ve
 ...
 ```
 
-看着都不像，而且都是通过`npm`或者`bower`引进来的工具。我所期待的结果，应该是类似于nodejs或者类似的框架或环境所提供的变量和加载方式，类似于[这篇文章](http://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/001434502419592fd80bbb0613a42118ccab9435af408fd000)讲到的模块加载的方式。嗯，既然蛮干无用，那就求助一下程序员的良师益友Google吧：
+看着都不像，而且都是通过`npm`或者`bower`引进来的工具。我所期待的结果，应该是类似于nodejs或者类似的框架或环境所提供的变量和加载方式，类似于[这篇文章](http://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/001434502419592fd80bbb0613a42118ccab9435af408fd000)讲到的模块加载的方式。嗯，既然蛮干无用，那就求助一下程序员的~~好基友~~良师益友Google吧：
 
 ### Google也解决不到的问题
 
