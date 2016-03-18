@@ -68,7 +68,31 @@ module Window (qunit.js, src/main/webapp/.../bower_components/underscore/test/ve
 好消息是，在`js/common/module.js`这个文件里，我们似乎找到了想要的答案：
 
 ```javascript
+(function(global) {
 
+  global.module = function registerModule(moduleName, moduleContent) {
+    var root = global;
+
+    if (moduleName.indexOf('.') == -1) {
+      registerToContext(root, moduleName, moduleContent);
+    } else {
+      var contexts = _(moduleName.split('.'));
+      var context = contexts.initial().reduce(function(memo, current) {
+        if (!memo[current]) {
+          memo[current] = emptyModuleObject();
+        } 
+        return memo[current];
+      }, root);
+
+      registerToContext(context, contexts.last(), moduleContent);
+    }
+  };
+
+  function registerToContext(parentContext, moduleName, moduleContent) {
+    var module = parentContext[moduleName];
+    if (!module) parentContext[moduleName] = moduleContent;
+  };
+})(this); // this === window
 ```
 
 看到这里，一开始关于模块如何加载以及为何不需要指定路径的问题似乎就完全清楚了：**这套自定义的`module`加载机制，通过{{ put the implementation here }}的方式维护一个全局的map，统一注册到全局对象`window`下。因此所有javascript代码对“模块”的引用其实都是在直接引用全局对象`window`下的变量，因此也无需配置具体的路径。**
