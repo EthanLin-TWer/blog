@@ -82,7 +82,9 @@ module Window (qunit.js, src/main/webapp/.../bower_components/underscore/test/ve
           memo[current] = emptyModuleObject();
         } 
         return memo[current];
-      }, root); // 这段代码会返回倒数第二个子模块，并为模块树中还不存在的子模块创建一个空的对象并注册到其父模块中，优雅简洁的函数式编程，mind-blasting... ["Mind Blasting"][1]
+      }, root); 
+      // 这段代码会返回倒数第二个子模块，并为模块树中还不存在的子模块创建一个空的对象并注册到其父模块中
+      // 优雅简洁的函数式编程，mind-blasting... ["Mind Blasting"][1]
 
       registerToContext(context, contexts.last(), moduleContent);
     }
@@ -114,20 +116,7 @@ module Window (qunit.js, src/main/webapp/.../bower_components/underscore/test/ve
 
 
 
-```
-jawr.js.bundle.laodian.id=/bundles/laodian-basic.js
-<laodian:script bundle="/bundles/laodian-basic.js" useVersionNumber="true" />
-```
-
-```
-america.jsp british.jsp
-<commonjs-laodian.jsp>
-<script type="" src="/laodian/common/js/laodian-libraries.generated.js">
-<script type="" src="/laodian/common/js/bootstrap.generated.js">
-```
-
-
 
 ---
 
-[1]： https://www.youtube.com/watch?v=vtKdNT7o858        "Russell Peters: Mind-Blasting Joke"
+[1]： [https://www.youtube.com/watch?v=vtKdNT7o858](https://www.youtube.com/watch?v=vtKdNT7o858)        "Russell Peters: Mind-Blasting Joke"
