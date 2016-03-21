@@ -106,12 +106,13 @@ module Window (qunit.js, src/main/webapp/.../bower_components/underscore/test/ve
 
 这次我们又有了四个问题：
 
+* `module.js`是如何被打包到`laodian-basic.js`中去？
 * 我们找到的这个js是在什么地方被include到页面上的？
 * 什么时候被include进来的？
 * 发布前又被做了什么操作（发生了文件名的改变）？为什么要做这些操作？
 * 项目上用了什么方式来复用include这个js的那段代码？
 
-### js是什么时候被include进来的？
+### 如何打包，`laodian-basic.js`如何被引用的？
 上面我们还留下了一条线索：`laodian-basic.js`。既然`module.js`没有被引用的地方，那么就搜索下`laodian-basic.js`的引用点。这里我看到了两个引用点：
 
 1. ```jawr.js.bundle.laodian.id=/bundles/laodian-basic.js```
@@ -126,9 +127,10 @@ module Window (qunit.js, src/main/webapp/.../bower_components/underscore/test/ve
 ```java
 jawr.js.budnle.laodian-basic.id=/bundle/laodian-basic.js
 jawr.js.budnle.laodian-basic.child.names=laodian-pages
-jawr.js.budnle.laodian-pages.mappings=/js/laodian-pages/* *
+jawr.js.budnle.laodian-pages.mappings=/js/laodian-pages/**/*.js
 ```
 
+看到上面这段代码就很清楚了，jawr会把`/js/laodian-pages/`文件夹下的所有js文件打包到`laodian-basic.js`文件中。
 
 
 
