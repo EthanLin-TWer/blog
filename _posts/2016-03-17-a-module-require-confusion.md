@@ -47,7 +47,7 @@ module Window (qunit.js, src/main/webapp/.../bower_components/underscore/test/ve
 
 ### 谜底水落石出
 
-有意思。由于搜索的名字太过宽泛，所以必然有很多不相关的结果，应该选择性忽略。比如`pom.xml`、`build.gradle`、`npm-debug.log`、test/`node_modules`/`bower_components`/java代码文件夹下的一切东西，最后发现了两个挺有可能相关的文件，一个在`bainianlaodian-libraries.generated.js`文件中，另一个在`js/common`文件夹下的一个`module.js`文件里。前者一看就是生成的代码，代码如下：
+有意思。由于搜索的名字太过宽泛，所以必然有很多不相关的结果，应该选择性忽略。比如`pom.xml`、`build.gradle`、`npm-debug.log`、test/`node_modules`/`bower_components`/java代码文件夹下的一切东西，最后发现了两个挺有可能相关的文件，一个在`laodian-libraries.generated.js`文件中，另一个在`js/common`文件夹下的一个`module.js`文件里。前者一看就是生成的代码，代码如下：
 
 ```javascript
   // Export the Underscore object for **Node.js**, with
@@ -100,7 +100,7 @@ module Window (qunit.js, src/main/webapp/.../bower_components/underscore/test/ve
 
 **这套自定义的模块加载机制，它会将模块名解析成一个有包含关系的模块树，然后将所有模块及其之间的关系“注册”（其实就是加）到全局的`window`对象中。所有js代码对“模块”的引用其实都是在直接引用全局对象`window`下的变量，因此也无需配置具体的路径。**
 
-看到这里，一开始关于“模块的注册和运行机制”的问题似乎就完全清楚了。在浏览器中实际调试了一把还发现，`bainianlaodian-libraries.generated.js`是在`module.js`之前运行的。但是这里我发现了一个细节：实际被发送到客户端的js文件并不叫`module.js`，而是叫`laodian-basic.js`。搜索了一下`module.js`，**竟没有被引用的地方！**这让我不仅又想探索一个问题：这个js究竟是在什么地方被include到页面上的？什么时候被include进来？发布前又被做了什么操作？作为一个基础设施型的js，应该是每个页面都需要的，那么项目上是采用什么方式来实现这个事情的？
+看到这里，一开始关于“模块的注册和运行机制”的问题似乎就完全清楚了。在浏览器中实际调试了一把还发现，`laodian-libraries.generated.js`是在`module.js`之前运行的。但是这里我发现了一个细节：实际被发送到客户端的js文件并不叫`module.js`，而是叫`laodian-basic.js`。搜索了一下`module.js`，**竟没有被引用的地方！**这让我不仅又想探索一个问题：这个js究竟是在什么地方被include到页面上的？什么时候被include进来？发布前又被做了什么操作？作为一个基础设施型的js，应该是每个页面都需要的，那么项目上是采用什么方式来实现这个事情的？
 
 ## 再次出发：这个js如何被引用？
 
@@ -130,9 +130,34 @@ jawr.js.budnle.laodian-basic.child.names=laodian-pages
 jawr.js.budnle.laodian-pages.mappings=/js/laodian-pages/**/*.js
 ```
 
-看到上面这段代码就很清楚了，jawr会把`/js/laodian-pages/`文件夹下的所有js文件打包到`laodian-basic.js`文件中。
+看到上面这段代码就很清楚了，jawr会把`/js/laodian-pages/`文件夹下的所有js文件打包到`laodian-basic.js`文件中。JAWR其实还有一个`JawrServlet`，它会去读取`jawr.properties`(在`web.xml`文件的`init-param`配置`configLocation`)中的配置，并且拦截所有匹配`/js/*`的路径。
 
 
+### js是如何被引用到页面上的？——SiteMesh
+从上面搜搜到的这段代码已经可以看出，`laodian-basic.js`这个文件是在`british.jsp`中被引用的，后者引入了大量的CSS/JS/FAVICON等文件，似乎是一个入口文件，但它却没有再被其他文件引用：
+
+```js
+<head>
+  <script type="text/javascript" src="${appresource}/laodian/common/js/laodian-libraries.generated.js"></script>
+  <script type="text/javascript" src="${appresource}/laodian/common/js/bootstrap.generated.js"></script>
+  <home:script bundle="/bundles/laodian-basic.js" useVersionNumber="true" />
+
+  <link rel="stylesheet" type="text/css" href=${appresource}/laodian/british/css/british-specific.less" />
+</head>
+
+<body id="${activePage}" class="${activePage}">
+  <decorator:usePage id="specific-page" />
+  <div class="page">
+    <header class="Header">...</header>
+    <main id="main-wrapper">
+      <decorator:body />
+    </main>
+    <footer class="Footer">...</footer>
+  </div>
+</body>
+```
+
+笔者眼尖，看到了`<decorator>`这个标签。它是SiteMesh框架定义的一个标签，sitemesh
 
 ---
 
