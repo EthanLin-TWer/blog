@@ -121,7 +121,14 @@ module Window (qunit.js, src/main/webapp/.../bower_components/underscore/test/ve
 
 ![brand-specific-jsp-directory-structure](http://7xqu8w.com1.z0.glb.clouddn.com/a82b64e24b984d2a92c0c39397481825.png)
 
-百年老店的项目有一个特点，就是支持多品牌，同一套代码需要服务不同地区的用户。我们挑了一个服务于大英地区的文件`british.jsp`，`Alt+F7`之，不能找到它的引用点。如我们第4点所要探索的问题所指出，由于要支持多品牌多页面，这个文件可能最终是通过这样的形式来被使用的：`<%@ include file="${brand}.jsp" %>`（手动反射）。这个目前还没有太多线索，那么先看看第一条线索，Google一下jawr：
+百年老店的项目有一个特点，就是支持多品牌，同一套代码需要服务不同地区的用户。我们挑了一个服务于大英地区的文件`british.jsp`，`Alt+F7`之，不能找到它的引用点。如我们第4点所要探索的问题所指出，由于要支持多品牌多页面，这个文件可能最终是通过这样的形式来被使用的：`<%@ include file="${brand}.jsp" %>`（手动反射）。这个目前还没有太多线索，那么先看看第一条线索，Google一下[jawr](https://jawr.java.net/index.html)：它是一个可配置的、支持共用开发与发布代码的JS/CSS文件压缩与打包工具。配置简单：
+
+```java
+jawr.js.budnle.laodian-basic.id=/bundle/laodian-basic.js
+jawr.js.budnle.laodian-basic.child.names=laodian-pages
+jawr.js.budnle.laodian-pages.mappings=/js/laodian-pages/* *
+```
+
 
 
 
