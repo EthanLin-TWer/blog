@@ -112,7 +112,11 @@ module Window (qunit.js, src/main/webapp/.../bower_components/underscore/test/ve
 * 项目上用了什么方式来复用include这个js的那段代码？
 
 ### js是什么时候被include进来的？
-（更多内容，请星期一来听我的session哈哈哈【其实我是没有项目代码写不下去了】）
+上面我们还留下了一条线索：`laodian-basic.js`。既然`module.js`没有被引用的地方，那么就搜索下`laodian-basic.js`的引用点。这里我看来了两个引用点：
+
+1. ```java
+    jawr.js.bundle.laodian.id=/bundles/laodian-basic.js
+   ```
 
 
 
