@@ -39,7 +39,7 @@ jawr.js.budnle.laodian-pages.mappings=/js/laodian-pages/**/*.js
 ### js是如何被引用到页面上的？——SiteMesh
 从上面搜搜到的这段代码已经可以看出，`laodian-basic.js`这个文件是在`british.jsp`中被引用的，后者引入了大量的CSS/JS/FAVICON等文件，似乎是一个入口文件，但它却没有再被其他文件引用：
 
-```js
+```html
 <head>
   <script type="text/javascript" src="laodian/common/js/laodian-libraries.generated.js"></script>
   <script type="text/javascript" src="laodian/common/js/bootstrap.generated.js"></script>
