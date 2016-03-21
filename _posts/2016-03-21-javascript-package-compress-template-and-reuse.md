@@ -61,6 +61,10 @@ jawr.js.budnle.laodian-pages.mappings=/js/laodian-pages/**/*.js
 
 笔者眼尖，看到了`<decorator>`这个标签。它是SiteMesh框架定义的一个标签，sitemesh是一个分离页面内容和展现（presentation）的轻量级框架，其设计中运用了四人帮的装饰模式。Google Trends了一下它的热度，以及与它同类型的一些产品/框架的趋势，如下图，看起来似乎都要挂了。sitemesh3/tiles分别已经1/2年没维护了，只有wicket还在持续对Java8增加支持。这是不是意味着它所依附的模板技术也差不多日暮西山了？而模板技术又是前后端难以分离的一个重要的点，其实也从侧面印证了前后端分离的大趋势吧。
 
+![Trends-jsp-freemarker-etc](http://7xqu8w.com1.z0.glb.clouddn.com/f366e36a7e197a73e0b3cb46c563658d.png)
+
+![Trends-sitemesh-tiles-etc](http://7xqu8w.com1.z0.glb.clouddn.com/0b4e597eb0f1fba6eefa6c0d774e0961.png)
+
 Anyway不要跑题，火速看一下sitemesh的[文档](http://wiki.sitemesh.org/wiki/display/sitemesh/Setup+SiteMesh+in+5+Minutes+or+Less)，寻找启动项目的配置文件：`decorator.xml`！搜索一下项目的对应配置文件，果然有。看它的配置文件：
 
 ```xml
