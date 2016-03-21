@@ -112,11 +112,16 @@ module Window (qunit.js, src/main/webapp/.../bower_components/underscore/test/ve
 * 项目上用了什么方式来复用include这个js的那段代码？
 
 ### js是什么时候被include进来的？
-上面我们还留下了一条线索：`laodian-basic.js`。既然`module.js`没有被引用的地方，那么就搜索下`laodian-basic.js`的引用点。这里我看来了两个引用点：
+上面我们还留下了一条线索：`laodian-basic.js`。既然`module.js`没有被引用的地方，那么就搜索下`laodian-basic.js`的引用点。这里我看到了两个引用点：
 
-1. ```java
-    jawr.js.bundle.laodian.id=/bundles/laodian-basic.js
-   ```
+1. `jawr.js.bundle.laodian.id=/bundles/laodian-basic.js`
+2. `<laodian:script bundle="/bundles/laodian-basic.js" useVersionNumber="true" />`
+
+看来似乎是配置了一些东西，然后直接在前端jsp(咦前端jsp怎么听起来怪怪的)通过`jsp tag`来引用。其中，第一个文件位于一个`jawr.properties`文件下，第二个文件的目录结构如下图所示。
+
+![brand-specific-jsp-directory-structure](http://7xqu8w.com1.z0.glb.clouddn.com/f1d4f625d14856f2c0f15ab7c4d31ac5.png)
+
+百年老店的项目有一个特点，就是支持多品牌，同一套代码需要服务不同地区的用户。我们挑了一个服务于大英地区的文件`british.jsp`，`Alt+F7`之，不能找到它的引用点。如我们第4点所要探索的问题所指出，由于要支持多品牌多页面，这个文件可能最终是通过这样的形式来被使用的：`<%@ include file="${brand}.jsp" %>`（手动反射）。这个目前还没有太多线索，那么先看看第一条线索，Google一下jawr：
 
 
 
