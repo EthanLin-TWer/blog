@@ -12,7 +12,6 @@ title: 说开去——项目的JavaScript模块化实践（下篇）
 * `module.js`是如何被打包到`laodian-basic.js`中去？
 * 我们找到的这个js是在什么地方被include到页面上的？
 * 什么时候被include进来的？
-* 发布前又被做了什么操作（发生了文件名的改变）？为什么要做这些操作？
 * 项目上用了什么方式来复用include这个js的那段代码？
 
 ### 如何打包？
@@ -25,7 +24,7 @@ title: 说开去——项目的JavaScript模块化实践（下篇）
 
 ![brand-specific-jsp-directory-structure](http://7xqu8w.com1.z0.glb.clouddn.com/a82b64e24b984d2a92c0c39397481825.png)
 
-百年老店的项目有一个特点，就是支持多品牌，同一套代码需要服务不同地区的用户。我们挑了一个服务于大英地区的文件`british.jsp`，`Alt+F7`之，不能找到它的引用点。如我们第5点所要探索的问题所指出，由于要支持多品牌多页面，这个文件可能最终是通过这样的形式来被使用的：`<%@ include file="${brand}.jsp" %>`（手动反射）。这个目前还没有太多线索，那么先看看第一条线索，Google一下[jawr](https://jawr.java.net/index.html)：它是一个可配置的、支持共用开发与发布代码的JS/CSS文件压缩与打包工具。配置简单：
+百年老店的项目有一个特点，就是支持多品牌，同一套代码需要服务不同地区的用户。我们挑了一个服务于大英地区的文件`british.jsp`，`Alt+F7`之，不能找到它的引用点。如我们第4点所要探索的问题所指出，由于要支持多品牌多页面，这个文件可能最终是通过这样的形式来被使用的：`<%@ include file="${brand}.jsp" %>`（手动反射）。这个目前还没有太多线索，那么先看看第一条线索，Google一下[jawr](https://jawr.java.net/index.html)：它是一个可配置的、支持共用开发与发布代码的JS/CSS文件压缩与打包工具。配置简单：
 
 ```java
 jawr.js.budnle.laodian-basic.id=/bundle/laodian-basic.js
@@ -60,13 +59,13 @@ jawr.js.budnle.laodian-pages.mappings=/js/laodian-pages/**/*.js
 </body>
 ```
 
-笔者眼尖，看到了`<decorator>`这个标签。它是SiteMesh框架定义的一个标签，sitemesh是一个分离页面内容和展现（presentation）的轻量级框架，其设计中运用了四人帮的装饰模式。Google Trends了一下它的热度，以及与它同类型的一些产品/框架的趋势，如下图，看起来似乎都要挂了，sitemesh3/tiles分别已经1/2年没维护了，只有wicket还在持续对Java8增加支持。这是不是意味着它所依附的模板技术也差不多日暮西山了？而模板技术又是前后端难以分离的一个重要的点，其实也从侧面印证了前后端分离的大趋势吧。
+笔者眼尖，看到了`<decorator>`这个标签。它是SiteMesh框架定义的一个标签，sitemesh是一个分离页面内容和展现（presentation）的轻量级框架，其设计中运用了四人帮的装饰模式。Google Trends了一下它的热度，以及与它同类型的一些产品/框架的趋势，如下图，看起来似乎都要挂了。sitemesh3/tiles分别已经1/2年没维护了，只有wicket还在持续对Java8增加支持。这是不是意味着它所依附的模板技术也差不多日暮西山了？而模板技术又是前后端难以分离的一个重要的点，其实也从侧面印证了前后端分离的大趋势吧。
 
 Anyway不要跑题，火速看一下sitemesh的[文档](http://wiki.sitemesh.org/wiki/display/sitemesh/Setup+SiteMesh+in+5+Minutes+or+Less)，寻找启动项目的配置文件：`decorator.xml`！搜索一下项目的对应配置文件，果然有。看它的配置文件：
 
 ```xml
 <decorators defaultdir="/WEB-INF/decorators">
-  <decorator name="master-decoratro" page="main.jsp">
+  <decorator name="master-decorator" page="main.jsp">
     <pattern>/british</pattern>
     <pattern>/america</pattern>
     <pattern>/...</pattern>
@@ -75,13 +74,16 @@ Anyway不要跑题，火速看一下sitemesh的[文档](http://wiki.sitemesh.org
 ```
 
 这段代码在向我殷殷诉说：从特定路径下来的页面请求都会被`main.jsp`文件所前置装饰，再看到`main.jsp`文件：
+
 ```java
 ...
 <%
   try {
     String target = getLocale();
-    request.getRequestDispatcher("/WEB-INF/decoratros/" + target + ".jsp")
+    request.getRequestDispatcher("/WEB-INF/decorators/" + target + ".jsp")
       .include(request, response);
   } catch (...) {
 %>
 ```
+
+这段代码也验证了我们一开始的判断，即我们是通过类似`${locale}.jsp`的形式来引用目标jsp文件的。至此所有实现都已经很清楚了：通过SiteMesh对所有待渲染页面进行装饰，根据不同的地区分配到不同的`${locale}.jsp`模板去，后者再开始加载框架性（module模块化实现等）代码，最后渲染一般的html/js/jsp(template)。
