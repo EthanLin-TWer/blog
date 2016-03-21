@@ -41,11 +41,11 @@ jawr.js.budnle.laodian-pages.mappings=/js/laodian-pages/**/*.js
 
 ```js
 <head>
-  <script type="text/javascript" src="${appresource}/laodian/common/js/laodian-libraries.generated.js"></script>
-  <script type="text/javascript" src="${appresource}/laodian/common/js/bootstrap.generated.js"></script>
+  <script type="text/javascript" src="laodian/common/js/laodian-libraries.generated.js"></script>
+  <script type="text/javascript" src="laodian/common/js/bootstrap.generated.js"></script>
   <home:script bundle="/bundles/laodian-basic.js" useVersionNumber="true" />
 
-  <link rel="stylesheet" type="text/css" href=${appresource}/laodian/british/css/british-specific.less" />
+  <link rel="stylesheet" type="text/css" href="laodian/british/css/british-specific.less" />
 </head>
 
 <body id="${activePage}" class="${activePage}">
