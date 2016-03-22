@@ -1,9 +1,18 @@
+# System File
+.DS_Store
+._.DS_Store
+
+# Node Managed Packages
+node_modules
+
+# Qiniu(shells, configurations)
+qiniu.sh
+./_images/.qrsignore
+
 _site
 .coffeehintrc
 .jshintrc
 img/Thumbs.db
-.DS_Store
-._.DS_Store
-node_modules
+
 .sass-cache
 .ruby-version
