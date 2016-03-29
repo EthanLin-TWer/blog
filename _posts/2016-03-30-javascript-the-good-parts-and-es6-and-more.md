@@ -12,5 +12,6 @@ title: JavaScript语言精粹与ES6
 ### 语言组成与语法 Specification, Grammar
 
 * 简明的类型系统（数字、字符串、布尔值、对象、`null`和`undefined`）
-* 
+* 简明的对象表达法（键名可以是任意字符串，键值任意，并可以通过`obj[key]`方式拿到，若key是个合法的 **标识符** ，可以通过`obj.key`的方式检索）
+* 原型（Prototype，类似于继承，又涉及元数据）
 
