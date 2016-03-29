@@ -9,6 +9,8 @@ title: JavaScript语言精粹与ES6
 
 ## 语言核心 JavaScript Core
 
+JavaScript是弱类型的语言，弱类型并非无类型，它只是比较弱。首先在数字类型没有区分整数还是浮点数，其次在对象不具备强类型，因此写得好的代码表达力强且力量强大。其次，函数式编程与声明式编程的不同在于，函数计算产生结果，而非影响结果。“计算”作为一个动作具备独立性。
+
 ### 语言组成与语法 Specification, Grammar
 
 * 简明的类型系统（数字、字符串、布尔值、对象、`null`和`undefined`）
@@ -20,4 +22,8 @@ title: JavaScript语言精粹与ES6
 > JavaScript设计得最出色的就是它的函数的实现。它几乎接近于完美。但是，想必你也能预料到，JavaScript的函数也存在瑕疵。  —— Douglas Crockford
 
 若老道说的是函数内this作用域的错误绑定，在ES6中已经修复了。
+
+### 原型
+
+
 
