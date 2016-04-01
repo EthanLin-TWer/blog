@@ -58,6 +58,10 @@ JavaScript代码在浏览器端的执行一般要经历三个阶段：加载、�
 [LABjs](https://github.com/getify/LABjs)
 [LABjs](http://labjs.com/)
 
+## 那么最佳实践是什么？
+
+## 有图有真相
+
 ## 其他实现顺序执行的框架
 
 * [ControllJS]()
