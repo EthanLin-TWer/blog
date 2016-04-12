@@ -1,0 +1,32 @@
+{
+  "name": "linesh-blog",
+  "version": "0.0.1",
+  "description": "Personal blog with technical and philosophical meditation",
+  "main": "index.html",
+  "dependencies": {},
+  "devDependencies": {
+    "angular": "^1.5.3",
+    "webpack": "^1.12.15",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/linesh-simplicity/linesh-simplicity.github.io.git"
+  },
+  "keywords": [
+    "blog",
+    "linesh",
+    "philosophical",
+    "spring",
+    "angular"
+  ],
+  "author": "linesh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/linesh-simplicity/linesh-simplicity.github.io/issues"
+  },
+  "homepage": "https://github.com/linesh-simplicity/linesh-simplicity.github.io#readme"
+}
