@@ -22,7 +22,6 @@
         <!-- Google fonts -->
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic&amp;subset=latin-ext">
 
-        <!-- <script type="text/javascript" src="./node_modules/angular/angular.min.js"></script> -->
         <script type="text/javascript" src="./dist/vendor.js"></script>
         <script type="text/javascript" src="./dist/bundle.js"></script>
     </head>
@@ -47,41 +46,12 @@
                     <h2 class="post-year col span_2">2016</h2>
                     <div class="posts-by-year col span_10">
 
-                        {{ hello }}
-                      <article class="row gutters">
-                        <a href="/quick-coding-bibles" title="唯快不破——快速编码实践" class="col span_8">唯快不破——快速编码实践</a>
-                        <div class="post-date col span_4">
-                          <time datetime="2016-03-28">28 March</time>
-                        </div>
-                      </article>
-
-                      <article class="row gutters">
-                        <a href="/javascript-package-compress-template-and-reuse" title="说开去——项目的JavaScript模块化实践（下篇）" class="col span_8">说开去——项目的JavaScript模块化实践（下篇）</a>
-                        <div class="post-date col span_4">
-                          <time datetime="2016-03-21">21 March</time>
-                        </div>
-                      </article>
-
-                      <article class="row gutters">
-                        <a href="/a-module-require-confusion" title="说开去——项目的JavaScript模块化实践（上篇）" class="col span_8">说开去——项目的JavaScript模块化实践（上篇）</a>
-                        <div class="post-date col span_4">
-                          <time datetime="2016-03-17">17 March</time>
-                        </div>
-                      </article>
-
-                      <article class="row gutters">
-                        <a href="/elegant-mac-oh-my-zsh" title="Mac优雅的工具集——oh-my-zsh篇" class="col span_8">Mac优雅的工具集——oh-my-zsh篇</a>
-                        <div class="post-date col span_4">
-                          <time datetime="2016-03-13">13 March</time>
-                        </div>
-                      </article>
-
-                      <article class="row gutters">
-                        <a href="/elegant-mac-iterm2" title="Mac优雅的工具集——iTerm2篇" class="col span_8">Mac优雅的工具集——iTerm2篇</a>
-                        <div class="post-date col span_4">
-                          <time datetime="2016-03-11">11 March</time>
-                        </div>
-                      </article>
+                        <article class="row gutters" ng-repeat="post in posts">
+                            <a href="{{ post._links.html }}" class="col span_8" title="{{ post.name }}"> {{ post.name }} </a>
+                            <div class="post-date col span_4">
+                                <time datetime="2016-03-28">28 March</time>
+                            </div>
+                        </article>
 
                     </div>
                 </div>
