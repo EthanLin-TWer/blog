@@ -1,39 +1,104 @@
----
-layout: default
-title: Home
----
+<html>
+    <head>
+        <!-- meta information -->
+        <meta charset="utf-8">
+        <meta name="description" content="Linesh's blog">
+        <meta name="author" content="Linesh">
 
-<section class="archive">
-{% for post in site.posts %}
-{% unless post.next %}
+        <!-- Enable responsiveness on mobile devices-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-{% unless forloop.first %}</div></div>{% endunless %}
+        <!-- title -->
+        <title>Home · Linesh</title>
 
-  <div class="bundle row gutters fadeInDown animated">
-    <h2 class="post-year col span_2">{{ post.date | date: '%Y' }}</h2>
-    <div class="posts-by-year col span_10">
+        <!-- icons -->
+        <link rel="shortcut icon" href="/public/images/favicon.ico">
 
-{% else %}
-{% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
-{% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
-{% if year != nyear %}
+        <!-- stylesheets -->
+        <link rel="stylesheet" href="/public/css/responsive.gs.12col.css">
+        <link rel="stylesheet" href="/public/css/animate.min.css">
+        <link rel="stylesheet" href="/public/css/main.css">
 
-{% unless forloop.first %}</div></div>{% endunless %}
+        <!-- Google fonts -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic&amp;subset=latin-ext">
 
-  <div class="bundle row gutters fadeInDown animated">
-    <h2 class="post-year col span_2">{{ post.date | date: '%Y' }}</h2>
-    <div class="posts-by-year col span_10">
-{% endif %}
-{% endunless %}
+    </head>
 
-  <article class="row gutters">
-    <a href="{{ site.baseurl }}{{ post.url }}" title="{{ post.title }}" class="col span_8">{{ post.title }}</a>
-    <div class="post-date col span_4">
-      <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%-d %B" }}</time>
-    </div>
-  </article>
+    <body>
+        <div class="container azul">
+            <header class="top row gutters fadeInLeft animated">
+                <div class="col span_2 center">
+                    <!-- TODO: add baseurl to the logo link -->
+                    <a href="" id="logo" title="Linesh" style="background-image: url(/public/images/logo.jpg);"></a>
+                </div>
 
-{% if forloop.last %}</div></div>{% endif %}
+                <nav class="col span_10 top-navbar">
+                    <a href="/" title="Home" class="current-page">Home</a>
+                    <a href="/linesh/about" title="About">About</a>
+                </nav>
+            </header>
 
-{% endfor %}
-</section>
+            <section class="archive">
+
+                <div class="bundle row gutters fadeInDown animated">
+                    <h2 class="post-year col span_2">2016</h2>
+                    <div class="posts-by-year col span_10">
+
+                      <article class="row gutters">
+                        <a href="/quick-coding-bibles" title="唯快不破——快速编码实践" class="col span_8">唯快不破——快速编码实践</a>
+                        <div class="post-date col span_4">
+                          <time datetime="2016-03-28">28 March</time>
+                        </div>
+                      </article>
+
+                      <article class="row gutters">
+                        <a href="/javascript-package-compress-template-and-reuse" title="说开去——项目的JavaScript模块化实践（下篇）" class="col span_8">说开去——项目的JavaScript模块化实践（下篇）</a>
+                        <div class="post-date col span_4">
+                          <time datetime="2016-03-21">21 March</time>
+                        </div>
+                      </article>
+
+                      <article class="row gutters">
+                        <a href="/a-module-require-confusion" title="说开去——项目的JavaScript模块化实践（上篇）" class="col span_8">说开去——项目的JavaScript模块化实践（上篇）</a>
+                        <div class="post-date col span_4">
+                          <time datetime="2016-03-17">17 March</time>
+                        </div>
+                      </article>
+
+                      <article class="row gutters">
+                        <a href="/elegant-mac-oh-my-zsh" title="Mac优雅的工具集——oh-my-zsh篇" class="col span_8">Mac优雅的工具集——oh-my-zsh篇</a>
+                        <div class="post-date col span_4">
+                          <time datetime="2016-03-13">13 March</time>
+                        </div>
+                      </article>
+
+                      <article class="row gutters">
+                        <a href="/elegant-mac-iterm2" title="Mac优雅的工具集——iTerm2篇" class="col span_8">Mac优雅的工具集——iTerm2篇</a>
+                        <div class="post-date col span_4">
+                          <time datetime="2016-03-11">11 March</time>
+                        </div>
+                      </article>
+
+                    </div>
+                </div>
+            </section>
+
+
+            <footer>
+                <p>
+                  This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.en_US">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+                </p>
+            </footer>
+        </div>
+
+        <!-- scripts -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="/public/js/jquery.fitvids.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("article").fitVids();
+            });
+        </script>
+
+    </body>
+</html>
