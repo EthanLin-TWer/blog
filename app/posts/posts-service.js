@@ -4,17 +4,13 @@ export default ['$http', function($http) {
     $http.get('https://raw.githubusercontent.com/linesh-simplicity/linesh-simplicity.github.io/master/_posts/2016-03-11-elegant-mac-iterm2.md')
         .then(response => {
             posts.push(response.data);
-        }, response => {
-            console.log(response);
         });
 
     $http.get('https://raw.githubusercontent.com/linesh-simplicity/linesh-simplicity.github.io/master/_posts/2016-03-13-elegant-mac-oh-my-zsh.md')
         .then(response => {
             posts.push(response.data);
-        }, response => {
-            console.log(response);
         });
-        
+
     return {
         getPosts: function() {
             return posts;
