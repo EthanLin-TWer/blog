@@ -28,15 +28,15 @@
 
     <body>
         <div class="container azul">
-            <header class="top row gutters fadeInLeft animated">
+            <header class="top row gutters fadeInLeft animated" ng-controller="routeController">
                 <div class="col span_2 center">
                     <!-- TODO: add baseurl to the logo link -->
                     <a href="" id="logo" title="Linesh" style="background-image: url(/public/images/logo.jpg);"></a>
                 </div>
 
                 <nav class="col span_10 top-navbar">
-                    <a href="/" title="Home" class="current-page">Home</a>
-                    <a href="/linesh/about" title="About">About</a>
+                    <a href="#/" title="Home" class="current-page">Home</a>
+                    <a href="#about" title="About">About</a>
                 </nav>
             </header>
 
@@ -45,6 +45,8 @@
                 <div class="bundle row gutters fadeInDown animated">
                     <h2 class="post-year col span_2">2016</h2>
                     <div class="posts-by-year col span_10">
+
+                        <div ng-view> </div>
 
                         <article class="row gutters" ng-repeat="post in posts">
                             <a href="{{ post._links.html }}" class="col span_8" title="{{ post.name }}"> {{ post.name }} </a>
