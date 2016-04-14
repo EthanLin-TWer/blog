@@ -1,9 +1,9 @@
-export default ['$http', '$q', function($http, $q) {
+export default ['$http', '$q', githubContentService, function($http, $q, githubContentService) {
     var posts = [];
     var postsUrl = [
         'https://raw.githubusercontent.com/linesh-simplicity/linesh-simplicity.github.io/master/_posts/2016-03-11-elegant-mac-iterm2.md',
         'https://raw.githubusercontent.com/linesh-simplicity/linesh-simplicity.github.io/master/_posts/2016-03-13-elegant-mac-oh-my-zsh.md'
-    ]
+    ];
 
     $q.all([
         $http.get(postsUrl[0]), $http.get(postsUrl[1])

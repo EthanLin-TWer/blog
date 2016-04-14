@@ -4,9 +4,6 @@ import aboutController from './about/about-controller'
 
 import postsService from './posts/posts-service'
 
-import ngRoute from 'angular-route'
-import hcMarked from 'angular-marked'
-
 angular.module('BlogApp', [
         ngRoute,
         hcMarked
