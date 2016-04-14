@@ -1,6 +1,9 @@
 import routeController from './route-controller'
 import postsController from './posts/posts-controller'
 import aboutController from './about/about-controller'
+
+import postsService from './posts/posts-service'
+
 import ngRoute from 'angular-route'
 import hcMarked from 'angular-marked'
 
@@ -8,6 +11,7 @@ angular.module('BlogApp', [
         ngRoute,
         hcMarked
     ])
+    .factory('postsService', postsService)
     .controller('routeController', routeController)
     .controller('postsController', postsController)
     .controller('aboutController', aboutController)
