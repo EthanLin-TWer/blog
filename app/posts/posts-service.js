@@ -13,9 +13,34 @@ export default ['$http', '$q', function($http, $q) {
         }
     });
 
+    var posts_metas = [];
+    var postsBaseDirectory = 'https://api.github.com/repos/linesh-simplicity/linesh-simplicity.github.io/contents/_posts/';
+
+    $http.get(postsBaseDirectory).then(function (response){
+        for (let item of response.data) {
+            var post = {};
+            post.title = item.name;
+            post.url = '/posts/' + item.name;
+            post.date = resolveDate(item.name);
+
+            posts_metas.push(post);
+        }
+
+        function resolveUrl(article_name) {
+            return 'http://www.baidu.com';
+        }
+
+        function resolveDate(article_name) {
+            return 'Mar 28';
+        }
+    });
+
     return {
         getPosts: function() {
             return posts;
+        },
+        getDescriptiveMetaInfo: function() {
+            return posts_metas;
         }
     }
 }];

@@ -1,6 +1,7 @@
-<article class="row gutters" ng-repeat="post in posts">
-    <a href="{{ post._links.html }}" class="col span_8" title="{{ post.name }}"> {{ post.name }} </a>
+<article class="row gutters" ng-repeat="meta in postsMeta">
+    <a href="{{ meta.url }}" class="col span_8" title="{{ meta.title }}"> {{ meta.title }} </a>
     <div class="post-date col span_4">
-        <time datetime="2016-03-28">28 March</time>
+        {{ meta }}
+        <time datetime="2016-03-28">{{ meta.date }}</time>
     </div>
 </article>
