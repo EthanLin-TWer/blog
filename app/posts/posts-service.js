@@ -1,4 +1,6 @@
-export default ['$http', '$q', 'moment', function($http, $q, moment) {
+import 'moment'
+
+export default ['$http', '$q', function($http, $q) {
     var posts = [];
     var postsUrl = [
         'https://raw.githubusercontent.com/linesh-simplicity/linesh-simplicity.github.io/master/_posts/2016-03-11-elegant-mac-iterm2.md',
