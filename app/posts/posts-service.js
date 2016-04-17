@@ -16,16 +16,15 @@ export default ['$http', '$q', function($http, $q) {
     // });
 
     var posts_metas = [];
-    var postsBaseDirectory = 'https://api.github.com/repos/linesh-simplicity/linesh-simplicity.github.io/contents/_posts/';
+    var posts_base_directory = 'https://api.github.com/repos/linesh-simplicity/linesh-simplicity.github.io/contents/_posts/';
 
-    $http.get(postsBaseDirectory).then(function (response){
+    $http.get(posts_base_directory).then(function (response){
         for (let item of response.data) {
             var post = {};
             post.title = resolveTitle(item.name);
             post.url = resolveUrl(item.name);
             post.date = resolveDate(item.name);
 
-            console.log(post);
             posts_metas.push(post);
         }
 
@@ -38,22 +37,23 @@ export default ['$http', '$q', function($http, $q) {
         }
 
         function resolveDate(article_name) {
-            var postDate = _date(article_name);  // in 2016-03-28 like format
+            var post_date = _date(article_name);
 
-            return moment(postDate).format('DD-MMM-GGGG');
+            return moment(post_date).format('DD-MMM-GGGG');
         }
 
         function _date(article_name) {
-            return article_name.substring(0, 10);
+            return article_name.substring(0, 10);    // article_name is in '2016-03-28-article-name.md' like format
         }
     });
 
     return {
-        // getPosts: function() {
-        //     return posts;
-        // },
+
         getDescriptiveMetaInfo: function() {
             return posts_metas;
         }
+        // getPosts: function() {
+        //     return posts;
+        // },
     }
 }];
