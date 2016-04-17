@@ -1,4 +1,4 @@
-import 'moment'
+import moment from 'moment'
 
 export default ['$http', '$q', function($http, $q) {
     var posts = [];
@@ -25,6 +25,7 @@ export default ['$http', '$q', function($http, $q) {
             post.url = resolveUrl(item.name);
             post.date = resolveDate(item.name);
 
+            console.log(post);
             posts_metas.push(post);
         }
 
@@ -33,9 +34,9 @@ export default ['$http', '$q', function($http, $q) {
         }
 
         function resolveDate(article_name) {
-            var postDate = _date(article_name);
+            var postDate = _date(article_name);  // in 2016-03-28 like format
 
-            return moment(postDate, 'DD-MMM-GG');
+            return moment(postDate).format('DD-MMM-GGGG');
         }
 
         function _date(article_name) {
