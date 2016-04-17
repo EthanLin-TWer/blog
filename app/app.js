@@ -7,10 +7,12 @@ import aboutController from './about/about-controller'
 import postsService from './posts/posts-service'
 
 import hcMarked from 'angular-marked'
+import moment from 'moment'
 
 angular.module('BlogApp', [
         ngRoute,
-        hcMarked
+        hcMarked,
+        moment
     ])
     .factory('postsService', postsService)
     .controller('routeController', routeController)

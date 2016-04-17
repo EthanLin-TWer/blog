@@ -1,4 +1,4 @@
-export default ['$http', '$q', function($http, $q) {
+export default ['$http', '$q', 'moment', function($http, $q, moment) {
     var posts = [];
     var postsUrl = [
         'https://raw.githubusercontent.com/linesh-simplicity/linesh-simplicity.github.io/master/_posts/2016-03-11-elegant-mac-iterm2.md',
@@ -20,18 +20,24 @@ export default ['$http', '$q', function($http, $q) {
         for (let item of response.data) {
             var post = {};
             post.title = item.name;
-            post.url = '/posts/' + item.name;
+            post.url = resolveUrl(item.name);
             post.date = resolveDate(item.name);
 
             posts_metas.push(post);
         }
 
         function resolveUrl(article_name) {
-            return 'http://www.baidu.com';
+            return '#posts/' + article_name;
         }
 
         function resolveDate(article_name) {
-            return 'Mar 28';
+            var postDate = _date(article_name);
+
+            return moment(postDate, 'DD-MMM-GG');
+        }
+
+        function _date(article_name) {
+            return article_name.substring(0, 10);
         }
     });
 
