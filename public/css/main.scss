@@ -35,7 +35,8 @@ table,
 img,
 hr,
 .fluid-width-video-wrapper,
-.highlight {
+.highlight,
+.pre {
   margin-bottom: 20px;
 }
 
@@ -128,7 +129,7 @@ footer {
 
 /*----------------------------------------------------------------------------*/
 
-.highlight {
+.highlight .pre {
   padding: 30px;
   border-radius: 6px;
   background-color: #272822;
