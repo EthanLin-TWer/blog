@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "Personal blog with technical and philosophical meditation",
   "main": "index.html",
-  "dependencies": {},
+  "dependencies": {
+    "highlight.js": "^9.3.0"
+  },
   "devDependencies": {
     "angular": "^1.5.3",
     "angular-marked": "^1.0.1",
