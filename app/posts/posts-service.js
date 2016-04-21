@@ -10,17 +10,20 @@ export default ['$http', function($http) {
                     response => {
                         var post_details = {};
 
-                        post_details.title = file_name;
                         post_details.date = moment(extractDate(file_name)).format('DD-MMM-GGGG');
-                        post_details.contents = response.data;
                         post_details.url = '#posts/' + extractUrl(file_name);
+                        post_details.contents = response.data;
+                        post_details.title = extractTitle(post_details.contents);
 
                         posts_metas.push(post_details);
                     }
                 );
 
-                function extractTitle(file_name) {
-                    return file_name;
+                function extractTitle(post_contents) {
+                    var jekyll_separator = '---';
+
+                    var jekyll_header = post_contents.split(jekyll_separator)[1];
+                    return jekyll_header.substring((jekyll_header.indexOf('title: ') + 'title: '.length), jekyll_header.length);
                 }
 
                 function extractUrl(file_name) {
