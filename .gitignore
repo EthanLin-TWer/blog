@@ -5,6 +5,9 @@
 # Node Managed Packages
 node_modules
 
+# Destination directory
+# dist
+
 # Qiniu(shells, configurations)
 qiniu.sh
 ./_images/.qrsignore

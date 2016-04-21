@@ -1,39 +1,74 @@
----
-layout: default
-title: Home
----
+<html ng-app="BlogApp">
+    <head>
+        <!-- meta information -->
+        <meta charset="utf-8">
+        <meta name="description" content="Linesh's blog">
+        <meta name="author" content="Linesh">
 
-<section class="archive">
-{% for post in site.posts %}
-{% unless post.next %}
+        <!-- Enable responsiveness on mobile devices-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 
-{% unless forloop.first %}</div></div>{% endunless %}
+        <!-- title -->
+        <title>Home · Linesh</title>
 
-  <div class="bundle row gutters fadeInDown animated">
-    <h2 class="post-year col span_2">{{ post.date | date: '%Y' }}</h2>
-    <div class="posts-by-year col span_10">
+        <!-- icons -->
+        <link rel="shortcut icon" href="/public/images/favicon.ico">
 
-{% else %}
-{% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
-{% capture nyear %}{{ post.next.date | date: '%Y' }}{% endcapture %}
-{% if year != nyear %}
+        <!-- stylesheets -->
+        <link rel="stylesheet" href="./dist/css/responsive.gs.12col.css">
+        <link rel="stylesheet" href="./dist/css/animate.min.css">
+        <link rel="stylesheet" href="./dist/css/main.css">
+        <link rel="stylesheet" href="./node_modules/highlight.js/styles/github.css">
+        
+        <!-- Google fonts -->
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic&amp;subset=latin-ext">
 
-{% unless forloop.first %}</div></div>{% endunless %}
+        <script type="text/javascript" src="./dist/vendor.js"></script>
+        <script type="text/javascript" src="./dist/bundle.js"></script>
+    </head>
 
-  <div class="bundle row gutters fadeInDown animated">
-    <h2 class="post-year col span_2">{{ post.date | date: '%Y' }}</h2>
-    <div class="posts-by-year col span_10">
-{% endif %}
-{% endunless %}
+    <body>
+        <div class="container azul" ng-controller="routeController">
+            <header class="top row gutters fadeInLeft animated">
+                <div class="col span_2 center">
+                    <a id="logo" title="Linesh" style="background-image: url(/public/images/logo.jpg);"></a>
+                </div>
 
-  <article class="row gutters">
-    <a href="{{ site.baseurl }}{{ post.url }}" title="{{ post.title }}" class="col span_8">{{ post.title }}</a>
-    <div class="post-date col span_4">
-      <time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: "%-d %B" }}</time>
-    </div>
-  </article>
+                <nav class="col span_10 top-navbar">
+                    <a href="#/" title="Home" class="current-page">Home</a>
+                    <a href="#about" title="About">About</a>
+                    <a href="http://dudulism.linesh.tw" title="Renju">五子棋小窝</a>
+                </nav>
+            </header>
 
-{% if forloop.last %}</div></div>{% endif %}
+            <section class="archive" ng-controller="postsController">
 
-{% endfor %}
-</section>
+                <div class="bundle row gutters fadeInDown animated">
+                    <h2 class="post-year col span_2">2016</h2>
+                    <div class="posts-by-year col span_10">
+
+                        <div ng-view> </div>
+
+                    </div>
+                </div>
+            </section>
+
+
+            <footer>
+                <p>
+                  This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/deed.en_US">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+                </p>
+            </footer>
+        </div>
+
+        <!-- scripts -->
+        <script type="text/javascript" src="./node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="/public/js/jquery.fitvids.js"></script>
+        <script>
+            $(document).ready(function(){
+                $("article").fitVids();
+            });
+        </script>
+
+    </body>
+</html>
