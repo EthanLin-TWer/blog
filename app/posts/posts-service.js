@@ -15,10 +15,14 @@ export default ['$http', function($http) {
                 var post = {};
 
                 post.title = post_title;
-                post.url = '#posts/' + post_title;
+                post.url = '#posts/' + extractTitle(post_title);
                 post.date = moment(extractDate(post_title)).format('DD-MMM-GGGG');
 
                 posts_metas.push(post);
+            }
+
+            function extractTitle(post_title) {
+                return post_title.substring(0, post_title.indexOf('.md'));
             }
 
             function extractDate(post_title) {
