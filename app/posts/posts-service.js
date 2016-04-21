@@ -10,12 +10,12 @@ export default ['$http', function($http) {
 
                 post.title = post_title;
                 post.url = '#posts/' + post_title;
-                post.date = moment(extract_date(post_title)).format('DD-MMM-GGGG');
+                post.date = moment(extractDate(post_title)).format('DD-MMM-GGGG');
 
                 posts_metas.push(post);
             }
 
-            function extract_date(post_title) {
+            function extractDate(post_title) {
                 // article_name is in '2016-03-28-article-name.md' like format
                 return post_title.substring(0, 10);
             }
