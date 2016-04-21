@@ -10,8 +10,9 @@ export default ['$http', function($http) {
                     response => {
                         var post_details = {};
 
+                        post_details.id = extractId(file_name)
                         post_details.date = moment(extractDate(file_name)).format('DD-MMM-GGGG');
-                        post_details.url = '#posts/' + extractUrl(file_name);
+                        post_details.url = '#posts/' + extractId(file_name);
                         post_details.contents = response.data;
                         post_details.title = extractTitle(post_details.contents);
 
@@ -26,7 +27,7 @@ export default ['$http', function($http) {
                     return jekyll_header.substring((jekyll_header.indexOf('title: ') + 'title: '.length), jekyll_header.length);
                 }
 
-                function extractUrl(file_name) {
+                function extractId(file_name) {
                     return file_name.substring(0, file_name.indexOf('.md'));
                 }
 
@@ -35,12 +36,19 @@ export default ['$http', function($http) {
                     return file_name.substring(0, 10);
                 }
             }
+
         });
 
     return {
 
         getDescriptiveMetaInfo: function() {
             return posts_metas;
+        },
+
+        getPost: function(post_id) {
+            return posts_metas.filter(post => {
+                return post.id === post_id;
+            })[0];
         }
     }
 }];
