@@ -3,10 +3,18 @@ import moment from 'moment'
 export default ['$http', function($http) {
     var posts_metas = [];
 
-    $http.get('_posts/').then(
+    var local_posts_root = '_posts/';
+    var github_posts_root = ' https://api.github.com/repos/linesh-simplicity/linesh-simplicity.github.io/contents/_posts/';
+    var post_raw_content_root = 'https://raw.githubusercontent.com/linesh-simplicity/linesh-simplicity.github.io/master/_posts/';
+
+    $http.get(github_posts_root).then(
         (response) => {
-            for (let file_name of response.data) {
-                $http.get('_posts/' + file_name).then(
+            var file_names = response.data.map(item => {
+                return item.name;
+            });
+
+            for (let file_name of file_names) {
+                $http.get(post_raw_content_root + file_name).then(
                     response => {
                         var post_details = {};
 
