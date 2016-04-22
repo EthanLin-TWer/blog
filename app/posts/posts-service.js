@@ -4,7 +4,7 @@ export default ['$http', function($http) {
     var posts_metas = [];
 
     var local_posts_root = '_posts/';
-    var github_posts_root = ' https://api.github.com/repos/linesh-simplicity/linesh-simplicity.github.io/contents/_posts/';
+    var github_posts_root = 'https://api.github.com/repos/linesh-simplicity/linesh-simplicity.github.io/contents/_posts';
     var post_raw_content_root = 'https://raw.githubusercontent.com/linesh-simplicity/linesh-simplicity.github.io/master/_posts/';
 
     $http.get(github_posts_root).then(
