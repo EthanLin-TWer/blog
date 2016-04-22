@@ -1,3 +1,5 @@
+var ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
+
 module.exports = {
     entry: {
         vendor: './app/vendor.js',
@@ -22,6 +24,11 @@ module.exports = {
                 }
             }
         ]
-    }
-
+    },
+    plugins: [
+        new ngAnnotatePlugin({
+            add: true,
+            map: true
+        })
+    ]
 };
