@@ -46,9 +46,7 @@ export default ['$http', function($http) {
         },
 
         getPost: function(post_id) {
-            return posts_metas.filter(post => {
-                return post.id === post_id;
-            })[0];
+            return posts_metas.filter(post => post.id === post_id)[0];
         }
     }
 }];
