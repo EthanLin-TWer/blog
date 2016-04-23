@@ -11,7 +11,6 @@ export default ['$http', function($http) {
             for (let post_meta of response.data) {
                 var post_details = {};
 
-                post_details.path = post_meta.path;
                 post_details.date = post_meta.key.substring(0, 10); // 2016-03-28-article-name.md
                 post_details.url = '#posts/' + post_meta.key;
                 post_details.title = post_meta.title;

@@ -9,7 +9,6 @@ var posts_meta = posts.map(item => {
 
     return {
         'key': item.substring(0, item.lastIndexOf('.')),
-        'path': item,
         'title': jekyll_header.substring((jekyll_header.indexOf('title: ') + 'title: '.length), jekyll_header.length).trim()
     }
 });
