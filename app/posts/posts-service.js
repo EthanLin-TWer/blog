@@ -15,20 +15,21 @@ export default ['$http', function($http) {
                 post_details.date = post_meta.key.substring(0, 10); // 2016-03-28-article-name.md
                 post_details.url = '#posts/' + post_meta.key;
                 post_details.title = post_meta.title;
-                // post content with jekyll header stripped, it's an asynchronous call,
-                // so no impacted with loading time
-                $http.get(post_raw_content_root + post_meta.path).then(response => {
-                    posts.push({
-                        'id': post_meta.key,
-                        'title': post_meta.title,
-                        'contents': response.data.split('---')[2]
-                    });
-                })
 
                 posts_metas.push(post_details);
             }
         });
 
+    $http.get('posts-content.json').then(response => {
+        response.data.map(item => {
+            posts.push({
+                'id': item.key,
+                'title': item.title,
+                'contents': item.contents
+            });
+        })
+    })
+    
     return {
 
         getDescriptiveMetaInfo: function() {
