@@ -1,6 +1,6 @@
 <article class="row gutters" ng-repeat="meta in postsMeta">
     <a ng-href="{{ meta.url }}" class="col span_8" title="{{ meta.title }}"> {{ meta.title }} </a>
     <div class="post-date col span_4">
-        <time datetime="2016-03-28">{{ meta.date }}</time>
+        <time datetime="{{ meta.date }}">{{ meta.date | date: 'dd-MMM-yyyy' }}</time>
     </div>
 </article>

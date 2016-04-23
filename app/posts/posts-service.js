@@ -1,5 +1,3 @@
-import moment from 'moment'
-
 export default ['$http', function($http) {
     var posts_metas = [];
 
@@ -14,21 +12,13 @@ export default ['$http', function($http) {
 
                 post_details.id = post_meta.key;
                 post_details.path = post_meta.path;
-                post_details.date = moment(extractDate(post_meta.key)).format('DD-MMM-GGGG');
+                post_details.date = post_meta.key.substring(0, 10); // 2016-03-28-article-name.md
                 post_details.url = '#posts/' + post_meta.key;
                 post_details.title = post_meta.title;
                 post_details.contents = '';
 
                 posts_metas.push(post_details);
-
-                function extractDate(file_name) {
-                    // article_name is in '2016-03-28-article-name.md' like format
-                    return file_name.substring(0, 10);
-                }
-
-                function populateLater() { return ''; }
             }
-
         });
 
     return {
