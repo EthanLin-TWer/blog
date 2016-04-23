@@ -3,7 +3,7 @@ highlighter: null
 permalink: /:title
 
 url:
-baseurl:
+baseurl:blog.linesh.tw
 
 redcarpet:
   extensions: [strikethrough, tables]
