@@ -29,7 +29,7 @@ export default ['$http', function($http) {
             });
         })
     })
-    
+
     return {
 
         getDescriptiveMetaInfo: function() {
