@@ -12,5 +12,8 @@ node_modules
 # Destination directory
 # dist
 
+# Generated static site by jekyll
+_site
+
 # Qiniu(shells, configurations)
 qiniu.sh
