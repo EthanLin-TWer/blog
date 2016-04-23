@@ -29,6 +29,9 @@
     </head>
 
     <body>
+
+        If '/:title' appears here: {{ site.permalink }}, that means jekyll/liquid is still working in github.
+
         <div class="container azul" ng-controller="routeController">
             <header class="top row gutters fadeInLeft animated">
                 <div class="col span_2 center">
@@ -42,7 +45,7 @@
                 </nav>
             </header>
 
-            If '/:title' appears here: {{ site.permalink }}, that means jekyll/liquid is still working in github.
+
             <section class="archive" ng-controller="postsController">
                 <div ng-view> </div>
             </section>
