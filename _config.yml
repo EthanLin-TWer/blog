@@ -1,12 +1,9 @@
 markdown: kramdown
-highlighter: null
+highlighter: rouge
 permalink: /:title
 
 url:
-baseurl:blog.linesh.tw
-
-redcarpet:
-  extensions: [strikethrough, tables]
+baseurl:
 
 sass:
   sass_dir: public/css
