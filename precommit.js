@@ -1,27 +1,14 @@
 fs = require('fs');
-q = require('q');
 
-var key_title_map = [];
+var posts_meta = fs.readdirSync('./_posts').filter(item => item.endsWith('.md'))
+    .map(item => {
+        var contents = fs.readFileSync('./_posts/' + item, 'utf-8');
+        var jekyll_header = contents.split('---')[1];
 
-q.nfcall(fs.readdir, './_posts')
- .then(data => {
-     key_title_map = data.filter(item => item.endsWith('.md'))
-        .map(item => {
-            q.nfcall(fs.readFile, './_posts/' + item, 'utf-8')
-             .then((error, data) => {
-                 if (error) return {};
+        return {
+            'key': item.substring(0, item.lastIndexOf('.')),
+            'title': jekyll_header.substring((jekyll_header.indexOf('title: ') + 'title: '.length), jekyll_header.length).trim()
+        }
+    });
 
-                 var key_title = {};
-                 var jekyll_header = data.split('---')[1];
-
-                 key_title.key = item.substring(0, item.lastIndexOf('.'));
-                 key_title.title = jekyll_header.substring((jekyll_header.indexOf('title: ') + 'title: '.length), jekyll_header.length).trim();
-
-                 console.log(key_title.key);
-                 console.log(key_title.title);
-
-                 return key_title;
-             })
-        })
- })
- .then(console.log(key_title_map));
+fs.writeFileSync('posts-meta.json', JSON.stringify(posts_meta).trim(), 'utf-8');
