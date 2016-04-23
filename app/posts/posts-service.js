@@ -23,7 +23,6 @@ export default ['$http', function($http) {
                         'title': post_meta.title,
                         'contents': response.data.split('---')[2]
                     });
-                    console.log(post_details.contents);
                 })
 
                 posts_metas.push(post_details);
