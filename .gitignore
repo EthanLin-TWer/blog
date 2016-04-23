@@ -2,7 +2,7 @@
 .DS_Store
 ._.DS_Store
 
-# Node Managed Packages
+# NPM Managed Packages
 node_modules
 
 # Destination directory
@@ -10,12 +10,3 @@ node_modules
 
 # Qiniu(shells, configurations)
 qiniu.sh
-./_images/.qrsignore
-
-_site
-.coffeehintrc
-.jshintrc
-img/Thumbs.db
-
-.sass-cache
-.ruby-version
