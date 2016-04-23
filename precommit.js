@@ -7,6 +7,7 @@ var posts_meta = fs.readdirSync('./_posts').filter(item => item.endsWith('.md'))
 
         return {
             'key': item.substring(0, item.lastIndexOf('.')),
+            'path': item,
             'title': jekyll_header.substring((jekyll_header.indexOf('title: ') + 'title: '.length), jekyll_header.length).trim()
         }
     });
