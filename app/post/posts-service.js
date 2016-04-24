@@ -1,7 +1,9 @@
 export default ['$http', function($http) {
     var posts_metas = [];
 
-    var posts = $http.get('posts-content.json').then(response => response.data);
+    var posts = [];
+
+    $http.get('posts-content.json').then(response => posts = response.data);
 
     $http.get('posts-meta.json').then(response => {
         response.data.map(post_meta => {
