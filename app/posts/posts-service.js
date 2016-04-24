@@ -6,25 +6,22 @@ export default ['$http', function($http) {
     var github_posts_root = 'https://api.github.com/repos/linesh-simplicity/linesh-simplicity.github.io/contents/_posts';
     var post_raw_content_root = 'https://raw.githubusercontent.com/linesh-simplicity/linesh-simplicity.github.io/master/_posts/';
 
-    $http.get('posts-meta.json').then(
-        (response) => {
-            for (let post_meta of response.data) {
-                var post_details = {};
-
-                post_details.url = '#posts/' + post_meta.key;
-                post_details.date = post_meta.date;
-                post_details.title = post_meta.title;
-
-                posts_metas.push(post_details);
-            }
-        });
+    $http.get('posts-meta.json').then(response => {
+        response.data.map(post_meta => {
+            posts_metas.push({
+                'url': '#posts/' + post_meta.key,
+                'date': post_meta.date,
+                'title': post_meta.title
+            });
+        })
+    });
 
     $http.get('posts-content.json').then(response => {
-        response.data.map(item => {
+        response.data.map(post => {
             posts.push({
-                'id': item.key,
-                'title': item.title,
-                'contents': item.contents
+                'id': post.key,
+                'title': post.title,
+                'contents': post.contents
             });
         })
     })
