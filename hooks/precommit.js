@@ -9,6 +9,7 @@ var posts_meta = posts.map(item => {
 
     return {
         'key': item.substring(0, item.lastIndexOf('.')),
+        'date': item.substring(0, 10), // should be 2013-03-28-article-name.md like
         'title': jekyll_front_matter.substring((jekyll_front_matter.indexOf('title: ') + 'title: '.length), jekyll_front_matter.length).trim()
     }
 });
