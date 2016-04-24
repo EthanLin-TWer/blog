@@ -2,10 +2,11 @@ import ngRoute from 'angular-route'
 import hcMarked from 'angular-marked'
 
 import routeController from './route-controller'
-import postsController from './posts/posts-controller'
+import homeController from './home/home-controller'
+import postController from './post/post-controller'
 import aboutController from './about/about-controller'
 
-import postsService from './posts/posts-service'
+import postsService from './post/posts-service'
 
 import hljs from 'highlight.js'
 
@@ -15,17 +16,18 @@ angular.module('BlogApp', [
     ])
     .factory('postsService', postsService)
     .controller('routeController', routeController)
-    .controller('postsController', postsController)
+    .controller('homeController', homeController)
+    .controller('postController', postController)
     .controller('aboutController', aboutController)
     .config(function($routeProvider) {
         $routeProvider
             .when('/', {
-                templateUrl: '/app/posts/home.html',
-                controller: 'postsController'
+                templateUrl: '/app/home/home.html',
+                controller: 'homeController'
             })
             .when('/posts/:postId', {
-                templateUrl: '/app/posts/post.html',
-                controller: 'postsController'
+                templateUrl: '/app/post/post.html',
+                controller: 'postController'
             })
             .when('/about', {
                 templateUrl: '/app/about/about.html',

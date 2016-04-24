@@ -1,4 +1,4 @@
-export default ['$http', function($http) {
+export default ['$http', '$timeout', function($http, $timeout) {
     var posts_metas = [];
     var posts = [];
 
