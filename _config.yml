@@ -6,5 +6,18 @@ url:
 baseurl:
 
 sass:
-  sass_dir: public/css
-  style: :compressed
+    sass_dir: public/css
+    style: :compressed
+
+exclude:
+    # Development kits. All scripts are bundled to bundle.js and vendor.js
+    - node_modules
+    - hooks
+    - _posts
+    # Project configuration files, no need to appear in production site
+    - CNAME
+    - README.md
+    - LICENSE.md
+    - Gemfile
+    - package.json
+    - webpack.config.js

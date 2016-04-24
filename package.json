@@ -32,8 +32,10 @@
     },
     "scripts": {
         "build": "node hooks/precommit.js && webpack -d --optimize-minimize",
+        "build:jk": "bundle exec jekyll build --incremental",
         "watch": "webpack --watch -p -d",
-        "start": "webpack-dev-server --port 8081 -d --optimize-minimize --profile "
+        "start": "webpack-dev-server --port 8081 -d --optimize-minimize --profile",
+        "serve:jk": "bundle exec jekyll serve --watch --incremental"
     },
     "repository": {
         "type": "git",

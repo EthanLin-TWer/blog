@@ -8,12 +8,15 @@
 
 # NPM Managed Packages
 node_modules
+npm-debug.log
 
 # Destination directory
 # dist
 
-# Generated static site by jekyll
+# Generated static site and files by jekyll
 _site
+.jekyll-metadata
+.sass-cache
 
 # Qiniu(shells, configurations)
 qiniu.sh
