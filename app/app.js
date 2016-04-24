@@ -1,4 +1,5 @@
 import ngRoute from 'angular-route'
+import ngCache from 'angular-cache'
 import hcMarked from 'angular-marked'
 
 import routeController from './route-controller'
@@ -12,6 +13,7 @@ import hljs from 'highlight.js'
 
 angular.module('BlogApp', [
         ngRoute,
+        ngCache,
         hcMarked
     ])
     .factory('postsService', postsService)
@@ -19,20 +21,22 @@ angular.module('BlogApp', [
     .controller('homeController', homeController)
     .controller('postController', postController)
     .controller('aboutController', aboutController)
-    .config(function($routeProvider) {
-        $routeProvider
-            .when('/', {
-                templateUrl: '/app/home/home.html',
-                controller: 'homeController'
-            })
-            .when('/posts/:postId', {
-                templateUrl: '/app/post/post.html',
-                controller: 'postController'
-            })
-            .when('/about', {
-                templateUrl: '/app/about/about.html',
-                controller: 'aboutController'
-            });
+    .config($routeProvider => { $routeProvider
+        .when('/', {
+            templateUrl: '/app/home/home.html',
+            controller: 'homeController'
+        })
+        .when('/posts/:postId', {
+            templateUrl: '/app/post/post.html',
+            controller: 'postController'
+        })
+        .when('/about', {
+            templateUrl: '/app/about/about.html',
+            controller: 'aboutController'
+        });
+    })
+    .config(CacheFactoryProvider => {
+        angular.extend(CacheFactoryProvider.defaults, { maxAge: 15 * 60 * 1000 });
     })
     .config(['markedProvider', function (markedProvider) {
         markedProvider.setOptions({
