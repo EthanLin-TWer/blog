@@ -1,50 +1,50 @@
 {
-  "name": "linesh-blog",
-  "author": "congyu-lin_linesh",
-  "version": "0.1.0",
-  "description": "Personal blog with technical and philosophical meditation",
-  "main": "index.html",
-  "keywords": [
-    "blog",
-    "linesh",
-    "spring",
-    "angular"
-  ],
-  "dependencies": {
-    "angular-cache": "^4.5.0",
-    "highlight.js": "^9.3.0"
-  },
-  "devDependencies": {
-    "angular": "^1.5.3",
-    "angular-marked": "^1.0.1",
-    "angular-mocks": "^1.5.5",
-    "angular-route": "^1.5.3",
-    "angular-utf8-base64": "0.0.2",
-    "babel": "^6.5.2",
-    "babel-cli": "^6.7.5",
-    "babel-core": "^6.7.6",
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.6.0",
-    "babel-preset-stage-1": "^6.5.0",
-    "github-api": "^0.11.2",
-    "ng-annotate-webpack-plugin": "^0.1.2",
-    "webpack": "^1.12.15",
-    "webpack-dev-server": "^1.14.1"
-  },
-  "scripts": {
-    "build": "node hooks/precommit-generate-post-json.js && webpack -d --optimize-minimize",
-    "build:jk": "bundle exec jekyll build --incremental",
-    "watch": "webpack --watch -p -d",
-    "start": "webpack-dev-server --port 8081 -d --optimize-minimize --profile",
-    "serve:jk": "bundle exec jekyll serve --watch --incremental"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/linesh-simplicity/linesh-simplicity.github.io.git"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/linesh-simplicity/linesh-simplicity.github.io/issues"
-  },
-  "homepage": "https://github.com/linesh-simplicity/linesh-simplicity.github.io#readme"
+    "name": "linesh-blog",
+    "author": "congyu-lin_linesh",
+    "version": "0.1.0",
+    "description": "Personal blog with technical and philosophical meditation",
+    "main": "index.html",
+    "keywords": [
+        "blog",
+        "linesh",
+        "spring",
+        "angular"
+    ],
+    "dependencies": {
+        "angular-cache": "^4.5.0",
+        "highlight.js": "^9.3.0"
+    },
+    "devDependencies": {
+        "angular": "^1.5.3",
+        "angular-marked": "^1.0.1",
+        "angular-mocks": "^1.5.5",
+        "angular-route": "^1.5.3",
+        "angular-utf8-base64": "0.0.2",
+        "babel": "^6.5.2",
+        "babel-cli": "^6.7.5",
+        "babel-core": "^6.7.6",
+        "babel-loader": "^6.2.4",
+        "babel-preset-es2015": "^6.6.0",
+        "babel-preset-stage-1": "^6.5.0",
+        "github-api": "^0.11.2",
+        "ng-annotate-webpack-plugin": "^0.1.2",
+        "webpack": "^1.12.15",
+        "webpack-dev-server": "^1.14.1"
+    },
+    "scripts": {
+        "build": "node hooks/precommit-generate-post-json.js && webpack --optimize-minimize",
+        "build:jk": "bundle exec jekyll build --incremental",
+        "watch": "webpack --watch -d -p",
+        "start": "webpack-dev-server --port 8081 -d --optimize-minimize --profile",
+        "serve:jk": "bundle exec jekyll serve --watch --incremental"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/linesh-simplicity/linesh-simplicity.github.io.git"
+    },
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/linesh-simplicity/linesh-simplicity.github.io/issues"
+    },
+    "homepage": "https://github.com/linesh-simplicity/linesh-simplicity.github.io#readme"
 }
