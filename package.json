@@ -31,7 +31,7 @@
         "webpack-dev-server": "^1.14.1"
     },
     "scripts": {
-        "build": "node hooks/precommit.js && webpack -d --optimize-minimize",
+        "build": "node hooks/precommit-generate-post-json.js && webpack -d --optimize-minimize",
         "build:jk": "bundle exec jekyll build --incremental",
         "watch": "webpack --watch -p -d",
         "start": "webpack-dev-server --port 8081 -d --optimize-minimize --profile",
