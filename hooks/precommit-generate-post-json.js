@@ -3,7 +3,7 @@ var posts_info = fetchPostsContentFromPostDirectoryAndPreparePostsInfoObject();
 
 var posts_meta = posts_info.map(info => {
     return {
-        'key': info.key,
+        'id': info.id,
         'date': info.name.substring(0, 10), // should be 2013-03-28-article-name.md like
         'title': info.title
     }
@@ -12,7 +12,7 @@ fs.writeFileSync('posts-meta.json', JSON.stringify(posts_meta).trim(), 'utf-8');
 
 var posts_content = posts_info.map(info => {
     return {
-        'key': info.key,
+        'id': info.id,
         'title': info.title,
         'contents': info.contents
     }
@@ -26,7 +26,7 @@ function fetchPostsContentFromPostDirectoryAndPreparePostsInfoObject() {
             var jekyll_front_matter = contents.split('---')[1];
 
             return {
-                'key': post_path.substring(0, post_path.lastIndexOf('.')),
+                'id': post_path.substring(0, post_path.lastIndexOf('.')),
                 'name': post_path,
                 'title': jekyll_front_matter.substring((jekyll_front_matter.indexOf('title: ') + 'title: '.length), jekyll_front_matter.length).trim(),
                 'contents': contents.split('---')[2]
