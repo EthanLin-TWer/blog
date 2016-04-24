@@ -11,7 +11,6 @@ node_modules
 npm-debug.log
 
 # Destination directory
-# dist
 
 # Generated static site and files by jekyll
 _site
@@ -19,4 +18,5 @@ _site
 .sass-cache
 
 # Qiniu(shells, configurations)
+_images
 qiniu.sh
