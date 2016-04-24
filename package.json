@@ -31,9 +31,9 @@
         "webpack-dev-server": "^1.14.1"
     },
     "scripts": {
-        "build": "node hooks/precommit.js && webpack -p -d",
+        "build": "node hooks/precommit.js && webpack -d --optimize-minimize",
         "watch": "webpack --watch -p -d",
-        "start": "webpack-dev-server --port 8081 -d -p"
+        "start": "webpack-dev-server --port 8081 -d --optimize-minimize --profile "
     },
     "repository": {
         "type": "git",
