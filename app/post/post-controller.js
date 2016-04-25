@@ -1,3 +1,5 @@
 export default ['$scope', '$routeParams', 'postsService', ($scope, $routeParams, postsService) => {
-    $scope.currentPost = postsService.getPost($routeParams.postId);
+    postsService.getPost($routeParams.postId).then(currentPost => {
+        $scope.currentPost = currentPost;
+    });
 }]

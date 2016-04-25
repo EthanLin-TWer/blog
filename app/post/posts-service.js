@@ -1,28 +1,34 @@
-export default ['$http', function($http) {
-    var posts_metas = [];
+export default ['$http', '$q', 'CacheFactory', function($http, $q, CacheFactory) {
+    if (!CacheFactory.get('postMetaCache')) {
+        CacheFactory('postMetaCache', { deleteOnExpire: 'aggressive' });
+    }
 
-    var posts = [];
-
-    $http.get('posts-content.json').then(response => posts = response.data);
-
-    $http.get('posts-meta.json').then(response => {
-        response.data.map(post_meta => {
-            posts_metas.push({
-                'url': '#posts/' + post_meta.id,
-                'date': post_meta.date,
-                'title': post_meta.title
-            });
-        })
-    });
+    if (!CacheFactory.get('postCache')) {
+        CacheFactory('postCache', { deleteOnExpire: 'aggressive' });
+    }
 
     return {
-
         getDescriptiveMetaInfo: function() {
-            return posts_metas;
+            var deferred = $q.defer();
+            $http.get('posts-meta.json', {
+                cache: CacheFactory.get('postMetaCache')
+            }).then(response => deferred.resolve(response.data));
+
+            return deferred.promise;
         },
 
         getPost: function(post_id) {
-            return posts.filter(post => post.id === post_id)[0];
+            var deferred = $q.defer();
+            $http.get('posts-content.json').then(response =>
+                 deferred.resolve(response.data.filter(post => post.id === post_id)[0])
+             );
+
+            return deferred.promise;
         }
+        //
+        // getData: async function () {
+        //     const response = await $http.get('/', {})
+        //     return response.data
+        // }
     }
 }];

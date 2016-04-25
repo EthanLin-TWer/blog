@@ -4,6 +4,7 @@ var posts_info = fetchPostsContentFromPostDirectoryAndPreparePostsInfoObject();
 var posts_meta = posts_info.map(info => {
     return {
         'id': info.id,
+        'url': '#posts/' + info.id,
         'date': info.name.substring(0, 10), // should be 2013-03-28-article-name.md like
         'title': info.title
     }
