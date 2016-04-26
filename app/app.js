@@ -3,11 +3,11 @@ import ngCache from 'angular-cache'
 import hcMarked from 'angular-marked'
 
 import routeController from './route-controller'
-import homeController from './home/home-controller'
-import postController from './post/post-controller'
-import aboutController from './about/about-controller'
+import homeController from './components/home/home-controller'
+import postController from './components/post/post-controller'
+import aboutController from './components/about/about-controller'
 
-import postsService from './post/posts-service'
+import postsService from './services/posts-service'
 
 import hljs from 'highlight.js'
 
@@ -23,15 +23,15 @@ angular.module('BlogApp', [
     .controller('aboutController', aboutController)
     .config($routeProvider => { $routeProvider
         .when('/', {
-            templateUrl: '/app/home/home.html',
+            templateUrl: '/app/components/home/home.html',
             controller: 'homeController'
         })
         .when('/posts/:postId', {
-            templateUrl: '/app/post/post.html',
+            templateUrl: '/app/components/post/post.html',
             controller: 'postController'
         })
         .when('/about', {
-            templateUrl: '/app/about/about.html',
+            templateUrl: '/app/components/about/about.html',
             controller: 'aboutController'
         });
     })
