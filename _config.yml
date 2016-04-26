@@ -12,6 +12,7 @@ sass:
 exclude:
     # Development kits. All scripts are bundled to bundle.js and vendor.js
     - node_modules
+    - npm-debug.log
     - hooks
     - _posts
     # Project configuration files, no need to appear in production site

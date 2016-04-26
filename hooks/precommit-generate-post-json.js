@@ -9,7 +9,7 @@ var posts_meta = posts_info.map(info => {
         'title': info.title
     }
 })
-fs.writeFileSync('posts-meta.json', JSON.stringify(posts_meta).trim(), 'utf-8');
+fs.writeFileSync('app/apis/posts-meta.json', JSON.stringify(posts_meta).trim(), 'utf-8');
 
 var posts_content = posts_info.map(info => {
     return {
@@ -18,7 +18,7 @@ var posts_content = posts_info.map(info => {
         'contents': info.contents
     }
 })
-fs.writeFileSync('posts-content.json', JSON.stringify(posts_content).trim(), 'utf-8');
+fs.writeFileSync('app/apis/posts-content.json', JSON.stringify(posts_content).trim(), 'utf-8');
 
 function fetchPostsContentFromPostDirectoryAndPreparePostsInfoObject() {
     return fs.readdirSync('./_posts').filter(item => item.endsWith('.md'))

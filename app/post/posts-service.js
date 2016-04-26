@@ -10,7 +10,7 @@ export default ['$http', '$q', 'CacheFactory', function($http, $q, CacheFactory)
     return {
         getDescriptiveMetaInfo: function() {
             var deferred = $q.defer();
-            $http.get('posts-meta.json', {
+            $http.get('./app/apis/posts-meta.json', {
                 cache: CacheFactory.get('postMetaCache')
             }).then(response => deferred.resolve(response.data));
 
@@ -19,7 +19,7 @@ export default ['$http', '$q', 'CacheFactory', function($http, $q, CacheFactory)
 
         getPost: function(post_id) {
             var deferred = $q.defer();
-            $http.get('posts-content.json').then(response =>
+            $http.get('./app/apis/posts-content.json').then(response =>
                  deferred.resolve(response.data.filter(post => post.id === post_id)[0])
              );
 
