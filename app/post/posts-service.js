@@ -25,10 +25,5 @@ export default ['$http', '$q', 'CacheFactory', function($http, $q, CacheFactory)
 
             return deferred.promise;
         }
-        //
-        // getData: async function () {
-        //     const response = await $http.get('/', {})
-        //     return response.data
-        // }
     }
 }];
