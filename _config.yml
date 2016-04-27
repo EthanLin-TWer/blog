@@ -1,4 +1,5 @@
 markdown: kramdown
+highlighter: rouge
 permalink: /:title
 
 url:
