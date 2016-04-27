@@ -13,3 +13,4 @@ title: 如何从零开始手撕一个自己的博客（一）——基础设施�
 * 一个代码编辑器：Sublime3/Atom
 * 博客留言板：Disqus
 * 纯文本：markdown
+* 版本控制与平台：Git/Github
