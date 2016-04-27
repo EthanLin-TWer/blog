@@ -10,4 +10,5 @@ title: 如何从零开始手撕一个自己的博客（一）——基础设施�
 * 博客平台：Github Pages/Jekyll  未选平台：WordPress/Hexo
 * 博客模板
 * ZenHub的issue管理
+* 一个代码编辑器：Sublime3/Atom
 * 博客留言板：Disqus
