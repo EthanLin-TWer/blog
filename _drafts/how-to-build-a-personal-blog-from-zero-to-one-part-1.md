@@ -1,5 +1,4 @@
 ---
-layout: post
 published: false
 title: 如何从零开始手撕一个自己的博客（一）——基础设施、工具及步骤篇
 ---
