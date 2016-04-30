@@ -53,12 +53,30 @@ var incrementer = (function() {
 
 对象里的函数称为方法，此时方法中的`this`被绑定到该对象上。但当函数不是对象的属性时，它的`this`值绑定到全局对象上。
 
-### ES6与己有关的特性
+## 人人都爱ES6
 
-为何要强调与己有关？说明不是抄的啊！列一些切身感受到好的特性：
+这是与己有关的ES6语法。为何强调与己有关？说明不是抄的啊！列一些切身感受到好的特性：
 
 * 可变参数取代类数组对象`argument`
 * 修复错误的this函数作用域绑定
 * 支持尾递归优化
+* `for...of`循环语法与destructuring
 
+### for...of循环与destructuring
 
+不认为解构是destructuring的恰当翻译。以往循环一个数组，大概有几种方法：
+
+1. （ES5前）`for (var i = 0; i < array.length; i++)`
+2. （ES5）数组内建了`forEach`方法如下。但它依靠注册回调，不能在中途中断循环。
+	```js
+		var posts = [{ title: '1' }, { title: '2'}, { title: '3' }]
+		posts.forEach(function(post) {
+			doSomething(post.title);
+		})
+	```
+3. 又想index，又想break循环：`for...in`循环：`for (var index in iterable_like)`。但它取出来的index并不是数字，而是字符串，并且它可能迭代到原型链上的属性。简单一句，它是为迭代对象属性而生的。
+4. 使用类库。比如jQuery的`$.each`，或underscore的`_.each()`方法。
+
+ES6开始，你可以使用最理想的方式来迭代数组了：`for...of`。它修复了`for...in`迭代数组的所有缺陷，并且不只能迭代数组，还可以迭代任何“可迭代”的元素。`可迭代`，就类似于Java的接口，你必须声明。声明方法是：__为对象添加`[Symbol.iterator]()`方法__。
+
+__因此，最佳实践是：迭代对象时使用`for...in`方式，迭代数组时使用`for...of`方式。想要自己设计的对象可以被迭代时，实现`[Symbol.iterator()]`方法。__
