@@ -1,4 +1,4 @@
-export default ['$http', '$q', 'CacheFactory', function($http, $q, CacheFactory) {
+export default ['$http', '$q', function($http, $q) {
 
     return {
         getDescriptiveMetaInfo() {
@@ -12,8 +12,8 @@ export default ['$http', '$q', 'CacheFactory', function($http, $q, CacheFactory)
 
         getPost(post_id) {
             var deferred = $q.defer();
-            $http.get('./app/apis/posts-content.json', { cache: true }).then(response =>
-                deferred.resolve(response.data.filter(post => post.id === post_id)[0])
+            $http.get('./app/apis/posts/' + post_id + '.json', { cache: true }).then(response =>
+                deferred.resolve(response.data)
             );
 
             return deferred.promise;
