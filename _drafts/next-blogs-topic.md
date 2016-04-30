@@ -10,3 +10,5 @@ title: 下篇博客的内容
 * markdown渲染引擎的主要产品、优劣对比，及简要实现
 * 如何从零使用jasmine-grunt-karma搭建前端测试环境，及最佳实践
 * 什么是好的API？如何设计、实现一个好的API？
+* 一个HTTP请求完整的生命流程（到我能满意的低抽象层级）？AJAX的使用与原理，是否是HTTP请求的一个子集而已？
+* Versioning syntax(semver short as semantic versioning, & gem:lock)
