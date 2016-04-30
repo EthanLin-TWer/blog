@@ -12,3 +12,5 @@ title: 下篇博客的内容
 * 什么是好的API？如何设计、实现一个好的API？
 * 一个HTTP请求完整的生命流程（到我能满意的低抽象层级）？AJAX的使用与原理，是否是HTTP请求的一个子集而已？
 * Versioning syntax(semver short as semantic versioning, & gem:lock)
+* Angular best practices for folder structuring/organization, Angular项目结构的最佳实践
+* font等的加载和渲染原理，如font-awesome/google fonts等
