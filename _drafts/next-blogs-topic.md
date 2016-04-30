@@ -15,3 +15,4 @@ title: 下篇博客的内容
 * Angular best practices for folder structuring/organization, Angular项目结构的最佳实践
 * font等的加载和渲染原理，如font-awesome/google fonts等
 * promise的工作原理与实现？callback被执行的时机（我知道理论时机，就想看看实现）
+* responsive testing in agile？若最后总总测，则最后交付才能产生价值（对于responsive是AC一部分的卡来说）；若中间测，则每做新的卡时，又需要对之前测过的responsive的卡再测一遍。
