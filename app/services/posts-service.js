@@ -1,4 +1,4 @@
-export default ['$http', '$q', function($http, $q) {
+export default ['$http', function($http) {
 
     return {
         getDescriptiveMetaInfo() {
