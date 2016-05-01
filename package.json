@@ -35,7 +35,7 @@
         "build": "node hooks/precommit-generate-post-json.js && webpack --devtool cheap-module-source-map --progress --optimize-minimize",
         "build:jk": "bundle exec jekyll build --incremental",
         "watch": "webpack --watch -d -p",
-        "start": "webpack-dev-server --port 8081 --devtool eval-source-map --optimize-minimize --profile",
+        "start": "webpack-dev-server --port 8081 --devtool cheap-module-source-map --optimize-minimize --inline --profile",
         "serve:jk": "bundle exec jekyll serve --watch --incremental"
     },
     "repository": {
