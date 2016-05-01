@@ -17,3 +17,4 @@ title: 下篇博客的内容
 * promise的工作原理与实现？callback被执行的时机（我知道理论时机，就想看看实现）
 * responsive testing in agile？若最后总总测，则最后交付才能产生价值（对于responsive是AC一部分的卡来说）；若中间测，则每做新的卡时，又需要对之前测过的responsive的卡再测一遍。
 * T-shirt sizing？估点的意义？对business的感觉？
+* Webpack的sourcemap选项如何配置？有何区别？loader的原理？
