@@ -1,7 +1,7 @@
 {
     "name": "linesh-blog",
     "author": "congyu-lin_linesh",
-    "version": "0.1.0",
+    "version": "2.0.0",
     "description": "Personal blog with technical and philosophical meditation",
     "main": "index.html",
     "keywords": [
