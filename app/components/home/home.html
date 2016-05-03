@@ -1,8 +1,8 @@
-<div class="bundle row gutters fadeInDown animated" ng-controller="homeController">
+<div class="bundle row gutters fadeInDown animated" ng-controller="HomeController as home">
     <h2 class="post-year col span_2">2016</h2>
     <div class="posts-by-year col span_10">
 
-        <article class="row gutters" ng-repeat="meta in postsMeta">
+        <article class="row gutters" ng-repeat="meta in home.postsMeta">
             <a ng-href="{{ meta.url }}" class="col span_8" title="{{ meta.title }}"> {{ meta.title }} </a>
             <div class="post-date col span_4">
                 <time datetime="{{ meta.date }}">{{ meta.date | date: 'dd-MMM-yyyy' }}</time>

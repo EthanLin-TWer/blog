@@ -1,7 +1,10 @@
 'use strict';
 
-export default ['$scope', 'postsService', ($scope, postsService) => {
-    postsService.getDescriptiveMetaInfo().success(response => {
-        $scope.postsMeta = response;
-    });
-}]
+export default class HomeController {
+    /*@ngInject*/
+    constructor(postsService) {
+        postsService.getDescriptiveMetaInfo().success(response => {
+            this.postsMeta = response;
+        });
+    }
+}

@@ -3,7 +3,7 @@ import ngCache from 'angular-cache'
 import hcMarked from 'angular-marked'
 
 import routeController from './route-controller'
-import homeController from './components/home/home-controller'
+import HomeController from './components/home/home-controller'
 import postController from './components/post/post-controller'
 import aboutController from './components/about/about-controller'
 
@@ -18,13 +18,13 @@ angular.module('BlogApp', [
     ])
     .factory('postsService', postsService)
     .controller('routeController', routeController)
-    .controller('homeController', homeController)
+    .controller('HomeController', HomeController)
     .controller('postController', postController)
     .controller('aboutController', aboutController)
     .config($routeProvider => { $routeProvider
         .when('/', {
             templateUrl: '/app/components/home/home.html',
-            controller: 'homeController'
+            controller: 'HomeController'
         })
         .when('/posts/:postId', {
             templateUrl: '/app/components/post/post.html',
