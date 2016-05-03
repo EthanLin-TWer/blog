@@ -2,10 +2,10 @@ import ngRoute from 'angular-route'
 import ngCache from 'angular-cache'
 import hcMarked from 'angular-marked'
 
-import routeController from './route-controller'
+import RouteController from './route-controller'
 import HomeController from './components/home/home-controller'
-import postController from './components/post/post-controller'
-import aboutController from './components/about/about-controller'
+import PostController from './components/post/post-controller'
+import AboutController from './components/about/about-controller'
 
 import postsService from './services/posts-service'
 
@@ -17,10 +17,10 @@ angular.module('BlogApp', [
         hcMarked
     ])
     .factory('postsService', postsService)
-    .controller('routeController', routeController)
+    .controller('RouteController', RouteController)
     .controller('HomeController', HomeController)
-    .controller('postController', postController)
-    .controller('aboutController', aboutController)
+    .controller('PostController', PostController)
+    .controller('AboutController', AboutController)
     .config($routeProvider => { $routeProvider
         .when('/', {
             templateUrl: '/app/components/home/home.html',
@@ -28,11 +28,11 @@ angular.module('BlogApp', [
         })
         .when('/posts/:postId', {
             templateUrl: '/app/components/post/post.html',
-            controller: 'postController'
+            controller: 'PostController'
         })
         .when('/about', {
             templateUrl: '/app/components/about/about.html',
-            controller: 'aboutController'
+            controller: 'AboutController'
         });
     })
     .config(CacheFactoryProvider => {

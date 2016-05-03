@@ -1,5 +1,5 @@
-<article class="single row gutters" ng-controller="postController">
-    <h2>{{ currentPost.title }}</h2>
+<article class="single row gutters" ng-controller="PostController as post">
+    <h2>{{ post.current.title }}</h2>
 
-    <div marked="currentPost.contents"></div>
+    <div marked="post.current.contents"></div>
 </article>
