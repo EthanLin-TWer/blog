@@ -15,3 +15,28 @@ category:
 * 且认为假设对，那我就写原创内容，不就完了。问题你入门时没多少原创内容，这样效率是否高？又涉及写博客的心态问题，原创小导致的是发布频率低，对于建立博主个人品牌影响慢。那么，在羽翼未丰时，过多考虑建立个人品牌是否一种浮躁功利的行为？我认为是，不应执着于品牌先，要先建立实力和干货。另外，关于信息传输的受众，可以见@phodal的github，有系列文章，看起来很棒。
 
 你可以说，想那么多干啥，开开心心写个博客不好么。
+
+## 以最近学习CSS为例，做specialization和generalization
+
+现在已经能习惯性地先用英文谷歌一下，算是进步。使用`best way to learn css`作为关键词，可以搜到几篇英文文章。打开看看，[这篇](http://webdesign.tutsplus.com/tutorials/the-best-way-to-learn-css--webdesign-11906)里面提到的方法：
+
+* 先了解最最基本的概念和语法，知道怎么写，基本是什么意思
+* follow网上的基本的教程，比如coursera的、codeschool的、w3c土豪尊享版的，入门课程走一遍，比如这里：
+    * [一个基本的入门教程](http://zh.learnlayout.com/no-layout.html)
+    * [W3C上的教程](http://www.w3school.com.cn/css/index.asp)
+    * [CodeSchool上的资料，有视频，入门课程](https://www.codeschool.com/search?query=CSS)
+* 自己简单地玩点东西
+* 关注大牛的github/twitter等，subscript to一些news-letter
+* 学习浏览器兼容性
+* 读好书（怎么读？以具体学习内容的知识架构而言，读到什么程度算ok？）
+* 选择器用法
+* 高阶玩法
+    * CSS编译器less/sass等，用面向对象、编程语言的方式写CSS
+    * CSS3和最新标准、最佳工具集和最佳实践等
+    * Github上有什么新的玩法，关注率高的库
+
+值得注意的一些点在于：
+
+* 这样的学习有目的性，即是快速掌握，而不是学习一本书并做详尽的笔记。这样因为实践不够，没体会，容易忘
+* 读书放在什么时机合适？自己动手实践并有简单思考以后
+* 快速地搭建demo的能力（需要知识面）可以让你更快动手，并更快地得到学习反馈
