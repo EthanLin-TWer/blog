@@ -18,7 +18,7 @@ category:
 
 ## 以最近学习CSS为例，做specialization和generalization
 
-现在已经能习惯性地先用英文谷歌一下，算是进步。使用`best way to learn css`作为关键词，可以搜到几篇英文文章。打开看看，[这篇](http://webdesign.tutsplus.com/tutorials/the-best-way-to-learn-css--webdesign-11906)里面提到的方法：
+现在已经能习惯性地先用英文谷歌一下，算是进步。使用`best way to learn css`作为关键词，可以搜到几篇英文文章。打开看看，[这篇](http://webdesign.tutsplus.com/tutorials/the-best-way-to-learn-css--webdesign-11906)里面提到的方法，自己再整理一下学习次序，就大致如下：
 
 * 先了解最最基本的概念和语法，知道怎么写，基本是什么意思
 * follow网上的基本的教程，比如coursera的、codeschool的、w3c土豪尊享版的，入门课程走一遍，比如这里：
@@ -27,16 +27,22 @@ category:
     * [CodeSchool上的资料，有视频，入门课程](https://www.codeschool.com/search?query=CSS)
 * 自己简单地玩点东西
 * 关注大牛的github/twitter等，subscript to一些news-letter
-* 学习浏览器兼容性
 * 读好书（怎么读？以具体学习内容的知识架构而言，读到什么程度算ok？）
 * 选择器用法
 * 高阶玩法
     * CSS编译器less/sass等，用面向对象、编程语言的方式写CSS
     * CSS3和最新标准、最佳工具集和最佳实践等
     * Github上有什么新的玩法，关注率高的库
+* 学习浏览器兼容性
 
 值得注意的一些点在于：
 
 * 这样的学习有目的性，即是快速掌握，而不是学习一本书并做详尽的笔记。这样因为实践不够，没体会，容易忘
 * 读书放在什么时机合适？自己动手实践并有简单思考以后
 * 快速地搭建demo的能力（需要知识面）可以让你更快动手，并更快地得到学习反馈
+* 学习前期注重理念学习并且快速动手反馈，而避免过多陷入细节。所以像“浏览器兼容性”这样的话题，不利于入门学习，宜放后
+
+其他搜索途径：
+
+* 中文资料，在知乎上快速搜索了一下，基本可以忽略。
+* github的经典系列：awesome-css。果然一堆资料。对应上面的这个学习提纲上去，基本就没有能用的。。。（也许我看走眼也说不一定呢）
