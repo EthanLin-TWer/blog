@@ -26,6 +26,7 @@ category:
     * [W3C上的教程](http://www.w3school.com.cn/css/index.asp)
     * [CodeSchool上的资料，有视频，入门课程](https://www.codeschool.com/search?query=CSS)
 * 自己简单地玩点东西
+* 看视频，看最佳实践，看别人怎么玩的
 * 关注大牛的github/twitter等，subscript to一些news-letter
 * 读好书（怎么读？以具体学习内容的知识架构而言，读到什么程度算ok？）
 * 选择器用法
