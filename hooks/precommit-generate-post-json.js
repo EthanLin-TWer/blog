@@ -1,7 +1,7 @@
-fs = require('fs');
-var posts_info = fetchPostsContentFromPostDirectoryAndPreparePostsInfoObject();
+let fs = require('fs');
+let posts_info = fetchPostsContentFromPostDirectoryAndPreparePostsInfoObject();
 
-var posts_meta = posts_info.map(info => {
+let posts_meta = posts_info.map(info => {
     return {
         'id': info.id,
         'url': '#posts/' + info.id,
@@ -11,7 +11,7 @@ var posts_meta = posts_info.map(info => {
 })
 fs.writeFileSync('app/apis/posts-meta.json', JSON.stringify(posts_meta).trim(), 'utf-8');
 
-var posts_content = posts_info.map(info => {
+let posts_content = posts_info.map(info => {
     var content = {
         'id': info.id,
         'title': info.title,
