@@ -18,21 +18,21 @@ angular.module('BlogApp', [
     ])
     .factory('postsService', postsService)
     .controller('RouteController', RouteController)
-    .controller('HomeController', HomeController)
-    .controller('PostController', PostController)
-    .controller('AboutController', AboutController)
+    .controller('homeController', HomeController)
+    .controller('postController', PostController)
+    .controller('aboutController', AboutController)
     .config($routeProvider => { $routeProvider
         .when('/', {
             templateUrl: '/app/components/home/home.html',
-            controller: 'HomeController'
+            controller: 'homeController'
         })
         .when('/posts/:postId', {
             templateUrl: '/app/components/post/post.html',
-            controller: 'PostController'
+            controller: 'postController'
         })
         .when('/about', {
             templateUrl: '/app/components/about/about.html',
-            controller: 'AboutController'
+            controller: 'aboutController'
         });
     })
     .config(CacheFactoryProvider => {
