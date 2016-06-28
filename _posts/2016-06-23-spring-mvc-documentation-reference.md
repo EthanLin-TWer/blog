@@ -8,7 +8,7 @@ title: Spring MVC官方文档翻译稿
 
 首先以下是发表在[OSC](http://my.oschina.net/u/1581831/blog/700769)/[CSDN](http://blog.csdn.net/codecleaner/article/details/51758452)/[Iteye](http://sodagreen-simplicity.iteye.com/admin/blogs/2307252)/[博客园](http://www.cnblogs.com/natasha-yarovenko/p/5616369.html)/[掘金](https://gold.xitu.io/entry/576e56962e958a00572bdb38/detail)/[v2ex](http://www.v2ex.com/t/288717#reply34)上的原文。
 
->
+
 > ![](http://7xqu8w.com1.z0.glb.clouddn.com/spring-logo.png)
 >
 > 前后经过九个月，我翻译的Spring MVC官方4.2.4版本中文文档可以发布第一个较为完整的版本了。译文上尽量做到准确并且符合中文习惯，让人能读懂，能理解。现全文发布如下，也希望它能够给出其价值，并收到反馈。
