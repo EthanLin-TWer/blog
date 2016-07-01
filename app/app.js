@@ -9,7 +9,7 @@ import AboutController from './components/about/about-controller'
 
 import postsService from './services/posts-service'
 
-// import hljs from 'highlight.js'
+import hljs from 'highlight.js'
 
 angular.module('BlogApp', [
         ngRoute,
