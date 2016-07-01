@@ -6,7 +6,7 @@ title: Spring MVC官方文档翻译稿发布
 
 这份翻译终于大概可以发布第一版可读的原型。几天在国内一些网站推广了一下，有点分散，于是决定在大本营这里放一份完整的发布稿，相当于是官方声明了，哈哈。既然是官方声明，那么官方这里倒是可以给点bouns，说说翻译过程的想法，以及最近一些情况。
 
-首先以下是发表在[OSC](http://my.oschina.net/u/1581831/blog/700769)/[CSDN](http://blog.csdn.net/codecleaner/article/details/51758452)/[Iteye](http://sodagreen-simplicity.iteye.com/admin/blogs/2307252)/[博客园](http://www.cnblogs.com/natasha-yarovenko/p/5616369.html)/[掘金](https://gold.xitu.io/entry/576e56962e958a00572bdb38/detail)/[v2ex](http://www.v2ex.com/t/288717#reply34)/[Githuber](http://ask.githuber.cn/t/spring-mvc-4-2-4-release/1539/1)上的原文。
+首先以下是发表在[OSC](http://my.oschina.net/u/1581831/blog/700769)/[CSDN](http://blog.csdn.net/codecleaner/article/details/51758452)/[Iteye](http://sodagreen-simplicity.iteye.com/admin/blogs/2307252)/[博客园](http://www.cnblogs.com/natasha-yarovenko/p/5616369.html)/[掘金](https://gold.xitu.io/entry/576e56962e958a00572bdb38/detail)/[v2ex](http://www.v2ex.com/t/288717#reply34)/[segmentfault](https://segmentfault.com/a/1190000005854194)/[Githuber](http://ask.githuber.cn/t/spring-mvc-4-2-4-release/1539/1)上的原文。
 
 
 > ![](http://7xqu8w.com1.z0.glb.clouddn.com/spring-logo.png)
