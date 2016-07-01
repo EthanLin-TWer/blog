@@ -45,14 +45,43 @@ Markdown是一种近乎完美的写作标记语言，其最大的功劳便是将
 
 ![](http://7xqu8w.com1.z0.glb.clouddn.com/atom-as-translation-project-editor.png "Use Atom as the translation project's editor")
 
-编辑器的选择并无定式，打造一个完全符合自己操作习惯的编辑器也是每个程序员应做的一个工作，这里我不赘述。在Mac上，不错的markdown编辑器有Sublime 3、Atom、MacDown、Mark Editor、Gitbook Editor、Mou等，可挑选适合自己的，我选择的是Atom，是因为有几个刚性的需求它能够满足：
+编辑器的选择并无定式，打造一个完全符合自己操作习惯的编辑器也是每个程序员应做的一个工作，这里我不赘述。在Mac上，不错的markdown编辑器有Sublime 3、Atom、MacDown、Mark Editor、Gitbook Editor、Mou等，可挑选适合自己的，我选择的是Atom，是因为有一个刚性的需求它能够满足：
 
 * **与终端（terminal）的集成**。由于使用了版本管理，同时有时有拷贝文件、查看目录等需求，命令行肯定是必须随时在手的。终端方面我的选择是iTerm2+zsh，关于它们的配置和特性，你可以来我博客查看这两篇文章 [Mac优雅的工具集——iTerm2篇](http://blog.linesh.tw/#/posts/2016-03-11-elegant-mac-iterm2) 和 [Mac优雅的工具集——oh-my-zsh篇](http://blog.linesh.tw/#/posts/2016-03-13-elegant-mac-oh-my-zsh)。对如何在Mac上构建一个优雅的工具集有兴趣的同学，也可以前往Gitbook看看我正在写的这个系列：[关于优雅地使用Mac OS的理念、想法、工具与实践集](https://linesh.gitbooks.io/gitbook-elegant-mac-tools-system-closure/content/index.html)。
 
-### 
+### 版本管理 Git
 
+![](http://7xqu8w.com1.z0.glb.clouddn.com/git-logo.png "Git Logo")
+
+Git作为版本管理的意义也不赘言。你肯定不想自己的工作区最后变成这样：
+
+![](http://7xqu8w.com1.z0.glb.clouddn.com/word-as-version-manager.jpeg "Word As version control will suck")
+
+同样本小节也不是Git入门的命令集，这部分请自行查阅学习。当然我还是可以给出一些链接，虽然没有太多的意义~~我真的不知道为什么我还要给~~。基本的几个命令能熟悉就可以满足日常的需要了。另外，zsh下的Git可以配一下 快捷键(alias) 和 自动补全，具体配置非常简单，可以来这篇文章[Mac优雅的工具集——oh-my-zsh篇](http://blog.linesh.tw/#/posts/2016-03-13-elegant-mac-oh-my-zsh)看一下最终的效果。
+
+* [Git - 简易指南](http://www.bootcss.com/p/git-guide/)
+* [A Visual Git Reference](http://marklodato.github.io/visual-git-guide/index-en.html)
+* [廖雪峰的官方网站：史上最浅显易懂的Git教程](http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/)~~这浮夸的标题收视率果然好~~
+
+### 代码托管平台 Github
+
+![](http://7xqu8w.com1.z0.glb.clouddn.com/github-homepage.png "Github Homepage")
+
+Github是~~世界上最大的同性交友平台~~目前最大~~我并无依据~~的代码托管平台，其生态圈之繁荣与力量令人震惊，几乎你需要的所有工具和资源都可以在上面找到。它与Git不是一个层级的概念~~`git=github.substring(0, 3)`~~，这部分请自行搜索。在这个平台上，我可以给翻译项目一个`README.md`文件，为阅读的人做简单的介绍以及引流，同时它可与CI（持续集成）、Gitbook等工具完美集成，其内置的issue、pull-request功能还能与Zenhub结合，直接当成trello来进行项目管理之用。相关的工具下一节会介绍。
+
+### 写书专用工具 Gitbook
+
+上文提到了翻译内容与样式的分离。实际上在这里样式这部分就是由Gitbook自带的渲染引擎来负责的。此外，Gitbook还能帮助你管理整个书的目录结构、章节生成、搜索、词汇表、站点构建与生成等，同时它也有丰富的插件生态。这一切只需要你进行少量的配置（其实，就只是在书的根目录下运行`gitbook init`命令，它会生成下图所示的一个目录结构），其低学习成本与高效益，使它成为了写书最易入门的趁手工具。
+
+```
+.
+├── README.md
+└── SUMMARY.md
+```
 
 ## 项目管理
+
+
 
 ## 自动化构建
 
