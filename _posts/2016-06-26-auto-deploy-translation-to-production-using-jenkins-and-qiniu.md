@@ -7,7 +7,7 @@ title: 我是如何进行Spring MVC文档翻译项目的环境搭建、项目管
 
 ![](http://7xqu8w.com1.z0.glb.clouddn.com/spring-mvc-translation-project-final-representation.png "Final website of MVC translation project")
 
-前段时间翻译的Spring MVC官方文档完成了第一稿，相关的文章和仓库可以点击以下链接。这篇文章，主要是总结一下这个翻译项目自开始到上线发布，完整的一个生命流程。内容包括 **翻译环境搭建** 、**项目管理**与 **自动化构建** 三部分。
+前段时间翻译的Spring MVC官方文档完成了第一稿，相关的文章和仓库可以点击以下链接。这篇文章，主要是总结一下这个翻译项目自开始到上线发布，完整的一个生命流程。内容包括 **翻译环境搭建** 、**项目管理** 与 **自动化构建** 三部分。
 
 * [博客首页声明：Spring MVC官方文档翻译稿发布](http://blog.linesh.tw/#/posts/2016-06-23-spring-mvc-documentation-reference)
 * [托管在七牛上的翻译文档](http://mvc.linesh.tw)
@@ -107,7 +107,15 @@ Github内置的issue功能已经好用到爆，再加上专为Github issue功能
 
 ## 自动化构建
 
-由gitbook迁移到七牛。其实就是将gitbook生成的静态站点`_book`文件夹拷贝到七牛的空间里，然后使用`index.html`作为入口。其中，主要就是两步工作：
+自动化什么的构建？这还要从本翻译稿的托管平台——Gitbook——说起。gitbook是一个绝好的写作平台，官方也通过Webhooks提供了与Github的集成，只要你把代码`git push`到远端仓库，Gitbook就会自动拉取仓库中的内容，按照特定的格式为书本构建站点。过大概2到3分钟，你就可以在[Gitbook](https://linesh.gitbooks.io/spring-mvc-documentation-linesh-translation/content/)上看到自己最新的更新已经到书上了。一切看起来都十分美好，一键提交与部署。但是有一个最大的问题：**Gitbook在国内的速度不行，轻则卡顿，重则整站被墙刷不出页面**。
+
+这种情况下，我决定将整个翻译同时迁移到七牛上。七牛的CDN在国内速度名声在外，用来托管静态站点再好不过~~只需要拍两张身份证正反双面的照片上传等待审核即可~~。迁移也很简单，因为gitbook生成的静态站点其实就是`_book`文件夹，只需要把这个文件夹下的全部东西放到七牛空间上去，在使用`index.html`作为入口就可以了。但是，问题又来了：
+
+* 七牛网站上无法上传文件夹。就算可以，我也无法忍受每次都要手动将文件夹拖上去
+* 每次仓库有更新，都需要将最新的内容同步到七牛空间上，并覆盖旧版本的同名文件
+* 第二步的操作还不能通过githook+shell的方式来做，因为整个过程的耗时会使`git push`的反馈周期变长，从而使得我更不倾向于频繁提交，影响翻译体验
+
+<!-- 
 
 1. 确保使用正确的gitbook和gitbook-cli版本进行`gitbook build`构建，生成`_book`目录：
   * 使用npm引入最新的gitbook和gitbook-cli：`npm install gitbook gitbook-cli --save`
@@ -124,12 +132,6 @@ Github内置的issue功能已经好用到爆，再加上专为Github issue功能
 * 安装Hudson Post Build插件：用于在构建完成后、七牛同步前执行一些脚本
 * 安装七牛云-jenkins插件：用于完成目录到七牛的自动同步
 * 注册一个七牛云开发者账号（如果要自定义域名，必须实名认证~~简直是坑~~并且账户里10元以上人民币）
-* 写点脚本
-
-## Ant Glob Pattern
-
-先上最后的成果图：
-
-![](http://7xqu8w.com1.z0.glb.clouddn.com/mvc-translation-with-new-domain-hosted-in-qiniu.png)
+* 写点脚本 -->
 
 ![](http://7xqu8w.com1.z0.glb.clouddn.com/jenkins-pipeline-final-success.png)
