@@ -2,8 +2,16 @@
 layout: post
 tags: github, 七牛, jekyll, ci, gitbook, markdown
 categories: 翻译
-title: 一个翻译项目的生命周期：记Spring MVC文档翻译的环境搭建、项目管理及自动化构建
+title: 我是如何进行Spring MVC文档翻译项目的环境搭建、项目管理及自动化构建工作的
 ---
+
+![](http://7xqu8w.com1.z0.glb.clouddn.com/spring-mvc-translation-project-final-representation.png "Final website of MVC translation project")
+
+前段时间翻译的Spring MVC官方文档完成了第一稿，相关的文章和仓库可以点击以下链接。这篇文章，主要是总结一下这个翻译项目自开始到上线发布，完整的一个生命流程。内容包括 **翻译环境搭建** 、**项目管理**与 **自动化构建** 三部分。
+
+* [博客首页声明：Spring MVC官方文档翻译稿发布](http://blog.linesh.tw/#/posts/2016-06-23-spring-mvc-documentation-reference)
+* [托管在七牛上的翻译文档](http://mvc.linesh.tw)
+* [Github仓库](https://github.com/linesh-simplicity/translation-spring-mvc-4-documentation)
 
 ## 环境搭建
 
@@ -81,7 +89,21 @@ Github是~~世界上最大的同性交友平台~~目前最大~~我并无依据~~
 
 ## 项目管理
 
+项目管理方面的需求，主要是有时会有想法出现，希望增加什么特性，或者想到什么问题不想马上修，那么最好是有一个TODOLIST可以随时记录下来，并且能被方便地检索到。这方面的需求，怎么解决呢？
 
+### issue + zenhub
+
+![](http://7xqu8w.com1.z0.glb.clouddn.com/zenhub-as-issue-tracker.png "Use Zenhub As Issue tracker")
+
+Github内置的issue功能已经好用到爆，再加上专为Github issue功能定制的[Zenhub](https://www.zenhub.com/)简直就是活生生把issue当成trello来用。一些内置特性如下，稍加体验即可满足所有小型项目管理上的需求：
+
+* issue可以通过commit sha直接与相关的单次提交关联，还可以 [通过提交信息来引用、关闭issue](https://help.github.com/articles/closing-issues-via-commit-messages/)
+* issue中支持GFM(Github Flavored Markdown)，可以直接使用todolist的语法
+* 通过Command/Ctrl+V可以直接在留言中上传截图
+* 可以为issue添加标签（tag）、类别（pipeline, 如正在做、还没做、已完成等）
+* 可以为issue估点、指定负责人、燃尽图，简直就是为敏捷实践而生，不过在这个翻译项目中用不到这些，毕竟自己给自己估点没什么意思
+
+![](http://7xqu8w.com1.z0.glb.clouddn.com/github-flavored-markdown-todolist.png "Github flavored markdown todolist")
 
 ## 自动化构建
 
