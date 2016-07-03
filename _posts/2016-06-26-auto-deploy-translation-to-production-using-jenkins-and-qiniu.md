@@ -275,7 +275,7 @@ AK(Access Key)和SK(Secret Key)是七牛分配给注册开发者的一对密钥�
 
 ## Bonus：Marketing
 
-哎呀bonus，其实说不清是彩蛋还是坏蛋了，主要是聊聊文章和推广吧。一开始推广的时候是地毯式地发，与吕靖所发平台有略微不同。发的平台有[OSC](http://my.oschina.net/u/1581831/blog/700769)/[CSDN](http://blog.csdn.net/codecleaner/article/details/51758452)/[Iteye](http://sodagreen-simplicity.iteye.com/admin/blogs/2307252)/[博客园](http://www.cnblogs.com/natasha-yarovenko/p/5616369.html)/[掘金](https://gold.xitu.io/entry/576e56962e958a00572bdb38/detail)/[v2ex](http://www.v2ex.com/t/288717#reply34)/[segmentfault](https://segmentfault.com/a/1190000005854194)/[Githuber](http://ask.githuber.cn/t/spring-mvc-4-2-4-release/1539/1)一共8个地方，再后来便对此事有所厌倦，感觉短短两天让我的状态一直是在坐等点赞，真是需要戒断的欲望。
+哎呀bonus，其实说不清是彩蛋还是坏蛋了，主要是聊聊文章和推广吧。一开始推广的时候是地毯式地发，与吕靖所发平台有略微不同。发的平台有 [OSC](http://my.oschina.net/lineshtw/blog/704441) / [CSDN](http://blog.csdn.net/codecleaner/article/details/51808331) / [Iteye](http://sodagreen-simplicity.iteye.com/admin/blogs/2308678) / [博客园](http://www.cnblogs.com/natasha-yarovenko/p/5634661.html) / [掘金](https://gold.xitu.io/entry/5777f8395bbb50005948d9bb/detail) / [v2ex](http://www.v2ex.com/t/289735) / [segmentfault](https://segmentfault.com/a/1190000005858229) / [Githuber](http://ask.githuber.cn/t/spring-mvc/1547)一共8个地方，再后来便对此事有所厌倦，感觉短短两天让我的状态一直是在坐等点赞，真是需要戒断的欲望。
 
 不过，还是从各个平台的推广当中初步学习到推广的一些细节和方法论，以便日后推广时有的放矢，节约精力。方法论总结起来，有4点；小细节总结起来，有其他3点。
 
@@ -292,11 +292,11 @@ AK(Access Key)和SK(Secret Key)是七牛分配给注册开发者的一对密钥�
 
 从上图看，主要的流量还是来自掘金和v2ex，掘金的流量是直接导到七牛的主站。至于用户质量、有效的目标群体等仍无法知晓，但至少是一个推广的好去处。
 
-就编辑体验来讲，OSCHINA/CSDN两个平台支持markdown编辑~~哪个平台不支持markdown~~，前者还能自动生成目录，界面进行过改版，比以前有较大提升，但细看还是丑。从流量上看，基本都贡献不了什么流量~~OSC上给人浓浓的圈子感我就不说了~~，特别是CSDN，不能帮忙推荐首页，就真的是别指望了。文章发了两天至今浏览量还是一位数。
+就编辑体验来讲，OSCHINA/CSDN两个平台支持markdown编辑~~哪个平台不支持markdown~~，前者还能自动生成目录，界面进行过改版，比以前有较大提升，但细看还是丑。从流量上看，基本都贡献不了什么流量~~OSC上给人浓浓的圈子感我就不说了~~，特别是CSDN，不能帮忙推荐首页，就真的是别指望了，文章发了两天，浏览量还是一位数。
 
-iteye和博客园分别贡献了一小块的流量，iteye的浏览量还可以，一周来有490。但两个网站都不支持用markdown编辑，要先在其他地方用markdown here转一次再copy过来，遑论其他手动编辑方法的效率。
+iteye和博客园分别贡献了一小块的流量，iteye的浏览量还可以。但两个网站都不支持用markdown编辑，要先在其他地方用markdown here转一次再copy过来，遑论其他手动编辑方法的效率。博客园发布了两天，浏览量一位数以内。
 
-segmentfault是我用过样式最好的网站，有目录，markdown渲染样式稳重不浮夸，但流量也基本别指望。还有其他一些推广网站，比如githuber/百度知道，既别指望，也别花太大心思。
+segmentfault是我用过样式最好的网站，有目录，markdown渲染样式稳重不浮夸，但流量也基本别指望。还有其他一些推广网站，比如githuber/百度知道，既别指望，也别花太大心思。Githuber流量一位数。一位君全部~~拉黑~~。
 
 ### 小细节
 
@@ -307,7 +307,7 @@ segmentfault是我用过样式最好的网站，有目录，markdown渲染样式
     * _xx屌丝的xx逆袭_
     * _15年编程生涯，资深架构师总结的7条经验_
 * **图片**。一定要有一个封面图片，不需要内容非常相关，只要让人看了有食欲就行。这是另一个主题，无需多加发挥
-* **目录**。很多时候，可能没什么兴趣看完你的整篇文章，只要被标题吸引进来了，这时有一个目录（如[OSC](http://my.oschina.net/u/1581831/blog/700769)和[segmentfault](https://segmentfault.com/a/1190000005854194)）明明白白指示文章结构，粗略滚动一下屏幕，如果看着图片又多，排版又好，内容也不差，点个赞，存个书签，表示到此一游了，然后就关掉页面~~好像这样就学到了东西似的~~
+* **目录**。很多时候，可能没什么兴趣看完你的整篇文章，只要被标题吸引进来了，这时有一个目录（如[OSC](http://my.oschina.net/u/1581831/blog/704441)和[segmentfault](https://segmentfault.com/a/1190000005858229)）明明白白指示文章结构，粗略滚动一下屏幕，如果看着图片又多，排版又好，内容也不差，点个赞，存个书签，表示到此一游了，然后就关掉页面~~好像这样就学到了东西似的~~
 * **资源收集类**。比如一些awesome-list，资源收集、网站收集，点个赞，收藏个书签，生怕自己错过了什么，然后心满意足地关掉页面~~我想，有一天总会用到的吧~~
 
 其实小细节我觉得都反映出的是一个问题，就是看文章对于我们来说似乎已经变成一种阻力极小的习惯，我们更倾向于在碎片时间进行这种更加轻松不用动脑的阅读，安慰自己时刻在学习，但其实并没有进行深入阅读的心境，长期而言，被消费的其实是我们的时间和思考能力。如何应对？以我为主，网络和平台都只是工具，真正核心在自己所爱所想。去坚持，去生活，把时间给自己，给爱的人，就足够了，别没事晒照片逛论坛了。
