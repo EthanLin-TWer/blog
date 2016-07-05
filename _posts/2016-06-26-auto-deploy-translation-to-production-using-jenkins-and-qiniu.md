@@ -77,7 +77,7 @@ Git作为版本管理的意义也不赘言。你肯定不想自己的工作区�
 
 ![](http://7xqu8w.com1.z0.glb.clouddn.com/github-homepage.png "Github Homepage")
 
-Github是~~世界上最大的同性交友平台~~目前最大~~我并无依据~~的代码托管平台，其生态圈之繁荣与力量令人震惊，几乎你需要的所有工具和资源都可以在上面找到。它与Git不是一个层级的概念~~`git=github.substring(0, 3)`~~，这部分请自行搜索。在这个平台上，我可以给翻译项目一个`README.md`文件，为阅读的人做简单的介绍以及引流，同时它可与CI（持续集成）、Gitbook等工具完美集成，其内置的issue、pull-request功能还能与Zenhub结合，直接当成trello来进行项目管理之用。相关的工具下一节会介绍。
+Github是 ~~世界上最大的同性交友平台~~ 目前最大~~ 我并无依据~~ 的代码托管平台，其生态圈之繁荣与力量令人震惊，几乎你需要的所有工具和资源都可以在上面找到。它与Git不是一个层级的概念 ~~`git=github.substring(0, 3)`~~ ，这部分请自行搜索。在这个平台上，我可以给翻译项目一个`README.md`文件，为阅读的人做简单的介绍以及引流，同时它可与CI（持续集成）、Gitbook等工具完美集成，其内置的issue、pull-request功能还能与Zenhub结合，直接当成trello来进行项目管理之用。相关的工具下一节会介绍。
 
 ### 写书专用工具 Gitbook
 
@@ -216,13 +216,13 @@ const ignoredFiles = [
 ];
 
 // node ./jenkins/sync-book-to-qiniu.js $ACCESS_KEY $SECRET_KEY
-let qiniuAccessKey = process.argv.slice(2, 3);
-let qiniuSecretKey = process.argv.slice(3);
+const qiniuAccessKey = process.argv.slice(2, 3);
+const qiniuSecretKey = process.argv.slice(3);
 
 // Prepare Qiniu configuration options
 qiniu.conf.ACCESS_KEY = qiniuAccessKey.toString(crypto.enc.Utf8);
 qiniu.conf.SECRET_KEY = qiniuSecretKey.toString(crypto.enc.Utf8);
-bucket = 'mvc-linesh-tw';
+const bucket = 'mvc-linesh-tw';
 
 glob.sync('_book/**/*.*', {}).filter(filename => {
     for (let ignored of ignoredFiles) {
@@ -258,17 +258,56 @@ AK(Access Key)和SK(Secret Key)是七牛分配给注册开发者的一对密钥�
 
 ![](http://7xqu8w.com1.z0.glb.clouddn.com/travis-ci-env-setting.png "Travis CI environment variables settings")
 
+### 使用travis-ci进行自动化构建
+
+![](http://7xqu8w.com1.z0.glb.clouddn.com/travis-home-page.png "Travis home page")
+
+——本小节为2016-07-06日添加
+
+如今我已经把本项目的构建从Jenkins迁移到travis-ci上去了，原因是travis-ci是一个online的CI，界面更漂亮，配置也更为容易。在构建步骤上，与通过Jenkins的构建大同小异：
+
+* 设置好必要的环境（node.js, npm等，因为Jenkins是在本地跑，不存在这些问题，travis上需要小配，也非常简单）
+* 通过npm安装必要的依赖（qiniu，gitbook等，也简单，跑一下安装即可）
+* 通过gitbook将站点目录构建出来
+* 配置好加密的AK/SK，并在构建脚本中获取
+* 将构建目录上传到七牛
+
+大部分步骤与使用Jenkins时并无二样。与Jenkins的JOB模型不同的是，travis整个核心的构建阶段只有两个：`install`和`script`，即安装依赖和执行脚本。每个阶段都有前后的拦截点，你可以在前后做些必要的操作。此外，对于依赖安装，travis还提供了缓存的功能。只需要在项目下放置一个`.travis.yml`文件即可触发整个构建。这个脚本的核心部分大致如下，没有中文注释，代码自注释：
+
+```
+language: node_js
+node_js:
+    - '6.1'
+cache:
+    directories:
+        - node_modules
+before_install:
+    - npm install -g gitbook-cli
+install:
+    - npm install
+script:
+    - gitbook build
+    - ./travis/sync-book-to-qiniu.sh
+```
+
+另一个问题是AK和SK的问题，在Jenkins的方式是通过环境变量(env variables)的方式注入。不过现在travis不在本地，不敢这么玩了，虽然travis也提供了环境变量的注入，但毕竟把AK/SK上传到travis的服务器上了。好在travis提供了加密API，即你可以在本地先加密你的AK/SK，然后将这个加密后的值上传到配置文件中。travis执行构建的时候自动帮你解密回来，同时其他人也无法看到你的敏感数据。具体命令如下：
+
+```
+travis encrypt "ACCESS_KEY=value_without_bash_escape_characters" --add
+travis encrypt "SECRET_KEY=if_there_is_special_characters_you_need_to_escape_them" --add
+```
+
 ## 总结
 
-![](http://7xqu8w.com1.z0.glb.clouddn.com/jenkins-build-final-success-view.png "Jenkins build final success view")
-
 ![](http://7xvpsh.com1.z0.glb.clouddn.com/running-jenkins-pipeline.png "Running jenkins pipeline")
+
+![](http://7xqu8w.com1.z0.glb.clouddn.com/travis-upload-final-success-view.png "Travis final success view")
 
 呼呼，最后看到这个图的时候还是很激动的，所有的部署工作都成功了。那么也是时候结束了，本篇文章总结起来，讲了三方面的内容：
 
 * 如何准备和搭建让翻译工作更加专注和高效的环境和工具，如markdown/atom/gitbook/git/github等
 * 如何使用github的issue和zenhub来辅助管理翻译项目中的待办事项和协作
-* 如何使用CI工具Jenkins将整个站点的构建和发布自动化，提高翻译和部署效率
+* 如何使用CI工具Jenkins/travis将整个站点的构建和发布自动化，提高翻译和部署效率
 
 
 —— 2016-07-01
