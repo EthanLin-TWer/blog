@@ -77,7 +77,7 @@ Git作为版本管理的意义也不赘言。你肯定不想自己的工作区�
 
 ![](http://7xqu8w.com1.z0.glb.clouddn.com/github-homepage.png "Github Homepage")
 
-Github是 ~~世界上最大的同性交友平台~~ 目前最大~~ 我并无依据~~ 的代码托管平台，其生态圈之繁荣与力量令人震惊，几乎你需要的所有工具和资源都可以在上面找到。它与Git不是一个层级的概念 ~~`git=github.substring(0, 3)`~~ ，这部分请自行搜索。在这个平台上，我可以给翻译项目一个`README.md`文件，为阅读的人做简单的介绍以及引流，同时它可与CI（持续集成）、Gitbook等工具完美集成，其内置的issue、pull-request功能还能与Zenhub结合，直接当成trello来进行项目管理之用。相关的工具下一节会介绍。
+Github是 ~~世界上最大的同性交友平台~~ 目前最大 ~~我并无依据~~ 的代码托管平台，其生态圈之繁荣与力量令人震惊，几乎你需要的所有工具和资源都可以在上面找到。它与Git不是一个层级的概念 ~~`git=github.substring(0, 3)`~~ ，这部分请自行搜索。在这个平台上，我可以给翻译项目一个`README.md`文件，为阅读的人做简单的介绍以及引流，同时它可与CI（持续集成）、Gitbook等工具完美集成，其内置的issue、pull-request功能还能与Zenhub结合，直接当成trello来进行项目管理之用。相关的工具下一节会介绍。
 
 ### 写书专用工具 Gitbook
 
