@@ -1,5 +1,4 @@
 let fs = require('fs');
-let stringify = require('json-stable-stringify');
 
 let posts_info = fetchPostsContentFromPostDirectoryAndPreparePostsInfoObject();
 
@@ -21,7 +20,7 @@ let posts_content = posts_info.map(info => {
     }
     var file_name = content.id + '.json';
 
-    fs.writeFile('app/apis/posts/' + file_name, stringify(content).trim(), 'utf-8');
+    fs.writeFile('app/apis/posts/' + file_name, JSON.stringify(content).trim(), 'utf-8');
 
     return content;
 })
