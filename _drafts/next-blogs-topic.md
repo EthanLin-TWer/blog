@@ -24,7 +24,7 @@ title: 下篇博客的内容
 * 函数式编程的涵义？
 	* `map`/`reduce`/`filter`
 	* 作为一等公民的函数（function）（函数作为参数）与闭包
-	* 柯里化（currying）及其意义
+	* 柯里化（currying）及其意义，解决了啥问题？
 	* 高阶函数
 	* 组件化：跨语言的API
 	* 本质与体现：expression over statement, no side effects, λ calculus(function as input)
