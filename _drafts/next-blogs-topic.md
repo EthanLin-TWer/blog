@@ -21,3 +21,11 @@ title: 下篇博客的内容
 * Angular的数组依赖写法为何能避免被minified?实际的原理是什么？
 * 翻墙的原理？DNS原理？在Windows上Mac上如何查看？如何配置？实操？
 * 编程中的map/reduce/filter等高阶操作，在一个对象数组中找是否某个对象存在特定属性值，等操作的 **模型** 与 **各语言中的代码**。
+* 函数式编程的涵义？
+	* `map`/`reduce`/`filter`
+	* 作为一等公民的函数（function）（函数作为参数）与闭包
+	* 柯里化（currying）及其意义
+	* 高阶函数
+	* 组件化：跨语言的API
+	* 本质与体现：expression over statement, no side effects, λ calculus(function as input)
+* 测试策略与项目的测试体系：对开发的影响；如何改进演化；
