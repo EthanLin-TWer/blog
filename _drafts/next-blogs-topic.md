@@ -29,4 +29,3 @@ title: 下篇博客的内容
 	* 组件化：跨语言的API
 	* 本质与体现：expression over statement, no side effects, λ calculus(function as input)
 * 测试策略与项目的测试体系：对开发的影响；如何改进演化；
-* js在html中的同步加载与异步加载（async）
