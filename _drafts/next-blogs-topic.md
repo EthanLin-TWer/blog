@@ -29,3 +29,4 @@ title: 下篇博客的内容
 	* 组件化：跨语言的API
 	* 本质与体现：expression over statement, no side effects, λ calculus(function as input)
 * 测试策略与项目的测试体系：对开发的影响；如何改进演化；
+* 开发者体验：out-of-box的模板：项目配置模板、CI模板；配置（dot files）全自动化；快捷键系统；全系统一键管理
