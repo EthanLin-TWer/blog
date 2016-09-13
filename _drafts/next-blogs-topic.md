@@ -29,4 +29,18 @@ title: 下篇博客的内容
 	* 组件化：跨语言的API
 	* 本质与体现：expression over statement, no side effects, λ calculus(function as input)
 * 测试策略与项目的测试体系：对开发的影响；如何改进演化；
-* 开发者体验：out-of-box的模板：项目配置模板、CI模板；配置（dot files）全自动化；快捷键系统；全系统一键管理
+* 开发者体验：out-of-box的模板：项目配置模板、CI模板；配置（dot files）全自动化；快捷键系统；全系统一键管理。
+	* 后端模板：
+		* gradle 3.0(with daemon enabled by default)
+		* travis CI
+		* Spring Boot
+		* checkstyle gradle plugin
+		* unit test frameworks(JUnit/ Mockito)
+		* cobertura
+	* 前端模板：
+		* ES6
+		* babel
+		* npm
+		* webpack
+		* Unit testing(Chai/ Mocha/ Sinon)
+		* 
