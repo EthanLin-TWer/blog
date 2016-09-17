@@ -198,7 +198,7 @@ void assertWithComparison() {
 
 如你所说，JUnit 5 的 API 并无太多变化。断言方法的命名是一样的，方法同样接受两个参数，分别是一个期望值与一个实际值。
 
-期望值与实际值的传入顺序非常重要，无论是对于理解测试的内容，还是理解失败时的错误信息，但有时还是很容易弄错，这点很坑。不过仔细想想，也没什么更好的办法，除非你创建一个新的断言框架。Considering big players like Hamcrest (ugh!) or AssertJ (yeah!), this would not have been a sensible way to invest the limited time. Hence the goal was to keep the assertions focused and effort-free.
+期望值与实际值的传入顺序非常重要，无论是对于理解测试的内容，还是理解失败时的错误信息，但有时还是很容易弄错，这点很坑。不过仔细想想，也没什么更好的办法，除非你创建一个新的断言框架。不过既然市面上已有对应的产品如 [Hamcrest](http://hamcrest.org/JavaHamcrest/) (ugh!) 和 [AssertJ](http://joel-costigliola.github.io/assertj/) (yeah！译者表示：不太清楚这欢呼的梗在哪里)等，再浪费有限的时间去造轮子明显不值得。毕竟最重要的是保证你的断言库专注于一件事，借鉴已有实现可以节省成本。
 
 哦对了，失败信息现在是作为最后传入的参数了。我很喜欢这个细节，因为，它让你专注于真正重要之事——那两个需被断言的值。由于拥抱了 Java 8 的缘故，真值断言方法现在也接受 [`supplier`](https://docs.oracle.com/javase/8/docs/api/java/util/function/BooleanSupplier.html) 参数了，又是一个暖心的小细节。
 
@@ -443,6 +443,9 @@ class TestingAStack {
 ```
 
 这是一份TDDer 看了会感动，[BDD](http://dannorth.net/introducing-bdd/)er 看了会流泪的测试结果输出。
+
+![](http://7xqu8w.com1.z0.glb.clouddn.com/junit-5-basics-testing-a-stack.png)
+
 
 ## 回顾
 
