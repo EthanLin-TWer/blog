@@ -2,12 +2,12 @@
 layout: post
 category: 翻译
 tags: JUnit 5, unit test
-title: JUnit 5 系列：
+title: JUnit 5 系列：环境搭建
 ---
 
 > 原文地址：[http://blog.codefx.org/libraries/junit-5-setup/](http://blog.codefx.org/libraries/junit-5-setup/)  
 > 原文日期：15, Feb, 2016  
-> 译文首发：[ Linesh 的博客：]()
+> 译文首发：[ Linesh 的博客：环境搭建](http://blog.linesh.tw/#/posts/2016-09-17-junit5-setup)
 
 2015年11月，[Junit Lambda](http://junit.org/junit4/junit-lambda.html) 团队发布了该项目的 [第一版原型](http://blog.codefx.org/libraries/junit-lambda-prototype/) 。此后，该项目把名称改成了 JUnit 5 并独立了出来，随后在2016年2月份的时候发布了一个 alpha 版本。本篇打算以一系列文章，简短地探索一下以下几个方面：
 
@@ -153,8 +153,12 @@ junit-platform-console
 
 [User guide: M2]: http://junit.org/junit5/docs/5.0.0-M2/user-guide/
 [User guide: Current]: http://junit.org/junit5/docs/current/user-guide/
-[JUnit 5: Basics]: http://blog.codefx.org/libraries/junit-5-basics/
-[JUnit 5: Architecture]: http://blog.codefx.org/design/architecture/junit-5-architecture/
+[JUnit 5: Basics]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-basics
+[JUnit 5: Architecture]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-architecture
+[JUnit 5: Extension Model]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-extension-model
+[JUnit 5: Conditions]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-conditions
+[JUnit 5: Injection]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-injection
+[JUnit 5: Dynamic Tests]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-dynamic-tests
 
 
 
