@@ -5,11 +5,11 @@ tags: JUnit 5, unit test
 title: JUnit 5 系列：架构体系
 ---
 
-> 原文地址：[http://blog.linesh.tw/#/posts/2016-09-17-junit5-architecture][JUnit 5: Architecture]
+> 原文地址：[http://blog.linesh.tw/#/posts/2016-09-17-junit5-architecture][JUnit 5: Architecture]  
 > 原文日期：29, Mar, 2016  
 > 译文首发：[ Linesh 的博客：JUnit 5 系列：架构体系][JUnit 5: Architecture]
 
-现在，我们已经知道了 [如何配置 JUnit 5 环境][JUnit 5: Setup] 及 [如何写一些测试][JUnit5 5: Basics]，接下来就来看一点封面下的内容吧。本篇我们将讨论 JUnit 5 的架构体系，以及它之成形如此的原因。
+现在，我们已经知道了 [如何配置 JUnit 5 环境][JUnit 5: Setup] 及 [如何写一些测试][JUnit 5: Basics]，接下来就来看一点封面下的内容吧。本篇我们将讨论 JUnit 5 的架构体系，以及它之成形如此的原因。
 
 ## 概述
 
@@ -135,6 +135,21 @@ JUnit 对外公开的类都带有一个 `@API(usage)` 注解，其中 `usage` �
 
 ## Open Test Alliance
 
+其实还有一件事。Junit 5 的体系结构使得 IDE 和构建工具能够将其作为中间层，以运行所有类型的测试框架（前提是该框架实现了其对应的引擎）。这样的话，工具本身就不需要去实现框架相关的测试支持，它们只需要使用一套统一的借口，即可实现测试发现、测试执行和结果收集。
+
+是嘛，真的可以吗？
+
+失败的测试，通常使用异常来描述。但不同的测试框架和断言库之间并无一个统一的接口。相反，它们通常实现了各自不同的版本（常见的是继承 `AssertionError` 或 `RuntimeException` ）。这就使得不同框架间的互操作变得更加复杂，也使得工具之间无法简单使用一套统一的接口。
+
+为了解决这个问题，Junit Lambda 团队又分出来一个独立的项目，[The Open Test Alliance for the JVM]()。这是它们的提议：
+
+> 基于 JUnit Lambda 团队近来与来自Eclipse、Gradle 及 Intellij 等 IDE 和构建工具开发者所展开的讨论，我们呼吁要建立这样一个开源项目：它用于提供一套基于 JVM的 测试库与测试框架 间的最小公共接口集。
+> 
+> 项目的主要目标是
+
+截止目前，该项目的呼吁似乎并未引起太多重视，或说是基本未得到重视。如果你觉得这是个好的想法，你可以通过一些方式来支持，比如向你经常使用的测试框架维护者发出声音。
+
+## 回顾总结
 
 
 ---
