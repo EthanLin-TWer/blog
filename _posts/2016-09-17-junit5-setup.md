@@ -11,13 +11,13 @@ title: JUnit 5 系列：环境搭建
 
 2015年11月，[Junit Lambda](http://junit.org/junit4/junit-lambda.html) 团队发布了该项目的 [第一版原型](http://blog.codefx.org/libraries/junit-lambda-prototype/) 。此后，该项目把名称改成了 JUnit 5 并独立了出来，随后在2016年2月份的时候发布了一个 alpha 版本。本篇打算以一系列文章，简短地探索一下以下几个方面：
 
-* 环境搭建
-* 基础入门
-* 架构体系
-* 扩展模型（Extension Model)
-* 条件断言
+* [环境搭建][JUnit 5: Setup]
+* [基础入门][JUnit 5: Basics]
+* [架构体系][JUnit 5: Architecture]
+* [扩展模型（Extension Model)][JUnit 5: Extension Model]
+* [条件断言][JUnit 5: Conditions]
 * 注入
-* 动态测试
+* [动态测试][JUnit 5: Dynamic Tests]
 * ...
 
 （如果不喜欢看文章，你可以[戳这里看我的演讲](http://blog.codefx.org/past-talks/)，或者[看一下最近的 vJUG 讲座](https://www.youtube.com/watch?v=ct9sIsrnE9Y)，或者[我在 DevoxxPL 上的 PPT](https://www.youtube.com/watch?v=oG80XZUN1lQ)。
@@ -151,32 +151,13 @@ junit-platform-console
 
 [下篇文章][JUnit 5: Basics] 我会讨论使用 JUnit 5 撰写测试的一些基础知识。
 
+
 [User guide: M2]: http://junit.org/junit5/docs/5.0.0-M2/user-guide/
 [User guide: Current]: http://junit.org/junit5/docs/current/user-guide/
+[JUnit 5: Setup]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-setup
 [JUnit 5: Basics]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-basics
 [JUnit 5: Architecture]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-architecture
 [JUnit 5: Extension Model]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-extension-model
 [JUnit 5: Conditions]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-conditions
 [JUnit 5: Injection]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-injection
 [JUnit 5: Dynamic Tests]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-dynamic-tests
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
