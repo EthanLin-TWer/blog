@@ -7,7 +7,8 @@ title: JUnit 5 系列：环境搭建
 
 > 原文地址：[http://blog.codefx.org/libraries/junit-5-setup/](http://blog.codefx.org/libraries/junit-5-setup/)  
 > 原文日期：15, Feb, 2016  
-> 译文首发：[ Linesh 的博客：环境搭建](http://blog.linesh.tw/#/posts/2016-09-17-junit5-setup)
+> 译文首发：[ Linesh 的博客：环境搭建](http://blog.linesh.tw/#/posts/2016-09-17-junit5-setup)  
+> 我的 Github：[http://github.com/linesh-simplicity](http://github.com/linesh-simplicity)
 
 2015年11月，[Junit Lambda](http://junit.org/junit4/junit-lambda.html) 团队发布了该项目的 [第一版原型](http://blog.codefx.org/libraries/junit-lambda-prototype/) 。此后，该项目把名称改成了 JUnit 5 并独立了出来，随后在2016年2月份的时候发布了一个 alpha 版本。本篇打算以一系列文章，简短地探索一下以下几个方面：
 
