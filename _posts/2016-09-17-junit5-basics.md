@@ -5,7 +5,7 @@ tags: JUnit 5, unit test
 title: JUnit 5 系列：基础入门
 ---
 
-> 原文地址：[http://blog.codefx.org/libraries/junit-5-basics/](http://blog.codefx.org/libraries/junit-5-basics/)
+> 原文地址：[http://blog.codefx.org/libraries/junit-5-basics/](http://blog.codefx.org/libraries/junit-5-basics/)  
 > 原文日期：25, Feb, 2016  
 > 译文首发：[ Linesh 的博客：JUnit 5 系列：基础入门](http://blog.linesh.tw/#/posts/2016-09-17-junit5-basics)
 
