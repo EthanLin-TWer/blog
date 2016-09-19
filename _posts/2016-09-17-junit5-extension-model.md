@@ -2,12 +2,12 @@
 layout: post
 category: 翻译
 tags: JUnit 5, unit test
-title: JUnit 5 系列：扩展模型（Extension Model）
+title:「译」 JUnit 5 系列：扩展模型（Extension Model）
 ---
 
 > 原文地址：[http://blog.codefx.org/design/architecture/junit-5-extension-model/](http://blog.codefx.org/design/architecture/junit-5-extension-model/)  
 > 原文日期：11, Apr, 2016  
-> 译文首发：[ Linesh 的博客：JUnit 5 系列：扩展模型（Extension Model）](http://blog.linesh.tw/#/posts/2016-09-17-junit5-extension-model)  
+> 译文首发：[ Linesh 的博客：「译」JUnit 5 系列：扩展模型（Extension Model）](http://blog.linesh.tw/#/posts/2016-09-17-junit5-extension-model)  
 > 我的 Github：[http://github.com/linesh-simplicity](http://github.com/linesh-simplicity)
 
 ## 概述
@@ -263,6 +263,7 @@ public class BenchmarkExtension implements
 		CLASS, TEST
 	}
 }
+
 「译者：啊这代码让人心旷神怡。」
 ```
 
@@ -270,7 +271,7 @@ public class BenchmarkExtension implements
 
 [源代码在 Github 上](https://github.com/CodeFX-org/demo-junit-5/tree/master/src/main/java/org/codefx/demo/junit5)可以找到。
 
-下篇博文我来探讨条件执行的测试以及参数注入部分的内容，同时会为你展示如何使用其对应的扩展点。如果你已经迫不及待了，那么请先参考[这篇博客](http://www.codeaffine.com/2016/04/06/replace-rules-in-junit5/)，它展示了将应用了两个规则（条件性禁用测试 及 临时目录）的 Junit 4 测试改装成 JUnit 5 测试的方法。
+下篇博文我会探讨条件执行的测试以及参数注入部分的内容，同时为你展示如何使用其对应的扩展点。如果你已经迫不及待了，那么请先参考[这篇博客](http://www.codeaffine.com/2016/04/06/replace-rules-in-junit5/)，它展示了将应用了两个规则（条件性禁用测试 及 临时目录）的 Junit 4 测试改装成 JUnit 5 测试的方法。
 
 ## 总结回顾
 

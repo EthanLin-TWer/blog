@@ -2,12 +2,12 @@
 layout: post
 category: 翻译
 tags: JUnit 5, unit test
-title: JUnit 5 系列：架构体系
+title: 「译」JUnit 5 系列：架构体系
 ---
 
 > 原文地址：[http://blog.codefx.org/design/architecture/junit-5-architecture/](http://blog.codefx.org/design/architecture/junit-5-architecture/)  
 > 原文日期：29, Mar, 2016  
-> 译文首发：[ Linesh 的博客：JUnit 5 系列：架构体系][JUnit 5: Architecture]  
+> 译文首发：[ Linesh 的博客：「译」JUnit 5 系列：架构体系][JUnit 5: Architecture]  
 > 我的 Github：[http://github.com/linesh-simplicity](http://github.com/linesh-simplicity)
 
 现在，我们已经知道了 [如何配置 JUnit 5 环境][JUnit 5: Setup] 及 [如何写一些测试][JUnit 5: Basics]，接下来就来看一点封面下的内容吧。本篇我们将讨论 JUnit 5 的架构体系，以及它之成形如此的原因。
