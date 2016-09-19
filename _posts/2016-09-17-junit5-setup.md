@@ -2,7 +2,7 @@
 layout: post
 category: 翻译
 tags: JUnit 5, unit test
-title:「译」 JUnit 5 系列：环境搭建
+title: 「译」JUnit 5 系列：环境搭建
 ---
 
 > 原文地址：[http://blog.codefx.org/libraries/junit-5-setup/](http://blog.codefx.org/libraries/junit-5-setup/)  
