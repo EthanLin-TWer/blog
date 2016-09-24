@@ -2,7 +2,7 @@
 layout: post
 category: 翻译
 tags: JUnit 5, unit test
-title: 「译」 JUnit 5 系列：条件测试
+title: 「译」JUnit 5 系列：条件测试
 ---
 
 > 原文地址：[http://blog.codefx.org/libraries/junit-5-conditions/](http://blog.codefx.org/libraries/junit-5-conditions/)  
