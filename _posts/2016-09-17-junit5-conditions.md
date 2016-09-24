@@ -5,14 +5,14 @@ tags: JUnit 5, unit test
 title: 「译」 JUnit 5 系列：条件测试
 ---
 
-> 原文地址：[http://blog.codefx.org/libraries/junit-5-conditions/](http://blog.codefx.org/libraries/junit-5-conditions/)
-> 原文日期：, 2016  
+> 原文地址：[http://blog.codefx.org/libraries/junit-5-conditions/](http://blog.codefx.org/libraries/junit-5-conditions/)  
+> 原文日期：08, May, 2016  
 > 译文首发：[ Linesh 的博客：「译」JUnit 5 系列：条件测试](http://blog.linesh.tw/#/posts/2016-09-17-junit5-conditions)  
 > 我的 Github：[http://github.com/linesh-simplicity](http://github.com/linesh-simplicity)
 
-We recently learned about JUnit’s new [extension model]() and how it allows us to inject customized behavior into the test engine. I left you with the promise to look at conditions. Let’s do that now!
+上一节我们了解了 JUnit 新的[扩展模型][JUnit 5: Extension Model]，了解了它是如何支持我们向引擎定制一些行为的。然后我还预告会为大家讲解条件测试，这一节主题就是它了。
 
-Conditions allow us to define flexible criteria when tests should or shouldn’t be executed. Their official name is [Conditional Test Execution]().
+条件测试，指的是允许我们自定义灵活的标准，来决定一个测试是否应该执行。条件（condition） 官方的叫法是[条件测试执行](http://junit.org/junit5/docs/current/user-guide/#conditional-test-execution)。
 
 ## 概述
 
@@ -33,24 +33,24 @@ Conditions allow us to define flexible criteria when tests should or shouldn’t
 
 ## 目录
 
-* 条件测试关心的扩展点
-* @Disabled 注解
+* 相关的扩展点
+* 动手实现一个@Disabled 注解
 * @DisabledOnOs
-    * Simple Solution
-    * Less Ceremony
-    * Polishing
+    * 一种简单的实现方式
+    * 更简洁的API
+    * 代码重构
 * @DisabledIfTestFails
-    * Collect Exceptions
-    * Disable
-    * Putting It Together
-* Summary
-* Share & Follow
+    * 异常收集
+    * 禁用测试
+    * 集成
+* 回顾总结
+* 分享&关注
 
-## 条件测试关心的扩展点
+## 相关的扩展点
 
-还记得 [拓展点][JUnit 5: Extension Model] 一节讲的内容吗？不记得了？好吧，简单来说，JUnit 5 中定义了许多扩展点，每个扩展点都对应一个接口。你自己的扩展可以实现其中的某些接口，然后通过 `@ExtendWith` 注解注册给 JUnit 即可。JUnit 会在特定的时间点调用你的接口实现。
+还记得 [拓展点][JUnit 5: Extension Model] 一节讲的内容吗？不记得了？好吧，简单来说，JUnit 5 中定义了许多扩展点，每个扩展点都对应一个接口。你自己的扩展可以实现其中的某些接口，然后通过 `@ExtendWith` 注解注册给 JUnit，后者会在特定的时间点调用你的接口实现。
 
-要实现条件测试，你需要关注其中的两个扩展点： `ContainerExecutionCondition` 和 `TestExecutionCondition` 。
+要实现条件测试，你需要关注其中的两个扩展点： `ContainerExecutionCondition` （容器执行条件）和 `TestExecutionCondition` （测试执行条件）。
 
 ```java
 public interface ContainerExecutionCondition extends Extension {
@@ -86,17 +86,17 @@ public interface TestExecutionCondition extends Extension {
 }
 ```
 
-`ContainerExecutionCondition`「译者注：容器执行条件」接口决定了容器中的测试是否会被执行。通常情况下，你使用 `@Test` 注解来标记测试，这种场景下测试所在的类就是容器。此时，单独的测试方法是否执行则是由 `TestExecutionCondition` 「译者注：测试执行条件」接口决定的。
+`ContainerExecutionCondition` 接口将决定容器中的测试是否会被执行。通常情况下，你使用 `@Test` 注解来标记测试，此时测试所在的类就是容器。同时，单独的测试方法是否执行则是由 `TestExecutionCondition` 接口决定的。
 
-（这里，我说的是“通常情况下”，因为其他 [测试引擎]() 可以自己对容器和测试有截然不同的定义。最常见的情形下，类就是容器，方法是测试。）
+（这里，我说的是“通常情况下”，因为其他[测试引擎][JUnit 5: Architecture]可能对容器和测试有截然不同的定义。但一般情况下，测试就是单个的方法，容器指的就是测试类。）
 
-嗯，这就是条件测试的基本所有知识了。想实现条件测试，至少需要实现以上两个接口中的一个，并实现接口中的 `evalute` 方法，在里面执行自己的检查。
+嗯，基本知识就这么多。想实现条件测试，至少需要实现以上两个接口中的一个，并在接口的 `evalute` 方法中执行自己的条件检查。
 
-## @Disabled 注解
+## 动手实现一个@Disabled 注解
 
-The easiest condition is one that is not even evaluated: We simply always disable the test if our hand-crafted annotation is present.
+最简单的“条件”就是判断都没有，直接禁用测试。如果在方法上发现了 `@Disabled` 注解，我们就直接禁用该测试。
 
-让我们来写一个 `@Disabled` 注解：
+让我们来写一个这样的 `@Disabled` 注解吧：
 
 ```java
 @Target({ ElementType.TYPE, ElementType.METHOD })
@@ -141,20 +141,20 @@ public class DisabledCondition
 }
 ```
 
-小菜一碟吧？在 JUnit [真实的产品代码]()中，`@Disabled` 也是这么[实现的]()，除了两个地方有一些细微的差别：
+写起来小菜一碟吧？在 JUnit [真实的产品代码](https://github.com/junit-team/junit5/blob/9e846af07b1941c50f34da733584b9d0664ec968/junit5-engine/src/main/java/org/junit/gen5/engine/junit5/extension/DisabledCondition.java)中，`@Disabled` 也是这么[实现的](https://github.com/junit-team/junit5/blob/9e846af07b1941c50f34da733584b9d0664ec968/junit5-engine/src/main/java/org/junit/gen5/engine/junit5/extension/DisabledCondition.java)。不过，有两个地方有一些细微的差别：
 
-* The official annotation does not need to carry its own extension with it because it is registered by default.
-* 官方注解可以接收一个参数，解释测试被忽略的理由。它会在测试被忽略时被记录下来
+* 官方 `@Disabled` 注解不需要再使用 `@ExtendWith` 注册扩展，因为它是默认注册了的
+* 官方 `@Disabled` 注解可以接收一个参数，解释测试被忽略的理由。它会在测试被忽略时被记录下来
 
-Small caveat (of course there’s one, what did you think?)： `AnnotationUtils` 是个内部API，but it is likely that its functionality will be [officially available soon]()。
+使用时请注意，`AnnotationUtils` 是个内部 API。不过，官方[可能很快](https://github.com/junit-team/junit5/issues/246)就会将它提供的功能给[开放出来](https://github.com/junit-team/junit5/issues/246)。
 
 接下来让我们写点更有意思的东西吧。
 
-### @DisabledOnOs
+## @DisabledOnOs
 
-也许有些测试我们只想在特定的操作系统上面运行。
+如果有些测试我们只想让它在特定的操作系统上面运行，这个要怎么实现呢？
 
-#### 一种简单的方式
+### 一种简单的实现方式
 
 当然，我们还是从注解开始咯：
 
@@ -169,9 +169,9 @@ public @interface DisabledOnOs {
 }
 ```
 
-这回注解需要接收一个或多个参数值了，你需要告诉它哪些操作系统是你想禁用测试的。 `OS` 是个枚举类，定义了每个操作系统的名字。同时，它还提供了一个静态的 `static OS determine()` 方法，你可能已经从名字猜到了，它会推断并返回你当前所用的操作系统。
+这回注解需要接收一个或多个参数值，你需要告诉它想禁用测试的操作系统有哪些。 `OS` 是个枚举类，定义了所有操作系统的名字。同时，它还提供了一个静态的 `static OS determine()` 方法，你可能已经从名字猜到了，它会推断并返回你当前所用的操作系统。
 
-现在我们可以着手实现 `OsCondition` 扩展类了。它必须检查两点：注解是否存在，以及当前操作系统是否存在于注解提供的禁用列表中。
+现在我们可以着手实现 `OsCondition` 扩展类了。它必须检查两点：注解是否存在，以及当前操作系统是否在注解声明的禁用列表中。
 
 ```java
 public class OsCondition 
@@ -203,7 +203,7 @@ public class OsCondition
 }
 ``` 
 
-然后，使用的时候，只需要这样使用：
+然后使用的时候就可以像这样：
 
 ```java
 @Test
@@ -215,9 +215,9 @@ void doesNotRunOnWindows() {
 
 棒。
 
-### Less ceremony
+### 更简洁的API
 
-但代码还可以写得更好！[JUnit 的注解是可组合的]()，基于这个前提我们可以让这个条件注解更易用：
+但代码还可以写得更好！[JUnit 的注解是可组合的](http://blog.codefx.org/design/architecture/junit-5-extension-model/#Custom-Annotations)，基于此我们可以让这个条件注解更简洁：
 
 ```java
 @TestExceptOnOs(OS.WINDOWS)
@@ -226,7 +226,7 @@ void doesNotRunOnWindowsEither() {
 }
 ```
 
-而实现 `@TestExceptionOnOs`  注解，如果能这样做就很好了：
+`@TestExceptionOnOs`完美的实现方案是这样的：
 
 ```java
 @Retention(RetentionPolicy.RUNTIME)
@@ -239,7 +239,7 @@ public @interface TestExceptOnOs {
 }
 ```
 
-测试实际运行时， `OsCondition::evaluateIfAnnotated` 方法中会扫描 `@DisabledOnOs` 注解的存在，然后我们的代码会进一步发现它又是对 `@TestExceptOnOs` 的注解。our logic would Just Work™。但我不知道如何在 `@DisabledOnOs` 注解中获取 `@TestExceptOnOs` 中提供的禁用操作系统列表值。:(（你能做到吗？）
+测试实际运行时， `OsCondition::evaluateIfAnnotated` 方法会扫描 `@DisabledOnOs` 注解，然后我们发现它又是对 `@TestExceptOnOs` 的注解，前面写的代码就可以如期工作了。但我不知道如何在 `@DisabledOnOs` 注解中获取 `@TestExceptOnOs` 中的`value()`值。:(（你能做到吗？）
 
 次佳的选择是，简单地在 `@TestExceptOnOs` 注解上直接声明应用的扩展就可以了：
 
@@ -254,7 +254,7 @@ public @interface TestExceptOnOs {
 }
 ```
 
-然后直接把 `OsCondition:evaluateIfAnnotated` 方法拉过来改改就是了：
+然后直接把 `OsCondition:evaluateIfAnnotated` 方法拉过来改改即可：
 
 ```java
 private ConditionEvaluationResult evaluateIfAnnotated(
@@ -275,9 +275,9 @@ private ConditionEvaluationResult evaluateIfAnnotated(
 
 收工。现在我们可以如期使用这个注解了。
 
-### 润色代码
+### 代码重构
 
-我们还需要创建一个意义刚好相反的注解（即现在变为，当前操作系统不在提供列表时，才禁用测试），工作是类似的，但是我们注解名会更表意，再加入静态导入后，我们的代码最终可以整理成这样：
+我们还需要创建一个意义刚好相反的注解（即现在变为，当前操作系统不在提供列表时，才禁用测试），工作是类似的，但是注解名会更表意，再加入静态导入后，我们的代码最终可以整理成这样：
 
 ```java
 @TestOn(WINDOWS)
@@ -290,15 +290,17 @@ void doesNotRunOnWindoesEither() {
 
 ![](http://7xqu8w.com1.z0.glb.clouddn.com/junit-5-conditions.jpg)
 
-## `@DisabledIfTestFails` 
+「译者注：英文中condition有多个意思：“条件；空调”。作者这里配图取双关」
 
-我们再考虑一种场景——我保证这次可以接触更有意思的东西！假设现在有许多（集成）测试，我们希望，如果其中的一个抛出了特定的异常并且失败了的话，其他测试也会一起挂掉。为了节省时间，我们希望这种情况下其他测试会直接被禁用掉。
+## @DisabledIfTestFails
 
-那么我们需要做些什么工作呢？首先第一反应不难想到，我们 必须先能捕获测试执行过程抛出的异常。这肯定需要在一个测试类的生命周期中进行处理，否则就可能因为其他测试类中抛出的异常而影响到了本测试类的运行。其次，我们需要一个实现一个条件：它会检查某个特定的异常是否已被抛出过，若是，禁用当前测试。
+我们再考虑一种场景——我保证这次可以接触更有意思的东西！假设现在有许多（集成）测试，如果其中有一个抛出了特定的异常而失败，那么其他测试也必须会挂。为了节省时间，我们希望在这种情况下直接禁用掉其他的测试。
+
+那么我们需要做些什么工作呢？首先第一反应不难想到，我们 必须先能收集测试执行过程抛出的异常。这肯定需要在单个测试类级别的生命周期中进行处理，否则就可能因为其他测试类中抛出的异常而影响到本测试类的运行。其次，我们需要一个实现一个条件：它会检查某个特定的异常是否已被抛出过，若是，禁用当前测试。
 
 ### 异常收集
 
-翻阅一下文档中提供的 [扩展点列表]()，不难发现有一项“异常处理”。看起来就是我们想要的东西：
+翻阅一下文档中提供的 [扩展点列表](http://blog.codefx.org/design/architecture/junit-5-extension-model/#Extension-Points)，不难发现有一项“异常处理”，看起来就是我们想要的东西：
 
 ```java
 /**
@@ -324,17 +326,17 @@ public interface TestExecutionExceptionHandler extends ExtensionPoint {
 }
 ```
 
-读完发现，我们的任务就是实现 `handleException` 方法，接收并重新抛出异常。
+读完发现，我们的任务就是实现 `handleException` 方法，存储起接收到的异常并重新抛出。
 
 你可能还记得我提过的关于扩展点和无状态的一些结论：
 
 > 引擎对扩展实例的初始化时间、实例的生存时间未作出任何规约和保证，因此，扩展必须是无状态的。如果一个扩展需要维持任何状态信息，那么它必须使用 JUnit 提供的一个仓库（store）来进行信息读取和写入。
 
-看来我们是必须使用这个 store 了。store 其实就是存放我们希望保存的一些东西，一个带索引的资源集合。它可以在扩展上下文对象中取得，后者会被传给大多数扩展点接口方法作为参数。不过需要注意的是，每个不同的上下文对象都有自己一个独立的 store，所以我们还必须决定使用哪个 store。
+看来我们是必须使用这个 store 了。store 其实就是存放我们希望保存的一些东西，一个可索引的资源集合。它可以在扩展上下文对象中取得，后者会被传给大多数扩展点接口方法作为参数。不过需要注意的是，每个不同的上下文对象都有自己一个独立的 store，所以我们还必须决定使用哪个 store。
 
-我们有一个测试方法级的上下文对象（`TestExtensionContext`） 和一个测试类级别的上下文对象（`ContainerExtensionContext`）。还记得我们的需求吗？保存一个测试类中任何测试方法所抛出的异常，仅此而已。也即，我们不会保存其他测试类中抛出的异常。这样一来，容器级别的上下文 `ContainerExtensionContext` 其实刚好就是我们需要的了。
+每个测试方法有一个自己的上下文对象（`TestExtensionContext`），同时，测试类也有一个自己的上下文对象（`ContainerExtensionContext`）。还记得我们的需求吗？保存测试类中任何测试方法可能抛出的异常，仅此而已。也即，我们不会保存其他测试类中抛出的异常。这样一来，容器级别的上下文 `ContainerExtensionContext` 刚好就是我们需要的了。
 
-接下来，我们就可以使用这个容器上下文，通过它来存储所有测试过程抛出的异常了：
+接下来，我们可以使用这个容器上下文，通过它来存储所有测试过程抛出的异常：
 
 ```java
 private static final Namespece NAMESPACE = Namespace
@@ -362,8 +364,104 @@ private static Optional<ExtensionContext> getAncestorContainerContext(
 }
 ```
 
+现在存储一个异常就非常简单了：
 
+```java
+@Override
+public void handleException(TestExtensionContext context, Throwable throwable) 
+        throws Throwable {
+    if (throwable instanceof Exception) {
+        getThrown(context).add((Exception) throwable);
+    throw throwable;
+```
 
+有意思的是，这个扩展还是自扩展的，没准还可以用来做数据统计呢「译者注：这句不太理解，原文 This is actually an interesting extension of its own. Maybe it could be used for analytics as well.」。不管怎样，我们需要一个public方法来拿到已抛出的异常列表：
+
+```java
+public static Stream<Exception> getThrownExceptions(
+        ExtensionContext context) {
+    return getThrown(context).stream();
+}    
+```
+
+有了这个方法，其他的扩展就可以检查至今为止所抛出的异常列表了。
+
+### 禁用测试
+
+禁用测试的部分与前节所述十分类似，我们可以很快写出代码：
+
+```java
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+@ExtendWith(DisabledIfTestFailedCondition.class)
+public @interface DisabledIfTestFailedWith {
+
+    Class <? extends Exception>[] value() default {};
+
+}
+```
+
+注意，现在仅允许该注解被用在测试方法上。应用在测试类上也说得过去，不过我们现在先不把它复杂化。因此我们只需要实现接口`TestExecutionCondition`即可。我们先检查注解是否存在，若是，再拿到用户提供的异常类作为参数，调用 `disableIfExceptionWasThrown`。
+
+```java
+private ConditionEvaluationResult disableIfExceptionWasThrown(
+        TestExtensionContext context,
+        Class<? extends Exception>[] exceptions) {
+    return Arrays.stream(exceptions)
+            .filter(ex -> wasThrown(context, ex))
+            .findAny().
+            .map(thrown -> ConditionEvaluationResult.disabled(
+                    thrown.getSimpleName() + "was thrown."))
+            .orElseGet(() -> ConditionEvaluationResult.enabled(""));
+}
+
+private static boolean wasThrown(
+        TestExtensionContext context, Class<? extends Exception> exception) {
+    return CollectExceptionExtension.getThrownExceptions(context)
+            .map(Object::getClass)
+            .anyMatch(exception::isAssignableFrom);
+}    
+```
+
+### 集成
+
+至此为止需求完成。现在我们可以使用这个注解，在某个特定类型的异常抛出时禁用测试了：
+
+```java
+@CollectExceptions
+class DisabledIfFailsTest {
+    
+    private static boolean failedFirst = false;
+    
+    @Test
+    void throwException() {
+        System.out.println("I failed!");
+        failedFirst = true;
+        throw new RuntimeException();
+    }
+    
+    @Test
+    @DisabledIfTestFailedWith(RuntimeException.class)
+    void disableIfOtherFailedFirst() {
+        System.out.println("Nobody failed yet! (Right?)");
+        assertFalse(failedFirst);
+    }
+    
+}
+```
+
+## 回顾总结
+
+哇哦，本篇的代码还挺多的！不过相信到此你已经能完全理解怎么在 JUnit 5 中实现条件测试了：
+
+* 创建一个注解，并使用 `@ExtendWith` 注解它，然后提供你自己实现的条件类
+* 实现 `ContainerExecutionCondition` 或/和 `TestExecutionCondition`
+* 检查测试类上是否应用了你新创建的注解
+* 检查特定条件是否实现，并返回结果
+
+除此以外，我们还看到注解之间可以组合，学到如何使用 JUnit 提供的 store 来保存数据，以及一个扩展的实现，如何通过自定义注解的加入变得更加优雅。
+
+更多关于 ~~[旗帜](https://www.youtube.com/watch?v=_e8PGPrPlwA)~~ 扩展点的故事「译者注：原文为more fun with ~~flag~~ extension points，more fun with flags 是生活大爆炸中谢耳朵讲国旗的故事一部」，请参考下篇文章，我们会探讨关于参数注入的问题。
 
 ---
 
