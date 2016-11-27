@@ -7,81 +7,87 @@ title: 我是如何进行Spring MVC文档翻译项目的环境搭建、项目管
 
 > 感兴趣的同学可以关注这个[翻译项目](https://github.com/linesh-simplicity/translation-spring-mvc-4-documentation) 、 [我的博客原文](http://blog.linesh.tw/#/posts/2016-06-26-auto-deploy-translation-to-production-using-jenkins-and-qiniu) 和 [我的Github](https://github.com/linesh-simplicity)
 
-![](http://7xqu8w.com1.z0.glb.clouddn.com/spring-mvc-translation-project-final-representation.png "Final website of MVC translation project")
+![](http://7xqu8w.com1.z0.glb.clouddn.com/spring-mvc-translation-project-home-page-version-2.png "Final website of MVC translation project")
 
-前段时间翻译的Spring MVC官方文档完成了第一稿，相关的文章和仓库可以点击以下链接。这篇文章，主要是总结一下这个翻译项目自开始到上线发布，完整的一个生命流程。内容包括 **翻译环境搭建** 、**项目管理** 与 **自动化构建** 三部分。
-
-* [博客首页声明：Spring MVC官方文档翻译稿发布](http://blog.linesh.tw/#/posts/2016-06-23-spring-mvc-documentation-reference)
-* [托管在七牛上的翻译文档](http://mvc.linesh.tw)
-* [Github仓库](https://github.com/linesh-simplicity/translation-spring-mvc-4-documentation)
+前段时间翻译的 Spring MVC 官方文档完成了第一稿，具体的地址可以访问[这里](http://mvc.linesh.tw)。这篇文章主要是总结一下这个翻译项目自开始到上线发布一个完整的生命流程，内容包括**翻译环境搭建**、**项目管理**与**自动化构建**三部分。
 
 ## 环境搭建
 
-翻译与写作一样，首要之事均为专注于翻译/写作本身，而不考虑样式等方面。而章节之间的联系，自然也不想过多操心，这部分与样式一起，都可交由工具去处理。然后版本管理，不用说一定要上，后面也会看到github的生态圈使得它与其他工具做到了无缝集成。那么总结起来，我们需要的工具大体是：
+开始一个翻译项目，有多少事情需要我们去考虑呢？你可能会想到，一个好的编辑环境、一个组织文档章节的软件、一个漂亮的界面等……这些最终都是需要的。但是，不要忘记，最重要的出发点只有一个，就是**马上开始翻译**。工具、样式，在一开始的时候，我们希望它以轻盈的姿态出现在我们的面前，既要有最简单的 setup，又要在后面我们对项目进行管理、构建和自动化时有足够好的支持。
+
+慢着，你说文档翻译的工作需要管理我还能理解，毕竟它是一个项目嘛，项目需要管理，这我能理解。不过…一个翻译项目还需要构建？还需要自动化？有啥好构建的？不急，这部分我会在后面慢慢道来。现在，我们先来看看，为了得到一个最顺手的翻译环境，我们需要进行一些什么基本配置。
+
+开始翻译，我们希望直接进入内容本身，开始将一行行英文翻译成中文。这个是最核心的诉求。当然，也有一些其他的需求，比如章节间联系与组织、调调样式等。但我们不希望在开发（翻译）的时候将这些职责耦合进来，本着单一职责原则，我们把这些翻译以外的事务交给工具来处理。总结下来，一个趁手可扩展的环境应该包含：
 
 * markdown
-* markdown编辑器 Atom
-* 版本管理 Git
-* 代码托管平台 Github
-* 写书专用工具 Gitbook
-* HTML转markdown工具
+* 编辑器（Sublime/Atom 等）
+* 版本管理（Git）
+* 代码托管平台（Github）
+* 章节管理工具（Gitbook）
+
+markdown 让你的世界纯粹得只有翻译，相反你不会想在 Word 中一边翻译一边调行间距；Git 是持续集成之魂；Github 作为最大的平台提供了最丰富的资源；而 Gitbook 会帮你处理章节组织以及样式渲染，使得你可以快速开始。
 
 ### Markdown
 
-Markdown是一种近乎完美的写作标记语言，其最大的功劳便是将写作从内容中分离出来，这个分离使你只专注于写作内容本身，极大地提高了效率及工作愉悦度。没有markdown的话，会是怎样一种情况？想想HTML和写论文经常使用的word。你在HTML中为内容混入各种各样的样式，写论文时最痛苦的莫过于调样式（不过笔者当年写论文时通过Office Word的样式窗也是完美地解决了内容和格式的问题）。
+Markdown是一种近乎完美的写作标记语言，其最大的功劳便是将写作从内容中分离出来，这个分离使你只专注于写作内容本身而不需关注内容最终的样式，极大地提高了效率及工作愉悦度。反例是 Microsoft 的 Word，你不会想一边翻译，一边调整行间距，然后接着翻译，翻了几段以后又移动鼠标将小节的标题加粗。如此往复，不仅翻译的这个思考过程（mindset）被打断，整个精神和注意力也无法集中，效率与质量也就可想而知了。
 
 比如说，上面这段文字在markdown中写出来是这样的：
 
 ```
 ## 环境搭建
 
-翻译与写作一样，首要之事均为专注于翻译/写作本身，而不考虑样式等方面。而章节之间的联系，自然也不想过多操心，这部分与样式一起，都可交由工具去处理。然后版本管理，不用说一定要上，后面也会看到github的生态圈使得它与其他工具做到了无缝集成。那么总结起来，我们需要的工具大体是：
+……本着单一职责原则，我们把这些翻译以外的事物交给工具来处理。总结下来，一个趁手可扩展的环境应该包含：
 
 * markdown
-* markdown编辑器 Atom
-* 版本管理 Git
-* 代码托管平台 Github
-* 写书专用工具 Gitbook
-* HTML转markdown工具
+* 编辑器（ Sublime/Atom 等）
+* 版本管理（Git）
+* 代码托管平台（Github）
+* 章节管理工具（Gitbook）
+
+专注于内容之所以能提高效率，因为它将翻译与写作从样式中解放了出来。你不想在 Word 中一边翻译一边调行间距。Git 是持续集成之魂……
 ```
 
-说起来markdown这个名字也有点意思，一般的标记语言叫markup language。这里将up改成down，寓意着将标记语言中与内容本身无关的标记全部剔除，形成一个精简子集。本篇不是markdown用法记，所以更多的语法请自行~~百度~~Google。我这里可以提供几个链接：
+说起来markdown这个名字也有点意思，一般的标记语言叫markup language。这里将up改成down，寓意着将标记语言中与内容本身无关的标记全部剔除，形成一个精简子集。本篇不是markdown用法记，不会详细介绍，具体可参考以下链接：
 
 * [Wikipedia: Markdown](https://en.wikipedia.org/wiki/Markdown)
 * [Markdown overview](https://daringfireball.net/projects/markdown/)
 * [Github上最有名的Markdown Cheat Sheet仓库](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
-### Markdown编辑器 Atom
+### Markdown编辑器
 
 ![](http://7xqu8w.com1.z0.glb.clouddn.com/atom-as-translation-project-editor.png "Use Atom as the translation project's editor")
 
-编辑器的选择并无定式，打造一个完全符合自己操作习惯的编辑器也是每个程序员应做的一个工作，这里我不赘述。在Mac上，不错的markdown编辑器有Sublime 3、Atom、MacDown、Mark Editor、Gitbook Editor、Mou等，可挑选适合自己的，我选择的是Atom，是因为有一个刚性的需求它能够满足：
+编辑器的选择并无定式，打造一个符合自己操作习惯的编辑器也是每个程序员自己的一个工作，这里我不赘述。在Mac上，不错的markdown编辑器有Sublime 3、Atom、MacDown、Mark Editor等，可挑选适合自己的，我选择的是Atom，是因为有一个刚性的需求它能够满足：
 
-* **与终端（terminal）的集成**。由于使用了版本管理，同时有时有拷贝文件、查看目录等需求，命令行肯定是必须随时在手的。终端方面我的选择是iTerm2+zsh，关于它们的配置和特性，可以查看博客的这两篇文章 [Mac优雅的工具集——iTerm2篇](http://blog.linesh.tw/#/posts/2016-03-11-elegant-mac-iterm2) 和 [Mac优雅的工具集——oh-my-zsh篇](http://blog.linesh.tw/#/posts/2016-03-13-elegant-mac-oh-my-zsh)。对如何在Mac上构建一个优雅的工具集有兴趣的同学，也可以前往Gitbook看看我正在写的这个系列：[关于优雅地使用Mac OS的理念、想法、工具与实践集](https://linesh.gitbooks.io/gitbook-elegant-mac-tools-system-closure/content/index.html)，不过还没写完就是了。
+* **与终端（terminal）的集成**
+
+由于使用了版本管理，同时有时有拷贝文件、查看目录等需求，命令行肯定是必须随时在手的。终端方面我的选择是iTerm2+zsh，关于它们的配置和特性，可以查看这两篇文章 [Mac优雅的工具集——iTerm2篇](http://blog.linesh.tw/#/posts/2016-03-11-elegant-mac-iterm2) 和 [Mac优雅的工具集——oh-my-zsh篇](http://blog.linesh.tw/#/posts/2016-03-13-elegant-mac-oh-my-zsh)。对如何在Mac上构建一个优雅的工具集有兴趣的同学，也可以前往Gitbook看看我正在写的这个系列：[关于优雅地使用Mac OS的理念、想法、工具与实践集](https://linesh.gitbooks.io/gitbook-elegant-mac-tools-system-closure/content/index.html)。
 
 ### 版本管理 Git
 
 ![](http://7xqu8w.com1.z0.glb.clouddn.com/git-logo.png "Git Logo")
 
-Git作为版本管理的意义也不赘言。你肯定不想自己的工作区最后变成这样：
+Git作为版本管理的意义也不赘言，要做持续集成、版本回滚必须要有一个 vcs。你肯定不想自己的工作区最后变成这样：
 
 ![](http://7xqu8w.com1.z0.glb.clouddn.com/word-as-version-manager.jpeg "Word As version control will suck")
 
-同样本小节也不是Git入门的命令集，这部分请自行查阅学习。当然我还是可以给出一些链接，虽然没有太多的意义~~我真的不知道为什么我还要给~~。基本的几个命令能熟悉就可以满足日常的需要了。另外，zsh下的Git可以配一下 快捷键(alias) 和 自动补全，具体配置非常简单，可以来这篇文章[Mac优雅的工具集——oh-my-zsh篇](http://blog.linesh.tw/#/posts/2016-03-13-elegant-mac-oh-my-zsh)看一下最终的效果。
+对于 Git 还不是很熟悉的同学可以参考下面我给出的链接了解。另外，zsh下的Git可以配一下自动补全，加上它自带的 git 插件，相当于一个全球通用的 alias。具体配置非常简单，可以来[这里](http://blog.linesh.tw/#/posts/2016-03-13-elegant-mac-oh-my-zsh)看一下最终的效果。
 
 * [Git - 简易指南](http://www.bootcss.com/p/git-guide/)
+* [廖雪峰的官方网站：史上最浅显易懂的Git教程](http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/)
 * [A Visual Git Reference](http://marklodato.github.io/visual-git-guide/index-en.html)
-* [廖雪峰的官方网站：史上最浅显易懂的Git教程](http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/)~~这浮夸的标题收视率果然好~~
 
 ### 代码托管平台 Github
 
 ![](http://7xqu8w.com1.z0.glb.clouddn.com/github-homepage.png "Github Homepage")
 
-Github是 ~~世界上最大的同性交友平台~~ 目前最大 ~~我并无依据~~ 的代码托管平台，其生态圈之繁荣与力量令人震惊，几乎你需要的所有工具和资源都可以在上面找到。它与Git不是一个层级的概念 ~~`git=github.substring(0, 3)`~~ ，这部分请自行搜索。在这个平台上，我可以给翻译项目一个`README.md`文件，为阅读的人做简单的介绍以及引流，同时它可与CI（持续集成）、Gitbook等工具完美集成，其内置的issue、pull-request功能还能与Zenhub结合，直接当成trello来进行项目管理之用。相关的工具下一节会介绍。
+Github是 ~~世界上最大的同性交友平台~~ 一个代码托管平台，有着繁荣的生态圈和平台资源。在这个平台上，我可以给翻译项目一个`README.md`文件，为阅读的人做简单的介绍以及引流，同时它可与CI、Gitbook等工具完美集成，其内置的issue、pull-request功能还能与Zenhub结合，直接当成trello来进行项目管理之用。相关的工具下一节会介绍。
 
 ### 写书专用工具 Gitbook
 
-上文提到了翻译内容与样式的分离。实际上在这里样式这部分就是由Gitbook自带的渲染引擎来负责的。此外，Gitbook还能帮助你管理整个书的目录结构、章节生成、搜索、词汇表、站点构建与生成等，同时它也有丰富的插件生态。这一切只需要你进行少量的配置（其实，就只是在书的根目录下运行`gitbook init`命令，它会生成下图所示的一个目录结构），其低学习成本与高效益，使它成为了写书最易入门的趁手工具。
+上文提到了翻译内容与样式的分离。实际上在这里样式这部分就是由Gitbook自带的渲染引擎来负责的。此外，Gitbook还能帮助你管理整个书的目录结构、章节生成、搜索、词汇表、站点构建与生成等，同时它也有较为丰富的插件生态。这一切只需要你进行少量的配置。其低学习成本与高效益，使它成为了我进行翻译编排首先的工具。
+
+你只需要在书的根目录下运行`gitbook init`命令，它就会生成下图所示的一个目录结构：
 
 ```
 .
