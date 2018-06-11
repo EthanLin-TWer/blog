@@ -36,7 +36,7 @@ title: 「译」开发者是时候放弃敏捷了
 
 Now, many, perhaps most of these offerings are not bad things, at least for the enterprise. Organizations that try to improve usually do improve, and so even if “Agile” ideas are applied poorly, trying will almost always provide some benefits to the organization. The organization should at least get increased visibility into what’s going on, and that will often lead even the least enlightened management to make better decisions. That’s good, and I’m all for it.
 
-其实，这些服务很多（或许是几乎所有的服务）都不算太坏，至少对大企业来说并不坏。愿意做出尝试的企业往往都能得到确实的改善。即便 "Agile" ideas are applied poorly，勇于尝试本身多多少少都会为企业带来好处。至少企业对当前活动的可视化程度提高了，而可视化几乎总是能帮 管理 做出更好一些的决策。
+其实，这些服务很多（或许是几乎所有的服务）都不算太坏，至少对大企业来说并不坏。愿意做出尝试的企业往往都能得到确实的改善。即便 "Agile" ideas are applied poorly，勇于尝试本身多多少少都会为企业带来好处。至少企业对当前活动的可视化程度提高了，而可视化几乎总是能帮助哪怕最乏新意的管理层做出更好一些的决策。
 
 * 而这通常都能帮你做出更好的决策，哪怕你的项目管理毫无亮点可言
 * 这经常能在糟糕的管理方式下迸发出高明的决策。这是好事，我完全同意
@@ -49,7 +49,7 @@ Now, many, perhaps most of these offerings are not bad things, at least for the 
 * [ ] 「敏捷的核心被糟糕落地」，有这么讲的吗？
 * [ ] 尝试行为本身往往都会为组织带来或多或少的好处 -> 勇于尝试往往都会为组织带来或多或少的好处 -> 勇于尝试本身多多少少都会为企业带来好处/但尝试本身就是好的，它总会给组织带来或多或少的益处?
 * [ ] 那些如此尝试了的组织，至少能得到更好的可视化 / 组织应该至少能得到提高了的可视化程度 / 至少企业的可视化程度提高了 / 
-* [ ] 主干结构：「increased visibility... will often lead (adj.) management to make better decisions」。所以结构是，可视化至少能帮哪怕是最差的管理也做出没那么差一些的决策。
+* [ ] 主干结构：「increased visibility... will often lead (adj.) management to make better decisions」。所以结构是，可视化至少能帮哪怕是最差的管理也做出没那么差一些的决策。不过「帮管理」做决策并读不通，所以牺牲了一下译为「帮管理层」做决策
 * [ ] 这段原文讲得极好，然而译不出感觉 - 好多了
 
 ### Not so good for developers
@@ -58,12 +58,13 @@ Now, many, perhaps most of these offerings are not bad things, at least for the 
 
 The picture is not so attractive for developers, all the people engaged in actually building the products that the “Agile” enterprises are undertaking. When “Agile” ideas are applied poorly, they often lead to more interference with developers, less time to do the work, higher pressure, and demands to “go faster”. This is bad for the developers, and, ultimately, bad for the enterprise as well, because doing “Agile” poorly will result, more often than not, in far more defects and much slower progress than could be attained. Often, good developers leave such organizations, resulting in a less effective enterprise than prior to installing “Agile”.
 
-然而这幅宏伟愿景对于开发者而言就不是那么回事了，……。如果“敏捷”的思想被糟糕落地，一般会导致开发者受到更多的干扰，更少的工作时间，更大的压力，以及「更快开发」的要求。这对开发者来说很不好，而且最终也会损害企业，因为糟糕落地的“敏捷”更多时候只会比以前导致更多的缺陷，更慢的进度。一般好的开发者也会最终离开这样的组织，使得企业的效率比导入“敏捷”前来得更低。
+然而，对于开发者而言，对于所有为这些“敏捷”企业工作、实际参与产品开发的人而言，这宏伟愿景则不一定是那么回事了。When “敏捷” ideas 真的被 applied poorly，一般只会导致开发者受到更多的干扰，工作时间减少，压力变大，以及被要求「更快地开发」。这对开发者来说很不好，最终也会损害企业，因为 doing “敏捷” poorly 多数时候只会比以前带来更多的缺陷、导致更慢的开发进度。好的开发者最终也会离开这样的组织，这又使得企业的效率相比导入“敏捷”前降低许多。
 
-* attractive 怎么翻译呢
-* picture 怎么翻译呢
-* when agile ideas are applied poorly 怎么翻译呢
-* more interference, less time, higher pressure 要译出感觉啊
+* [x] picture 怎么翻译呢 - 上面那副「敏捷做得再差，只要引入就对企业多少有贡献」的 picture，感觉宏伟愿景的「宏伟」感觉欠缺了些。于是去了「宏伟」，仅留「愿景」
+* [x] attractive 怎么翻译呢 - 上面的 picture 非常吸引，但实际不是很吸引。译「名副其实」，感觉「其实」译到了，但无所谓「名」之存在。做的不如想的说的那么吸引，没那么好，管理层幻想呢，骗人呢。怎么译出这个 attractive 的感觉来了；译「不一定是那么回事」，是意译。另外，这部分被放在句子末尾，与整个句子的耦合度降低了，感觉灵活了
+* [x] not so attractive for developers, all the people … 后面能接一整个从句也是醉了。改换了一下语序，感觉语感比较好些了
+* [x] more interference, less time, higher pressure 要译出感觉啊 - less time, higher pressure 更少的时间来做工作，更大的压力 -> 工作时间减少、压力变大，句式改换，觉得还不错。
+* [ ] when agile ideas are applied poorly 是个串联上下的词语，怎么翻译呢？
 
 ### Safe, not SAFe
 
@@ -71,20 +72,27 @@ The picture is not so attractive for developers, all the people engaged in actua
 
 My thinking is taken from something Kent Beck said over a decade ago. I would like the world to be safe for developers. At my core, I am a developer, despite years of management, consulting, and writing. I worked with code earlier today, and do so every week if not daily. So it breaks my heart to see the ideas we wrote about in the Agile Manifesto used to make developers’ lives worse, instead of better. It also saddens me that the enterprise isn’t getting what it could out of the deal, but my main concern is for the people doing the work.
 
-这些思考主要来源于 Kent Beck 十几年前就说过的话。我希望世界对于开发者来说是安全的。我是一个开发者，尽管我也做过几年管理、咨询，以及写作。今早我还在写代码，并且每周都写代码（如果不是每天都写的话）。因此，这几年间每每看到我们在 *敏捷宣言* 中写下的这些思想不但没有提升开发者的工作环境，反而使他们更糟了的时候，我都觉得很心痛。对于大企业们没能如期获得应用敏捷本可获得的收益，我也很伤心，但我最关心的还是那些一线的开发者们。
+我的这些思考，Kent Beck 十几年前早就提到过。我一直希望开发者的工作环境可以是安全的。我一直以开发者自居，尽管我也做过几年管理、咨询和写作。今早我还在写代码，我每周都写——如果不是每天的话。因此这些年间，每每看到我们在 *敏捷宣言* 中写下的那些（优秀的）思想不仅没有让开发者的工作环境变得更好，反而使他们陷入了另一种苦海时，我总觉得十分心痛。对于大企业们没能得到本可获得的收益，我也很伤心，但我最关心的还是那些一线的开发者们。
+
+* [x] world 世界在这里是很突兀的。编程就编程，开发者就开发者，跟世界没什么关系的。很显然需要意译
+* [x] at my core - One of my most fundamental beliefs/personal commitments.
+* [x] main concern is for the people doing the work。那些实际做着事的人，这样有味道，「一线的开发者」是意译了
 
 Over a period of years, I’ve heard from many developers who say that “Agile” sucks. (Usually they say that “Scrum” sucks, because most people in organizations trying to do “Agile” are in organizations trying to do Scrum.) I’ve tried to help those people understand that their organization is doing “Agile” wrong: they’re not doing what the Manifesto authors recommended, what Scrum recommends, what the many Agile Software Development experts recommend. My hope was that people within the sound of my voice would help themselves, and their organizations, move closer to the real ideas behind Manifesto Agile and away from the many forms of Faux Agile or Dark Agile that we see around us.
 
-过去十年间，我听到很多开发者在说，“敏捷”太垃圾了（一般他们是想说 “Scrum” 太垃圾，因为大多数人所在的公司，它们想做的“敏捷”其实是 Scrum）。我尝试过想让这些人了解，他们公司把“敏捷”都做错了：它们所做的其实与 *敏捷宣言* 的作者们所推荐的做法背道而驰，与 Scrum 所推荐的做法背道而驰，与 Agile Software Development 的专家们所推荐的做法也背道而驰。我希望的是，我所说的这些人，能够起来帮助自己——和你们的组织——向 *敏捷宣言* 真正的思想靠近一些，远离身边那些 *Faux Agile*、*黑暗敏捷* 的许多变种做法多一些。
+过去十年间，我听到很多开发者在说，“敏捷”太垃圾了（一般他们说的是 “Scrum” 太垃圾，因为大多数人所在的公司，它们想做的“敏捷”其实是 Scrum）。我尝试过想让这些人知道，他们公司把“敏捷”都做错了：它们所做的其实与 *敏捷宣言* 的作者们所推荐的做法背道而驰，与 Scrum 所推荐的做法背道而驰，与 Agile Software Development 的专家们所推荐的做法也背道而驰。我希望的是，我所说的这些人，能够起来帮助自己，帮助你们的公司：向 *Manifesto 敏捷* 背后真正的思想靠近一些，离身边那些假敏捷、*黑暗敏捷* 及其许多的变种做法远一些。
 
-* most people in organizations trying to do 'Agile' are in organizations trying to do Scrum
+* [x] most people in organizations trying to do 'Agile' are in organizations trying to do Scrum - 大多数人所在的公司，它们想做的「敏捷」其实是 Scrum 这个译法好不好
+* [x] ... they are doing wrong: they're not doing what the ... recommend。为了译三个 recommend 的排比，一是调整了句式，把真正排比的 xxx recommends 重点部分，调整成了中文的 与 xxx 推荐的背道而驰，实际在原文中 「not（背道而驰）」这个含义没有参与显式排比；二是「与…所推荐的做法背道而驰」这个点重复了三次，似乎有点逻辑。但读起来，还是得到了这个排比所需要的一种语感。不知道这个取舍实际效果如何？
+* [ ] 作者后文说用 manifesto agile 来指代真敏捷，前后呼应的， 这个地方待全局统一翻译一下
 
 That’s not really working out. Efforts like “Advanced” Scrum training and certifications, and leadership-focused efforts are good, and may bear fruit over time, but they will proceed at best slowly and may never really filter down to the poor developers in the “Code Mines of Ohio”.
 
-光靠培训是不行的。那些「高级」Scrum 培训、Scrum 证书，那些培养敏捷领导力的做法和想法是好的，可能最终也能开花结果，但这一般是个长期的过程，并且有可能最终都没法到达底下那些可怜的、还受着敏捷苦楚的开发者。
+光靠培训是不行的。搞那些「高级」Scrum 培训、Scrum 证书，以及领导力培训的做法和想法是好的，最终可能也会开花结果，但这一定是个长期的过程，并且可能最终都无法解救到底层那些可怜的开发者，那些 code mines of ohio。
 
-* that's not really working out 的 that 指的是什么？
-* may never really filter down to the poor developers。。。这句很好，没翻出感觉
+* [x] that's not really working out 的 that 指的是什么？就译为「培训」：「光靠培训是不行的」这样我觉得不错
+* [x] may never really filter down to the poor developers。。。这句很好，没翻出感觉 - 现在有点感觉了。
+* [ ] code mines of Ohio 是什么意思？
 
 It’s time to try something new, and here it is:
 
