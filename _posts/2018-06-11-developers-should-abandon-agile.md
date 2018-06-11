@@ -36,12 +36,21 @@ title: 「译」开发者是时候放弃敏捷了
 
 Now, many, perhaps most of these offerings are not bad things, at least for the enterprise. Organizations that try to improve usually do improve, and so even if “Agile” ideas are applied poorly, trying will almost always provide some benefits to the organization. The organization should at least get increased visibility into what’s going on, and that will often lead even the least enlightened management to make better decisions. That’s good, and I’m all for it.
 
-其实，很多…或许是几乎所有的这些服务并非坏事，至少对于大企业来说是有益的。尝试做出改进的大组织通常都能得到确实的改善。即便“敏捷”的核心其实是被糟糕落地的，尝试行为本身往往都会为组织带来或多或少的好处。那些如此尝试了的组织，至少能得到更好的可视化，而这通常都能帮你做出更好的决策，哪怕你的项目管理毫无亮点可言。
+其实，这些服务很多（或许是几乎所有的服务）都不算太坏，至少对大企业来说并不坏。愿意做出尝试的企业往往都能得到确实的改善。即便 "Agile" ideas are applied poorly，勇于尝试本身多多少少都会为企业带来好处。至少企业对当前活动的可视化程度提高了，而可视化几乎总是能帮 管理 做出更好一些的决策。
 
-尝试改进的组织一般都能得到改进（求仁得仁），因此，即便敏捷思想其实落地得很糟糕，但尝试本身就是好的，它总会给组织带来或多或少的益处。（什么）组织应该至少能得到提高了的可视化程度，into 发生了什么事情，这通常都能促使你做出更好的决策，哪怕你的管理流程本身可能毫无亮点可言。
+* 而这通常都能帮你做出更好的决策，哪怕你的项目管理毫无亮点可言
+* 这经常能在糟糕的管理方式下迸发出高明的决策。这是好事，我完全同意
+* 这通常都能促使你做出更好的决策，哪怕你的管理流程本身可能毫无亮点可言
 
-* 这个 good for 要译得简练。「对。。。是好的」太冗长
-* 这段原文讲得极好，然而译不出感觉
+* [ ] 记得木心在「巴哈的咳嗽曲」中提到括号的引用法，说像是古典音乐会现场，一段低低的小号旁白。这种感觉，并且一印就要全引。所以我在想，now, many, perhaps #main-topic 这个句式，是不是也可以不停顿，直接用括号译出来
+* [ ] 这个 good for 要译得简练。「对。。。是好的」太冗长 - 但你又不能说「」，需要保留一丝「陈述」的语气？
+* [x] 「服务并非坏事」，有这么讲的吗？服务并非不好 - 服务都不算不好 - 服务都不算太坏
+* [x] try to do A usually get A, because try will almost do good。这个句子结构中，A 并不是重要的，重要的是 try 这个事情一定会带来好处，所以才能 try A 得 A，try B 得 B。因此，译文应当强化「try」，弱化「improve」
+* [ ] 「敏捷的核心被糟糕落地」，有这么讲的吗？
+* [ ] 尝试行为本身往往都会为组织带来或多或少的好处 -> 勇于尝试往往都会为组织带来或多或少的好处 -> 勇于尝试本身多多少少都会为企业带来好处/但尝试本身就是好的，它总会给组织带来或多或少的益处?
+* [ ] 那些如此尝试了的组织，至少能得到更好的可视化 / 组织应该至少能得到提高了的可视化程度 / 至少企业的可视化程度提高了 / 
+* [ ] 主干结构：「increased visibility... will often lead (adj.) management to make better decisions」。所以结构是，可视化至少能帮哪怕是最差的管理也做出没那么差一些的决策。
+* [ ] 这段原文讲得极好，然而译不出感觉 - 好多了
 
 ### Not so good for developers
 
