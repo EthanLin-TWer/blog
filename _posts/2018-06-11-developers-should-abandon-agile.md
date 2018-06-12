@@ -106,9 +106,9 @@ Mind you, developers will continue to find themselves working under Scrum condit
 
 Mind you 啥意思？？有些人可能会遇到一些让人费解的“敏捷”，比如 DAD 等；幸运一点的可能遇到一些好点儿的，比如「现代敏捷」、「敏捷之心」等。更幸运一点的呢遇到了极限编程——也被称为「那种真正有用的 Scrum」。
 
-* 这篇文章很重要的一个亮点，在于用双引号括起来的敏捷，不是真正的敏捷。很有一种道可道非常道的感觉，很有一种「如来非如来，是名如来」的二元对立破除的过程。
-* 这里要查一下 DAD 这些是什么
-* modern agile 翻出来就走味儿了呢
+* [ ] 这篇文章很重要的一个亮点，在于用双引号括起来的敏捷，不是真正的敏捷。很有一种道可道非常道的感觉，很有一种「如来非如来，是名如来」的二元对立破除的过程。不过，标题是否需要把这个「所谓的」译出来？还是只加个双引号也是够的？
+* [ ] 这里要查一下 DAD 这些是什么
+* [ ] modern agile 翻出来就走味儿了呢
 
 ### Detach from named methods
 
@@ -116,7 +116,7 @@ Mind you 啥意思？？有些人可能会遇到一些让人费解的“敏捷�
 
 Be that as it may, I believe that developers should detach their thinking from any particular named “Agile” method. Instead, they should turn their attention and learning to ways of doing software development that will work within any of those “Agile” methods. Those development approaches, to me, involve use of practices such as, but not limited to, those of Extreme Programming. More generally, developers’ work should adhere to the foundational principles that support Agile Software Development, as we had in mind when we wrote the Manifesto. Today, I’d summarize the ideas this way:
 
-be that as it may，我认为开发者应该有独立的思考，而不应执着于任何“敏捷”的方法论本身。他们应该将注意力转移到正确的软件开发方法——那些放诸任何“敏捷”实践上都能有效工作的开发方法上。这些编程实践，对我而言， involve use of practices such as but not limited to，也意味着合理应用极限编程的实践。或者这么说，开发者应该遵循一些基本原则，这些基本原则是支撑敏捷软件开发的基石，也是我们当初编写敏捷宣言时想要表达的东西。今天，我将这样来表达这些基本原则：
+即便如此，我认为开发者应该有独立的思考，而不应执着于任何“敏捷”的方法实践本身。他们应该将注意力与学习方向转移到正确的软件开发方法上来——那些放诸任何“敏捷”实践上都能有效工作的开发方法。这些编程实践，对我而言， involve use of practices such as but not limited to，也意味着合理应用极限编程的实践。或者这么说，开发者应该遵循一些基本原则，这些基本原则是支撑敏捷软件开发的基石，也是我们当初编写敏捷宣言时想要表达的东西。今天，我将这样来表达这些基本原则：
 
 No matter what framework or method your management thinks they are applying, learn to work this way:
 
