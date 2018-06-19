@@ -1,7 +1,5 @@
-# Linesh's 的博客
+# 博客
 
-主要的想法见 [issues][]。
-
-This is a blog forked from the template here: https://github.com/aigarsdz/brume. I'm starting to write my own blog and probably will further rewrite it myself using angular or something.
+目前博客正在用 React 重写中，敬请期待。现在主要的想法、文章、讨论都会发到 [issues][]，可移步查看。
 
 [issues]: https://github.com/linesh-simplicity/linesh-simplicity.github.io/issues
