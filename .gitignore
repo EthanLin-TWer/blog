@@ -1,22 +1,6 @@
-# System File
-.DS_Store
-._.DS_Store
-
-# IDE Files
-# Sometimes I use Intellij for its' full-text search feature
+# IDE
 .idea
 
-# NPM Managed Packages
+# NPM
 node_modules
 npm-debug.log
-
-# Destination directory
-
-# Generated static site and files by jekyll
-_site
-.jekyll-metadata
-.sass-cache
-
-# Qiniu(shells, configurations)
-_images
-qiniu.sh
