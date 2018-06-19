@@ -2,7 +2,7 @@
 
 # the $1: .git/COMMIT_MSG is in the root folder
 commitMessage=$(cat "../../$1")
-validTechFormat="^(Revert[[:space:]]|\[(\#[0-9]{1,5}|TECH)\][[:space:]](🔧chore|♻️refactor|✅test|✨feature|🐛fix|📚docs|🚀performance|📝todo|🎨style):[[:space:]].*)"
+validTechFormat="^(Revert[[:space:]]|\[(\#[0-9]{1,5}|TECH)\][[:space:]](🔧chore|♻️refactor|✅test|✨feature|🐛fix|📚docs|🚀performance|📝todo|🎨style|🐛debug):[[:space:]].*)"
 validWritingFormat="^(Revert[[:space:]]|(🌞post|㊙draft):[[:space:]].*)"
 
 if [[ ! ${commitMessage} =~ $validTechFormat ]] && [[ ! ${commitMessage} =~ $validWritingFormat ]];
@@ -12,7 +12,7 @@ then
   echo "🔨💡🔐 技术类提交 🔪🔫💣"
   echo "  1. 提交信息应以 Github issue 卡号开头，使用尖括号 [] 括起，卡号可为1-5位数；如没有 issue 对应，使用 [TECH] 开头；"
   echo "  2. 卡号后必须带一空格"
-  echo "  3. 空格后必须带提交描述，描述类型必须为以下其中一种: 🔧chore, ♻️refactor, ✅test, ✨feature, 🐛fix, 📚docs, 🚀performance, 📝todo, 🎨style"
+  echo "  3. 空格后必须带提交描述，描述类型必须为以下其中一种: 🔧chore, ♻️refactor, ✅test, ✨feature, 🐛fix, 📚docs, 🚀performance, 📝todo, 🎨style, 🐛debug"
   echo "  4. 提交描述后必须带一冒号"
   echo "  5. 冒号后必须带一空格"
   echo "  6. 之后提交信息任写，要求提交信息总共在70个字符内"
