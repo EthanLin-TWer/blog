@@ -13,7 +13,8 @@
   "author": "Linesh",
   "license": "MIT",
   "devDependencies": {
-    "husky": "^1.0.0-rc.9"
+    "husky": "^1.0.0-rc.9",
+    "jest": "^23.1.0"
   },
   "husky": {
     "hooks": {
