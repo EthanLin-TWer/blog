@@ -11,5 +11,13 @@
     "blog"
   ],
   "author": "Linesh",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "^1.0.0-rc.9"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "./scripts/hooks/validate-commit-msg.sh ${HUSKY_GIT_PARAMS}"
+    }
+  }
 }
