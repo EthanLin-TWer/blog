@@ -1,6 +1,7 @@
 language: node_js
 node_js:
   - "node"
+  - "9"
 install:
   - cd src/react
   - npm ci
@@ -9,4 +10,4 @@ script:
   - npm test
 cache:
   directories:
-    - "src/react/node_modules"
+    - "node_modules"
