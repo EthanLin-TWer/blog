@@ -33,7 +33,7 @@ then
 fi;
 
 
-messageLength=`echo "${commitMessage}" | cat | wc -m | tr -d "[[:space:]]"`
+messageLength=`echo "${commitMessage}" | head -1 | cat | wc -m | tr -d "[[:space:]]"`
 if [[ ${messageLength} -gt 70 ]];
 then
   echo ""
