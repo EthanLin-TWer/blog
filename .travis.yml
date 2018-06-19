@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - "node"
+script:
+  - cd src/react && npm run lint
+  - cd src/react && npm test
+cache:
+  directories:
+    - "src/react/node_modules"
