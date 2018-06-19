@@ -4,6 +4,7 @@ node_js:
 install:
   - cd src/react && npm ci
 script:
+  - pwd
   - cd src/react && npm run lint
   - cd src/react && npm test
 cache:
