@@ -2,11 +2,11 @@ language: node_js
 node_js:
   - "node"
 install:
-  - cd src/react && npm ci
+  - cd src/react
+  - npm ci
 script:
-  - pwd
-  - cd src/react && npm run lint
-  - cd src/react && npm test
+  - npm run lint
+  - npm test
 cache:
   directories:
     - "src/react/node_modules"
