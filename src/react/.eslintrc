@@ -1,0 +1,28 @@
+{
+  "parser": "babel-eslint",
+  "plugins": ["prettier"],
+  "extends": [
+    "prettier",
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "env": {
+    "jest": true,
+    "node": true,
+    "es6": true
+  },
+  "globals":{
+    "__DEV__": true
+  },
+  "rules": {
+    "prettier/prettier": "error",
+    "lines-between-class-members": "error",
+    "no-empty": ["error", { "allowEmptyCatch": true }],
+    "no-useless-escape": "off",
+
+    "react/no-unescaped-entities": "off",
+    "react/no-deprecated": "off",
+    "react/display-name": "off",
+    "react/no-string-refs": "off"
+  }
+}

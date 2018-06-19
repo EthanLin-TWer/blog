@@ -4,6 +4,8 @@
   "description": "React version of Linesh's blog.",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint index.js app",
+    "lint:watch": "esw index.js app --watch",
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "test:ci": "npm test -- --coverage --verbose"
@@ -15,8 +17,15 @@
   "author": "Linesh",
   "license": "MIT",
   "devDependencies": {
+    "babel-eslint": "^8.2.3",
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-react": "^7.9.1",
+    "eslint-watch": "^3.1.5",
     "husky": "^1.0.0-rc.9",
-    "jest": "^23.1.0"
+    "jest": "^23.1.0",
+    "prettier": "^1.13.5"
   },
   "jest": {
     "testMatch": [
@@ -34,7 +43,9 @@
         "branches": 80
       }
     },
-    "coverageReporters": ["text"],
+    "coverageReporters": [
+      "text"
+    ],
     "coverageDirectory": "<rootDir>/coverage"
   },
   "husky": {
