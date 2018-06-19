@@ -1,0 +1,15 @@
+{
+  "name": "blog-react",
+  "version": "0.0.1",
+  "description": "React version of Linesh's blog.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "react",
+    "blog"
+  ],
+  "author": "Linesh",
+  "license": "MIT"
+}
