@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-# the $1: .git/COMMIT_MSG is in the root folder
-commitMessage=$(cat "../../$1")
+commitMessage=$(cat $1)
 validTechFormat="^(Revert[[:space:]]|\[(\#[0-9]{1,5}|TECH)\][[:space:]](🔧chore|♻️refactor|✅test|✨feature|🐛fix|📚docs|🚀performance|📝todo|🎨style|🐛debug):[[:space:]].*)"
 validWritingFormat="^(Revert[[:space:]]|(🌞post|㊙draft):[[:space:]].*)"
 

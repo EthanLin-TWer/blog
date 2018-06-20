@@ -23,7 +23,6 @@
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.9.1",
     "eslint-watch": "^3.1.5",
-    "husky": "^1.0.0-rc.9",
     "jest": "^23.1.0",
     "prettier": "^1.13.5"
   },
@@ -47,10 +46,5 @@
       "text"
     ],
     "coverageDirectory": "<rootDir>/coverage"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "./scripts/hooks/validate-commit-msg.sh ${HUSKY_GIT_PARAMS}"
-    }
   }
 }
