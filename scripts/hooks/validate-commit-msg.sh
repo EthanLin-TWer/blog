@@ -36,7 +36,7 @@ messageLength=`echo "${commitMessage}" | head -1 | cat | wc -m | tr -d "[[:space
 if [[ ${messageLength} -gt 70 ]];
 then
   echo ""
-  echo "😥😥😥 提交信息长度必须在70个字符之内。当前提交信息长度为：${messageLength} 😥😥😥"
+  echo "😢😢😢 提交信息长度必须在70个字符之内。当前提交信息长度为：${messageLength} 😢😢😢"
   exit 1
 fi
 
