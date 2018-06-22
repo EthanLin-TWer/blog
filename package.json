@@ -2,14 +2,49 @@
   "name": "blog-react",
   "version": "0.0.1",
   "description": "React version of Linesh's blog.",
-  "scripts": {},
   "keywords": [
     "blog"
   ],
   "author": "Linesh",
   "license": "MIT",
+  "scripts": {
+    "lint": "eslint index.js src/react",
+    "lint:watch": "esw index.js src/react --watch",
+    "test": "jest",
+    "test:watch": "npm test -- --watch",
+    "test:ci": "npm test -- --coverage --verbose"
+  },
   "devDependencies": {
+    "babel-eslint": "^8.2.3",
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-react": "^7.9.1",
+    "eslint-watch": "^3.1.5",
+    "jest": "^23.1.0",
+    "prettier": "^1.13.5",
     "husky": "^1.0.0-rc.9"
+  },
+  "jest": {
+    "testMatch": [
+      "<rootDir>/src/react/**/*.test.js"
+    ],
+    "verbose": false,
+    "collectCoverage": false,
+    "collectCoverageFrom": [
+      "<rootDir>/src/react/**/*.test.js"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 80,
+        "functions": 80,
+        "branches": 80
+      }
+    },
+    "coverageReporters": [
+      "text"
+    ],
+    "coverageDirectory": "<rootDir>/coverage/react"
   },
   "husky": {
     "hooks": {
