@@ -1,9 +1,10 @@
 {
-  "name": "blog-react",
+  "name": "My blog",
   "version": "0.0.1",
-  "description": "React version of Linesh's blog.",
+  "description": "My blog implemented in different tech stacks.",
   "keywords": [
-    "blog"
+    "blog",
+    "react"
   ],
   "author": "Linesh",
   "license": "MIT",
