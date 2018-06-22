@@ -25,6 +25,12 @@
     "prettier": "^1.13.5",
     "husky": "^1.0.0-rc.9"
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "./scripts/hooks/validate-commit-msg.sh ${HUSKY_GIT_PARAMS}",
+      "pre-commit": "./scripts/hooks/pre-commit.sh"
+    }
+  },
   "jest": {
     "testMatch": [
       "<rootDir>/src/react/**/*.test.js"
@@ -45,11 +51,5 @@
       "text"
     ],
     "coverageDirectory": "<rootDir>/coverage/react"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "./scripts/hooks/validate-commit-msg.sh ${HUSKY_GIT_PARAMS}",
-      "pre-commit": "./scripts/hooks/pre-commit.sh"
-    }
   }
 }
