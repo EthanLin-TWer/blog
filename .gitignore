@@ -5,5 +5,8 @@
 node_modules
 npm-debug.log
 
+# Dist
+dist
+
 # Coverage
-coverage/
+coverage

@@ -14,11 +14,13 @@
     "lint:watch": "esw index.js src/react --watch",
     "test": "jest",
     "test:watch": "npm test -- --watch",
-    "test:ci": "npm test -- --coverage --verbose"
+    "test:ci": "npm test -- --coverage --verbose",
+    "build": "cd src/react && webpack --mode development --config webpack.config.js"
   },
   "devDependencies": {
     "babel-core": "^7.0.0-beta.3",
     "babel-eslint": "^8.2.3",
+    "babel-loader": "^7.1.4",
     "babel-preset-env": "^7.0.0-beta.3",
     "babel-preset-react": "^7.0.0-beta.3",
     "eslint": "^4.19.1",
