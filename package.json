@@ -1,6 +1,7 @@
 {
   "name": "linesh-blog",
   "version": "0.0.1",
+  "private": true,
   "description": "My blog implemented in different tech stacks.",
   "keywords": [
     "blog",
@@ -27,7 +28,9 @@
     "eslint-watch": "^3.1.5",
     "husky": "^1.0.0-rc.9",
     "jest": "^23.1.0",
-    "prettier": "^1.13.5"
+    "prettier": "^1.13.5",
+    "webpack": "^4.12.1",
+    "webpack-cli": "^3.0.8"
   },
   "dependencies": {
     "react": "^16.4.1",
