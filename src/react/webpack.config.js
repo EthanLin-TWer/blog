@@ -1,5 +1,13 @@
 const path = require('path')
 
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+
+const HtmlPlugin = new HtmlWebpackPlugin({
+  // TODO: [Linesh][2018/6/24] bad smell: template is relative to src/react, yet filename is relative to root
+  template: './index.html',
+  filename: './index.html',
+})
+
 module.exports = {
   entry: './index.js',
   output: {
@@ -19,4 +27,5 @@ module.exports = {
       },
     ],
   },
+  plugins: [HtmlPlugin],
 }
