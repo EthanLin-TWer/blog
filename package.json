@@ -16,21 +16,28 @@
     "test:ci": "npm test -- --coverage --verbose"
   },
   "devDependencies": {
+    "babel-core": "^7.0.0-beta.3",
     "babel-eslint": "^8.2.3",
+    "babel-preset-env": "^7.0.0-beta.3",
+    "babel-preset-react": "^7.0.0-beta.3",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.9.1",
     "eslint-watch": "^3.1.5",
+    "husky": "^1.0.0-rc.9",
     "jest": "^23.1.0",
-    "prettier": "^1.13.5",
-    "husky": "^1.0.0-rc.9"
+    "prettier": "^1.13.5"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "./scripts/hooks/validate-commit-msg.sh ${HUSKY_GIT_PARAMS}",
-      "pre-commit": "./scripts/hooks/pre-commit.sh"
-    }
+  "dependencies": {
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1"
+  },
+  "babel": {
+    "presets": [
+      "env",
+      "react"
+    ]
   },
   "jest": {
     "testMatch": [
@@ -53,8 +60,10 @@
     ],
     "coverageDirectory": "<rootDir>/coverage/react"
   },
-  "dependencies": {
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1"
+  "husky": {
+    "hooks": {
+      "commit-msg": "./scripts/hooks/validate-commit-msg.sh ${HUSKY_GIT_PARAMS}",
+      "pre-commit": "./scripts/hooks/pre-commit.sh"
+    }
   }
 }
