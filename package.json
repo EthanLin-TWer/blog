@@ -71,8 +71,9 @@
   },
   "husky": {
     "hooks": {
-      "commit-msg": "./scripts/hooks/validate-commit-msg.sh ${HUSKY_GIT_PARAMS}",
-      "pre-commit": "./scripts/hooks/pre-commit.sh"
+      "prepare-commit-msg": "./scripts/hooks/prepare-commit-msg.sh ${HUSKY_GIT_PARAMS}",
+      "pre-commit": "./scripts/hooks/pre-commit.sh",
+      "commit-msg": "./scripts/hooks/validate-commit-msg.sh ${HUSKY_GIT_PARAMS}"
     }
   }
 }
