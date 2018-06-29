@@ -8,5 +8,9 @@ npm-debug.log
 # Dist
 dist
 
+# umi
+.umi
+.umi-production
+
 # Coverage
 coverage
