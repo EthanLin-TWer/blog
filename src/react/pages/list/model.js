@@ -1,5 +1,7 @@
+import Features from '../features'
+
 export default {
-  namespace: 'list',
+  namespace: Features.BLOG_LIST,
   state: {
     data: 'different',
   },
