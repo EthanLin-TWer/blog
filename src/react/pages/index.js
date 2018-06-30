@@ -1,5 +1,15 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { connect } from 'dva'
 
-const MainPage = () => <div>something</div>
+const mapStateToProps = (store) => ({
+  data: store.list.data,
+})
 
-export default MainPage
+const MainPage = ({ data = 'else' }) => <div>something {data}</div>
+
+MainPage.propTypes = {
+  data: PropTypes.string,
+}
+
+export default connect(mapStateToProps)(MainPage)
