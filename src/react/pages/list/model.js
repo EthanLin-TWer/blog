@@ -1,6 +1,7 @@
 import Immutable from 'seamless-immutable'
 
 import Features from '../features'
+import actions from './actions'
 import * as service from './service'
 
 export default {
@@ -18,12 +19,12 @@ export default {
   effects: {
     *fetchBlogList(action, { call, put }) {
       const { data } = yield call(service.fetchBlogList)
-      yield put({ type: 'saveBlogList', payload: { data } })
+      yield put(actions.saveBlogList(data))
     },
   },
   subscriptions: {
     setup({ dispatch }) {
-      dispatch({ type: 'fetchBlogList' })
+      dispatch(actions.fetchBlogList())
     },
   },
 }
