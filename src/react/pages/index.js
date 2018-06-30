@@ -1,7 +1,5 @@
 import React from 'react'
 
-const Index = () => <div>something</div>
+const MainPage = () => <div>something</div>
 
-Index.propTypes = {}
-
-export default Index
+export default MainPage
