@@ -1,19 +1,18 @@
+import Immutable from 'seamless-immutable'
+
 import Features from '../features'
 import * as service from './service'
 
 export default {
   namespace: Features.BLOG_LIST,
-  state: {
+  state: Immutable.from({
     data: '',
-  },
+  }),
   reducers: {
-    saveBlogList(
-      state,
-      {
-        payload: { data },
-      }
-    ) {
-      return { ...state, data: data }
+    saveBlogList(state, action) {
+      return state.merge({
+        data: action.payload.data,
+      })
     },
   },
   effects: {
