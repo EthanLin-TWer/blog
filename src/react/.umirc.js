@@ -4,7 +4,7 @@ export default {
     [
       'umi-plugin-routes',
       {
-        exclude: [/model\.js$/],
+        exclude: [/model/],
       },
     ],
   ],
