@@ -12,6 +12,7 @@
   "scripts": {
     "lint": "eslint index.js src/react",
     "lint:watch": "esw index.js src/react --watch",
+    "lint:fix": "npm run lint -- --fix",
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "test:ci": "npm test -- --coverage --verbose",
@@ -25,6 +26,7 @@
     "babel-eslint": "^8.2.3",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.9.1",
     "eslint-watch": "^3.1.5",

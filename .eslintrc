@@ -1,6 +1,6 @@
 {
   "parser": "babel-eslint",
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "import"],
   "extends": [
     "prettier",
     "eslint:recommended",
@@ -17,6 +17,10 @@
   },
   "rules": {
     "prettier/prettier": "error",
+    "import/order": ["error", {
+      "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+      "newlines-between": "always"
+    }],
     "lines-between-class-members": "error",
     "no-empty": ["error", { "allowEmptyCatch": true }],
     "no-useless-escape": "off",
