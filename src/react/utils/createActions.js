@@ -1,14 +1,14 @@
 import { createAction } from 'redux-actions'
 
-const objProxy = {}
-
 export const createActions = (actions) => {
-  Object.keys(actions).forEach((action) => {
-    if (typeof actions[action] !== 'function') return
+  const objProxy = {}
 
-    objProxy[action] = createAction(action, actions[action].bind(objProxy))
-    objProxy[action].toString = () => action
-  })
+  Object.keys(actions)
+    .filter((action) => typeof actions[action] === 'function')
+    .forEach((action) => {
+      objProxy[action] = createAction(action, actions[action].bind(objProxy))
+      objProxy[action].toString = () => action
+    })
 
   return objProxy
 }
