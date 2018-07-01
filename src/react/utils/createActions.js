@@ -2,12 +2,12 @@ import { createAction } from 'redux-actions'
 
 const objProxy = {}
 
-export const createActions = (obj) => {
-  Object.keys(obj).forEach((e) => {
-    if (typeof obj[e] !== 'function') return
+export const createActions = (actions) => {
+  Object.keys(actions).forEach((action) => {
+    if (typeof actions[action] !== 'function') return
 
-    objProxy[e] = createAction(e, obj[e].bind(objProxy))
-    objProxy[e].toString = () => e
+    objProxy[action] = createAction(action, actions[action].bind(objProxy))
+    objProxy[action].toString = () => action
   })
 
   return objProxy
