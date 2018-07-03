@@ -8,7 +8,7 @@ import * as service from './service'
 export default {
   namespace: Features.BLOG_LIST,
   state: Immutable.from({
-    data: '',
+    data: [],
   }),
   reducers: {
     saveBlogList(state, action) {

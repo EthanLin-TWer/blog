@@ -3,13 +3,18 @@ import PropTypes from 'prop-types'
 import { connect } from 'dva'
 
 const mapStateToProps = (store) => ({
-  data: store.list.data,
+  blogs: store.list.data,
 })
 
-const BlogList = ({ data = 'else' }) => <div>something {data}</div>
+const BlogList = ({ blogs = [] }) => (
+  <div>
+    <p>welcome to my blog</p>
+    {blogs.map((blog) => <p key={blog.path}>{blog.name}</p>)}
+  </div>
+)
 
 BlogList.propTypes = {
-  data: PropTypes.string,
+  blogs: PropTypes.array,
 }
 
 export default connect(mapStateToProps)(BlogList)
