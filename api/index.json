@@ -1,0 +1,6 @@
+{
+  "people": [
+    { "name": "Linesh", "age": 18, "male": true },
+    { "name": "Kongju", "age": 17, "male": true }
+  ]
+}
