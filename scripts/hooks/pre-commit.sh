@@ -49,5 +49,10 @@ abortWhenTryingToCommitMoreThanOnePost() {
   fi
 }
 
+abortWhenLintOrTestsFail() {
+  npm run sanity
+}
+
 abortWhenTryingToCommitMoreThanOneDraft
 abortWhenTryingToCommitMoreThanOnePost
+abortWhenLintOrTestsFail

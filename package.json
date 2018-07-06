@@ -16,6 +16,7 @@
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "test:ci": "npm test -- --coverage --verbose",
+    "sanity": "npm run lint && npm test",
     "generate-meta-data": "node ./scripts/generate-posts-metadata.js",
     "start": "APP_ROOT=src/react umi dev",
     "build": "APP_ROOT=src/react umi build"
