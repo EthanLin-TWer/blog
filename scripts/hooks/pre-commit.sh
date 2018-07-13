@@ -49,10 +49,24 @@ abortWhenTryingToCommitMoreThanOnePost() {
   fi
 }
 
-abortWhenLintOrTestsFail() {
-  npm run sanity
+isTechnicalCommit() {
+  declare -a committingFiles=($(git diff --staged --name-only | cat))
+  for file in "${committingFiles[@]}"
+  do
+    if [[ ! ${file} =~ "_posts/" ]] && [[ ! ${file} =~ "_drafts/" ]]; then
+      return 0
+    fi
+  done
+
+  return 1
+}
+
+abortWhenSanityCheckFailsForTechnicalCommits() {
+  if isTechnicalCommit; then
+    npm run sanity
+  fi
 }
 
 abortWhenTryingToCommitMoreThanOneDraft
 abortWhenTryingToCommitMoreThanOnePost
-abortWhenLintOrTestsFail
+abortWhenSanityCheckFailsForTechnicalCommits
