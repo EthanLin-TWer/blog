@@ -24,6 +24,7 @@
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.41",
     "@babel/preset-env": "^7.0.0-beta.41",
+    "@babel/preset-react": "^7.0.0-beta.55",
     "babel-core": "^7.0.0-beta.41",
     "babel-eslint": "^8.2.3",
     "eslint": "^4.19.1",
@@ -50,7 +51,8 @@
   },
   "babel": {
     "presets": [
-      "@babel/preset-env"
+      "@babel/preset-env",
+      "@babel/preset-react"
     ]
   },
   "jest": {
@@ -60,7 +62,7 @@
     "verbose": false,
     "collectCoverage": false,
     "collectCoverageFrom": [
-      "<rootDir>/src/react/**/*.test.js"
+      "<rootDir>/src/react/**/*.js"
     ],
     "coverageThreshold": {
       "global": {
