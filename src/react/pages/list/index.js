@@ -2,10 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'dva'
 
-import Features from '../features'
-
 const mapStateToProps = (store) => ({
-  blogs: store[Features.BLOG_LIST].data,
+  blogs: store.list.data,
 })
 
 const BlogList = ({ blogs = [] }) => (
