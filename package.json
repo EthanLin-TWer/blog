@@ -20,7 +20,8 @@
     "generate-meta-data": "node ./scripts/generate-posts-metadata.js",
     "start": "APP_ROOT=src/react umi dev",
     "start:jekyll": "bundle exec jekyll serve --incremental --watch",
-    "build": "APP_ROOT=src/react umi build"
+    "build:react": "APP_ROOT=src/react umi build",
+    "deploy:react": "./scripts/deploy-react.sh"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.41",
