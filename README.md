@@ -2,6 +2,13 @@
 
 目前博客正在用 React 重写中，敬请期待。现在主要的想法、文章、讨论都会发到 [issues][]，可移步查看。
 
+## 开发 
+
+```bash
+npm i 
+npm start 
+```
+
 [issues]: https://github.com/linesh-simplicity/linesh-simplicity.github.io/issues
 [badges: travis ci]: https://img.shields.io/travis/linesh-simplicity/linesh-simplicity.github.io.svg?branch=master
 [links: travis ci]: https://travis-ci.org/linesh-simplicity/linesh-simplicity.github.io
