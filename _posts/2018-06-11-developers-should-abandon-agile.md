@@ -1,5 +1,4 @@
 ---
-layout: post
 category: 翻译
 tags: agile, tdd, manifesto
 title: 「译」开发者是时候放弃敏捷了

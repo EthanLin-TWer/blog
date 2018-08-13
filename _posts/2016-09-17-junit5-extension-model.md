@@ -1,5 +1,4 @@
 ---
-layout: post
 category: 翻译
 tags: JUnit 5, unit test
 title: 「译」JUnit 5 系列：扩展模型（Extension Model）

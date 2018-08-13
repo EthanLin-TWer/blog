@@ -1,5 +1,4 @@
 ---
-layout: post
 title: 说开去——项目的JavaScript模块化实践（上篇）
 ---
 

@@ -1,5 +1,4 @@
 ---
-layout: post
 tags: github, 七牛, jekyll, ci, gitbook, markdown
 categories: 翻译
 title: 我是如何进行Spring MVC文档翻译项目的环境搭建、项目管理及自动化构建工作的

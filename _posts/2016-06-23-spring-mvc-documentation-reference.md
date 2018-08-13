@@ -1,5 +1,4 @@
 ---
-layout: post
 description: 一份较完整的Spring MVC部分的翻译文档，请戳mvc.linesh.tw
 title: Spring MVC官方文档翻译稿发布
 ---

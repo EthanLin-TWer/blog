@@ -1,5 +1,4 @@
 ---
-layout: post
 title: TDD的迷思（二）：意义篇
 ---
 

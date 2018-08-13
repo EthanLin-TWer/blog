@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Git/Github使用小记
 ---
 

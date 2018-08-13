@@ -1,5 +1,4 @@
 ---
-layout: post
 title: 唯快不破——快速编码实践
 ---
 

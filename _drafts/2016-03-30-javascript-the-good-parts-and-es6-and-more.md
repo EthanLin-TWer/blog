@@ -1,5 +1,4 @@
 ---
-layout: post
 title: JavaScript语言精粹与ES6
 ---
 

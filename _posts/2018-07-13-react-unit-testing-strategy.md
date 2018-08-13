@@ -1,5 +1,4 @@
 ---
-layout: post
 tags: react unit-test tdd enzyme jest
 title: React 单元测试策略及落地
 ---

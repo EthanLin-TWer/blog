@@ -1,5 +1,4 @@
 ---
-layout: post
 title: Mac优雅的工具集——Intellij快捷键
 ---
 
