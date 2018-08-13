@@ -9,10 +9,11 @@ script:
   - npm run deploy:react
 deploy:
   provider: pages
+  local-dir: dist
+  keep-history: false
   skip-cleanup: true
   # Set in the settings page of your repository, as a secure variable
   github-token: $GITHUB_TOKEN
-  keep-history: false
   on:
     branch: master
 cache:

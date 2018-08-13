@@ -20,8 +20,6 @@ export default {
   effects: {
     *fetchBlogList(action, { call, put }) {
       const { data } = yield call(service.fetchBlogList)
-      console.log('-------- data --------')
-      console.log(data)
       yield put(actions.saveBlogList(data))
     },
   },
