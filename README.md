@@ -10,8 +10,8 @@ npm start
 ```
 
 [issues]: https://github.com/linesh-simplicity/linesh-simplicity.github.io/issues
-[badges: travis ci]: https://img.shields.io/travis/linesh-simplicity/linesh-simplicity.github.io.svg?branch=master
-[links: travis ci]: https://travis-ci.org/linesh-simplicity/linesh-simplicity.github.io
+[badges: travis ci]: https://img.shields.io/travis/linesh-simplicity/blog.svg?branch=master
+[links: travis ci]: https://travis-ci.org/linesh-simplicity/blog
 [badges: github issues open]: https://img.shields.io/github/issues/linesh-simplicity/linesh-simplicity.github.io.svg
 [links: github issues open]: https://github.com/linesh-simplicity/linesh-simplicity.github.io/issues?q=is%3Aissue+is%3Aopen
 [badges: github issues closed]: https://img.shields.io/github/issues-closed/linesh-simplicity/linesh-simplicity.github.io.svg
