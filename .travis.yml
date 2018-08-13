@@ -7,6 +7,14 @@ script:
   - npm run lint
   - npm test
   - npm run deploy:react
+deploy:
+  provider: pages
+  skip-cleanup: true
+  # Set in the settings page of your repository, as a secure variable
+  github-token: $GITHUB_TOKEN
+  keep-history: false
+  on:
+    branch: master
 cache:
   directories:
     - "node_modules"

@@ -21,7 +21,7 @@
     "start": "APP_ROOT=src/react umi dev",
     "start:jekyll": "bundle exec jekyll serve --incremental --watch",
     "build:react": "APP_ROOT=src/react umi build",
-    "deploy:react": "./scripts/deploy-react.sh && gh-pages -d dist"
+    "deploy:react": "./scripts/deploy-react.sh"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.41",
