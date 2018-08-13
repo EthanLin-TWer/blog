@@ -55,6 +55,14 @@
       "@babel/preset-react"
     ]
   },
+  "prettier": {
+    "printWidth": 80,
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "arrowParens": "always"
+  },
   "jest": {
     "testMatch": [
       "<rootDir>/src/react/**/*.test.js"
