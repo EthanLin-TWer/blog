@@ -9,5 +9,4 @@ export default {
     ],
   ],
   devtool: 'source-map',
-  disableServiceWorker: true,
 }
