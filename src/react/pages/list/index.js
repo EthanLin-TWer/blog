@@ -6,7 +6,7 @@ const mapStateToProps = (store) => {
   // eslint-disable-next-line
   console.log(store)
   return {
-    blogs: store.list.data,
+    blogs: [],
   }
 }
 
