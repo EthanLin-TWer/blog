@@ -2,9 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'dva'
 
-const mapStateToProps = (store) => ({
-  blogs: store.list.data,
-})
+const mapStateToProps = (store) => {
+  // eslint-disable-next-line
+  console.log(store)
+  return {
+    blogs: store.list.data,
+  }
+}
 
 const BlogList = ({ blogs = [] }) => (
   <div>
