@@ -1,6 +1,6 @@
 import Immutable from 'seamless-immutable'
 
-import Features from '../features'
+import { Features } from '../features'
 
 import actions from './actions'
 import * as service from './service'
