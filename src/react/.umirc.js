@@ -8,6 +8,6 @@ export default {
       },
     ],
   ],
-  devtools: 'source-map',
+  devtool: 'source-map',
   disableServiceWorker: true,
 }
