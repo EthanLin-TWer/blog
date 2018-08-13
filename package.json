@@ -19,6 +19,7 @@
     "sanity": "npm run lint && npm test",
     "generate-meta-data": "node ./scripts/generate-posts-metadata.js",
     "start": "APP_ROOT=src/react umi dev",
+    "start:jekyll": "JEKYLL_ENV=development bundle exec jekyll serve --incremental --watch",
     "build": "APP_ROOT=src/react umi build"
   },
   "devDependencies": {
