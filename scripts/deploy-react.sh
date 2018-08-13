@@ -10,4 +10,7 @@ npm run build:react
 
 # copy all necessary files to /dist for deployment to gh-pages branch
 mv src/react/dist/** dist/
+cp -r _drafts dist/
+cp -r _posts dist/
+cp -r api dist/
 cp CNAME dist/CNAME
