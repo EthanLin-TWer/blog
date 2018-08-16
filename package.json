@@ -17,7 +17,8 @@
     "test:watch": "npm test -- --watch",
     "test:ci": "npm test -- --coverage --verbose",
     "sanity": "npm run lint && npm test",
-    "start": "APP_ROOT=src/react umi dev",
+    "start": "npm run start:server & npm run start:jekyll & wait",
+    "start:server": "APP_ROOT=src/react umi dev",
     "start:jekyll": "bundle exec jekyll serve --incremental --watch",
     "build:react": "APP_ROOT=src/react umi build",
     "deploy:react": "./scripts/deploy-react.sh"
@@ -36,6 +37,7 @@
     "eslint-watch": "^3.1.5",
     "husky": "^1.0.0-rc.9",
     "jest": "^23.1.0",
+    "onchange": "^4.1.0",
     "prettier": "^1.13.5",
     "prop-types": "^15.6.2"
   },

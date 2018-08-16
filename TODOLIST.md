@@ -18,6 +18,7 @@
   * [ ] 做到在本地只要一键就可使整站的 API 都能在本地访问
 * [x] + jekyll rebuild 太慢
 * [x] + travis deploy to github pages to work
+* [ ] + add `favicon.ico` 
 * [ ] + make gh-pages to work
 
 数据获取的问题，主要要解决三个问题：
