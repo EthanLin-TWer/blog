@@ -20,6 +20,9 @@
     "start": "npm run start:server & npm run start:jekyll & wait",
     "start:server": "APP_ROOT=src/react umi dev",
     "start:jekyll": "bundle exec jekyll serve --incremental --watch",
+    "debug": "npm run build:release & npm run start:release & wait",
+    "build:release": "onchange 'src/react/**/*.js' -e 'src/react/dist' -v -i -- npm run build:react",
+    "start:release": "http-server src/react/dist -c-1 -i",
     "build:react": "APP_ROOT=src/react umi build",
     "deploy:react": "./scripts/deploy-react.sh"
   },
@@ -35,6 +38,7 @@
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.9.1",
     "eslint-watch": "^3.1.5",
+    "http-server": "^0.11.1",
     "husky": "^1.0.0-rc.9",
     "jest": "^23.1.0",
     "onchange": "^4.1.0",
