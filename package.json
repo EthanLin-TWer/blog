@@ -17,7 +17,6 @@
     "test:watch": "npm test -- --watch",
     "test:ci": "npm test -- --coverage --verbose",
     "sanity": "npm run lint && npm test",
-    "generate-meta-data": "node ./scripts/generate-posts-metadata.js",
     "start": "APP_ROOT=src/react umi dev",
     "start:jekyll": "bundle exec jekyll serve --incremental --watch",
     "build:react": "APP_ROOT=src/react umi build",
