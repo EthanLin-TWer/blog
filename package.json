@@ -47,8 +47,8 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "react": "^16.4.1",
-    "react-dom": "^16.4.1",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
     "redux-actions": "^2.4.0",
     "seamless-immutable": "^7.1.3"
   },
