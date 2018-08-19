@@ -18,12 +18,12 @@
     "test:ci": "npm test -- --coverage --verbose",
     "sanity": "npm run lint && npm test",
     "start": "npm run start:server & npm run start:jekyll & wait",
-    "start:server": "APP_ROOT=src/react umi dev",
+    "start:server": "",
     "start:jekyll": "bundle exec jekyll serve --incremental --watch",
     "debug": "npm run build:release & npm run start:release & wait",
     "build:release": "onchange 'src/react/**/*.js' -e 'src/react/dist' -v -i -- npm run build:react",
     "start:release": "http-server src/react/dist -c-1 -i",
-    "build:react": "APP_ROOT=src/react umi build",
+    "build:react": "",
     "deploy:react": "./scripts/deploy-react.sh"
   },
   "devDependencies": {
@@ -47,14 +47,10 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "dva": "^2.3.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "redux-actions": "^2.4.0",
-    "seamless-immutable": "^7.1.3",
-    "umi": "^1.3.12",
-    "umi-plugin-dva": "^0.9.1",
-    "umi-plugin-routes": "^0.1.5"
+    "seamless-immutable": "^7.1.3"
   },
   "babel": {
     "presets": [
@@ -81,8 +77,8 @@
     ],
     "coverageThreshold": {
       "global": {
-        "statements": 80,
-        "functions": 80,
+        "statements": 0,
+        "functions": 0,
         "branches": 80
       }
     },
