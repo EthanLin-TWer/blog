@@ -27,5 +27,8 @@ module.exports = {
   plugins: [htmlWebpackPlugin],
   devServer: {
     contentBase: path.join(__dirname, 'src/react'),
+    proxy: {
+      '/api': 'http://localhost:4000',
+    },
   },
 }
