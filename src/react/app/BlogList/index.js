@@ -23,7 +23,6 @@ class BlogList extends React.PureComponent {
             <h5>{blog.title} </h5>
             <p>{blog.summary}</p>
             <span>创建日期：{blog.createdDate} </span>
-            <span>修改日期：{blog.lastModifiedDate}</span>
           </div>
         ))}
       </div>
