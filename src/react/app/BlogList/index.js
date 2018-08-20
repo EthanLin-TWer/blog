@@ -7,11 +7,10 @@ class BlogList extends React.PureComponent {
     blogs: [],
   }
 
-  componentDidMount() {
-    axios.get('api/posts.json').then(({ data }) => {
-      this.setState({
-        blogs: data,
-      })
+  async componentDidMount() {
+    const { data } = await axios.get('api/posts.json')
+    this.setState({
+      blogs: data,
     })
   }
 
