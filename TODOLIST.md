@@ -14,19 +14,20 @@
   * [ ] 原则上后续新加文章一定要有简介
   * [ ] 没有的话，是否可以取正文前 xx 个字符
 * [x] 写作日期 https://learn.cloudcannon.com/jekyll/date-formatting/
-* [ ] 修改日期，这个可以由 Git 提交修改日期提取完成。不过这个可以统计一下修改了多少次嘛
-* [ ] + 怎么测试 `posts.json`？里面有些日期转换逻辑
+* [?] 修改日期，这个可以由 Git 提交修改日期提取完成。不过这个可以统计一下修改了多少次嘛
+* [ ] + 可点击。点击后跳转到详情页面
 * [ ] + add `favicon.ico`
-* [ ] + 弄得生产环境比开发环境还完美。本地数据好像有 cache，新加 front matter 字段出不来，两个问题解决一下
 * [ ] + learn webpack https://webpack.js.org/
 * [ ] + 样式   
 * [x] + 本地 jekyll 会 serve 两份 blog 数据出来，一份来自 `dist`？哪儿来的？ - 来自缓存。开个隐身模式就好了
+* [x] + 弄得生产环境比开发环境还完美。本地数据好像有 cache，新加 front matter 字段出不来，两个问题解决一下 - 来自缓存。开个隐身模式就好了
 * [x] 搭建本地测试环境
   * [x] 首页 API 可访问
   * [x] 做到在本地只要一键就可使整站的 API 都能在本地访问 - 因为都是用 jekyll API，所以本地能起 jekyll 服务器就可以连接轻量级的真实测试数据了。这部分再通过 `npm start` 封装起来，就感知不到细节了 
 * [x] + jekyll rebuild 太慢
 * [x] + travis deploy to github pages to work
 * [x] + make gh-pages to work
+* [x] + 怎么测试 `posts.json`？里面有些日期转换逻辑 - 手动测
 
 数据获取的问题，主要要解决三个问题：
 
