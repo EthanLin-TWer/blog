@@ -7,6 +7,7 @@ exclude:
   - package.json
   - package-lock.json
   - webpack.config.js
+  - favicon.ico
   - TODOLIST.md
 include:
   - _posts

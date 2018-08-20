@@ -11,4 +11,5 @@ npm run build:react
 cp -r _drafts dist/
 cp -r _posts dist/
 cp -r api dist/
+cp favicon.ico dist/favicon.ico
 cp CNAME dist/CNAME
