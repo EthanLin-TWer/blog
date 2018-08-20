@@ -9,10 +9,6 @@ class BlogList extends React.PureComponent {
 
   componentDidMount() {
     axios.get('api/posts.json').then(({ data }) => {
-      /* eslint-disable */
-      console.log('-------- data --------')
-      console.log(data)
-      /* eslint-enable */
       this.setState({
         blogs: data,
       })
@@ -23,7 +19,12 @@ class BlogList extends React.PureComponent {
     return (
       <div>
         <h3>Hello blog list</h3>
-        {this.state.blogs.map((blog) => <div key={blog.id}>{blog.title}</div>)}
+        {this.state.blogs.map((blog) => (
+          <div key={blog.id}>
+            <p>{blog.title}</p>
+            <p>{blog.brief}</p>
+          </div>
+        ))}
       </div>
     )
   }

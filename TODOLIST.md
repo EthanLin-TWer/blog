@@ -9,15 +9,17 @@
 
 目录部分见 #214，专题部分见 #215，草稿部分见 #216。
 
-* [ ] 标题这个信息文章里面有
+* [x] 标题这个信息文章里面有
 * [ ] 简介这两个信息文章里面有
 * [ ] 写作日期，没想好怎么弄
 * [ ] 修改日期，这个可以由 Git 提交修改日期提取完成。不过这个可以统计一下修改了多少次嘛
-* [ ] 搭建本地测试环境
-  * [ ] 首页 API 可访问
-  * [ ] 做到在本地只要一键就可使整站的 API 都能在本地访问
 * [ ] + add `favicon.ico`
-* [ ] + learn webpack   
+* [ ] + 本地 jekyll 会 serve 两份 blog 数据出来，一份来自 `dist`？哪儿来的？
+* [ ] + learn webpack
+* [ ] + 样式   
+* [x] 搭建本地测试环境
+  * [x] 首页 API 可访问
+  * [x] 做到在本地只要一键就可使整站的 API 都能在本地访问 - 因为都是用 jekyll API，所以本地能起 jekyll 服务器就可以连接轻量级的真实测试数据了。这部分再通过 `npm start` 封装起来，就感知不到细节了 
 * [x] + jekyll rebuild 太慢
 * [x] + travis deploy to github pages to work
 * [x] + make gh-pages to work
