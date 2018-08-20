@@ -21,6 +21,7 @@ class BlogList extends React.PureComponent {
         {this.state.blogs.map((blog) => (
           <div key={blog.id}>
             <h5>{blog.title} </h5>
+            <p>{blog.summary}</p>
             <span>创建日期：{blog.createdDate} </span>
             <span>修改日期：{blog.lastModifiedDate}</span>
           </div>
