@@ -14,7 +14,7 @@
 * [x] 写作日期 https://learn.cloudcannon.com/jekyll/date-formatting/
 * [x] 修改日期，这个可以由 Git 提交修改日期提取完成。不过这个可以统计一下修改了多少次嘛 - 暂时性砍掉这个需求，Github Pages 不支持 modified at 这个插件
 * [ ] + 可点击。点击后跳转到详情页面
-* [ ] + 样式   
+* [ ] + 样式
 * [x] + add `favicon.ico`
 * [x] + 本地 jekyll 会 serve 两份 blog 数据出来，一份来自 `dist`？哪儿来的？ - 来自缓存。开个隐身模式就好了
 * [x] + 弄得生产环境比开发环境还完美。本地数据好像有 cache，新加 front matter 字段出不来，两个问题解决一下 - 来自缓存。开个隐身模式就好了
