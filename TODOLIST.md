@@ -16,10 +16,11 @@
 * [ ] 搭建本地测试环境
   * [ ] 首页 API 可访问
   * [ ] 做到在本地只要一键就可使整站的 API 都能在本地访问
+* [ ] + add `favicon.ico`
+* [ ] + learn webpack   
 * [x] + jekyll rebuild 太慢
 * [x] + travis deploy to github pages to work
-* [ ] + add `favicon.ico` 
-* [ ] + make gh-pages to work
+* [x] + make gh-pages to work
 
 数据获取的问题，主要要解决三个问题：
 
@@ -39,4 +40,4 @@
 
 * https://github.com/sorrycc/blog/issues/62
 
-Pomo: 2
+Pomo: 4
