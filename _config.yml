@@ -1,3 +1,5 @@
+plugins:
+  - jekyll-last-modified-at
 exclude:
   - node_modules
   - src
