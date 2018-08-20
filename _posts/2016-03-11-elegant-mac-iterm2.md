@@ -1,6 +1,5 @@
 ---
 title: Mac优雅的工具集——iTerm2篇
-brief: something
 ---
 
 本篇是我Mac优雅工具集系列下其中的一篇文章，[原文全文](https://linesh.gitbooks.io/gitbook-elegant-mac-tools-system-closure/content/index.html)托管在Gitbook上，分享了Mac系统下一些使工作变得更高效的工具。
