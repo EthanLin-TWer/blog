@@ -11,7 +11,7 @@
     "url"        : "{{ post.url }}",
     "path"       : "{{ post.path }}",
     "date"       : "{{ post.date }}",
-    "shortdate"  : "{{ post.date | date : '%Y/%m/%d' }}"
+    "createdDate"  : "{{ post.date | date : '%Y/%m/%d' }}"
   }
   {% if forloop.last %}{% else %},{% endif %}
   {% endfor %}
