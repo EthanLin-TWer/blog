@@ -21,7 +21,7 @@ class BlogList extends React.PureComponent {
         {this.state.blogs.map((blog) => (
           <div key={blog.id}>
             <p>{blog.title}</p>
-            <p>{blog.brief}</p>
+            <span>{blog.shortdate}</span>
           </div>
         ))}
       </div>

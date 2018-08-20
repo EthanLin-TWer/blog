@@ -13,8 +13,9 @@
 * [ ] 简介这个信息文章里面不一定有
   * [ ] 原则上后续新加文章一定要有简介
   * [ ] 没有的话，是否可以取正文前 xx 个字符
-* [ ] 写作日期，没想好怎么弄
+* [x] 写作日期 https://learn.cloudcannon.com/jekyll/date-formatting/
 * [ ] 修改日期，这个可以由 Git 提交修改日期提取完成。不过这个可以统计一下修改了多少次嘛
+* [ ] + 怎么测试 `posts.json`？里面有些日期转换逻辑
 * [ ] + add `favicon.ico`
 * [ ] + 弄得生产环境比开发环境还完美。本地数据好像有 cache，新加 front matter 字段出不来，两个问题解决一下
 * [ ] + learn webpack https://webpack.js.org/
