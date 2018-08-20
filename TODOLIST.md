@@ -7,16 +7,15 @@
 * 标签？（不能人眼筛选么？）
 * 简介？（避免标题跪）
 
-目录部分见 #214，专题部分见 #215，草稿部分见 #216。
+目录部分见 #11 ，专题部分见 #12，草稿部分见 #13。
 
 * [x] 标题这个信息文章里面有
 * [x] 简介这个信息文章里面不一定有
 * [x] 写作日期 https://learn.cloudcannon.com/jekyll/date-formatting/
 * [x] 修改日期，这个可以由 Git 提交修改日期提取完成。不过这个可以统计一下修改了多少次嘛 - 暂时性砍掉这个需求，Github Pages 不支持 modified at 这个插件
 * [ ] + 可点击。点击后跳转到详情页面
-* [ ] + add `favicon.ico`
-* [ ] + learn webpack https://webpack.js.org/
 * [ ] + 样式   
+* [x] + add `favicon.ico`
 * [x] + 本地 jekyll 会 serve 两份 blog 数据出来，一份来自 `dist`？哪儿来的？ - 来自缓存。开个隐身模式就好了
 * [x] + 弄得生产环境比开发环境还完美。本地数据好像有 cache，新加 front matter 字段出不来，两个问题解决一下 - 来自缓存。开个隐身模式就好了
 * [x] 搭建本地测试环境
@@ -44,5 +43,3 @@
 引用：
 
 * https://github.com/sorrycc/blog/issues/62
-
-Pomo: 4
