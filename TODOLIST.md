@@ -15,7 +15,8 @@
 * [ ] 修改日期，这个可以由 Git 提交修改日期提取完成。不过这个可以统计一下修改了多少次嘛
 * [ ] + add `favicon.ico`
 * [ ] + 本地 jekyll 会 serve 两份 blog 数据出来，一份来自 `dist`？哪儿来的？
-* [ ] + learn webpack
+* [ ] + 弄得生产环境比开发环境还完美。本地数据好像有 cache，新加 front matter 字段出不来，两个问题解决一下
+* [ ] + learn webpack https://webpack.js.org/
 * [ ] + 样式   
 * [x] 搭建本地测试环境
   * [x] 首页 API 可访问
