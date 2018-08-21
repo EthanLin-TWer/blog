@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import axios from '../../utils/axios'
 
@@ -19,11 +20,11 @@ class BlogList extends React.PureComponent {
       <div>
         <h3>Hello blog list</h3>
         {this.state.blogs.map((blog) => (
-          <div key={blog.id}>
+          <Link to={blog.url} key={blog.id}>
             <h5>{blog.title} </h5>
             <p>{blog.summary}</p>
             <span>创建日期：{blog.createdDate} </span>
-          </div>
+          </Link>
         ))}
       </div>
     )
