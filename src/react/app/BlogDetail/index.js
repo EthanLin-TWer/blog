@@ -19,11 +19,7 @@ const mapDispatchToProps = {
   fetchBlogDetail: actions.fetchBlogDetail,
 }
 
-@connect(
-  mapStateToProps,
-  mapDispatchToProps
-)
-export class BlogDetail extends React.Component {
+export class BlogDetailOnlyForTesting extends React.Component {
   static propTypes = {
     match: PropTypes.shape({
       params: PropTypes.shape({
@@ -45,15 +41,18 @@ export class BlogDetail extends React.Component {
   }
 
   render() {
-    return (
-      <>
-        <If condition={this.title}>
-          <GithubFlavoredMarkdown data={this.title} />
-        </If>
-        <If condition={this.props.content}>
-          <GithubFlavoredMarkdown data={this.props.content} />
-        </If>
-      </>
-    )
+    return [
+      <If condition={this.title} key="title">
+        <GithubFlavoredMarkdown data={this.title} />
+      </If>,
+      <If condition={this.props.content} key="content">
+        <GithubFlavoredMarkdown data={this.props.content} />
+      </If>,
+    ]
   }
 }
+
+export const BlogDetail = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BlogDetailOnlyForTesting)
