@@ -12,6 +12,7 @@
 
 ## 多干的活儿
 
+* [ ] + 数据获取是时候搞出去了
 * [ ] + 支持 GFM 语法
 * [x] + 与 Github Issue Markdown 一样的样式 `github-markdown-css`
 * [x] + 代码语法类型高亮
