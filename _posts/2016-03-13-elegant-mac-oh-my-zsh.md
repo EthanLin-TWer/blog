@@ -4,8 +4,6 @@ title: Mac优雅的工具集——oh-my-zsh篇
 
 本篇是我Mac优雅工具集系列下其中的一篇文章，[原文全文](https://linesh.gitbooks.io/gitbook-elegant-mac-tools-system-closure/content/index.html)托管在Gitbook上，分享了Mac系统下一些使工作变得更高效的工具。
 
-# oh-my-zsh
-
 有了一个趁手的终端，大的功能就算有了，接下来是一些小的细节的优化，比如主题，自动补全，三方插件集成等。因为[oh-my-zsh](http://ohmyz.sh/)太过有名，为我节省了一些选择的时间，也就不需要再考察其他选择，用了再说。其主页的介绍也是相当不低调，说用上一个主题，马上就会被别人当成极客中的大神，过来围观问你这个主题这么漂亮是怎么配的。然后深藏功与名的你，马上就会在程序员中作为神话被广泛传颂。
 
 oh-my-zsh的两大主要功能分别是：

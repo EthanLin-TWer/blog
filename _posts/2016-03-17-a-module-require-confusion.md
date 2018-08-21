@@ -4,7 +4,8 @@ title: 说开去——项目的JavaScript模块化实践（上篇）
 
 > 为保护商业机密，本博客中出现的所有代码与文字均已隐去所有与客户相关的信息。若仍有泄露请第一时间联系博主我：linesh.simpcity@gmail.com。
 
-## 原生JavaScirpt也自带了模块化支持？
+## 原生JavaScript也自带了模块化支持？
+
 起因是这样的，今天发现项目上的每个js文件基本都是这样的写法：
 
 ```javascript

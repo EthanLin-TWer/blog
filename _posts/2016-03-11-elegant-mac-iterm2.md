@@ -4,8 +4,6 @@ title: Mac优雅的工具集——iTerm2篇
 
 本篇是我Mac优雅工具集系列下其中的一篇文章，[原文全文](https://linesh.gitbooks.io/gitbook-elegant-mac-tools-system-closure/content/index.html)托管在Gitbook上，分享了Mac系统下一些使工作变得更高效的工具。
 
-# iTerm2实用特性 Handy Features
-
 这里的参考：[https://www.iterm2.com/features.html](https://www.iterm2.com/features.html)
 
 iTerm这个终端具有比系统默认终端更强的能力，而term3则是最近刚发布的beta版本。它比起系统默认终端具备更加丰富且实用的功能，比如：
