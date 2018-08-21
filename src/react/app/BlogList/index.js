@@ -19,10 +19,10 @@ export class BlogList extends React.PureComponent {
   render() {
     return (
       <div>
-        {this.state.blogs.map(({ url, id, title, summary, createdDate }) => (
+        {this.state.blogs.map(({ id, path, title, summary, createdDate }) => (
           <BlogSummary
             key={id}
-            url={url}
+            path={path.replace('_posts/', 'post/')}
             title={title}
             summary={summary}
             createdDate={createdDate}

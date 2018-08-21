@@ -6,7 +6,7 @@ import './styles.styl'
 
 export class BlogSummary extends React.PureComponent {
   static propTypes = {
-    url: PropTypes.string,
+    path: PropTypes.string,
     title: PropTypes.string,
     summary: PropTypes.string,
     createdDate: PropTypes.string,
@@ -14,7 +14,7 @@ export class BlogSummary extends React.PureComponent {
 
   render() {
     return (
-      <Link to={this.props.url}>
+      <Link to={this.props.path}>
         <section className="container">
           <div className="title-area">
             <span className="title">{this.props.title}</span>
