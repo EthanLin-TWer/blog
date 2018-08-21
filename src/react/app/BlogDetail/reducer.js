@@ -7,11 +7,6 @@ const initialState = {
 }
 export const reducer = createReducer((on) => {
   on(actions.saveBlogDetail, (state, action) => {
-    const { id, data } = action.payload
-    return {
-      posts: {
-        [id]: data,
-      },
-    }
+    return state.setIn(['posts', action.payload.id], action.payload.data)
   })
 }, initialState)
