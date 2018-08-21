@@ -1,6 +1,6 @@
-import { frontMatters } from './selectors'
+import { parseJekyllPost } from './selectors'
 
-describe('frontMatters()', () => {
+describe('parseJekyllPost()', () => {
   test('should return empty object when front matters is empty', () => {
     const store = {
       detail: {
@@ -20,7 +20,7 @@ describe('frontMatters()', () => {
       },
     }
 
-    const result = frontMatters(store, ownProps)
+    const result = parseJekyllPost(store, ownProps)
 
     expect(result.attributes).toEqual({})
   })
@@ -45,7 +45,7 @@ title: React 应用单元测试策略
       },
     }
 
-    const result = frontMatters(store, ownProps)
+    const result = parseJekyllPost(store, ownProps)
 
     expect(result.attributes).toEqual({
       title: 'React 应用单元测试策略',
@@ -73,7 +73,7 @@ summary: 这是一份很好的单元测试策略
       },
     }
 
-    const result = frontMatters(store, ownProps)
+    const result = parseJekyllPost(store, ownProps)
 
     expect(result.attributes).toEqual({
       title: 'React 应用单元测试策略',
