@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 import 'github-markdown-css'
 
+import { CodeBlockRenderer } from './CodeBlockRenderer'
 import './styles.styl'
 
 export class GithubFlavoredMarkdown extends React.Component {
@@ -11,6 +12,12 @@ export class GithubFlavoredMarkdown extends React.Component {
   }
 
   render() {
-    return <ReactMarkdown source={this.props.data} className="markdown-body" />
+    return (
+      <ReactMarkdown
+        source={this.props.data}
+        renderers={{ code: CodeBlockRenderer }}
+        className="markdown-body"
+      />
+    )
   }
 }
