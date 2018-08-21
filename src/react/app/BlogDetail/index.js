@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
 
-import axios from '../../utils/axios'
+import { axios } from '../../utils/axios'
 
 export class BlogDetail extends React.Component {
   static propTypes = {
