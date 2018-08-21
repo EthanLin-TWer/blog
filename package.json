@@ -54,6 +54,7 @@
     "onchange": "^4.1.0",
     "prettier": "^1.13.5",
     "prop-types": "^15.6.2",
+    "redux-devtools-extension": "^2.13.5",
     "style-loader": "^0.22.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
