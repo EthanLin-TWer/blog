@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import ReactMarkdown from 'react-markdown'
-import 'github-markdown-css'
 
+import { GithubFlavoredMarkdown } from '../../components/GithubFlavoredMarkdown'
 import { axios } from '../../utils/axios'
 
 export class BlogDetail extends React.Component {
@@ -30,6 +29,6 @@ export class BlogDetail extends React.Component {
   }
 
   render() {
-    return <ReactMarkdown source={this.state.data} className="markdown-body" />
+    return <GithubFlavoredMarkdown data={this.state.data} />
   }
 }
