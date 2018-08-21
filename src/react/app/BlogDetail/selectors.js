@@ -8,6 +8,14 @@ export const frontMatters = createSelector([getPost], (post) => {
   const frontMatterString = post
     .substring(post.indexOf('---') + '---'.length, post.lastIndexOf('---'))
     .trim()
-  const [key, value] = frontMatterString.split(':').map((part) => part.trim())
-  return { [key]: value }
+
+  if (!frontMatterString) {
+    return {}
+  }
+
+  return frontMatterString
+    .split('\n')
+    .map((line) => line.trim().split(':'))
+    .map(([key, value]) => ({ [key]: value.trim() }))
+    .reduce((a, b) => ({ ...a, ...b }), {})
 })
