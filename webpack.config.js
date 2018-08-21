@@ -31,6 +31,10 @@ module.exports = {
           { loader: 'stylus-loader' },
         ],
       },
+      {
+        test: /github-markdown-css/,
+        use: [{ loader: 'style-loader' }, { loader: 'css-loader' }],
+      },
     ],
   },
   plugins: [htmlWebpackPlugin],
