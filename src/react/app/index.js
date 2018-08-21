@@ -3,11 +3,13 @@ import '@babel/polyfill'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import BlogList from './BlogList'
+import { NotFound } from './NotFound'
 
 const App = () => (
   <BrowserRouter>
     <Switch>
-      <Route path="/" component={BlogList} />
+      <Route exact path="/" component={BlogList} />
+      <Route component={NotFound} />
     </Switch>
   </BrowserRouter>
 )
