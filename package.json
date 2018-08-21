@@ -35,10 +35,12 @@
     "babel-core": "^7.0.0-beta.41",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^8.0.0-beta.4",
+    "babel-plugin-jsx-control-statements": "^3.2.8",
     "css-loader": "^1.0.0",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jsx-control-statements": "^2.2.1",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.9.1",
     "eslint-watch": "^3.1.5",
@@ -70,7 +72,8 @@
       "@babel/preset-react"
     ],
     "plugins": [
-      "@babel/plugin-proposal-class-properties"
+      "@babel/plugin-proposal-class-properties",
+      "jsx-control-statements"
     ]
   },
   "prettier": {

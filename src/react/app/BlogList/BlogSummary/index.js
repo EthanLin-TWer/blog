@@ -23,9 +23,9 @@ export class BlogSummary extends React.PureComponent {
             </span>
           </div>
 
-          {this.props.summary && (
+          <If condition={this.props.summary}>
             <div className="summary">{this.props.summary}</div>
-          )}
+          </If>
         </section>
       </Link>
     )

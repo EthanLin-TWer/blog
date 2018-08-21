@@ -1,9 +1,10 @@
 {
   "parser": "babel-eslint",
-  "plugins": ["prettier", "import"],
+  "plugins": ["prettier", "jsx-control-statements", "import"],
   "extends": [
     "prettier",
     "eslint:recommended",
+    "plugin:jsx-control-statements/recommended",
     "plugin:react/recommended"
   ],
   "env": {
@@ -27,7 +28,9 @@
 
     "react/no-unescaped-entities": "off",
     "react/no-deprecated": "off",
+    "react/no-string-refs": "off",
     "react/display-name": "off",
-    "react/no-string-refs": "off"
+
+    "react/jsx-no-undef": [2, { "allowGlobals": true }]
   }
 }
