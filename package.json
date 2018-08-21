@@ -49,6 +49,7 @@
     "html-webpack-plugin": "^3.2.0",
     "http-server": "^0.11.1",
     "husky": "^1.0.0-rc.9",
+    "identity-obj-proxy": "^3.0.0",
     "jest": "^23.1.0",
     "onchange": "^4.1.0",
     "prettier": "^1.13.5",
@@ -93,6 +94,9 @@
     "setupFiles": [
       "<rootDir>/enzyme.config.js"
     ],
+    "moduleNameMapper": {
+      "\\.(styl)$": "identity-obj-proxy"
+    },
     "verbose": false,
     "collectCoverage": false,
     "collectCoverageFrom": [
@@ -101,7 +105,7 @@
     "coverageThreshold": {
       "global": {
         "statements": 0,
-        "functions": 0,
+        "functions": 10,
         "branches": 80
       }
     },
