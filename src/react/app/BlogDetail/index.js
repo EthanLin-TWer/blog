@@ -39,11 +39,21 @@ export class BlogDetail extends React.Component {
     this.props.fetchBlogDetail(this.props.match.params.id)
   }
 
+  get title() {
+    const { title } = this.props.frontMatters
+    return title ? `# ${title}` : ''
+  }
+
   render() {
     return (
-      <If condition={this.props.content}>
-        <GithubFlavoredMarkdown data={this.props.content} />
-      </If>
+      <>
+        <If condition={this.title}>
+          <GithubFlavoredMarkdown data={this.title} />
+        </If>
+        <If condition={this.props.content}>
+          <GithubFlavoredMarkdown data={this.props.content} />
+        </If>
+      </>
     )
   }
 }
