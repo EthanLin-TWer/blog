@@ -42,7 +42,15 @@ export class BlogDetailOnlyForTesting extends React.Component {
 
   get summary() {
     const { summary } = this.props.frontMatters
-    return summary ? `> ${summary.trim()}` : ''
+    if (!summary) {
+      return ''
+    }
+
+    const trimmedSummary = summary.trim()
+    const maxLength = 150
+    return trimmedSummary.length > maxLength
+      ? `> ${trimmedSummary.substring(0, maxLength)}...`
+      : `> ${trimmedSummary}`
   }
 
   render() {
