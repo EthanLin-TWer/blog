@@ -40,6 +40,11 @@ export class BlogDetailOnlyForTesting extends React.Component {
     return title ? `# ${title.trim()}` : ''
   }
 
+  get summary() {
+    const { summary } = this.props.frontMatters
+    return summary ? `> ${summary.trim()}` : ''
+  }
+
   render() {
     return [
       <If condition={this.title} key="title">
