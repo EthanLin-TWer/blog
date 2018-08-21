@@ -65,6 +65,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "front-matter": "^2.3.0",
     "github-markdown-css": "^2.10.0",
     "lodash": "^4.17.10",
     "react": "^16.4.2",
@@ -86,7 +87,12 @@
     ],
     "plugins": [
       "@babel/plugin-proposal-class-properties",
-      ["@babel/plugin-proposal-decorators", { "legacy": true }],
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ],
       "jsx-control-statements"
     ]
   },

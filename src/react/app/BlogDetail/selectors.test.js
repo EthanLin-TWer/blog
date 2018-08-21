@@ -6,8 +6,8 @@ describe('frontMatters()', () => {
       detail: {
         posts: {
           1: `
-          ---
-          ---
+---
+---
           `,
         },
       },
@@ -22,7 +22,7 @@ describe('frontMatters()', () => {
 
     const result = frontMatters(store, ownProps)
 
-    expect(result).toEqual({})
+    expect(result.attributes).toEqual({})
   })
 
   test('should return object with title when front matters contains a title', () => {
@@ -30,9 +30,9 @@ describe('frontMatters()', () => {
       detail: {
         posts: {
           1: `
-          ---
-          title: React 应用单元测试策略
-          ---
+---
+title: React 应用单元测试策略
+---
           `,
         },
       },
@@ -47,7 +47,7 @@ describe('frontMatters()', () => {
 
     const result = frontMatters(store, ownProps)
 
-    expect(result).toEqual({
+    expect(result.attributes).toEqual({
       title: 'React 应用单元测试策略',
     })
   })
@@ -57,10 +57,10 @@ describe('frontMatters()', () => {
       detail: {
         posts: {
           1: `
-          ---
-          title: React 应用单元测试策略
-          summary: 这是一份很好的单元测试策略
-          ---
+---
+title: React 应用单元测试策略
+summary: 这是一份很好的单元测试策略
+---
           `,
         },
       },
@@ -75,7 +75,7 @@ describe('frontMatters()', () => {
 
     const result = frontMatters(store, ownProps)
 
-    expect(result).toEqual({
+    expect(result.attributes).toEqual({
       title: 'React 应用单元测试策略',
       summary: '这是一份很好的单元测试策略',
     })
