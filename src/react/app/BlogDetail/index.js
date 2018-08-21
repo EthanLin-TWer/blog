@@ -3,43 +3,37 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import { GithubFlavoredMarkdown } from '../../components/GithubFlavoredMarkdown'
-import { axios } from '../../utils/axios'
 
 import { actions } from './actions'
+
+const mapStateToProps = (store, ownProps) => ({
+  content: store.detail.posts[ownProps.match.params.id],
+})
 
 const mapDispatchToProps = {
   fetchBlogDetail: actions.fetchBlogDetail,
 }
 
 @connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )
 export class BlogDetail extends React.Component {
-  state = {
-    data: '',
-  }
-
   static propTypes = {
     match: PropTypes.shape({
       params: PropTypes.shape({
         id: PropTypes.string.isRequired,
       }),
     }),
+    content: PropTypes.string,
+    fetchBlogDetail: PropTypes.func,
   }
 
   async componentDidMount() {
-    const { data } = await axios.get(
-      `https://raw.githubusercontent.com/linesh-simplicity/blog/master/_posts/${
-        this.props.match.params.id
-      }.md`
-    )
-    this.setState({
-      data,
-    })
+    this.props.fetchBlogDetail(this.props.match.params.id)
   }
 
   render() {
-    return <GithubFlavoredMarkdown data={this.state.data} />
+    return <GithubFlavoredMarkdown data={this.props.content} />
   }
 }
