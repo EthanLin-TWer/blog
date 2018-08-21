@@ -29,7 +29,7 @@ export class BlogDetail extends React.Component {
     fetchBlogDetail: PropTypes.func,
   }
 
-  async componentDidMount() {
+  componentDidMount() {
     this.props.fetchBlogDetail(this.props.match.params.id)
   }
 
