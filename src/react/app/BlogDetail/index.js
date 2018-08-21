@@ -37,7 +37,7 @@ export class BlogDetailOnlyForTesting extends React.Component {
 
   get title() {
     const { title } = this.props.frontMatters
-    return title ? `# ${title}` : ''
+    return title ? `# ${title.trim()}` : ''
   }
 
   render() {
