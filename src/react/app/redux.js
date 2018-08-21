@@ -1,16 +1,19 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
+import createSagaMiddleware from 'redux-saga'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
-import { reducer as detail } from './BlogDetail/reducer'
+import { reducers } from './reducers'
+import { sagas } from './sagas'
 
 const initialState = {}
-const middlewares = []
-export const reducers = combineReducers({
-  detail,
-})
 
-export const store = createStore(
-  reducers,
-  initialState,
-  composeWithDevTools(applyMiddleware(...middlewares))
-)
+const sagaMiddleware = createSagaMiddleware()
+let middlewares = applyMiddleware(sagaMiddleware)
+// if (__DEV__) {
+middlewares = composeWithDevTools(middlewares)
+// }
+
+const store = createStore(reducers, initialState, middlewares)
+// saga needs to be run after middlewares are mounted by createStore
+sagaMiddleware.run(sagas)
+export { store }

@@ -12,8 +12,8 @@
 
 ## 多干的活儿
 
-* [ ] + 数据获取是时候搞出去了
-* [x] + 来个 devtools
 * [ ] + 支持 GFM 语法
+* [x] + 数据获取是时候搞出去了
+* [x] + 来个 devtools
 * [x] + 与 Github Issue Markdown 一样的样式 `github-markdown-css`
 * [x] + 代码语法类型高亮
