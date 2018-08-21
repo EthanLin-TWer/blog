@@ -37,6 +37,8 @@
     "babel-loader": "^8.0.0-beta.4",
     "babel-plugin-jsx-control-statements": "^3.2.8",
     "css-loader": "^1.0.0",
+    "enzyme": "^3.4.4",
+    "enzyme-adapter-react-16": "^1.2.0",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.13.0",
@@ -87,6 +89,9 @@
   "jest": {
     "testMatch": [
       "<rootDir>/src/react/**/*.test.js"
+    ],
+    "setupFiles": [
+      "<rootDir>/enzyme.config.js"
     ],
     "verbose": false,
     "collectCoverage": false,
