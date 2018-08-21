@@ -5,18 +5,22 @@
   * [x] 文章标题 - 从 Jekyll front matter 中来
   * [x] 文章简介 - 从 Jekyll front matter 中来
   * [x] 文章正文 - 从 Jekyll front matter 中剩下的部分来
-  * [ ] 代码渲染 https://reacttraining.com/react-router/web/guides/quick-start
+  * [x] 代码渲染 
+    * [x] + 与 Github Issue Markdown 一样的样式 `github-markdown-css`
+    * [x] + 代码语法类型高亮
   * [ ] 样式
     * [ ] 文章简介的样式，感觉要强调一下比较好
+    * [ ] todolist bullet 样式
+    * [ ] 其他样式
 * [ ] 文章应支持沉浸式阅读体验
 * [ ] 待定元素：
   * [ ] 文章推荐（增加用户粘性）
 
 ## 多干的活儿
 
+* [ ] + saga testing 
+* [ ] + api collection
 * [ ] + loading
 * [ ] + 支持 GFM 语法
 * [x] + 数据获取是时候搞出去了
 * [x] + 来个 devtools
-* [x] + 与 Github Issue Markdown 一样的样式 `github-markdown-css`
-* [x] + 代码语法类型高亮
