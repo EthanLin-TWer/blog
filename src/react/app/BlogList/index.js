@@ -19,7 +19,6 @@ class BlogList extends React.PureComponent {
   render() {
     return (
       <div>
-        <h3>Hello blog list</h3>
         {this.state.blogs.map(({ url, id, title, summary, createdDate }) => (
           <BlogSummary
             key={id}

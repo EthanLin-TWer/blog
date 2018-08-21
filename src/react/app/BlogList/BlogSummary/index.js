@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
+import './styles.styl'
+
 export class BlogSummary extends React.PureComponent {
   static propTypes = {
     url: PropTypes.string,
@@ -13,9 +15,16 @@ export class BlogSummary extends React.PureComponent {
   render() {
     return (
       <Link to={this.props.url}>
-        <h5>{this.props.title} </h5>
-        <p>{this.props.summary}</p>
-        <span>创建日期：{this.props.createdDate} </span>
+        <section className="container">
+          <div className="title-area">
+            <span className="title">{this.props.title}</span>
+            <span className="created-date">
+              发布日期：{this.props.createdDate}
+            </span>
+          </div>
+
+          <div className="summary">{this.props.summary}</div>
+        </section>
       </Link>
     )
   }
