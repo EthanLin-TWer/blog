@@ -3,10 +3,11 @@
 * [ ] 文章应且仅应包含本文相关的内容，包括：
   * [ ] 目录（侧边、自动定位）
   * [x] 文章标题 - 从 Jekyll front matter 中来
-  * [ ] 文章简介 - 从 Jekyll front matter 中来
-  * [ ] 文章正文 - 从 Jekyll front matter 中剩下的部分来
+  * [x] 文章简介 - 从 Jekyll front matter 中来
+  * [x] 文章正文 - 从 Jekyll front matter 中剩下的部分来
   * [ ] 代码渲染 https://reacttraining.com/react-router/web/guides/quick-start
   * [ ] 样式
+    * [ ] 文章简介的样式，感觉要强调一下比较好
 * [ ] 文章应支持沉浸式阅读体验
 * [ ] 待定元素：
   * [ ] 文章推荐（增加用户粘性）

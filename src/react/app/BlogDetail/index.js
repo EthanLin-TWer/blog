@@ -58,6 +58,9 @@ export class BlogDetailOnlyForTesting extends React.Component {
       <If condition={this.title} key="title">
         <GithubFlavoredMarkdown data={this.title} />
       </If>,
+      <If condition={this.summary} key="summary">
+        <GithubFlavoredMarkdown data={this.summary} />
+      </If>,
       <If condition={this.props.content} key="content">
         <GithubFlavoredMarkdown data={this.props.content} />
       </If>,
