@@ -35,6 +35,7 @@
     "babel-core": "^7.0.0-beta.41",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^8.0.0-beta.4",
+    "css-loader": "^1.0.0",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.13.0",
@@ -48,6 +49,9 @@
     "onchange": "^4.1.0",
     "prettier": "^1.13.5",
     "prop-types": "^15.6.2",
+    "style-loader": "^0.22.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
     "webpack": "^4.16.5",
     "webpack-cli": "^3.1.0",
     "webpack-dev-server": "^3.1.5"
