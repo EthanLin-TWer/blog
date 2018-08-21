@@ -2,9 +2,9 @@
 
 * [ ] 文章应且仅应包含本文相关的内容，包括：
   * [ ] 目录（侧边、自动定位）
-  * [ ] 文章标题
-  * [ ] 文章简介
-  * [ ] 文章正文
+  * [ ] 文章标题 - 从 Jekyll front matter 中来
+  * [ ] 文章简介 - 从 Jekyll front matter 中来
+  * [ ] 文章正文 - 从 Jekyll front matter 中剩下的部分来
   * [ ] 代码渲染 https://reacttraining.com/react-router/web/guides/quick-start
 * [ ] 文章应支持沉浸式阅读体验
 * [ ] 待定元素：
