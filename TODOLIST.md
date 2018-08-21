@@ -2,28 +2,28 @@
 
 作为读者&作者，我希望看到首页有最新的文章列表，不然还是个什么博客啊。每篇文章应该有如下信息：
 
-* 标题
-* 写作日期
-* 标签？（不能人眼筛选么？）
-* 简介？（避免标题跪）
+* [x] 标题
+* [x] 简介（避免标题跪）
+  * [ ] 没有的话就不显示
+* [x] 写作日期 https://learn.cloudcannon.com/jekyll/date-formatting/
+* [x] 修改日期，这个可以由 Git 提交修改日期提取完成。不过这个可以统计一下修改了多少次嘛 - 暂时性砍掉这个需求，Github Pages 不支持 modified at 这个插件
+* [x] 标签？（不能人眼筛选么？） - 不做了。暂时想不到场景和用途
+* [ ] + 可点击。点击后跳转到详情页面
+* [ ] + 样式
 
 目录部分见 #11 ，专题部分见 #12，草稿部分见 #13。
 
-* [x] 标题这个信息文章里面有
-* [x] 简介这个信息文章里面不一定有
-* [x] 写作日期 https://learn.cloudcannon.com/jekyll/date-formatting/
-* [x] 修改日期，这个可以由 Git 提交修改日期提取完成。不过这个可以统计一下修改了多少次嘛 - 暂时性砍掉这个需求，Github Pages 不支持 modified at 这个插件
-* [ ] + 可点击。点击后跳转到详情页面
-* [ ] + 样式
+## 多干了的事
+
 * [x] + add `favicon.ico`
 * [x] + 本地 jekyll 会 serve 两份 blog 数据出来，一份来自 `dist`？哪儿来的？ - 来自缓存。开个隐身模式就好了
 * [x] + 弄得生产环境比开发环境还完美。本地数据好像有 cache，新加 front matter 字段出不来，两个问题解决一下 - 来自缓存。开个隐身模式就好了
 * [x] 搭建本地测试环境
   * [x] 首页 API 可访问
   * [x] 做到在本地只要一键就可使整站的 API 都能在本地访问 - 因为都是用 jekyll API，所以本地能起 jekyll 服务器就可以连接轻量级的真实测试数据了。这部分再通过 `npm start` 封装起来，就感知不到细节了 
-* [x] + jekyll rebuild 太慢
+* [x] + jekyll rebuild 太慢 - ignore `node_modules`
 * [x] + travis deploy to github pages to work
-* [x] + make gh-pages to work
+* [x] + make gh-pages to work with dva - hard to use dva, dropping
 * [x] + 怎么测试 `posts.json`？里面有些日期转换逻辑 - 手动测
 
 数据获取的问题，主要要解决三个问题：
@@ -39,7 +39,3 @@
 | 使用 Jekyll 转换的 API | ✅ | ❔ | 两端都支持，首页可行，但详情页不知道是不是可行 | 
 
 那么现在暂定的方案是：本地用 jekyll 并且可以起 local server 进行开发；Github 上使用真实的 API。
-
-引用：
-
-* https://github.com/sorrycc/blog/issues/62
