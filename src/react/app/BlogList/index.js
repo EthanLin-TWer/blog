@@ -1,7 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
 import axios from '../../utils/axios'
+
+import { BlogSummary } from './BlogSummary'
 
 class BlogList extends React.PureComponent {
   state = {
@@ -19,12 +20,14 @@ class BlogList extends React.PureComponent {
     return (
       <div>
         <h3>Hello blog list</h3>
-        {this.state.blogs.map((blog) => (
-          <Link to={blog.url} key={blog.id}>
-            <h5>{blog.title} </h5>
-            <p>{blog.summary}</p>
-            <span>创建日期：{blog.createdDate} </span>
-          </Link>
+        {this.state.blogs.map(({ url, id, title, summary, createdDate }) => (
+          <BlogSummary
+            key={id}
+            url={url}
+            title={title}
+            summary={summary}
+            createdDate={createdDate}
+          />
         ))}
       </div>
     )
