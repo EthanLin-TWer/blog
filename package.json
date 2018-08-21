@@ -123,7 +123,7 @@
       "global": {
         "statements": 0,
         "functions": 10,
-        "branches": 80
+        "branches": 10
       }
     },
     "coverageReporters": [

@@ -5,10 +5,15 @@ import { connect } from 'react-redux'
 import { GithubFlavoredMarkdown } from '../../components/GithubFlavoredMarkdown'
 
 import { actions } from './actions'
+import { parseJekyllPost } from './selectors'
 
-const mapStateToProps = (store, ownProps) => ({
-  content: store.detail.posts[ownProps.match.params.id],
-})
+const mapStateToProps = (store, ownProps) => {
+  const { attributes, body } = parseJekyllPost(store, ownProps)
+  return {
+    frontMatters: attributes,
+    content: body,
+  }
+}
 
 const mapDispatchToProps = {
   fetchBlogDetail: actions.fetchBlogDetail,
@@ -25,6 +30,7 @@ export class BlogDetail extends React.Component {
         id: PropTypes.string.isRequired,
       }),
     }),
+    frontMatters: PropTypes.object,
     content: PropTypes.string,
     fetchBlogDetail: PropTypes.func,
   }
@@ -34,6 +40,10 @@ export class BlogDetail extends React.Component {
   }
 
   render() {
-    return <GithubFlavoredMarkdown data={this.props.content} />
+    return (
+      <If condition={this.props.content}>
+        <GithubFlavoredMarkdown data={this.props.content} />
+      </If>
+    )
   }
 }

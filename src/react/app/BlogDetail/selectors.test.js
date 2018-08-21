@@ -1,6 +1,29 @@
 import { parseJekyllPost } from './selectors'
 
 describe('parseJekyllPost()', () => {
+  test('should return empty object when post is empty', () => {
+    const store = {
+      detail: {
+        posts: {},
+      },
+    }
+    const ownProps = {
+      match: {
+        params: {
+          id: 1,
+        },
+      },
+    }
+    const expected = {
+      attributes: {},
+      body: '',
+    }
+
+    const result = parseJekyllPost(store, ownProps)
+
+    expect(result).toEqual(expected)
+  })
+
   test('should return empty object when front matters is empty', () => {
     const store = {
       detail: {
