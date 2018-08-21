@@ -15,8 +15,9 @@
 
 ## 多干了的事
 
-* [ ] + add `ErrorBoundary` - a nice 404 page https://reactjs.org/blog/2017/07/26/error-handling-in-react-16.html
 * [ ] + add `Map` classes 
+* [x] + add `ErrorBoundary` - a nice 404 page https://reactjs.org/blog/2017/07/26/error-handling-in-react-16.html
+* [x] + add `NotFound` page
 * [x] + add `favicon.ico`
 * [x] + 本地 jekyll 会 serve 两份 blog 数据出来，一份来自 `dist`？哪儿来的？ - 来自缓存。开个隐身模式就好了
 * [x] + 弄得生产环境比开发环境还完美。本地数据好像有 cache，新加 front matter 字段出不来，两个问题解决一下 - 来自缓存。开个隐身模式就好了

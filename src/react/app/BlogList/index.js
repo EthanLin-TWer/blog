@@ -4,7 +4,7 @@ import axios from '../../utils/axios'
 
 import { BlogSummary } from './BlogSummary'
 
-class BlogList extends React.PureComponent {
+export class BlogList extends React.PureComponent {
   state = {
     blogs: [],
   }
@@ -32,5 +32,3 @@ class BlogList extends React.PureComponent {
     )
   }
 }
-
-export default BlogList

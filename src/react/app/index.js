@@ -2,7 +2,7 @@ import React from 'react'
 import '@babel/polyfill'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
-import BlogList from './BlogList'
+import { BlogList } from './BlogList'
 import { NotFound } from './NotFound'
 
 const App = () => (
