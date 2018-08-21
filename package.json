@@ -122,8 +122,8 @@
     "coverageThreshold": {
       "global": {
         "statements": 20,
-        "branches": 10,
-        "functions": 30
+        "branches": 30,
+        "functions": 40
       }
     },
     "coverageReporters": [
