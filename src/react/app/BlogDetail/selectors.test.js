@@ -133,7 +133,7 @@ summary: 这是一份很好的单元测试策略
         title: 'React 应用单元测试策略',
         summary: '这是一份很好的单元测试策略',
       },
-      body: '我是正文\n\n我还有分段',
+      body: expect.stringContaining('我是正文\n\n我还有分段'),
     }
 
     const result = parseJekyllPost(store, ownProps)
