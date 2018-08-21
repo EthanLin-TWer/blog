@@ -1,6 +1,6 @@
 import React from 'react'
 import '@babel/polyfill'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { HashRouter, Route, Switch } from 'react-router-dom'
 
 import { BlogList } from './BlogList'
 import { BlogDetail } from './BlogDetail'
@@ -8,12 +8,12 @@ import { BlogDetail } from './BlogDetail'
 export class App extends React.PureComponent {
   render() {
     return (
-      <BrowserRouter>
+      <HashRouter>
         <Switch>
           <Route exact path="/" component={BlogList} />
-          <Route path="/:id" component={BlogDetail} />
+          <Route path="/post/:id" component={BlogDetail} />
         </Switch>
-      </BrowserRouter>
+      </HashRouter>
     )
   }
 }
