@@ -11,7 +11,7 @@
   * [x] 代码渲染 
     * [x] + 与 Github Issue Markdown 一样的样式 `github-markdown-css`
     * [x] + 代码语法类型高亮
-  * [ ] + 图片要使用什么图床咧？
+  * [ ] + 图片要使用什么图床咧？怎么快速开发呢？准备个写 markdown 的插件吧？
   * [ ] 样式
     * [ ] 文章简介的样式，感觉要强调一下比较好
     * [ ] todolist bullet 样式
@@ -22,6 +22,7 @@
 
 ## 多干的活儿
 
+* [ ] + 请求不到文章（比如 url 变了）返回个404
 * [ ] + saga testing 
 * [ ] + api collection
 * [ ] + loading
