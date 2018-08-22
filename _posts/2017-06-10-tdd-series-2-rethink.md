@@ -88,3 +88,13 @@ title: TDD 周报（二）：回炉
 * [ ] 这个是 Redux 项目相关的。痛点如下：整个 state 结构及其复杂，每个 component 都只取了 state 的一个切片，并且可能还会增删一些数据结构。这样，针对每个单元进行 UT 扔不能保证应用的正确性，因为你还必须保证单元之间的一些数据传输转换是正确的，也就是说，你尽管是对单元 TDD 但依然要思考整个应用。比如我这个单元输出了一个 `state.productCategory.solutions`，另一个单元拿到的数据却是 `data.solutions`。而中间的这个数据转换，还是需要你对这个项目的经验、对数据结构的了解，像刚来的新人根本不能很快上手，写完 UT，还得 debug 一下把整个流程走通
 
 就此。
+
+> TDD 二月经 Σ( ° △ °|||)︴
+> 
+>   上了双屏，感觉世界是如此的美好。Alfred / iTerm 2 Hotkey Window / WebStorm 上工作主屏，测试 / Todolist 上工作副屏，Chrome 上娱乐主屏。再也不需要一块浏览器来手动验证了。练手一天，希望下周来感受下工作效率飞升的感觉。
+> 
+> 果然效率集 和 TDD 工作流都离不开一个双屏。啊，工作是多么的美好，学习是多么的快乐啊。
+>
+> ![image](https://user-images.githubusercontent.com/11895199/27001127-73977d7e-4df4-11e7-90bb-f83158e8aeb2.png)
+>  
+> ![image](https://user-images.githubusercontent.com/11895199/27001112-2d525438-4df4-11e7-8c1c-38b10bde8b11.png)
