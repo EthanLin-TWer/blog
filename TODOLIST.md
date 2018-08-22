@@ -11,6 +11,7 @@
   * [x] 代码渲染 
     * [x] + 与 Github Issue Markdown 一样的样式 `github-markdown-css`
     * [x] + 代码语法类型高亮
+  * [ ] + 图片要使用什么图床咧？
   * [ ] 样式
     * [ ] 文章简介的样式，感觉要强调一下比较好
     * [ ] todolist bullet 样式
