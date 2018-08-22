@@ -1,7 +1,10 @@
 # TODOLIST #8
 
 * [ ] 文章应且仅应包含本文相关的内容，包括：
-  * [ ] 目录（侧边、自动定位）
+  * [ ] 目录（侧边、自动定位） 
+    * https://segmentfault.com/a/1190000009769787#articleHeader24
+    * https://github.com/Rattenking/Rattenking-DEMO/tree/master/06
+    * http://rattenking.gitee.io/blog/06/scrollFloorWeb.html
   * [x] 文章标题 - 从 Jekyll front matter 中来
   * [x] 文章简介 - 从 Jekyll front matter 中来
   * [x] 文章正文 - 从 Jekyll front matter 中剩下的部分来
