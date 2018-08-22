@@ -25,5 +25,6 @@
 * [ ] + api collection
 * [ ] + loading
 * [ ] + 支持 GFM 语法
+* [ ] + 写文章发博客还是要 deploy 一下才能到 github pages，没办法直接上了 Github 仓库，就可以访问到
 * [x] + 数据获取是时候搞出去了
 * [x] + 来个 devtools
