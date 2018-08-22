@@ -29,3 +29,7 @@
 * [ ] + 写文章发博客还是要 deploy 一下才能到 github pages，没办法直接上了 Github 仓库，就可以访问到
 * [x] + 数据获取是时候搞出去了
 * [x] + 来个 devtools
+
+## 其他
+
+* 像 `react-markdown` 和 `react-syntax-highlighter` 这两个东西就很好，功能独立、扩展性强。自己如果撸一个工具，能撸出这个水平来么？
