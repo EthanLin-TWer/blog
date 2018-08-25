@@ -17,18 +17,14 @@ export class BlogList extends React.PureComponent {
   }
 
   render() {
-    return (
-      <div>
-        {this.state.blogs.map(({ id, path, title, summary, createdDate }) => (
-          <BlogSummary
-            key={id}
-            path={path.replace('_posts/', 'post/').replace('.md', '')}
-            title={title}
-            summary={summary}
-            createdDate={createdDate}
-          />
-        ))}
-      </div>
-    )
+    return this.state.blogs.map(({ id, path, title, summary, createdDate }) => (
+      <BlogSummary
+        key={id}
+        path={path.replace('_posts/', 'post/').replace('.md', '')}
+        title={title}
+        summary={summary}
+        createdDate={createdDate}
+      />
+    ))
   }
 }
