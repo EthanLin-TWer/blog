@@ -19,7 +19,7 @@
     "sanity": "npm run lint && npm test",
     "start": "npm run start:server & npm run start:jekyll & wait",
     "start:server": "webpack-dev-server --mode development --hot --open",
-    "start:jekyll": "bundle exec jekyll serve --watch --incremental --verbose",
+    "start:jekyll": "rm -rf _site && bundle exec jekyll serve --watch --incremental --verbose",
     "debug": "npm run build:release & npm run start:release & wait",
     "build:release": "onchange 'src/react/**/*.js' -e 'dist' -v -i -- npm run build:react",
     "start:release": "http-server dist -c-1 -i",
