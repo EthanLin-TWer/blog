@@ -54,17 +54,19 @@ export class BlogDetailOnlyForTesting extends React.Component {
   }
 
   render() {
-    return [
-      <If condition={this.title} key="title">
-        <GithubFlavoredMarkdown data={this.title} />
-      </If>,
-      <If condition={this.summary} key="summary">
-        <GithubFlavoredMarkdown data={this.summary} />
-      </If>,
-      <If condition={this.props.content} key="content">
-        <GithubFlavoredMarkdown data={this.props.content} />
-      </If>,
-    ]
+    return (
+      <div className="container">
+        <If condition={this.title}>
+          <GithubFlavoredMarkdown data={this.title} />
+        </If>
+        <If condition={this.summary}>
+          <GithubFlavoredMarkdown data={this.summary} />
+        </If>
+        <If condition={this.props.content}>
+          <GithubFlavoredMarkdown data={this.props.content} />
+        </If>
+      </div>
+    )
   }
 }
 
