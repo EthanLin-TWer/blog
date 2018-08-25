@@ -14,20 +14,20 @@ export class BlogSummary extends React.PureComponent {
 
   render() {
     return (
-      <Link to={this.props.path}>
-        <section className="container">
-          <div className="title-area">
-            <span className="title">{this.props.title}</span>
-            <span className="created-date">
-              发布日期：{this.props.createdDate}
-            </span>
-          </div>
+      <div className="container">
+        <Link to={this.props.path}>
+          <section className="post">
+            <div className="left">
+              <div className="title">{this.props.title}</div>
+              <div className="created-date">{this.props.createdDate}</div>
+            </div>
 
-          <If condition={this.props.summary}>
-            <div className="summary">{this.props.summary}</div>
-          </If>
-        </section>
-      </Link>
+            <If condition={this.props.summary}>
+              <div className="summary">{this.props.summary}</div>
+            </If>
+          </section>
+        </Link>
+      </div>
     )
   }
 }

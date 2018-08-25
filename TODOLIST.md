@@ -1,6 +1,7 @@
 # TODOLIST #8
 
 * [ ] 文章应且仅应包含本文相关的内容，包括：
+  * [x] 首页结构优化 credits to https://wy08271.github.io/
   * [ ] 目录（侧边、自动定位） 
     * https://segmentfault.com/a/1190000009769787#articleHeader24
     * https://github.com/fisshy/react-scroll
