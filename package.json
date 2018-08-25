@@ -112,7 +112,8 @@
       "<rootDir>/enzyme.config.js"
     ],
     "moduleNameMapper": {
-      "\\.(styl)$": "identity-obj-proxy"
+      "\\.(styl|css)$": "identity-obj-proxy",
+      "github-markdown-css": "identity-obj-proxy"
     },
     "verbose": false,
     "collectCoverage": false,

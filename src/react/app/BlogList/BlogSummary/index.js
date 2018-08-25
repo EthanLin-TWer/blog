@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
 import './styles.styl'
+import { GithubFlavoredMarkdown } from '../../../components/GithubFlavoredMarkdown'
 
 export class BlogSummary extends React.PureComponent {
   static propTypes = {
@@ -23,7 +24,9 @@ export class BlogSummary extends React.PureComponent {
             </div>
 
             <If condition={this.props.summary}>
-              <div className="summary">{this.props.summary}</div>
+              <div className="summary">
+                <GithubFlavoredMarkdown data={this.props.summary} />
+              </div>
             </If>
           </section>
         </Link>
