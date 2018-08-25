@@ -22,6 +22,7 @@ title: 敏捷五问（一）：为什么我们要做原子、小步提交
 
 ---
 
+* https://www.git-tower.com/learn/git/ebook/en/command-line/appendix/best-practices
 * https://stackoverflow.com/questions/38155592/atomic-commits-best-practice
 * https://murze.be/atomic-commits-telling-stories-with-git
 * https://www.wikiwand.com/en/Atomic_commit
