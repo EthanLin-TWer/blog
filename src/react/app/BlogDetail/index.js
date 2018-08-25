@@ -70,7 +70,6 @@ export class BlogDetailOnlyForTesting extends React.Component {
   }
 }
 
-export const BlogDetail = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(BlogDetailOnlyForTesting)
+export const BlogDetail = connect(mapStateToProps, mapDispatchToProps)(
+  BlogDetailOnlyForTesting
+)
