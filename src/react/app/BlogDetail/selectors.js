@@ -15,8 +15,8 @@ export const parseJekyllPost = createSelector([getPost], (post = '') => {
   }
 })
 
-export const getTitleAsMarkdown = (frontMatters) => {
-  return frontMatters.title ? `# ${frontMatters.title.trim()}` : ''
+export const getTitleAsMarkdown = ({ title }) => {
+  return title ? `# ${title.trim()}` : ''
 }
 
 export const getSummaryAsMarkdown = ({ summary }) => {
