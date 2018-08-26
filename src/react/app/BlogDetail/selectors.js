@@ -18,3 +18,15 @@ export const parseJekyllPost = createSelector([getPost], (post = '') => {
 export const getTitleAsMarkdown = (frontMatters) => {
   return frontMatters.title ? `# ${frontMatters.title.trim()}` : ''
 }
+
+export const getSummaryAsMarkdown = ({ summary }) => {
+  if (!summary) {
+    return ''
+  }
+
+  const trimmedSummary = summary.trim()
+  const maxLength = 150
+  return trimmedSummary.length > maxLength
+    ? `> ${trimmedSummary.substring(0, maxLength)}...`
+    : `> ${trimmedSummary}`
+}
