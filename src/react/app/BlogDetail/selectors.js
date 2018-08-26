@@ -30,11 +30,11 @@ export const getSummaryAsMarkdown = ({ summary }) => {
     return `> ${trimmedSummary.substring(0, maxLength)}...`
   }
 
-  if (trimmedSummary.includes('\\n\\n')) {
-    const [firstParagraph, secondParagraph] = trimmedSummary.split('\\n\\n')
+  if (trimmedSummary.includes('\n\n')) {
+    const [firstParagraph, secondParagraph] = trimmedSummary.split('\n\n')
     return `
 > ${firstParagraph}
-> 
+>
 > ${secondParagraph}
 `
   }
