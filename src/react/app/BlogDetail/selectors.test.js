@@ -1,4 +1,4 @@
-import { parseJekyllPost } from './selectors'
+import { getTitleAsMarkdown, parseJekyllPost } from './selectors'
 
 describe('parseJekyllPost()', () => {
   test('should return empty object when post is empty', () => {
@@ -139,5 +139,23 @@ summary: 这是一份很好的单元测试策略
     const result = parseJekyllPost(store, ownProps)
 
     expect(result).toMatchObject(expected)
+  })
+})
+
+describe('getTitleAsMarkdown', () => {
+  test('should return title as markdown level 1 header when title is not empty', () => {
+    const frontMatters = {
+      title: ' React 单元测试策略',
+    }
+    const title = getTitleAsMarkdown(frontMatters)
+
+    expect(title).toEqual('# React 单元测试策略')
+  })
+
+  test('should return empty string when title is empty', () => {
+    const frontMatters = {}
+    const title = getTitleAsMarkdown(frontMatters)
+
+    expect(title).toEqual('')
   })
 })

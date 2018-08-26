@@ -23,28 +23,6 @@ describe('component', () => {
   })
 })
 
-describe('title getter', () => {
-  test('should return empty title when front matters does not include a title', () => {
-    const component = new BlogDetailOnlyForTesting()
-    component.props = {
-      frontMatters: {},
-    }
-
-    expect(component.title).toEqual('')
-  })
-
-  test('should return title as markdown first level header when front matters contains a header', () => {
-    const component = new BlogDetailOnlyForTesting()
-    component.props = {
-      frontMatters: {
-        title: ' React 测试策略',
-      },
-    }
-
-    expect(component.title).toEqual('# React 测试策略')
-  })
-})
-
 describe('summary getter', () => {
   test('should return empty summary when front matters does not include a summary', () => {
     const component = new BlogDetailOnlyForTesting()

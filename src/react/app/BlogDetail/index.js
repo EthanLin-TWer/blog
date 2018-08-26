@@ -5,11 +5,12 @@ import { connect } from 'react-redux'
 import { GithubFlavoredMarkdown } from '../../components/GithubFlavoredMarkdown'
 
 import { actions } from './actions'
-import { parseJekyllPost } from './selectors'
+import { getTitleAsMarkdown, parseJekyllPost } from './selectors'
 
 const mapStateToProps = (store, ownProps) => {
   const { frontMatters, content } = parseJekyllPost(store, ownProps)
   return {
+    title: getTitleAsMarkdown(frontMatters),
     frontMatters,
     content,
   }
@@ -27,17 +28,13 @@ export class BlogDetailOnlyForTesting extends React.Component {
       }),
     }),
     frontMatters: PropTypes.object,
+    title: PropTypes.string,
     content: PropTypes.string,
     fetchBlogDetail: PropTypes.func,
   }
 
   componentDidMount() {
     this.props.fetchBlogDetail(this.props.match.params.id)
-  }
-
-  get title() {
-    const { title } = this.props.frontMatters
-    return title ? `# ${title.trim()}` : ''
   }
 
   get summary() {
@@ -56,8 +53,8 @@ export class BlogDetailOnlyForTesting extends React.Component {
   render() {
     return (
       <div className="container">
-        <If condition={this.title}>
-          <GithubFlavoredMarkdown data={this.title} />
+        <If condition={this.props.title}>
+          <GithubFlavoredMarkdown data={this.props.title} />
         </If>
         <If condition={this.summary}>
           <GithubFlavoredMarkdown data={this.summary} />
