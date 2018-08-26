@@ -5,13 +5,17 @@ import { connect } from 'react-redux'
 import { GithubFlavoredMarkdown } from '../../components/GithubFlavoredMarkdown'
 
 import { actions } from './actions'
-import { getTitleAsMarkdown, parseJekyllPost } from './selectors'
+import {
+  getSummaryAsMarkdown,
+  getTitleAsMarkdown,
+  parseJekyllPost,
+} from './selectors'
 
 const mapStateToProps = (store, ownProps) => {
   const { frontMatters, content } = parseJekyllPost(store, ownProps)
   return {
     title: getTitleAsMarkdown(frontMatters),
-    frontMatters,
+    summary: getSummaryAsMarkdown(frontMatters),
     content,
   }
 }
@@ -27,8 +31,8 @@ export class BlogDetailOnlyForTesting extends React.Component {
         id: PropTypes.string.isRequired,
       }),
     }),
-    frontMatters: PropTypes.object,
     title: PropTypes.string,
+    summary: PropTypes.string,
     content: PropTypes.string,
     fetchBlogDetail: PropTypes.func,
   }
@@ -37,27 +41,14 @@ export class BlogDetailOnlyForTesting extends React.Component {
     this.props.fetchBlogDetail(this.props.match.params.id)
   }
 
-  get summary() {
-    const { summary } = this.props.frontMatters
-    if (!summary) {
-      return ''
-    }
-
-    const trimmedSummary = summary.trim()
-    const maxLength = 150
-    return trimmedSummary.length > maxLength
-      ? `> ${trimmedSummary.substring(0, maxLength)}...`
-      : `> ${trimmedSummary}`
-  }
-
   render() {
     return (
       <div className="container">
         <If condition={this.props.title}>
           <GithubFlavoredMarkdown data={this.props.title} />
         </If>
-        <If condition={this.summary}>
-          <GithubFlavoredMarkdown data={this.summary} />
+        <If condition={this.props.summary}>
+          <GithubFlavoredMarkdown data={this.props.summary} />
         </If>
         <If condition={this.props.content}>
           <GithubFlavoredMarkdown data={this.props.content} />
