@@ -26,7 +26,18 @@ export const getSummaryAsMarkdown = ({ summary }) => {
 
   const trimmedSummary = summary.trim()
   const maxLength = 150
-  return trimmedSummary.length > maxLength
-    ? `> ${trimmedSummary.substring(0, maxLength)}...`
-    : `> ${trimmedSummary}`
+  if (trimmedSummary.length > maxLength) {
+    return `> ${trimmedSummary.substring(0, maxLength)}...`
+  }
+
+  if (trimmedSummary.includes('\n\n')) {
+    const [firstParagraph, secondParagraph] = trimmedSummary.split('\n\n')
+    return `
+> ${firstParagraph}
+>
+> ${secondParagraph}
+`
+  }
+
+  return `> ${trimmedSummary}`
 }

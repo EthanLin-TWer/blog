@@ -194,4 +194,17 @@ describe('summary getter', () => {
       '> 1我每段10个字符 2我每段10个字符 3我每段10个字符 4我每段10个字符 5我每段10个字符 6我每段10个字符 7我每段10个字符 8我每段10个字符 9我每段10个字符 10每段10个字符 11每段10个字符 12每段10个字符 13每段10个字符 14每段10个字符 15每段10个字符 ...'
     )
   })
+
+  test('should parse summary that contains two paragraphs separated with \n\n', () => {
+    const frontMatters = {
+      summary: '这是一篇系列文章，有着相同的背景\n\n这是系列文章1的简介',
+    }
+    const summary = getSummaryAsMarkdown(frontMatters)
+
+    expect(summary).toEqual(`
+> 这是一篇系列文章，有着相同的背景
+>
+> 这是系列文章1的简介
+`)
+  })
 })
