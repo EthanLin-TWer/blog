@@ -197,14 +197,15 @@ describe('summary getter', () => {
 
   test('should parse summary that contains two paragraphs separated with \n\n', () => {
     const frontMatters = {
-      summary: '这是一篇系列文章，有着相同的背景\n\n这是系列文章1的简介',
+      summary:
+        '敏捷正逐渐变成开发日常的空气和水，然而身处其中的我们，有时会渐渐忘记一些实践背后的目的，为实践而实践，把敏捷变成了另一种流程。然后反过来骂敏捷。这个系列，尝试通过不断追问一些实践的动因，不仅要回答正确的实践是什么样，而且要回答错误的实践为什么错。\\n\\n主干开发是持续集成的基石。',
     }
     const summary = getSummaryAsMarkdown(frontMatters)
 
     expect(summary).toEqual(`
-> 这是一篇系列文章，有着相同的背景
->
-> 这是系列文章1的简介
+> 敏捷正逐渐变成开发日常的空气和水，然而身处其中的我们，有时会渐渐忘记一些实践背后的目的，为实践而实践，把敏捷变成了另一种流程。然后反过来骂敏捷。这个系列，尝试通过不断追问一些实践的动因，不仅要回答正确的实践是什么样，而且要回答错误的实践为什么错。
+> 
+> 主干开发是持续集成的基石。
 `)
   })
 })

@@ -10,6 +10,7 @@
   * [x] 文章标题 - 从 Jekyll front matter 中来
   * [x] 文章简介 - 从 Jekyll front matter 中来
     * [x] + 文章简介有两段是合理的，需要支持换行
+    * [x] + 文章简介有两段在详情页也需要转换一下
   * [x] 文章正文 - 从 Jekyll front matter 中剩下的部分来
   * [x] 代码渲染 
     * [x] + 与 Github Issue Markdown 一样的样式 `github-markdown-css`
