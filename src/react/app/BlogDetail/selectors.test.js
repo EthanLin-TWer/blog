@@ -15,8 +15,8 @@ describe('parseJekyllPost()', () => {
       },
     }
     const expected = {
-      attributes: {},
-      body: '',
+      frontMatters: {},
+      content: '',
     }
 
     const result = parseJekyllPost(store, ownProps)
@@ -45,7 +45,7 @@ describe('parseJekyllPost()', () => {
 
     const result = parseJekyllPost(store, ownProps)
 
-    expect(result.attributes).toEqual({})
+    expect(result.frontMatters).toEqual({})
   })
 
   test('should return object with title when front matters contains a title', () => {
@@ -70,7 +70,7 @@ title: React 应用单元测试策略
 
     const result = parseJekyllPost(store, ownProps)
 
-    expect(result.attributes).toEqual({
+    expect(result.frontMatters).toEqual({
       title: 'React 应用单元测试策略',
     })
   })
@@ -98,7 +98,7 @@ summary: 这是一份很好的单元测试策略
 
     const result = parseJekyllPost(store, ownProps)
 
-    expect(result.attributes).toEqual({
+    expect(result.frontMatters).toEqual({
       title: 'React 应用单元测试策略',
       summary: '这是一份很好的单元测试策略',
     })
@@ -129,11 +129,11 @@ summary: 这是一份很好的单元测试策略
       },
     }
     const expected = {
-      attributes: {
+      frontMatters: {
         title: 'React 应用单元测试策略',
         summary: '这是一份很好的单元测试策略',
       },
-      body: expect.stringContaining('我是正文\n\n我还有分段'),
+      content: expect.stringContaining('我是正文\n\n我还有分段'),
     }
 
     const result = parseJekyllPost(store, ownProps)

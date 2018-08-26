@@ -8,10 +8,10 @@ import { actions } from './actions'
 import { parseJekyllPost } from './selectors'
 
 const mapStateToProps = (store, ownProps) => {
-  const { attributes, body } = parseJekyllPost(store, ownProps)
+  const { frontMatters, content } = parseJekyllPost(store, ownProps)
   return {
-    frontMatters: attributes,
-    content: body,
+    frontMatters,
+    content,
   }
 }
 
