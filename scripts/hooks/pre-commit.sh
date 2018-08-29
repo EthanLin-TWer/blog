@@ -53,7 +53,8 @@ isTechnicalCommit() {
   declare -a committingFiles=($(git diff --staged --name-only | cat))
   for file in "${committingFiles[@]}"
   do
-    if [[ ! ${file} =~ "_posts/" ]] && [[ ! ${file} =~ "_drafts/" ]]; then
+    ## exclude pure markdown file editing, e.g., TODOLIST.md, README.md
+    if [[ ! ${file} =~ "_posts/" ]] && [[ ! ${file} =~ "_drafts/" ]] && [[ ! ${file} =~ ".md" ]]; then
       return 0
     fi
   done
