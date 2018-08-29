@@ -1,7 +1,6 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import { HashRouter, Route, Switch } from 'react-router-dom'
-import '@babel/polyfill'
 
 import { store } from './redux'
 import { BlogList } from './BlogList'

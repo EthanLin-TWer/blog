@@ -3,10 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "description": "My blog implemented in different tech stacks.",
-  "keywords": [
-    "blog",
-    "react"
-  ],
+  "keywords": ["blog", "react"],
   "author": "Linesh",
   "license": "MIT",
   "scripts": {
@@ -82,17 +79,12 @@
   },
   "babel": {
     "presets": [
-      "@babel/preset-env",
+      ["@babel/preset-env", { "useBuiltIns": "usage" }],
       "@babel/preset-react"
     ],
     "plugins": [
       "@babel/plugin-proposal-class-properties",
-      [
-        "@babel/plugin-proposal-decorators",
-        {
-          "legacy": true
-        }
-      ],
+      ["@babel/plugin-proposal-decorators", { "legacy": true }],
       "jsx-control-statements"
     ]
   },
@@ -105,21 +97,15 @@
     "arrowParens": "always"
   },
   "jest": {
-    "testMatch": [
-      "<rootDir>/src/react/**/*.test.js"
-    ],
-    "setupFiles": [
-      "<rootDir>/enzyme.config.js"
-    ],
+    "testMatch": ["<rootDir>/src/react/**/*.test.js"],
+    "setupFiles": ["<rootDir>/enzyme.config.js"],
     "moduleNameMapper": {
       "\\.(styl|css)$": "identity-obj-proxy",
       "github-markdown-css": "identity-obj-proxy"
     },
     "verbose": false,
     "collectCoverage": false,
-    "collectCoverageFrom": [
-      "<rootDir>/src/react/**/*.js"
-    ],
+    "collectCoverageFrom": ["<rootDir>/src/react/**/*.js"],
     "coverageThreshold": {
       "global": {
         "statements": 20,
@@ -127,9 +113,7 @@
         "functions": 40
       }
     },
-    "coverageReporters": [
-      "text"
-    ],
+    "coverageReporters": ["text"],
     "coverageDirectory": "<rootDir>/coverage/react"
   },
   "husky": {
