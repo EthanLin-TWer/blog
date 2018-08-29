@@ -2,6 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import { App } from './app'
-import './styles.styl'
+import './global.styl'
 
 ReactDOM.render(<App />, document.getElementById('root'))
