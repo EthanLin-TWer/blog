@@ -20,5 +20,5 @@ export const getTitleAsMarkdown = ({ title }) => {
 }
 
 export const getSummaryAsMarkdown = (content) => {
-  return content
+  return content.trim().split('\n')[0]
 }

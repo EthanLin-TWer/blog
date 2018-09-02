@@ -1,4 +1,8 @@
-import { getTitleAsMarkdown, parseJekyllPost } from './selectors'
+import {
+  getSummaryAsMarkdown,
+  getTitleAsMarkdown,
+  parseJekyllPost,
+} from './selectors'
 
 describe('parseJekyllPost()', () => {
   test('should return empty object when post is empty', () => {
@@ -160,4 +164,17 @@ describe('getTitleAsMarkdown', () => {
   })
 })
 
-describe('getSummaryAsMarkdown', () => {})
+describe('getSummaryAsMarkdown', () => {
+  test('should get first paragraph as blog summary', () => {
+    const content = `
+    这是第一段内容，默认作为 summary。
+    
+    其他。
+    `
+    const expected = '这是第一段内容，默认作为 summary。'
+
+    const result = getSummaryAsMarkdown(content)
+
+    expect(result).toEqual(expected)
+  })
+})
