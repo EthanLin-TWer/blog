@@ -166,11 +166,22 @@ describe('parseContent', () => {
     这是第一段内容，默认作为 summary。
     
     其他。
+    
+    第二段。
+    
+    > 一些其他的语法
     `
-    const expected = '这是第一段内容，默认作为 summary。'
+    const expected = {
+      summary: '这是第一段内容，默认作为 summary。',
+      detail: expect.stringContaining(`其他。
+    
+    第二段。
+    
+    > 一些其他的语法`),
+    }
 
     const result = parseContent(content)
 
-    expect(result.summary).toEqual(expected)
+    expect(result).toEqual(expected)
   })
 })

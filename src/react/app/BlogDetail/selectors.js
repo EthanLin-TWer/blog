@@ -20,8 +20,10 @@ export const getTitleAsMarkdown = ({ title }) => {
 }
 
 export const parseContent = (content) => {
+  const trimmedContent = content.trim()
+  const summaryIndex = trimmedContent.indexOf('\n')
   return {
-    summary: content.trim().split('\n')[0],
-    detail: content,
+    summary: trimmedContent.slice(0, summaryIndex).trim(),
+    detail: trimmedContent.slice(summaryIndex).trim(),
   }
 }
