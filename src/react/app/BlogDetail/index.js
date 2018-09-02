@@ -5,18 +5,17 @@ import { connect } from 'react-redux'
 import { GithubFlavoredMarkdown } from '../../components/GithubFlavoredMarkdown'
 
 import { actions } from './actions'
-import {
-  getSummaryAsMarkdown,
-  getTitleAsMarkdown,
-  parseJekyllPost,
-} from './selectors'
+import { getTitleAsMarkdown, parseContent, parseJekyllPost } from './selectors'
 
 const mapStateToProps = (store, ownProps) => {
   const { frontMatters, content } = parseJekyllPost(store, ownProps)
+  const title = getTitleAsMarkdown(frontMatters)
+  const { summary, detail } = parseContent(content)
+
   return {
-    title: getTitleAsMarkdown(frontMatters),
-    summary: getSummaryAsMarkdown(content),
-    content,
+    title,
+    summary,
+    content: detail,
   }
 }
 

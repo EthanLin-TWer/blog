@@ -19,6 +19,9 @@ export const getTitleAsMarkdown = ({ title }) => {
   return title ? `# ${title.trim()}` : ''
 }
 
-export const getSummaryAsMarkdown = (content) => {
-  return content.trim().split('\n')[0]
+export const parseContent = (content) => {
+  return {
+    summary: content.trim().split('\n')[0],
+    detail: content,
+  }
 }
