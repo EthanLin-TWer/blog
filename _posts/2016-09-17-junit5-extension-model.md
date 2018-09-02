@@ -4,6 +4,8 @@ tags: JUnit 5, unit test
 title: 「译」JUnit 5 系列：扩展模型（Extension Model）
 ---
 
+「译」JUnit 5 系列：扩展模型（Extension Model）
+
 > 原文地址：[http://blog.codefx.org/design/architecture/junit-5-extension-model/](http://blog.codefx.org/design/architecture/junit-5-extension-model/)  
 > 原文日期：11, Apr, 2016  
 > 译文首发：[ Linesh 的博客：「译」JUnit 5 系列：扩展模型（Extension Model）](http://blog.linesh.tw/#/posts/2016-09-17-junit5-extension-model)  

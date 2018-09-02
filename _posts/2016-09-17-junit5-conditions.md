@@ -4,12 +4,12 @@ tags: JUnit 5, unit test
 title: 「译」JUnit 5 系列：条件测试
 ---
 
+上一节我们了解了 JUnit 新的[扩展模型][JUnit 5: Extension Model]，了解了它是如何支持我们向引擎定制一些行为的。然后我还预告会为大家讲解条件测试，这一节主题就是它了。
+
 > 原文地址：[http://blog.codefx.org/libraries/junit-5-conditions/](http://blog.codefx.org/libraries/junit-5-conditions/)  
 > 原文日期：08, May, 2016  
 > 译文首发：[ Linesh 的博客：「译」JUnit 5 系列：条件测试](http://blog.linesh.tw/#/posts/2016-09-17-junit5-conditions)  
 > 我的 Github：[http://github.com/linesh-simplicity](http://github.com/linesh-simplicity)
-
-上一节我们了解了 JUnit 新的[扩展模型][JUnit 5: Extension Model]，了解了它是如何支持我们向引擎定制一些行为的。然后我还预告会为大家讲解条件测试，这一节主题就是它了。
 
 条件测试，指的是允许我们自定义灵活的标准，来决定一个测试是否应该执行。条件（condition） 官方的叫法是[条件测试执行](http://junit.org/junit5/docs/current/user-guide/#conditional-test-execution)。
 

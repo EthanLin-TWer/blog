@@ -4,7 +4,7 @@ categories: 翻译
 title: 我是如何进行Spring MVC文档翻译项目的环境搭建、项目管理及自动化构建工作的
 ---
 
-> 感兴趣的同学可以关注这个[翻译项目](https://github.com/linesh-simplicity/translation-spring-mvc-4-documentation) 、 [我的博客原文](http://blog.linesh.tw/#/posts/2016-06-26-auto-deploy-translation-to-production-using-jenkins-and-qiniu) 和 [我的Github](https://github.com/linesh-simplicity)
+感兴趣的同学可以关注这个[翻译项目](https://github.com/linesh-simplicity/translation-spring-mvc-4-documentation) 、 [我的博客原文](http://blog.linesh.tw/#/posts/2016-06-26-auto-deploy-translation-to-production-using-jenkins-and-qiniu) 和 [我的Github](https://github.com/linesh-simplicity)。
 
 ![](http://7xqu8w.com1.z0.glb.clouddn.com/spring-mvc-translation-project-home-page-version-2.png "Final website of MVC translation project")
 

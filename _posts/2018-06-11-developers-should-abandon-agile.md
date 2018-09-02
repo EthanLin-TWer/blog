@@ -2,8 +2,9 @@
 category: 翻译
 tags: agile, tdd, manifesto
 title: 「译」开发者是时候放弃敏捷了
-summary: 敏捷宣言创始人之一 Ron Jeffries 告诫开发者，是时候抛弃你认为的所谓「敏捷」了
 ---
+
+敏捷宣言创始人之一 Ron Jeffries 告诫开发者，是时候抛弃你认为的所谓「敏捷」了。
 
 > 原文地址：[https://ronjeffries.com/articles/018-01ff/abandon-1/](https://ronjeffries.com/articles/018-01ff/abandon-1/)
 > 原文日期：May 10, 2018
