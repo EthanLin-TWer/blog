@@ -15,7 +15,7 @@ const mapStateToProps = (store, ownProps) => {
   const { frontMatters, content } = parseJekyllPost(store, ownProps)
   return {
     title: getTitleAsMarkdown(frontMatters),
-    summary: getSummaryAsMarkdown(frontMatters),
+    summary: getSummaryAsMarkdown(content),
     content,
   }
 }

@@ -1,8 +1,4 @@
-import {
-  getSummaryAsMarkdown,
-  getTitleAsMarkdown,
-  parseJekyllPost,
-} from './selectors'
+import { getTitleAsMarkdown, parseJekyllPost } from './selectors'
 
 describe('parseJekyllPost()', () => {
   test('should return empty object when post is empty', () => {
@@ -164,47 +160,4 @@ describe('getTitleAsMarkdown', () => {
   })
 })
 
-describe('summary getter', () => {
-  test('should return empty summary when front matters does not include a summary', () => {
-    const frontMatters = {}
-    const summary = getSummaryAsMarkdown(frontMatters)
-
-    expect(summary).toEqual('')
-  })
-
-  test('should wrap summary as markdown reference when front matters contains a summary', () => {
-    const frontMatters = {
-      summary: ' 这篇文章介绍了如何使用 JUnit 5 对你的应用进行单元测试 ',
-    }
-    const summary = getSummaryAsMarkdown(frontMatters)
-
-    expect(summary).toEqual(
-      '> 这篇文章介绍了如何使用 JUnit 5 对你的应用进行单元测试'
-    )
-  })
-
-  test('should cut summary to maximum 150 characters(character set insensitive) when front matters contains a summary longer than 50 characters', () => {
-    const frontMatters = {
-      summary:
-        '1我每段10个字符 2我每段10个字符 3我每段10个字符 4我每段10个字符 5我每段10个字符 6我每段10个字符 7我每段10个字符 8我每段10个字符 9我每段10个字符 10每段10个字符 11每段10个字符 12每段10个字符 13每段10个字符 14每段10个字符 15每段10个字符 16每段10个字符',
-    }
-    const summary = getSummaryAsMarkdown(frontMatters)
-
-    expect(summary).toEqual(
-      '> 1我每段10个字符 2我每段10个字符 3我每段10个字符 4我每段10个字符 5我每段10个字符 6我每段10个字符 7我每段10个字符 8我每段10个字符 9我每段10个字符 10每段10个字符 11每段10个字符 12每段10个字符 13每段10个字符 14每段10个字符 15每段10个字符 ...'
-    )
-  })
-
-  test('should parse summary that contains two paragraphs separated with \n\n', () => {
-    const frontMatters = {
-      summary: '这是一篇系列文章，有着相同的背景\n\n这是系列文章1的简介',
-    }
-    const summary = getSummaryAsMarkdown(frontMatters)
-
-    expect(summary).toEqual(`
-> 这是一篇系列文章，有着相同的背景
->
-> 这是系列文章1的简介
-`)
-  })
-})
+describe('getSummaryAsMarkdown', () => {})

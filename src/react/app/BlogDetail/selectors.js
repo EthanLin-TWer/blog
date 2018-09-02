@@ -19,25 +19,6 @@ export const getTitleAsMarkdown = ({ title }) => {
   return title ? `# ${title.trim()}` : ''
 }
 
-export const getSummaryAsMarkdown = ({ summary }) => {
-  if (!summary) {
-    return ''
-  }
-
-  const trimmedSummary = summary.trim()
-  const maxLength = 150
-  if (trimmedSummary.length > maxLength) {
-    return `> ${trimmedSummary.substring(0, maxLength)}...`
-  }
-
-  if (trimmedSummary.includes('\n\n')) {
-    const [firstParagraph, secondParagraph] = trimmedSummary.split('\n\n')
-    return `
-> ${firstParagraph}
->
-> ${secondParagraph}
-`
-  }
-
-  return `> ${trimmedSummary}`
+export const getSummaryAsMarkdown = (content) => {
+  return content
 }
