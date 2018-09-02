@@ -5,7 +5,7 @@
   {
     "id"         : "{{ post.id }}",
     "title"      : "{{ post.title | escape }}",
-    "summary"    : "{{ post.summary }}",
+    "summary"    : "{{ post.excerpt | strip_html | strip }}",
     "category"   : "{{ post.categories }}",
     "tags"       : "{{ post.tags | join: ', ' }}",
     "url"        : "{{ post.url }}",
