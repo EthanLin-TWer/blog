@@ -109,7 +109,8 @@ title: 以学习者为中心 —— 毕业生之 Tasking 和 TDD 培训
 
 ## TDD 授课大纲
 
-哟。
+* https://github.com/2018-grad-training/shenzhen-training-gitbook/blob/master/week1/tdd/courseware.md
+* https://github.com/2018-grad-training/shenzhen-training-gitbook/tree/master/week1/tdd
 
 [郑大烨校]: http://weare.thoughtworkers.org/category/%E7%94%9F%E6%B4%BB/
 [dujuan.in]: https://dujuan.in/
