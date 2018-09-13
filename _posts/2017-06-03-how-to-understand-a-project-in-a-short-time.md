@@ -148,6 +148,8 @@ title: 如何快速熟悉一个项目
 
 > 如何实现一个 feature？也就是说，现在要让你写一个 feature/ 模块，你要怎么写？以项目为例，你会写 React Component - Redux action - Redux reducers - Styles。这个就要看项目类似的有哪些 feature，照抄，看能不能自己端到端实现一个最简单的 feature 出来
 
+> 项目常用的操作是什么？如何整理刻意练习的模板？有否通用的练习可以整理到中央仓库中去？
+
 ## 项目现状与走向
 
 > 项目做的好的实践是什么？
