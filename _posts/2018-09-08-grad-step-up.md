@@ -147,7 +147,7 @@ title: 以学习者为中心 —— 毕业生之 Tasking 和 TDD 培训
 
 ![TDD-three-principles](https://user-images.githubusercontent.com/11895199/45488391-de276780-b793-11e8-849b-4c73493eec6d.png)
 
-![TDD-five-steps](https://user-images.githubusercontent.com/11895199/45488403-e4b5df00-b793-11e8-836e-6158cd15d82b.png)
+![TDD-five-steps](https://user-images.githubusercontent.com/11895199/45489560-22683700-b797-11e8-8e75-12263b0853cd.png)
 
 在搜集疑问的过程中，同学提了如下问题。都是比较具体的实践问题，还是挺棒的。由于问题比较杂，现场的时候我按照「基本理论&实践手法」、「更具体的项目问题」、「复杂场景」几个层级把问题归了类。在做完练习 II、进入回顾 II 的部分时，尝试与同学一起结合练习经历解答「基本理论&实践手法」部分的问题。然后再统一回答更复杂的「更具体的项目问题」、「复杂场景」等问题。
 
@@ -181,8 +181,6 @@ title: 以学习者为中心 —— 毕业生之 Tasking 和 TDD 培训
 第一点在与同学讨论、回答疑问的时候重复强调得比较清楚：当然不必要。TDD 能给你的是，当你大步不了时，依然能采用小步的步子安全前进；如果你技术熟练了，实践熟练了，大步当然没有问题，甚至你先写实现再补测试能补出优秀的测试来也没问题。神教之极端，还是在于保护大多数人。
 
 第二点在我司的上下文背景下，是比较重要的一个问题。周围人不用 TDD，这本身是个难解的事。可惜没人问，于是懒得回答了。
-
----
 
 [郑大烨校]: http://weare.thoughtworkers.org/category/%E7%94%9F%E6%B4%BB/
 [dujuan.in]: https://dujuan.in/
