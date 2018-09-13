@@ -111,7 +111,7 @@ title: 以学习者为中心 —— 毕业生之 Tasking 和 TDD 培训
 
 ### 知识体系
 
-![TDD-1](https://user-images.githubusercontent.com/11895199/45468846-6c322c80-b759-11e8-8289-7838ae86085d.png)
+![TDD-1](https://user-images.githubusercontent.com/11895199/45469336-a270ab80-b75b-11e8-9892-8dd01a4ba5b7.png)
 
 ![TDD-2](https://user-images.githubusercontent.com/11895199/45468989-072b0680-b75a-11e8-8835-6c791e0e727e.png)
 
