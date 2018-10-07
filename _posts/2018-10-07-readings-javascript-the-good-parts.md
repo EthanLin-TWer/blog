@@ -23,7 +23,7 @@ title: 读书笔记：《JavaScript 语言精髓》
 
 ## 语言基本要素
 
-* 语句与表达式
+* 语法要素：空格、注释、标识符、数字、字符串、语句、表达式、字面量等
 * 三大编程结构（顺序、条件、循环）
 * 数据结构：
   * 类型：弱类型
@@ -34,15 +34,58 @@ title: 读书笔记：《JavaScript 语言精髓》
 * API
 * 元编程
 
-语句与表达式没啥好说，三大编程结构应该是任何编程语言都应该具备的功能了。弱类型、函数、继承都是 JavaScript 的精华所在，放在精华一节说。至于 API，揉在弱类型一节讲。元编程是大学毕业设计的时候种下的一个种子，可惜这本书中这个主题体现不多，故也略去为敬。
+语法要素不详细讲，在学习其他编程语言时可以迁移；三大编程结构应该是任何编程语言都应该具备的功能了；弱类型、函数、继承都是 JavaScript 的精华所在，放在精华一节说；至于 API，揉在弱类型一节讲；元编程是大学毕业设计的时候种下的一个种子，可惜这本书中这个主题体现不多，故也略去为敬。
 
 ## 精华
 
-看完书，总结了一下，JS 的精华大概就这四点：
+看完书，总结了一下，JS 的精华大概就这三点：
 
-* 弱类型
+* 弱类型 & JSON/array literal
 * 函数
 * 继承
-* JSON/array literal
 
 ### 弱类型
+
+弱类型意味着很多事，一是写代码的时候你可以不用在意类型了，开发快；二是更优雅的表达力；三是更有表达力的继承方案的可能性（在继承一小节谈）。当然，类型系统对于编译期的问题发现也是很有价值的，在重构的时候也能给 IDE 提供更多的帮助。但作者认为，靠类型系统发现的 bug，不多也不大，相比起来类型系统就太重量，而弱类型是兼顾表达力和项目价值的优雅方案。
+
+JS 有哪些类型呢？一言以蔽之，最重要的有三类八种：**基本类型**、**对象**和**函数**。基本类型有 `string`、`boolean`、`number` 三种类型；函数包含一般函数和构造函数等；对象就是 `object` 类型，除了对象，它还包含数组、正则表达式、日期对象等。也就是说，以下所有东西都是 `object` 类型：
+
+```javascript
+typeof {} // 'object'
+typeof [] // 'object'
+typeof /s/ // 'object'
+typeof new Date() // 'object'
+```
+
+而以下东西是函数类型：
+
+```javascript
+typeof function() {} // 'function'
+typeof class Door {} // 'function'
+```
+
+另外还有一些奇葩类型：
+
+```javascript
+typeof null // 'object'
+typeof undefined // 'undefined'
+typeof NaN // 'undefined'
+typeof void 0 // 'undefined'
+```
+
+![JavaScript Data Types](https://i.stack.imgur.com/L1tYe.png)
+
+与 Java 这门强类型语言做对比，它的 String、Array、Map 都是类型，为了具有类型的方法，不得不使用一个类，有时仅需要存取数据时就显得多余。相比之下，JS 创建字符串、对象和数组就简单得多了，见下面代码段。可不要习以为常，直接写 `{}` `[]` 创建对象和数组的写法是 JS 所支持，带来了极度轻量的便利。其中起源于 JS 的对象结构 JSON（JavaScript Object Notation）更是成了一种通用的数据交换格式。
+
+```javascript
+const human = {
+  name: 'Lao Wang',
+  age: 35,
+  ready: true,
+}
+const primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
+```
+
+### 函数
+
+JavaScript 里面函数是一等公民。这意味着啥呢？请听下回分解。
