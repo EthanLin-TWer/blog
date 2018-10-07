@@ -108,3 +108,8 @@ JavaScript 里面函数是一等公民。这意味着啥呢？请听下回分解
 ## 糟粕
 
 ## ESLint
+
+* https://github.com/airbnb/javascript
+* https://standardjs.com/
+* https://google.github.io/styleguide/jsguide.html
+* https://eslint.org/docs/4.0.0/rules/
