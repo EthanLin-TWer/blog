@@ -29,7 +29,6 @@ title: 读书笔记：《JavaScript 语言精髓》
   * 类型：弱类型
   * 种类：基本类型 / 对象 / 数组
 * 函数：代码复用、组合、模块化、信息隐藏
-  * 闭包
 * 继承：代码复用
 * API
 * 元编程
@@ -91,6 +90,20 @@ const primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
 JavaScript 里面函数是一等公民。这意味着啥呢？请听下回分解。
 
 ### 继承
+
+* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Details_of_the_Object_Model
+* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
+* https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance
+* https://hackernoon.com/understanding-javascript-prototype-and-inheritance-d55a9a23bde2
+* https://www.google.com/search?q=javascript+prototype+hierarchy&newwindow=1&tbm=isch&tbo=u&source=univ&sa=X&ved=2ahUKEwiw65n6x_TdAhUlBMAKHTGXDEQQsAR6BAgBEAE&biw=1097&bih=572
+* https://medium.com/javascript-scene/3-different-kinds-of-prototypal-inheritance-es6-edition-32d777fa16c9
+* https://github.com/creeperyang/blog/issues/9
+* https://www.google.com/search?q=javascript+%E5%8E%9F%E5%9E%8B%E7%BB%A7%E6%89%BF+%E5%9B%BE&newwindow=1&tbm=isch&tbo=u&source=univ&sa=X&ved=2ahUKEwj45vGMzfTdAhVlIcAKHbYCDgoQsAR6BAgAEAE&biw=1097&bih=572
+* https://github.com/mqyqingfeng/Blog/issues/2
+* http://www.ituring.com.cn/article/56184
+* https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/0014344997013405abfb7f0e1904a04ba6898a384b1e925000
+* https://juejin.im/post/5b729c24f265da280f3ad010
+* http://www.ruanyifeng.com/blog/2011/06/designing_ideas_of_inheritance_mechanism_in_javascript.html
 
 ## 糟粕
 
