@@ -90,7 +90,7 @@ const primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
 
 JavaScript 里面函数是一等公民。这意味着啥呢？一等公民表示，函数也与普通数据类型一样了，可以作函数参数被传递、可以做返回值。这意味着函数式编程变得可能了（为啥呢？），意味着闭包技术这种基于函数级别的轻量级数据封装方案变得可能了，柯里化也变得可能了，这一切带来的是更灵活的封装、数据操作能力。这也是我当时喜欢上 JavaScript 的原因。
 
-函数也是其他任意语言中的基本要素，下面从**基本语法要素**以及上面提到的**函数式**、**闭包**等方面提一下精华点。
+函数也是其他任意语言中的基本要素，下面从**基本语法要素**以及上面提到的**函数式**、**闭包**、**柯里化**等方面提一下精华点。
 
 #### 基本要素
 
@@ -101,18 +101,23 @@ JavaScript 里面函数是一等公民。这意味着啥呢？一等公民表示
 * 递归：[ES6 以后将部署尾递归优化写入规范](http://www.ruanyifeng.com/blog/2015/04/tail-call.html)
 * 闭包：函数级别的信息隐藏、模块化方案。在 Java 中同样的事必须用一个静态内部类才能实现
 * 回调：延伸到 `callback`、`Promise`、`async/await` 等一些东西。书里没讲，我也不讲
-* 柯里化
+* 柯里化：业务应用常见模式
 
 #### 函数调用模式
 
-很遗~~jing~~憾~~xi~~，在 JS 中一个函数可能有很多的调用方式。函数体反正都是要执行的，**唯一区别在于 this 引用如何被初始化**。我们一共有 4 种方案，由于太多，废弃掉第三种，其他三种各有用途。一般写业务代码，第一二种调用是最常见的，第四种一般写框架型代码时才用到。
+很遗~~jing~~憾~~xi~~，在 JS 中一个函数可能有很多的调用方式。函数体反正都是要执行的，**唯一区别在于 this 引用如何被初始化**。我们一共有 4 种方案，由于太多，废弃掉第三种和第四种。一般写业务代码，第一二种调用是最常见的。
 
-|  函数调用模式  |               形式                |          this 绑定           |                                                   适用场景                                                   |
-| :------------: | :-------------------------------: | :--------------------------: | :----------------------------------------------------------------------------------------------------------: |
-|    方法调用    |         `object.method()`         |   被调用的对象 `object` 上   |                             对象实例的方法调用。既成其对象，说明必维护了内部状态                             |
-|    函数调用    |            `method()`             | 全局对象 `window` / `global` |                                            不需要对象状态的函数。                                            |
-|  构造函数调用  |      `new Object().method()`      |  被创建的 `Object` 实例对象  | bug 之源，应当抛弃，因为一旦忘记用 `new` 运算符，`this` 会直接绑定到全局对象，并且无任何编译期和运行期的提示 |
-| apply 模式调用 | `method.apply(target, arguments)` |   绑定到传入的 `target` 上   |                          需要动态确定 `this`的，我只想到两个情况：框架代码、柯里化                           |
+|  函数调用模式  |               形式                |          this 绑定           |                       适用场景                       |
+| :------------: | :-------------------------------: | :--------------------------: | :--------------------------------------------------: |
+|    方法调用    |         `object.method()`         |   被调用的对象 `object` 上   | 对象实例的方法调用。既成其对象，说明必维护了内部状态 |
+|    函数调用    |            `method()`             | 全局对象 `window` / `global` |                 不需要对象状态的函数                 |
+|  构造函数调用  |      `new Object().method()`      |  被创建的 `Object` 实例对象  |                  bug 之源，应当抛弃                  |
+| apply 模式调用 | `method.apply(target, arguments)` |   绑定到传入的 `target` 上   |                似乎有用，其实完全没用                |
+
+其中：
+
+* 抛弃第三种方案，原因是一旦忘记用 `new` 运算符，`this` 会直接绑定到全局对象，并且无任何编译期和运行期的提示
+* 第四种方案，一开始以为有两个场景会用到：写框架代码时、做柯里化时。后来自己一写，发现不需要 `apply` 也是可以实现柯里化的；而框架代码，至今未见使用场景，故留作疑问
 
 #### 函数式
 
@@ -164,6 +169,41 @@ const result = Object.entries(people).map(([name, { age, gender }]) => ({
 #### 闭包
 
 神妙。自己学习就好了。
+
+#### 柯里化
+
+假定读者有一定 JS 基础，都已经知道柯里化是啥了。这里回答有啥用的问题：对于多个参数的方法，可先部分应用相同的参数，然后再对不同的部分进行定制、调用，以达到复用、定制的目的。项目出现过这样的场景，可以认为是一个二阶柯里化：
+
+```javascript
+const sendTrackRequest = (userId, siteId, generalParams, extraParams) => {}
+const trackPageView = (userId, siteId, generalParams) => {
+  return (action, url) => {
+    const pageViewParams = { action, url }
+    return sendTrackRequest(userId, siteId, generalParams, pageViewParams)
+  }
+}
+const trackEvent = (userId, siteId, generalParams) => {
+  return (category, action, eventName, eventArgs = {}) => {
+    const eventParams = { category, action, eventName, eventArgs }
+    return sendTrackRequest(userId, siteId, generalParams, eventParams)
+  }
+}
+```
+
+一个通用的柯里化函数实现如下，并不需要用到 `Function.prototype.apply`：
+
+```javascript
+const curry = (func) => {
+  const args = []
+  return function continueCurry(...next) {
+    args.push(...next)
+    if (args.length >= func.length) {
+      return func(...args)
+    }
+    return continueCurry
+  }
+}
+```
 
 ### 继承
 
