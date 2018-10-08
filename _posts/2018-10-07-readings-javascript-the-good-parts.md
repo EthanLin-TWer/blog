@@ -197,6 +197,7 @@ const curry = (func) => {
   const args = []
   return function continueCurry(...next) {
     args.push(...next)
+
     if (args.length >= func.length) {
       return func(...args)
     }
