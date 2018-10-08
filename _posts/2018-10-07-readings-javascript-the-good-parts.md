@@ -223,6 +223,7 @@ const curry = (func) => {
 
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Details_of_the_Object_Model
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
+* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto
 * https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance
 * https://hackernoon.com/understanding-javascript-prototype-and-inheritance-d55a9a23bde2
 * https://www.google.com/search?q=javascript+prototype+hierarchy&newwindow=1&tbm=isch&tbo=u&source=univ&sa=X&ved=2ahUKEwiw65n6x_TdAhUlBMAKHTGXDEQQsAR6BAgBEAE&biw=1097&bih=572
@@ -233,7 +234,10 @@ const curry = (func) => {
 * http://www.ituring.com.cn/article/56184
 * https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/0014344997013405abfb7f0e1904a04ba6898a384b1e925000
 * https://juejin.im/post/5b729c24f265da280f3ad010
-* http://www.ruanyifeng.com/blog/2011/06/designing_ideas_of_inheritance_mechanism_in_javascript.html
+* http://crockford.com/javascript/prototypal.html
+* https://javascriptweblog.wordpress.com/2010/06/07/understanding-javascript-prototypes/
+* https://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/
+* http://bonsaiden.github.io/JavaScript-Garden/#object.prototype
 
 ## 糟粕
 
