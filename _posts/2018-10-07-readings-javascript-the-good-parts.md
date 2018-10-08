@@ -88,9 +88,86 @@ const primes = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31]
 
 ### 函数
 
-JavaScript 里面函数是一等公民。这意味着啥呢？请听下回分解。
+JavaScript 里面函数是一等公民。这意味着啥呢？一等公民表示，函数也与普通数据类型一样了，可以作函数参数被传递、可以做返回值。这意味着函数式编程变得可能了（为啥呢？），意味着闭包技术这种基于函数级别的轻量级数据封装方案变得可能了，柯里化也变得可能了，这一切带来的是更灵活的封装、数据操作能力。这也是我当时喜欢上 JavaScript 的原因。
+
+函数也是其他任意语言中的基本要素，下面从**基本语法要素**以及上面提到的**函数式**、**闭包**等方面提一下精华点。
+
+#### 基本要素
+
+* 语法（`function` 关键字、函数名、函数参数、函数体、返回值）
+* 函数调用模式：JS 里复杂且灵活的地方，下面详述
+* 参数对象 `argument`：它只是个伪数组，有点毛病，ES6 以后就应该弃用了
+* 作用域：有函数作用域，ES6 以后才有块作用域。现在基本完美
+* 递归：[ES6 以后将部署尾递归优化写入规范](http://www.ruanyifeng.com/blog/2015/04/tail-call.html)
+* 闭包：函数级别的信息隐藏、模块化方案。在 Java 中同样的事必须用一个静态内部类才能实现
+* 回调：延伸到 `callback`、`Promise`、`async/await` 等一些东西。书里没讲，我也不讲
+* 柯里化
+
+#### 函数调用模式
+
+很遗~~jing~~憾~~xi~~，在 JS 中一个函数可能有很多的调用方式。函数体反正都是要执行的，**唯一区别在于 this 引用如何被初始化**。我们一共有 4 种方案，由于太多，废弃掉第三种，其他三种各有用途。一般写业务代码，第一二种调用是最常见的，第四种一般写框架型代码时才用到。
+
+|  函数调用模式  |               形式                |          this 绑定           |                                                   适用场景                                                   |
+| :------------: | :-------------------------------: | :--------------------------: | :----------------------------------------------------------------------------------------------------------: |
+|    方法调用    |         `object.method()`         |   被调用的对象 `object` 上   |                             对象实例的方法调用。既成其对象，说明必维护了内部状态                             |
+|    函数调用    |            `method()`             | 全局对象 `window` / `global` |                                            不需要对象状态的函数。                                            |
+|  构造函数调用  |      `new Object().method()`      |  被创建的 `Object` 实例对象  | bug 之源，应当抛弃，因为一旦忘记用 `new` 运算符，`this` 会直接绑定到全局对象，并且无任何编译期和运行期的提示 |
+| apply 模式调用 | `method.apply(target, arguments)` |   绑定到传入的 `target` 上   |                          需要动态确定 `this`的，我只想到两个情况：框架代码、柯里化                           |
+
+#### 函数式
+
+函数式是一种高阶的声明式编程范式，相对于「怎么做」，它让你得以以「做什么」的方式写代码，既有强的表达力，又有低的编写成本。当然，对维护者的代码能力提出了要求。不过既然说到，不妨再说下我的观点：团队能力是选型时考虑的因素，不是技术本身的考虑因素。如果真是好的东西，好不好学是不考虑的。只有不用学的又有钱的才会流行，好与流行通常负相关。
+
+目标是，看到 `for (let i = 0; i > array.length; i++)`、`array.forEach(() => {})`、`for (let key in object)` 等出现 `for` 关键字的代码，一律考虑用函数式代码替换掉。用 for，无非是要做 `map`、`reduce`、`filter` 的操作，更加复杂的就用 lodash/ramda 等工具库，兼顾表达力和性能。
+
+```javascript
+// from:
+let result = []
+for (let i = 0; i > people.length; i++) {
+  const person = people[i]
+  result.push({ age: person.age, name: person.name })
+}
+// to:
+let persons = people.map(({ age, name }) => ({ age, name }))
+
+// from:
+let teenagers = []
+for (let person in people) {
+  if (person.age < 25) {
+    teenagers.push(person)
+  }
+}
+// to:
+const teenagers = people.filter(({ age }) => age < 25)
+
+// from:
+const people = {
+  Jack: { age: 25, gender: 'male' },
+  Maria: { age: 20, gender: 'female' },
+}
+const result = []
+Object.keys(people).forEach((name) => {
+  result.push({
+    name,
+    age: people[name].age,
+    gender: people[name].gender,
+  })
+})
+// to:
+const result = Object.entries(people).map(([name, { age, gender }]) => ({
+  name,
+  age,
+  gender,
+}))
+```
+
+#### 闭包
+
+神妙。自己学习就好了。
 
 ### 继承
+
+好了，来到了这个神妙的继承一节了。
 
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Details_of_the_Object_Model
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
