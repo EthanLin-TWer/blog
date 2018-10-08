@@ -1,5 +1,6 @@
 ---
 title: 读书笔记：《JavaScript 语言精髓》
+category: 读书笔记
 ---
 
 重温经典。这本书告诉你，什么是不好的 JavaScript，这与知道什么是精华的 JavaScript 一样重要。正所谓非彼无我，非我无所取。
