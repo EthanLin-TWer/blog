@@ -199,7 +199,7 @@ const trackEvent = (userId, siteId, generalParams) => {
 }
 ```
 
-一个通用的柯里化函数实现如下，并不需要用到 `Function.prototype.apply`。第6行的代码参考了[这个写法](https://github.com/mqyqingfeng/Blog/issues/42#issuecomment-411428875)。
+一个通用的柯里化函数实现如下，并不需要用到 `Function.prototype.apply`。第 6 行的代码参考了[这个写法](https://github.com/mqyqingfeng/Blog/issues/42#issuecomment-411428875)。
 
 ```javascript
 const curry = (func) => {
@@ -245,7 +245,28 @@ const curry = (func) => {
 * https://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/
 * http://bonsaiden.github.io/JavaScript-Garden/#object.prototype
 
+参考：
+
+* JavaScript 深入之继承的多种方法：https://github.com/mqyqingfeng/Blog/issues/16
+
 ## 糟粕
+
+原书中把 JavaScript 不好的东西分两种：毒瘤和糟粕。简而言之，毒瘤就是一无是处的特性，应该用都不用；糟粕是那些有时很有用，有时又很坑的特性，这样的特性更要规避，因为你只有深入思考阅读才能知道功能正常还是坑，这违反编程语言应该直接、表达力强的价值观。在这里，具体区分不是重点，我列出来，这些特性**都不要用**就对了。并且，最好通过 ESLint 等工具加以固定。
+
+|       糟粕       | 建议 |                      规避方法                       |
+| :--------------: | :--: | :-------------------------------------------------: |
+|     全局变量     |  ❌  |   NodeJS 每个文件都有自己的作用域，部分解决此问题   |
+|   自动插入分号   |  ❌  |                  使用 ESLint 禁止                   |
+|      伪数组      |  ❌  |          用 ES6 的参数解构代替 `argument`           |
+|      `eval`      |  ❌  | 缺点：运行时代码、lint 工具无效；注入攻击；降低性能 |
+|    `continue`    |  ❌  |            任何 `continue` 都应该重构掉             |
+|   缺少块的语句   |  ❌  |                  使用 ESLint 禁止                   |
+|  类型的包装对象  |  ❌  |            使用基本类型、`{}`、`[]`替代             |
+|      `void`      |  ❌  |                       没场景                        |
+| `new Function()` |  ❌  |  一旦忘记，`this`就会绑定到全局对象，且无任何提示   |
+|      无模块      |  --  | 已有 import/export、CommonJS、UMD 等模块化解决方案  |
+|  `==` && 假值表  |  🌵  | 一律用 `===`/`!==` 避免类型转换，除了极少量特殊场合 |
+|     `typeof`     |  🌵  |                        无解                         |
 
 ## ESLint
 
