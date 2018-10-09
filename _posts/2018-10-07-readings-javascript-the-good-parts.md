@@ -168,7 +168,16 @@ const result = Object.entries(people).map(([name, { age, gender }]) => ({
 
 #### 闭包
 
-神妙。自己学习就好了。
+闭包实质上是留存变量、可访问性控制的一个方案，它比 Java 类级别的 private 控制粒度更小。在 JS 中只能利用函数级作用域来做访问控制：
+
+```javascript
+const incrementer = (function() {
+  let count = 0;
+  return () => {
+    return ++count
+  }
+})();
+```
 
 #### 柯里化
 
