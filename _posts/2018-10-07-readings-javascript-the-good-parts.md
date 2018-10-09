@@ -172,11 +172,11 @@ const result = Object.entries(people).map(([name, { age, gender }]) => ({
 
 ```javascript
 const incrementer = (function() {
-  let count = 0;
+  let count = 0
   return () => {
     return ++count
   }
-})();
+})()
 ```
 
 #### 柯里化
@@ -199,18 +199,15 @@ const trackEvent = (userId, siteId, generalParams) => {
 }
 ```
 
-一个通用的柯里化函数实现如下，并不需要用到 `Function.prototype.apply`：
+一个通用的柯里化函数实现如下，并不需要用到 `Function.prototype.apply`。第6行的代码参考了[这个写法](https://github.com/mqyqingfeng/Blog/issues/42#issuecomment-411428875)。
 
 ```javascript
 const curry = (func) => {
-  const args = []
-  return function continueCurry(...next) {
-    args.push(...next)
-
+  return function continueCurry(...args) {
     if (args.length >= func.length) {
       return func(...args)
     }
-    return continueCurry
+    return (...next) => continueCurry(...args, ...next)
   }
 }
 ```
@@ -237,9 +234,9 @@ const curry = (func) => {
 * https://hackernoon.com/understanding-javascript-prototype-and-inheritance-d55a9a23bde2
 * https://www.google.com/search?q=javascript+prototype+hierarchy&newwindow=1&tbm=isch&tbo=u&source=univ&sa=X&ved=2ahUKEwiw65n6x_TdAhUlBMAKHTGXDEQQsAR6BAgBEAE&biw=1097&bih=572
 * https://medium.com/javascript-scene/3-different-kinds-of-prototypal-inheritance-es6-edition-32d777fa16c9
-* https://github.com/creeperyang/blog/issues/9
 * https://www.google.com/search?q=javascript+%E5%8E%9F%E5%9E%8B%E7%BB%A7%E6%89%BF+%E5%9B%BE&newwindow=1&tbm=isch&tbo=u&source=univ&sa=X&ved=2ahUKEwj45vGMzfTdAhVlIcAKHbYCDgoQsAR6BAgAEAE&biw=1097&bih=572
-* https://github.com/mqyqingfeng/Blog/issues/2
+* https://github.com/creeperyang/blog/issues/9
+* https://github.com/mqyqingfeng/Blog/issues/16
 * http://www.ituring.com.cn/article/56184
 * https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/0014344997013405abfb7f0e1904a04ba6898a384b1e925000
 * https://juejin.im/post/5b729c24f265da280f3ad010
