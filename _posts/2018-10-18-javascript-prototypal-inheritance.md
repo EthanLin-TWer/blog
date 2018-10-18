@@ -8,7 +8,7 @@ title: JavaScript 原型继承之精髓
 
 * 需求：继承方案的设计要求
 * 被复用的对象：`prototype`
-*
+* 优雅的语法糖：ES6 `class`
 
 ## 继承方案的设计要求
 
@@ -64,13 +64,68 @@ console.log(cat.meow()) // 'Lilyeowww~~~~~, I'm 2 year(s) old'
 怎么办呢？想法也很简单，就是把它们放到同一个地方去，并且还要跟这个「对象」关联起来。如此一想，用来生成这个「对象」的函数本身就是很好的地方。我们可以把它放在函数的任一一个变量上，比如：
 
 ```javascript
-Animal.functions.getName = function() { return this.name }
-Cat.functions.meow = function() { 
+Animal.functions.getName = function() {
+  return this.name
+}
+Cat.functions.meow = function() {
   return `${this.getName()}eowww~~~~~, I'm ${this.age} year(s) old`
 }
 ```
 
 但这样调用起来，你就要写 `animal.functions.getName()`，并不方便。不要怕，JavaScript 这门语言本身已经帮你内置了这样的支持。它内部所用来存储公共函数的变量，就是你熟知的 `prototype`。当你调用对象上的方法时（如 `cat.getName()`），它会自动去 `Cat.prototype` 上去帮你找 `getName` 函数，而你只需要写 `cat.getName()` 即可。兼具了功能的实现和语法的优雅。
+
+最后写出来的代码会是这样：
+
+```javascript
+function Animal(name) {
+  this.name = name
+}
+Animal.prototype.getName = function() {
+  return this.name
+}
+
+function Cat(name, age) {
+  Animal.call(this, name)
+  this.age = age || 1
+}
+Cat.prototype.meow = function() {
+  return `${this.getName()}eowww~~~~~, I'm ${this.age} year(s) old`
+}
+```
+
+## 优雅的语法糖：ES6 `class`
+
+然鹅，上面这个写法仍然并不优雅。在何处呢？一个是 `prototype` 这种暴露语言实现机制的关键词；一个是要命的是，这个函数内部的 `this`，依靠的是作为使用者的你记得使用 `new` 操作符去调用它才能得到正确的初始化（具体原因请参见【待补充】）。但是这里没有任何线索告诉你，应该使用 `new` 去调用这个函数，一旦你忘记了，也不会有任何编译期和运行期的错误信息。这样的语言特性，与其说是一个「继承方案」，不如说是一个 bug，一个不应出现的设计失误。
+
+而这两个问题，在 ES6 提供的 `class` 关键词下，已经得到了非常妥善的解决，尽管它叫一个 class，但本质上其实是通过 prototype 实现的：
+
+```javascript
+class Animal {
+  constructor(name) {
+    this.name = name
+  }
+
+  getName() {
+    return this.name
+  }
+}
+
+class Cat extends Animal {
+  constructor(name, age) {
+    super(name)
+    this.age = age || 1
+  }
+
+  meow() {
+    return `${this.getName()}eowww~~~~~, I'm ${this.age} year(s) old`
+  }
+}
+```
+
+* 如果你没有使用 `new` 操作符，编译器和运行时都会直接报错。为什么呢，看一下 babel 编译后的源码就知道了
+* `extends` 关键字，会使解释器直接在底下完成基于原型的继承功能
+
+现在，我们已经看到了一套比较完美的继承 API，也看到其底下用以存储公共变量的地点和原理。接下来，我们要来深入一下它的向上查找机制：JavaScript 是如何通过 `prototype` 找到上层定义的函数和变量的。
 
 ---
 
@@ -107,4 +162,5 @@ Cat.functions.meow = function() {
 
 ## TODOLIST
 
-* 补全「多种继承实现方案」的连接材料：JS 语言精髓、
+* 补全「多种继承实现方案」的连接材料：JS 语言精髓、博客材料
+* 补全「构造函数调用需要 `new` 操作符」的连接材料：
