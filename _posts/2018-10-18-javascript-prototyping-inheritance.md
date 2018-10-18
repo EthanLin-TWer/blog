@@ -32,7 +32,6 @@ title: JavaScript 原型继承之精髓
 * http://www.ituring.com.cn/article/56184
 * https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/0014344997013405abfb7f0e1904a04ba6898a384b1e925000
 * https://juejin.im/post/5b729c24f265da280f3ad010
-* http://crockford.com/javascript/prototypal.html
 * https://javascriptweblog.wordpress.com/2010/06/07/understanding-javascript-prototypes/
 * https://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/
 * http://bonsaiden.github.io/JavaScript-Garden/#object.prototype
@@ -40,3 +39,4 @@ title: JavaScript 原型继承之精髓
 参考：
 
 * JavaScript 深入之继承的多种方法：https://github.com/mqyqingfeng/Blog/issues/16
+* Prototypal Inheritance in JavaScript: http://crockford.com/javascript/prototypal.html
