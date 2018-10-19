@@ -9,6 +9,7 @@ title: JavaScript 原型继承之精髓
 * 需求：继承方案的设计要求
 * 被复用的对象：`prototype`
 * 优雅的语法糖：ES6 `class`
+* 简单的向上查找：`__proto__`
 
 ## 继承方案的设计要求
 
@@ -37,7 +38,7 @@ const child = {
 
 ## 被复用的对象：`prototype`
 
-JavaScript 的继承有多种实现方式，具体有哪些，推荐读者可阅读：【待补充】。这里，我们直接看一版比较优秀的实现：
+JavaScript 的继承有多种实现方式，具体有哪些，推荐读者可阅读：[JavaScript 语言精髓][]一书 和 [这篇文章](https://github.com/mqyqingfeng/Blog/issues/16)。这里，我们直接看一版比较优秀的实现：
 
 ```javascript
 function Animal(name) {
@@ -127,7 +128,14 @@ class Cat extends Animal {
 
 现在，我们已经看到了一套比较完美的继承 API，也看到其底下用以存储公共变量的地点和原理。接下来，我们要来深入一下它的向上查找机制：JavaScript 是如何通过 `prototype` 找到上层定义的函数和变量的。
 
-## 简单的向上查找：**proto**
+## 简单的向上查找：`__proto__`
+
+* 这样讲，`prototype` 用来存储公共的东西，`__proto__` 用来指向 `prototype` 以实现向上查找。之所以不直接用 `prototype` 来向上查找，一是不方便（比如 `typeof()Function.prototype).prototype`，这个 `typeof().prototype` 操作正是 `__proto__` 的作用），二是原型链的下游不能影响上游
+* 用来实现向上查找的，正是这个 `__proto__` 将整套原型继承的继承链串起来。它的终点是 null
+* 还有 `constructor` 这个东西，它指向的是用来生成对象的那个构造函数
+* `__proto__` 是个内部实现，不是标准，不应该在代码中显式地依赖它
+* 什么是真正的原型式继承？实现一个 `inherits` 函数，不要显式依赖于 `new` 操作符来操作一个函数
+* `instanceof` 操作符也是通过 `obj.__proto__.__proto__ === Constructor.prototype` 实现的
 
 ```javascript
 function inherits(child, parent) {
@@ -140,22 +148,13 @@ function New(func) {
   const intermediate = {
     __proto__: func.prototype,
   }
-  
+
   return function(...args) {
     func.apply(intermediate, ...args)
     return intermediate
   }
 }
 ```
-
-* 这样讲，`prototype` 用来存储公共的东西，`__proto__` 用来指向 `prototype` 以实现向上查找。之所以不直接用 `prototype` 来向上查找，一是不方便（比如 `typeof()Function.prototype).prototype`，这个 `typeof().prototype` 操作正是 `__proto__` 的作用），二是原型链的下游不能影响上游
-* 用来实现向上查找的，正是这个 `__proto__` 将整套原型继承的继承链串起来。它的终点是 null
-* 还有 `constructor` 这个东西，它指向的是用来生成对象的那个构造函数
-* `__proto__` 是个内部实现，不是标准，不应该在代码中显式地依赖它
-* 什么是真正的原型式继承？实现一个 `inherits` 函数，不要显式依赖于 `new` 操作符来操作一个函数
-* `instanceof` 操作符也是通过 `obj.__proto__.__proto__ === Constructor.prototype` 实现的
-
----
 
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Details_of_the_Object_Model
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
@@ -169,10 +168,9 @@ function New(func) {
 * How Prototypal Inheritance really works http://blog.vjeux.com/2011/javascript/how-prototypal-inheritance-really-works.html
 * [MDN `__proto__`][]
 
-
 ## TODOLIST
 
-* 补全「多种继承实现方案」的连接材料：JS 语言精髓、博客材料
 * 补全「构造函数调用需要 `new` 操作符」的连接材料：
 
-[MDN `__proto__`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto
+[javascript 语言精髓]: http://??
+[mdn `__proto__`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto
