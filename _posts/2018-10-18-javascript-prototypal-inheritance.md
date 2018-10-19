@@ -129,15 +129,6 @@ class Cat extends Animal {
 
 ---
 
-为了实现一个满足这三个优势的继承方案，有三个比较有代表性的方案：伪类继承、对象继承、函数模式。ES6 出来后有个 `class` 的语法，其本质上是伪类继承的语法糖。做个表格比较如下。结论是，在不在意 `private` 私有数据的前提下，使用 ES6 的新语法糖是最佳方案。
-
-|     方案     | 伪类继承 | 对象继承 | 函数模式 | ES6 `class` |
-| :----------: | :------: | :------: | :------: | :---------: |
-|   私有成员   |    无    |    无    |    有    |     无      |
-|  语法复杂度  |   复杂   |   简单   |   中等   |    简单     |
-|  访问 super  |    无    |    无    |    有    |     有      |
-| 共享方法内存 |    有    |    无    |    ?     |     有      |
-
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Details_of_the_Object_Model
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto
@@ -150,15 +141,15 @@ class Cat extends Animal {
 * https://github.com/mqyqingfeng/Blog/issues/16
 * http://www.ituring.com.cn/article/56184
 * https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/0014344997013405abfb7f0e1904a04ba6898a384b1e925000
-* https://juejin.im/post/5b729c24f265da280f3ad010
 * https://javascriptweblog.wordpress.com/2010/06/07/understanding-javascript-prototypes/
 * https://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/
 * http://bonsaiden.github.io/JavaScript-Garden/#object.prototype
 
-参考：
+## 参考
 
 * JavaScript 深入之继承的多种方法：https://github.com/mqyqingfeng/Blog/issues/16
 * Prototypal Inheritance in JavaScript: http://crockford.com/javascript/prototypal.html
+* 一张图理解 JS 的原型：https://juejin.im/post/5b729c24f265da280f3ad010
 
 ## TODOLIST
 
