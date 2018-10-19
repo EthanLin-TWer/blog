@@ -127,31 +127,52 @@ class Cat extends Animal {
 
 现在，我们已经看到了一套比较完美的继承 API，也看到其底下用以存储公共变量的地点和原理。接下来，我们要来深入一下它的向上查找机制：JavaScript 是如何通过 `prototype` 找到上层定义的函数和变量的。
 
+## 简单的向上查找：**proto**
+
+```javascript
+function inherits(child, parent) {
+  function F() {}
+  F.prototype === parent
+  return new F()
+}
+
+function New(func) {
+  const intermediate = {
+    __proto__: func.prototype,
+  }
+  
+  return function(...args) {
+    func.apply(intermediate, ...args)
+    return intermediate
+  }
+}
+```
+
+* 这样讲，`prototype` 用来存储公共的东西，`__proto__` 用来指向 `prototype` 以实现向上查找。之所以不直接用 `prototype` 来向上查找，一是不方便（比如 `typeof()Function.prototype).prototype`，这个 `typeof().prototype` 操作正是 `__proto__` 的作用），二是原型链的下游不能影响上游
+* 用来实现向上查找的，正是这个 `__proto__` 将整套原型继承的继承链串起来。它的终点是 null
+* 还有 `constructor` 这个东西，它指向的是用来生成对象的那个构造函数
+* `__proto__` 是个内部实现，不是标准，不应该在代码中显式地依赖它
+* 什么是真正的原型式继承？实现一个 `inherits` 函数，不要显式依赖于 `new` 操作符来操作一个函数
+* `instanceof` 操作符也是通过 `obj.__proto__.__proto__ === Constructor.prototype` 实现的
+
 ---
 
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Details_of_the_Object_Model
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
-* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto
 * https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance
-* https://hackernoon.com/understanding-javascript-prototype-and-inheritance-d55a9a23bde2
-* https://www.google.com/search?q=javascript+prototype+hierarchy&newwindow=1&tbm=isch&tbo=u&source=univ&sa=X&ved=2ahUKEwiw65n6x_TdAhUlBMAKHTGXDEQQsAR6BAgBEAE&biw=1097&bih=572
-* https://medium.com/javascript-scene/3-different-kinds-of-prototypal-inheritance-es6-edition-32d777fa16c9
-* https://www.google.com/search?q=javascript+%E5%8E%9F%E5%9E%8B%E7%BB%A7%E6%89%BF+%E5%9B%BE&newwindow=1&tbm=isch&tbo=u&source=univ&sa=X&ved=2ahUKEwj45vGMzfTdAhVlIcAKHbYCDgoQsAR6BAgAEAE&biw=1097&bih=572
-* https://github.com/creeperyang/blog/issues/9
-* https://github.com/mqyqingfeng/Blog/issues/16
-* http://www.ituring.com.cn/article/56184
-* https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/0014344997013405abfb7f0e1904a04ba6898a384b1e925000
-* https://javascriptweblog.wordpress.com/2010/06/07/understanding-javascript-prototypes/
-* https://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/
-* http://bonsaiden.github.io/JavaScript-Garden/#object.prototype
 
 ## 参考
 
 * JavaScript 深入之继承的多种方法：https://github.com/mqyqingfeng/Blog/issues/16
-* Prototypal Inheritance in JavaScript: http://crockford.com/javascript/prototypal.html
 * 一张图理解 JS 的原型：https://juejin.im/post/5b729c24f265da280f3ad010
+* Prototypal Inheritance in JavaScript: http://crockford.com/javascript/prototypal.html
+* How Prototypal Inheritance really works http://blog.vjeux.com/2011/javascript/how-prototypal-inheritance-really-works.html
+* [MDN `__proto__`][]
+
 
 ## TODOLIST
 
 * 补全「多种继承实现方案」的连接材料：JS 语言精髓、博客材料
 * 补全「构造函数调用需要 `new` 操作符」的连接材料：
+
+[MDN `__proto__`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto
