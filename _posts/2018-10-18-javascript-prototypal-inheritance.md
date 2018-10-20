@@ -6,9 +6,9 @@ title: JavaScript 原型继承之精髓
 
 ## 目录
 
-* 需求：继承方案的设计要求
+* 继承方案的设计要求
 * 被复用的对象：`prototype`
-* 优雅的语法糖：ES6 `class`
+* 优雅的 API：ES6 `class`
 * 简单的向上查找：`__proto__`
 
 ## 继承方案的设计要求
@@ -94,7 +94,7 @@ Cat.prototype.meow = function() {
 }
 ```
 
-## 优雅的语法糖：ES6 `class`
+## 优雅的 API：ES6 `class`
 
 然鹅，上面这个写法仍然并不优雅。在何处呢？一个是 `prototype` 这种暴露语言实现机制的关键词；一个是要命的是，这个函数内部的 `this`，依靠的是作为使用者的你记得使用 `new` 操作符去调用它才能得到正确的初始化（具体原因请参见【待补充】）。但是这里没有任何线索告诉你，应该使用 `new` 去调用这个函数，一旦你忘记了，也不会有任何编译期和运行期的错误信息。这样的语言特性，与其说是一个「继承方案」，不如说是一个 bug，一个不应出现的设计失误。
 
@@ -126,9 +126,54 @@ class Cat extends Animal {
 * 如果你没有使用 `new` 操作符，编译器和运行时都会直接报错。为什么呢，看一下 babel 编译后的源码就知道了
 * `extends` 关键字，会使解释器直接在底下完成基于原型的继承功能
 
-现在，我们已经看到了一套比较完美的继承 API，也看到其底下用以存储公共变量的地点和原理。接下来，我们要来深入一下它的向上查找机制：JavaScript 是如何通过 `prototype` 找到上层定义的函数和变量的。
+现在，我们已经看到了一套比较完美的继承 API，也看到其底下使用 `prototype` 存储公共变量的地点和原理。接下来，我们要解决另外一个问题：`prototype` 有了，实例对象应该如何访问到它呢？这就关系到 JavaScript 的向上查找机制了。
 
 ## 简单的向上查找：`__proto__`
+
+```javascript
+function Animal(name) {
+  this.name = name
+}
+Animal.prototype.say = function() {
+  return this.name
+}
+const cat = new Animal('kitty')
+
+console.log(cat) // Animal { name: 'kitty' }
+```
+
+看上面 👆 一个最简单的例子。打出来的 `cat` 对象本身并没有 `say` 方法，这点也可以通过 `cat.hasOwnProperty('say')` 得到验证。那么，被实例化的 `cat` 对象本身，是怎样向上查找到 `Animal.prototype` 上的 `say` 方法的呢？如果你是 JavaScript 引擎的设计者，你会怎样来实现呢？
+
+我拍脑袋这么一想，有几种方案：
+
+* 在 `Animal` 中初始化实例对象 `cat` 时，顺便存取一个指向 `Animal.prototype` 的引用
+* 在 `Animal` 中初始化实例对象时，记录其「类型」（也即是 `Animal`）
+
+```javascript
+// 方案1
+function Animal(name) {
+  this.name = name
+  // 以下代码由引擎自动加入
+  this.__prototype__ = Animal.prototype
+}
+
+const cat = new Animal('kitty')
+cat.say() // -> cat.__prototype__.say()
+
+// 方案2
+function Animal(name) {
+  this.name = name
+  // 以下代码由引擎自动加入
+  this.__type__ = Animal
+}
+
+const cat = new Animal('kitty')
+cat.say() // -> cat.__type__.prototype.say()
+```
+
+究其实质，其实就是：**实例对象需要一个指向其函数的引用（变量）**，以拿到这个公共原型 `prototype` 来实现继承方案的向上查找能力。读者如果有其他方案，不妨留言讨论。
+
+无独有偶，这两种方案，在 JavaScript 中都有实现，只不过变量的命名与我们的取法有所差异：第一种方案中，实际的变量名叫 `__proto__` 而不是 `__prototype__`；第二种方案中，实际的变量名叫 `constructor`，不叫~~俗气的~~ `__type__`。实际上，用来实现继承、做向上查找的这个引用，正是 `__proto__`；至于 constructor，则另有他用。不过要注意的是，[尽管基本所有浏览器都支持 `__proto__`][MDN `__proto__`]，它并不是规范的一部分，因此并不推荐在你的业务代码中直接使用 `__proto__` 这个变量。
 
 * 这样讲，`prototype` 用来存储公共的东西，`__proto__` 用来指向 `prototype` 以实现向上查找。之所以不直接用 `prototype` 来向上查找，一是不方便（比如 `typeof()Function.prototype).prototype`，这个 `typeof().prototype` 操作正是 `__proto__` 的作用），二是原型链的下游不能影响上游
 * 用来实现向上查找的，正是这个 `__proto__` 将整套原型继承的继承链串起来。它的终点是 null
