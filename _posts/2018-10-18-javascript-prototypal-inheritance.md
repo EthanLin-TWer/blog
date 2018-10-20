@@ -192,6 +192,8 @@ cat.say() // -> cat.__type__.prototype.say()
 
 再加入 constructor 这个东西，它与 `prototype`、`__proto__` 是什么关系？这方面，我看过最详细透彻的文章是这篇：[一张图理解 JS 的原型][]，大家直接阅读即可。
 
+![constructor/prototype/proto](http://www.mollypages.org/tutorials/jsobj_full.jpg)
+
 ## 参考
 
 * [JavaScript 深入之继承的多种方法](https://github.com/mqyqingfeng/Blog/issues/16)
