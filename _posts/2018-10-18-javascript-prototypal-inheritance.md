@@ -100,7 +100,7 @@ Cat.prototype.meow = function() {
 
 ## 优雅的 API：ES6 `class`
 
-然鹅，上面这个写法仍然并不优雅。在何处呢？一个是 `prototype` 这种暴露语言实现机制的关键词；一个是要命的是，这个函数内部的 `this`，依靠的是作为使用者的你记得使用 `new` 操作符去调用它才能得到正确的初始化（具体原因请参见【待补充】）。但是这里没有任何线索告诉你，应该使用 `new` 去调用这个函数，一旦你忘记了，也不会有任何编译期和运行期的错误信息。这样的语言特性，与其说是一个「继承方案」，不如说是一个 bug，一个不应出现的设计失误。
+然鹅，上面这个写法仍然并不优雅。在何处呢？一个是 `prototype` 这种暴露语言实现机制的关键词；一个是要命的是，这个函数内部的 `this`，依靠的是作为使用者的你记得使用 `new` 操作符去调用它才能得到正确的初始化。但是这里没有任何线索告诉你，应该使用 `new` 去调用这个函数，一旦你忘记了，也不会有任何编译期和运行期的错误信息。这样的语言特性，与其说是一个「继承方案」，不如说是一个 bug，一个不应出现的设计失误。
 
 而这两个问题，在 ES6 提供的 `class` 关键词下，已经得到了非常妥善的解决，尽管它叫一个 class，但本质上其实是通过 prototype 实现的：
 
@@ -200,10 +200,6 @@ cat.say() // -> cat.__type__.prototype.say()
 * [MDN: Inheritance and the prototype chain][]
 * [MDN: Details of the object model][]
 * [MDN: `__proto__`][]
-
-## TODOLIST
-
-* 补全「构造函数调用需要 `new` 操作符」的连接材料：
 
 [javascript 语言精粹]: https://book.douban.com/subject/3590768/
 [mdn: inheritance and the prototype chain]: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance
