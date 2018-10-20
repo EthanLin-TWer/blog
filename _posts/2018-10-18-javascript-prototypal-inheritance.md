@@ -179,29 +179,12 @@ cat.say() // -> cat.__type__.prototype.say()
 
 无独有偶，这两种方案，在 JavaScript 中都有实现，只不过变量的命名与我们的取法有所差异：第一种方案中，实际的变量名叫 `__proto__` 而不是 `__prototype__`；第二种方案中，实际的变量名叫 `constructor`，不叫~~俗气的~~ `__type__`。实际上，用来实现继承、做向上查找的这个引用，正是 `__proto__`；至于 constructor，则另有他用。不过要注意的是，[尽管基本所有浏览器都支持 `__proto__`][mdn `__proto__`]，它并不是规范的一部分，因此并不推荐在你的业务代码中直接使用 `__proto__` 这个变量。
 
+![JavaScript Prototypal Inheritance](https://user-images.githubusercontent.com/11895199/47256895-7a423e00-d4b9-11e8-93a7-076259912244.png)
+
 * 用来实现向上查找的，正是这个 `__proto__` 将整套原型继承的继承链串起来。它的终点是 null
 * 还有 `constructor` 这个东西，它指向的是用来生成对象的那个构造函数
 * 什么是真正的原型式继承？实现一个 `inherits` 函数，不要显式依赖于 `new` 操作符来操作一个函数
 * `instanceof` 操作符也是通过 `obj.__proto__.__proto__ === Constructor.prototype` 实现的
-
-```javascript
-function inherits(child, parent) {
-  function F() {}
-  F.prototype === parent
-  return new F()
-}
-
-function New(func) {
-  const intermediate = {
-    __proto__: func.prototype,
-  }
-
-  return function(...args) {
-    func.apply(intermediate, ...args)
-    return intermediate
-  }
-}
-```
 
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Details_of_the_Object_Model
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
