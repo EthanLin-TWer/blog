@@ -12,6 +12,7 @@ title: JavaScript 原型继承之精髓
 * 被复用的对象：`prototype`
 * 优雅的 API：ES6 `class`
 * 简明的向上查找机制：`__proto__`
+* 构造函数又是个啥玩意儿
 * 参考
 
 ## 继承方案的设计要求
@@ -186,6 +187,10 @@ cat.say() // -> cat.__type__.prototype.say()
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Details_of_the_Object_Model
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
 * https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance
+
+## 构造函数又是个啥玩意儿？
+
+再加入 constructor 这个东西，它与 `prototype`、`__proto__` 是什么关系？这方面，我看过最详细透彻的文章是这篇：[一张图理解 JS 的原型][]，大家直接阅读即可。
 
 ## 参考
 
