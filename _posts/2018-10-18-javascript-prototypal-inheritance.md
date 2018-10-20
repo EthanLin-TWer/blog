@@ -98,6 +98,8 @@ Cat.prototype.meow = function() {
 }
 ```
 
+请注意，**只有函数才有 `prototype` 属性**，它是用来做原型继承的必需品。
+
 ## 优雅的 API：ES6 `class`
 
 然鹅，上面这个写法仍然并不优雅。在何处呢？一个是 `prototype` 这种暴露语言实现机制的关键词；一个是要命的是，这个函数内部的 `this`，依靠的是作为使用者的你记得使用 `new` 操作符去调用它才能得到正确的初始化。但是这里没有任何线索告诉你，应该使用 `new` 去调用这个函数，一旦你忘记了，也不会有任何编译期和运行期的错误信息。这样的语言特性，与其说是一个「继承方案」，不如说是一个 bug，一个不应出现的设计失误。
@@ -192,10 +194,12 @@ cat.say() // -> cat.__type__.prototype.say()
 
 ## 参考
 
-* [JavaScript 深入之继承的多种方法](https://github.com/mqyqingfeng/Blog/issues/16)
 * [一张图理解 JS 的原型](https://juejin.im/post/5b729c24f265da280f3ad010)
 * [Prototypal Inheritance in JavaScript](http://crockford.com/javascript/prototypal.html)
 * [How Prototypal Inheritance really works](http://blog.vjeux.com/2011/javascript/how-prototypal-inheritance-really-works.html)
+* [ECMAScript 2015(ES6) Specification](https://www.ecma-international.org/ecma-262/6.0/)
+* [从__proto__和prototype来深入理解JS对象和原型链](https://github.com/creeperyang/blog/issues/9)
+* [JavaScript 深入之继承的多种方法](https://github.com/mqyqingfeng/Blog/issues/16)
 * [MDN: Inheritance in JavaScript][]
 * [MDN: Inheritance and the prototype chain][]
 * [MDN: Details of the object model][]
