@@ -4,7 +4,7 @@ title: JavaScript 原型继承之精髓
 
 一篇文章让你搞清楚 JavaScript 继承、`prototype`、`__proto__`、`constructor` 都是什么。
 
-很多小伙伴表示不明白 JavaScript 的继承，说是原型链，看起来又像类，究竟是原型还是类？各种 `prototype`、`__proto__`、`constructor` 内部变量更是傻傻搞不清楚。其实，只要明白继承的本质就很能理解，继承是为了代码复用。复用并不一定得通过类，JS 就采用了一种轻量简明的原型方案来实现。所以真相是，JS 的继承跟类完全没有半毛钱关系。
+很多小伙伴表示不明白 JavaScript 的继承，说是原型链，看起来又像类，究竟是原型还是类？各种 `prototype`、`__proto__`、`constructor` 内部变量更是傻傻搞不清楚。其实，只要明白继承的本质就很能理解，继承是为了代码复用。复用并不一定得通过类，JS 就采用了一种轻量简明的原型方案来实现。Java/C++ 等强类型语言中有类和对象的区别，但 JS 只有对象。它的原型也是对象。只要你完全抛开面向对象的继承思路来看 JS 的原型继承，你会发现它轻便但强大。
 
 ## 目录
 
@@ -184,10 +184,6 @@ cat.say() // -> cat.__type__.prototype.say()
 
 从上图可以清楚看到，`prototype` 是用来存储类型公共方法的一个对象（正因此每个类型有它基本的方法），而 `__proto__` 是用来实现向上查找的一个引用。任何对象都会有 `__proto__`。`Object.prototype` 的 `__proto__` 是 null，也即是原型链的终点。
 
-* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Details_of_the_Object_Model
-* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
-* https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance
-
 ## 构造函数又是个啥玩意儿？
 
 再加入 constructor 这个东西，它与 `prototype`、`__proto__` 是什么关系？这方面，我看过最详细透彻的文章是这篇：[一张图理解 JS 的原型][]，大家直接阅读即可。
@@ -200,11 +196,17 @@ cat.say() // -> cat.__type__.prototype.say()
 * [一张图理解 JS 的原型](https://juejin.im/post/5b729c24f265da280f3ad010)
 * [Prototypal Inheritance in JavaScript](http://crockford.com/javascript/prototypal.html)
 * [How Prototypal Inheritance really works](http://blog.vjeux.com/2011/javascript/how-prototypal-inheritance-really-works.html)
-* [MDN `__proto__`][]
+* [MDN: Inheritance in JavaScript][]
+* [MDN: Inheritance and the prototype chain][]
+* [MDN: Details of the object model][]
+* [MDN: `__proto__`][]
 
 ## TODOLIST
 
 * 补全「构造函数调用需要 `new` 操作符」的连接材料：
 
 [javascript 语言精粹]: https://book.douban.com/subject/3590768/
-[MDN `__proto__`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto
+[mdn: inheritance and the prototype chain]: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance
+[mdn: inheritance and the prototype chain]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
+[mdn: details of the object model]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Details_of_the_Object_Model
+[mdn: `__proto__`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto
