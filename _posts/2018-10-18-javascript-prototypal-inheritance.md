@@ -11,7 +11,8 @@ title: JavaScript 原型继承之精髓
 * 继承方案的设计要求
 * 被复用的对象：`prototype`
 * 优雅的 API：ES6 `class`
-* 简单的向上查找：`__proto__`
+* 简明的向上查找机制：`__proto__`
+* 参考
 
 ## 继承方案的设计要求
 
@@ -40,7 +41,7 @@ const child = {
 
 ## 被复用的对象：`prototype`
 
-JavaScript 的继承有多种实现方式，具体有哪些，推荐读者可阅读：[JavaScript 语言精髓][]一书 和 [这篇文章](https://github.com/mqyqingfeng/Blog/issues/16)。这里，我们直接看一版比较优秀的实现：
+JavaScript 的继承有多种实现方式，具体有哪些，推荐读者可阅读：[JavaScript 语言精粹][]一书 和 [这篇文章](https://github.com/mqyqingfeng/Blog/issues/16)。这里，我们直接看一版比较优秀的实现：
 
 ```javascript
 function Animal(name) {
@@ -125,12 +126,12 @@ class Cat extends Animal {
 }
 ```
 
-* 如果你没有使用 `new` 操作符，编译器和运行时都会直接报错。为什么呢，看一下 babel 编译后的源码就知道了
+* 如果你没有使用 `new` 操作符，编译器和运行时都会直接报错。为什么呢，我们将在下一篇文章讲解
 * `extends` 关键字，会使解释器直接在底下完成基于原型的继承功能
 
 现在，我们已经看到了一套比较完美的继承 API，也看到其底下使用 `prototype` 存储公共变量的地点和原理。接下来，我们要解决另外一个问题：`prototype` 有了，实例对象应该如何访问到它呢？这就关系到 JavaScript 的向上查找机制了。
 
-## 简单的向上查找：`__proto__`
+## 简明的向上查找机制：`__proto__`
 
 ```javascript
 function Animal(name) {
@@ -176,9 +177,8 @@ cat.say() // -> cat.__type__.prototype.say()
 
 究其实质，其实就是：**实例对象需要一个指向其函数的引用（变量）**，以拿到这个公共原型 `prototype` 来实现继承方案的向上查找能力。读者如果有其他方案，不妨留言讨论。
 
-无独有偶，这两种方案，在 JavaScript 中都有实现，只不过变量的命名与我们的取法有所差异：第一种方案中，实际的变量名叫 `__proto__` 而不是 `__prototype__`；第二种方案中，实际的变量名叫 `constructor`，不叫~~俗气的~~ `__type__`。实际上，用来实现继承、做向上查找的这个引用，正是 `__proto__`；至于 constructor，则另有他用。不过要注意的是，[尽管基本所有浏览器都支持 `__proto__`][MDN `__proto__`]，它并不是规范的一部分，因此并不推荐在你的业务代码中直接使用 `__proto__` 这个变量。
+无独有偶，这两种方案，在 JavaScript 中都有实现，只不过变量的命名与我们的取法有所差异：第一种方案中，实际的变量名叫 `__proto__` 而不是 `__prototype__`；第二种方案中，实际的变量名叫 `constructor`，不叫~~俗气的~~ `__type__`。实际上，用来实现继承、做向上查找的这个引用，正是 `__proto__`；至于 constructor，则另有他用。不过要注意的是，[尽管基本所有浏览器都支持 `__proto__`][mdn `__proto__`]，它并不是规范的一部分，因此并不推荐在你的业务代码中直接使用 `__proto__` 这个变量。
 
-* 这样讲，`prototype` 用来存储公共的东西，`__proto__` 用来指向 `prototype` 以实现向上查找。之所以不直接用 `prototype` 来向上查找，主要是因为原型链的下游不能影响上游
 * 用来实现向上查找的，正是这个 `__proto__` 将整套原型继承的继承链串起来。它的终点是 null
 * 还有 `constructor` 这个东西，它指向的是用来生成对象的那个构造函数
 * 什么是真正的原型式继承？实现一个 `inherits` 函数，不要显式依赖于 `new` 操作符来操作一个函数
@@ -209,15 +209,15 @@ function New(func) {
 
 ## 参考
 
-* JavaScript 深入之继承的多种方法：https://github.com/mqyqingfeng/Blog/issues/16
-* 一张图理解 JS 的原型：https://juejin.im/post/5b729c24f265da280f3ad010
-* Prototypal Inheritance in JavaScript: http://crockford.com/javascript/prototypal.html
-* How Prototypal Inheritance really works http://blog.vjeux.com/2011/javascript/how-prototypal-inheritance-really-works.html
+* [JavaScript 深入之继承的多种方法](https://github.com/mqyqingfeng/Blog/issues/16)
+* [一张图理解 JS 的原型](https://juejin.im/post/5b729c24f265da280f3ad010)
+* [Prototypal Inheritance in JavaScript](http://crockford.com/javascript/prototypal.html)
+* [How Prototypal Inheritance really works](http://blog.vjeux.com/2011/javascript/how-prototypal-inheritance-really-works.html)
 * [MDN `__proto__`][]
 
 ## TODOLIST
 
 * 补全「构造函数调用需要 `new` 操作符」的连接材料：
 
-[javascript 语言精髓]: http://??
-[mdn `__proto__`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto
+[javascript 语言精粹]: https://book.douban.com/subject/3590768/
+[MDN `__proto__`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto
