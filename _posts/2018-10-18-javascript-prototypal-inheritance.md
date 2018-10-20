@@ -13,6 +13,7 @@ title: JavaScript 原型继承之精髓
 * 优雅的 API：ES6 `class`
 * 简明的向上查找机制：`__proto__`
 * 构造函数又是个啥玩意儿
+* 双链合璧：终极全图
 * 参考
 
 ## 继承方案的设计要求
@@ -188,9 +189,34 @@ cat.say() // -> cat.__type__.prototype.say()
 
 ## 构造函数又是个啥玩意儿？
 
-再加入 constructor 这个东西，它与 `prototype`、`__proto__` 是什么关系？这方面，我看过最详细透彻的文章是这篇：[一张图理解 JS 的原型][]，大家直接阅读即可。
+再加入 constructor 这个东西，它与 `prototype`、`__proto__` 是什么关系？这个地方，说复杂就很复杂了，让我们尽量把它说简单一些。开始之前，我们需要查阅一下[语言规范][ECMAScript 2015(ES6) Specification]，看一些基本的定义：
 
-![constructor/prototype/proto](http://www.mollypages.org/tutorials/jsobj_full.jpg)
+* [对象][Specification: object]：[对象是一组集合，其中可包含零个或多个属性。对象都有一个原型对象（译者注：即 [[Prototype]]/`__proto__`）][Specification: overview]
+* 函数：[是对象类型的一员][Specification: function] 
+* 构造函数：[构造函数是个用于创建对象的**函数对象**。每个构造函数都有一个 `prototype` 对象，用以实现原型式继承，作属性共享用][Specification: constructor]
+
+这里说明了什么呢？说明了构造函数是函数，它比普通函数多一个 `prototype` 属性；而函数是对象，对象都有一个原型对象 `__proto__`。这个东西有什么作用呢？
+
+上节我们深挖了用于继承的原型链，它链接的是原型对象。而对象是通过构造函数生成的，也就是说，普通对象、原型对象、函数对象都将有它们的构造函数，这将为我们引出另一条链—— 
+
+![JavaScript Constructor Chain](https://user-images.githubusercontent.com/11895199/47259006-082c2200-d4d6-11e8-8abb-460b51719c50.png)
+
+在 JavaScript 中，谁是谁的构造函数，是通过 `constructor` 来标识的。正常来讲，普通对象（如图中的 `cat` 和 `{ name: 'Lin' }` 对象）是没有 `constructor` 属性的，它是从原型上继承而来；而图中粉红色的部分即是函数对象（如 `Cat` `Animal` `Object` 等），它们的原型对象是 `Function.prototype`，这没毛病。关键是，它们是函数对象，对象就有构造函数，那么函数的构造函数是啥呢？是 `Function`。那么问题又来了，`Function` 也是函数，它的构造函数是谁呢？是它自己。由此，`Function` 即是构造函数链的终结。
+
+## 双链合璧：终极全图
+
+好了，是时候进入最烧脑的部分了。前面我们讲了两条链：
+
+* 原型链。它用来实现原型继承，最上层是 `Object.prototype`，终结于 `null`，没有循环
+* 构造函数链。它用来表明构造关系，最上层循环终结于 `Function`
+
+把这两条链结合到一起，你就会看到~~一条双螺旋 DNA~~这几张你经常看到却又看不懂的图：
+
+[![constructor/prototype/proto](https://user-gold-cdn.xitu.io/2018/8/14/16537b65ee6785a9?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)](https://juejin.im/post/5b729c24f265da280f3ad010)
+
+[![constructor/prototype/proto](http://www.mollypages.org/tutorials/jsobj_full.jpg)](http://www.mollypages.org/tutorials/js.mp)
+
+图都是引用自其它文章，点击图片可跳转到原文。其中，第一篇文章 [一张图理解 JS 的原型][] 是我见过解析得最详细的，本文的很多灵感也来自这篇文章。
 
 ## 参考
 
@@ -210,3 +236,7 @@ cat.say() // -> cat.__type__.prototype.say()
 [mdn: inheritance and the prototype chain]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
 [mdn: details of the object model]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Details_of_the_Object_Model
 [mdn: `__proto__`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto
+[Specification: overview]: https://www.ecma-international.org/ecma-262/6.0/#sec-ecmascript-overview
+[Specification: object]: https://www.ecma-international.org/ecma-262/6.0/#sec-terms-and-definitions-object
+[Specification: function]: https://www.ecma-international.org/ecma-262/6.0/#sec-terms-and-definitions-function
+[Specification: constructor]: https://www.ecma-international.org/ecma-262/6.0/#sec-constructor
