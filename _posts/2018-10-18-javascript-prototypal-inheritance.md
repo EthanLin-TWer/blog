@@ -181,10 +181,7 @@ cat.say() // -> cat.__type__.prototype.say()
 
 ![JavaScript Prototypal Inheritance](https://user-images.githubusercontent.com/11895199/47256895-7a423e00-d4b9-11e8-93a7-076259912244.png)
 
-* 用来实现向上查找的，正是这个 `__proto__` 将整套原型继承的继承链串起来。它的终点是 null
-* 还有 `constructor` 这个东西，它指向的是用来生成对象的那个构造函数
-* 什么是真正的原型式继承？实现一个 `inherits` 函数，不要显式依赖于 `new` 操作符来操作一个函数
-* `instanceof` 操作符也是通过 `obj.__proto__.__proto__ === Constructor.prototype` 实现的
+从上图可以清楚看到，`prototype` 是用来存储类型公共方法的一个对象（正因此每个类型有它基本的方法），而 `__proto__` 是用来实现向上查找的一个引用。任何对象都会有 `__proto__`。`Object.prototype` 的 `__proto__` 是 null，也即是原型链的终点。
 
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Details_of_the_Object_Model
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
