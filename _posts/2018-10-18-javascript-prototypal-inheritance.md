@@ -14,6 +14,7 @@ title: JavaScript 原型继承之精髓
 * 简明的向上查找机制：`__proto__`
 * 构造函数又是个啥玩意儿
 * 双链合璧：终极全图
+* 总结
 * 参考
 
 ## 继承方案的设计要求
@@ -203,6 +204,8 @@ cat.say() // -> cat.__type__.prototype.say()
 
 在 JavaScript 中，谁是谁的构造函数，是通过 `constructor` 来标识的。正常来讲，普通对象（如图中的 `cat` 和 `{ name: 'Lin' }` 对象）是没有 `constructor` 属性的，它是从原型上继承而来；而图中粉红色的部分即是函数对象（如 `Cat` `Animal` `Object` 等），它们的原型对象是 `Function.prototype`，这没毛病。关键是，它们是函数对象，对象就有构造函数，那么函数的构造函数是啥呢？是 `Function`。那么问题又来了，`Function` 也是函数，它的构造函数是谁呢？是它自己。由此，`Function` 即是构造函数链的终结。
 
+上面我们提到，`constructor` 也可以用来实现原型链的向上查找，然后它却别有他用。有个啥用呢？一般认为，它是用以支撑 `instanceof` 关键字实现的数据结构。
+
 ## 双链合璧：终极全图
 
 好了，是时候进入最烧脑的部分了。前面我们讲了两条链：
@@ -217,6 +220,26 @@ cat.say() // -> cat.__type__.prototype.say()
 [![constructor/prototype/proto](http://www.mollypages.org/tutorials/jsobj_full.jpg)](http://www.mollypages.org/tutorials/js.mp)
 
 图都是引用自其它文章，点击图片可跳转到原文。其中，第一篇文章 [一张图理解 JS 的原型][] 是我见过解析得最详细的，本文的很多灵感也来自这篇文章。
+
+## 总结
+
+讲到这里，我想关于 JavaScript 继承中的一些基本问题可以解释清楚了：
+
+> JavaScript 继承是类继承还是原型继承？不是使用了 new 关键字么，应该跟类有关系吧？
+
+是完全的原型继承。尽管用了 `new` 关键字，但其实只是个语法糖，跟类没有关系。JavaScript 没有类。它与类继承完全不同，只是长得像。好比雷锋和雷峰塔的关系。
+
+> `prototype` 是什么东西？用来干啥？
+
+`prototype` 是个对象，只有函数上有。它是用来存储对象的属性（数据和方法）的地方，是实现 JavaScript 原型继承的基础。
+
+> `__proto__` 是什么东西？用来干啥？
+
+`__proto__` 是个指向 `prototype` 的引用。用以辅助原型继承中向上查找的实现。虽然它得到了所有浏览器的支持，但并不是规范所推荐的做法。严谨地说，它是一个指向 `[[Prototype]]` 的引用。
+
+> `constructor` 是什么东西？用来干啥？
+
+是对象上一个指向构造函数的引用。用来辅助 `instanceof` 等关键字的实现。
 
 ## 参考
 
