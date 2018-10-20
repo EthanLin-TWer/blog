@@ -215,7 +215,7 @@ cat.say() // -> cat.__type__.prototype.say()
 
 把这两条链结合到一起，你就会看到~~一条双螺旋 DNA~~这几张你经常看到却又看不懂的图：
 
-[![constructor/prototype/proto](https://user-gold-cdn.xitu.io/2018/8/14/16537b65ee6785a9?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)](https://juejin.im/post/5b729c24f265da280f3ad010)
+[![constructor/prototype/proto](https://user-gold-cdn.xitu.io/2018/8/14/16537b65ee56f6f5?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)](https://juejin.im/post/5b729c24f265da280f3ad010)
 
 [![constructor/prototype/proto](http://www.mollypages.org/tutorials/jsobj_full.jpg)](http://www.mollypages.org/tutorials/js.mp)
 
