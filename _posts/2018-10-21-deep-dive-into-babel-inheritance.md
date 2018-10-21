@@ -173,7 +173,7 @@ class Tiger extends Animal {
 }
 ```
 
-加一层继承和字段覆盖能看到啥东西呢？能看到，一层简单的继承底下的实现机制是怎么样的，它的 `constructor` 和 `__proto__` 属性是如何被正确设置的。带着这两个问题，我们一起来看下编译后的源码：
+加一层继承和字段覆盖能看到啥东西呢？能看到继承底下的实现机制是怎么样的，以及它的 `constructor` 和 `__proto__` 属性将如何被正确设置。带着这两个问题，我们一起来看下编译后的源码：
 
 ```javascript
 'use strict'
@@ -241,6 +241,37 @@ var Tiger = (function(_Animal) {
 })(Animal)
 ```
 
+精华在 `_inherits(Tiger, Animal)` 这个函数，我们按顺序来读一下。首先是一段异常处理，简单地检查了 `superClass` 要么是个函数，要么得是个 null。也就是说，如果你这样写那是不行的：
+
+```javascript
+const Something = 'not-a-function'
+class Animal extends Something {}
+```
+
+
+
+```javascript
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== 'function' && superClass !== null) {
+    throw new TypeError(
+      'Super expression must either be null or a function, not ' +
+        typeof superClass
+    )
+  }
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      enumerable: false,
+      writable: true,
+      configurable: true,
+    },
+  })
+  if (superClass)
+    Object.setPrototypeOf
+      ? Object.setPrototypeOf(subClass, superClass)
+      : (subClass.__proto__ = superClass)
+}
+```
 ## todo
 
 * 解释为啥 `Animal` 需要用一个函数包一下
