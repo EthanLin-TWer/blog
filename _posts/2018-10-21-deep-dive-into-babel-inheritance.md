@@ -240,6 +240,14 @@ var Tiger = (function(_Animal) {
 })(Animal)
 ```
 
+## todo
+
+* 解释为啥 `Animal` 需要用一个函数包一下
+* 加一下 static function 的例子
+* 加一下 static variable 的例子
+* 加一下 arrow function as variable 的例子
+* 查下规范 `writable` `configurable` `enumerable` 是啥
+
 [上一篇文章]: https://blog.linesh.tw/#/post/2018-10-18-javascript-prototypal-inheritance
 [babel used]: https://babeljs.io/repl/#?babili=false&browsers=&build=&builtIns=false&spec=false&loose=false&code_lz=Q&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=true&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=es2015%2Ces2017%2Creact%2Cstage-0%2Cstage-3&prettier=false&targets=&version=6.26.0&envVersion=
 [ECMAScript 2015(ES6) Specification]: https://www.ecma-international.org/ecma-262/6.0/
