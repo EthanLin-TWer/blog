@@ -2,7 +2,7 @@
 title: 深入 JavaScript 原型继承原理——解读 babel 编译码
 ---
 
-前文说过，ES6 的 `class` 语法糖是个近乎完美的方案，你还不信？这篇补遗。
+[前文说过](https://blog.linesh.tw/#/post/2018-10-18-javascript-prototypal-inheritance)，ES6 的 `class` 语法糖是个近乎完美的方案，你还不信？这篇补遗。
 
 ```javascript
 class Animal {

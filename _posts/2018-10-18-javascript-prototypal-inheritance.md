@@ -131,7 +131,7 @@ class Cat extends Animal {
 }
 ```
 
-* 如果你没有使用 `new` 操作符，编译器和运行时都会直接报错。为什么呢，我们将在下一篇文章讲解
+* 如果你没有使用 `new` 操作符，编译器和运行时都会直接报错。为什么呢，我们将在[下一篇文章][]讲解
 * `extends` 关键字，会使解释器直接在底下完成基于原型的继承功能
 
 现在，我们已经看到了一套比较完美的继承 API，也看到其底下使用 `prototype` 存储公共变量的地点和原理。接下来，我们要解决另外一个问题：`prototype` 有了，实例对象应该如何访问到它呢？这就关系到 JavaScript 的向上查找机制了。
@@ -254,6 +254,7 @@ cat.say() // -> cat.__type__.prototype.say()
 * [MDN: Details of the object model][]
 * [MDN: `__proto__`][]
 
+[下一篇文章]: https://blog.linesh.tw/#/post/2018-10-21-deep-dive-into-babel-inheritance
 [javascript 语言精粹]: https://book.douban.com/subject/3590768/
 [mdn: inheritance and the prototype chain]: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance
 [mdn: inheritance and the prototype chain]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
