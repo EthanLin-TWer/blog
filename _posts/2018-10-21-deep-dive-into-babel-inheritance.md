@@ -242,4 +242,4 @@ var Tiger = (function(_Animal) {
 
 [上一篇文章]: https://blog.linesh.tw/#/post/2018-10-18-javascript-prototypal-inheritance
 [babel used]: https://babeljs.io/repl/#?babili=false&browsers=&build=&builtIns=false&spec=false&loose=false&code_lz=Q&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=true&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=es2015%2Ces2017%2Creact%2Cstage-0%2Cstage-3&prettier=false&targets=&version=6.26.0&envVersion=
-[ECMAScript 2015(ES6) Specification](https://www.ecma-international.org/ecma-262/6.0/)
+[ECMAScript 2015(ES6) Specification]: https://www.ecma-international.org/ecma-262/6.0/
