@@ -163,7 +163,7 @@ function defineProperties(target, props) {
 
 看到这里就很明白了，它就是把你定义的 `move`、`getName` 方法通过 `Object.defineProperty` 方法设置到 `Animal.prototype` 上去。[前面][上一篇文章]我们说过，`prototype` 是用来存储公共属性的。也就是说，这两个方法在你使用继承的时候，可以被子对象通过原型链上溯访问到。也就是说，我们这个小小的例子里，声明的两个方法已经具备了继承能力了。
 
-至于 `enumerable`、`configurable`、`writable` 属性是什么东西呢，查一下[语言规范][ecmascript 2015(es6) specification]就知道了：
+至于 `enumerable`、`configurable`、`writable` 属性是什么东西呢，查一下[语言规范][ecmascript 2015(es6) specification]就知道了。简单来说，`writable` 为 `false` 时，其值不能通过 `setter` 改变；`enumerable` 为 `false` 时，不能出现在 `for-in` 循环中。当然，这里是粗浅的理解，暂时不是这篇文章的重点。
 
 ## 简单继承——一层继承 + 字段覆盖
 
@@ -504,4 +504,4 @@ var Button = (function() {
 
 [上一篇文章]: https://blog.linesh.tw/#/post/2018-10-18-javascript-prototypal-inheritance
 [babel used]: https://babeljs.io/repl/#?babili=false&browsers=&build=&builtIns=false&spec=false&loose=false&code_lz=Q&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=true&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=es2015%2Ces2017%2Creact%2Cstage-0%2Cstage-3&prettier=false&targets=&version=6.26.0&envVersion=
-[ecmascript 2015(es6) specification]: https://www.ecma-international.org/ecma-262/6.0/
+[ecmascript 2015(es6) specification]: https://www.ecma-international.org/ecma-262/6.0/#sec-property-attributes
