@@ -270,11 +270,123 @@ function _inherits(subClass, superClass) {
 * 子「类」`prototype` 上的 `__proto__` 被正确设置，指向父「类」的 `prototype`: `subClass.prototype = { __proto__: superClass.prototype }`
 * 子「类」`prototype` 上的 `constructor` 被正确初始化，这样 `instanceof` 关系能得到正确结果
 
+好，要点看完了。后面内容跟继承关系不大，但既然源码扒都扒了，我们不妨继续深入探索一些场景：
+
+## 无继承——静态函数
+
+看一个简单的代码：
+
+```javascript
+class Animal {
+  static create() {
+    return new Animal()
+  }
+}
+```
+
+首先要知道，这个「静态」同样不是强类型类继承语言里有的「静态」的概念。所谓静态，就是说它跟实例是没关系的，而跟「类」本身有关系。比如，你可以这样调用：`Animal.create()`，但不能这样用：`new Animal().create`。什么场景下会用到这种模式呢？比如说：
+
+* 工厂模式或单例模式
+* `Object.create`、`Object.keys` 等常用方法
+
+既然只有通过构造函数本身去调用，而不能通过实例来调用，期望它们被绑定到函数本身上似乎很自然。我们来看看上面这段代码将被如何编译：
+
+```javascript
+'use strict'
+
+var _createClass = (function() {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i]
+      descriptor.enumerable = descriptor.enumerable || false
+      descriptor.configurable = true
+      if ('value' in descriptor) descriptor.writable = true
+      Object.defineProperty(target, descriptor.key, descriptor)
+    }
+  }
+  return function(Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps)
+    if (staticProps) defineProperties(Constructor, staticProps)
+    return Constructor
+  }
+})()
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError('Cannot call a class as a function')
+  }
+}
+
+var Animal = (function() {
+  function Animal() {
+    _classCallCheck(this, Animal)
+  }
+
+  _createClass(Animal, null, [
+    {
+      key: 'create',
+      value: function create() {},
+    },
+  ])
+
+  return Animal
+})()
+```
+
+熟悉的函数，熟悉的配方。与本文的第二个例子相比，仅有一个地方的不同：`create` 方法是作为 `_createClass` 方法的第三个参数被传入的，这正是我们上文提到的 `staticProps` 参数：
+
+```javascript
+var _createClass = (function() {
+  function defineProperties(target, props) { ... }
+
+  return function(Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps)
+    if (staticProps) defineProperties(Constructor, staticProps)
+    return Constructor
+  }
+})()
+
+_createClass(Animal, null, [
+  {
+    key: 'create',
+    value: function create() {},
+  },
+])
+```
+
+可以看见，`create` 方法是直接被创建到 `Animal` 上的：`defineProperties(Animal, [{ key: 'create', value: function() {} }])`，最终会将函数赋给 `Animal.create`。我们的猜测并没有错误。
+
+## 无继承——静态变量
+
+```javascript
+class Tiger {
+  static TYPE = 'REAL'
+}
+```
+
+还有个小例子。如果是静态变量的话，同样因为不希望在实例对象上所使用，我们会看到编译出来的代码中它是直接被设置到函数上。代码已经很熟悉，不必再讲。
+
+```javascript
+'use strict'
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError('Cannot call a class as a function')
+  }
+}
+
+var Tiger = function Tiger() {
+  _classCallCheck(this, Tiger)
+}
+
+Tiger.TYPE = 'REAL'
+```
+
+有趣的是，静态变量会不会被「子类」继承呢？这个可请读者自己做个实验，验证验证。
+
 ## todo
 
 * 解释为啥 `Animal` 需要用一个函数包一下
-* 加一下 static function 的例子
-* 加一下 static variable 的例子
 * 加一下 arrow function as variable 的例子
 * 查下规范 `writable` `configurable` `enumerable` 是啥
 
