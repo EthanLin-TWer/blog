@@ -258,9 +258,17 @@ function _inherits(subClass, superClass) {
 }
 ```
 
-> 很明显，是为了避免任何对 `subClass.prototype` 的修改影响到 `superClass.prototype`。不过神奇的是，`superClass.prototype` 上的修改却会影响到 `subClass.prototype`。不能理解。使用通常的函数继承的话，是会互相影响的。
+很明显，是为了避免任何对 `subClass.prototype` 的修改影响到 `superClass.prototype`。使用 `Object.create(asPrototype)` 出来的对象，其实上是将 `subClass.prototype.__proto__ = superClass.prototype`，这样 `subClass` 也就继承了 `superClass`，可以达到这样两个目的：
 
-再看下面那句，讲真我也不理解。。。
+1.  当查找到 `subClass` 上没有的属性时，会自动往 `superClass` 上找；这样 `superClass.prototype` 原型上发生的修改都能实时反映到 `subClass` 上
+2.  `subClass.prototype` 本身是个新的对象，可以存放 `subClass` 自己的属性，这样 `subClass.prototype` 上的任何修改不会影响到 `superClass.prototype`
+
+最后，如果 `superClass` 不为空，那么将 `subClass.__proto__` 设置为 `superClass`。这点我并不是很理解。
+
+至此，一个简单的继承就完成了。在使用了 `extends` 关键字后，实际上背后发生的事情是：
+
+* 子「类」`prototype` 上的 `__proto__` 被正确设置，指向父「类」的 `prototype`: `subClass.prototype = { __proto__: superClass.prototype }`
+* 子「类」`prototype` 上的 `constructor` 被正确初始化，这样 `instanceof` 关系能得到正确结果
 
 ## todo
 
