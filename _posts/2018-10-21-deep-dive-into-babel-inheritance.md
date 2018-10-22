@@ -241,37 +241,27 @@ var Tiger = (function(_Animal) {
 })(Animal)
 ```
 
-精华在 `_inherits(Tiger, Animal)` 这个函数，我们按顺序来读一下。首先是一段异常处理，简单地检查了 `superClass` 要么是个函数，要么得是个 null。也就是说，如果你这样写那是不行的：
+相比无继承的代码，这里主要增加了几个函数。`_possibleConstructorReturn` 顾名思义，可能不是很重要，回头再读。精华在 `_inherits(Tiger, Animal)` 这个函数，我们按顺序来读一下。首先是一段异常处理，简单地检查了 `superClass` 要么是个函数，要么得是个 null。也就是说，如果你这样写那是不行的：
 
 ```javascript
 const Something = 'not-a-function'
 class Animal extends Something {}
+// Error: Super expression must either be null or a function, not string
 ```
 
-
+接下来这句代码将 `prototype` 和 `constructor` 一并设置到位，是精华。注意，这个地方留个问题：为什么要用 `Object.create(superClass.prototype)`，而不是直接这么写：
 
 ```javascript
 function _inherits(subClass, superClass) {
-  if (typeof superClass !== 'function' && superClass !== null) {
-    throw new TypeError(
-      'Super expression must either be null or a function, not ' +
-        typeof superClass
-    )
-  }
-  subClass.prototype = Object.create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true,
-    },
-  })
-  if (superClass)
-    Object.setPrototypeOf
-      ? Object.setPrototypeOf(subClass, superClass)
-      : (subClass.__proto__ = superClass)
+  subClass.prototype = superClass && superClass.prototype
+  subClass.prototype.constructor = { ... }
 }
 ```
+
+> 很明显，是为了避免任何对 `subClass.prototype` 的修改影响到 `superClass.prototype`。不过神奇的是，`superClass.prototype` 上的修改却会影响到 `subClass.prototype`。不能理解。使用通常的函数继承的话，是会互相影响的。
+
+再看下面那句，讲真我也不理解。。。
+
 ## todo
 
 * 解释为啥 `Animal` 需要用一个函数包一下
