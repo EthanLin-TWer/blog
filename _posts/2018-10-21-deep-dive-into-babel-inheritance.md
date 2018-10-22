@@ -1,8 +1,8 @@
 ---
-title: 深入 JavaScript 原型继承原理——解读 babel 编译码
+title: 深入 JavaScript 原型继承原理——babel 编译码解读
 ---
 
-在[上一篇文章][]中，我们提到 ES6 的 `class` 语法糖是个近乎完美的方案，并且讲解了实现继承的许多内部机制，如 `prototype`/`__proto__`/`constructor` 等等。这篇，我们就以 babel 编译过后的代码为例子，来验证上节所言不虚。
+在[上一篇文章][]中，我们提到 ES6 的 `class` 语法糖是个近乎完美的方案，并且讲解了实现继承的许多内部机制，如 `prototype`/`__proto__`/`constructor` 等等。这篇，我们就以实际的 babel 代码为例子，来验证上节所言不虚。此外，本文还解释了 React 组件中你需要 `bind` 一下类方法的原理所在。
 
 ## 目录
 
