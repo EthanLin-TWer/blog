@@ -2,7 +2,7 @@
 title: JavaScript 原型继承之精髓
 ---
 
-一篇文章让你搞清楚 JavaScript 继承、`prototype`、`__proto__`、`constructor` 都是什么。
+一篇文章让你搞清楚 JavaScript 继承的本质、`prototype`、`__proto__`、`constructor` 都是什么。
 
 很多小伙伴表示不明白 JavaScript 的继承，说是原型链，看起来又像类，究竟是原型还是类？各种 `prototype`、`__proto__`、`constructor` 内部变量更是傻傻搞不清楚。其实，只要明白继承的本质就很能理解，继承是为了代码复用。复用并不一定得通过类，JS 就采用了一种轻量简明的原型方案来实现。Java/C++ 等强类型语言中有类和对象的区别，但 JS 只有对象。它的原型也是对象。只要你完全抛开面向对象的继承思路来看 JS 的原型继承，你会发现它轻便但强大。
 
