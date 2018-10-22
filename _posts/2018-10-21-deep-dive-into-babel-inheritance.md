@@ -395,6 +395,129 @@ Tiger.TYPE = 'REAL'
 
 ## 神秘的类 arrow function
 
+写 React 的东西，一定遇见过这个问题：
+
+```jsx harmony
+class Button extends React.Component {
+  constructor() {
+    super()
+    this.state = {
+      isToggleOn: true,
+    }
+    // 画重点 👇👇👇👇👇👇👇👇👇👇👇👇
+    this.toggleButton = this.toggleButton.bind(this)
+  }
+
+  static propTypes = {
+    text: PropTypes.string,
+  }
+
+  // ❌❌❌ Uncaught TypeError: this.setState is not a function
+  toggleButton() {
+    this.setState({
+      isToggleOn: !this.state.isToggleOn,
+    })
+  }
+
+  render() {
+    return <button onClick={this.toggleButton}>Toggle Me</button>
+  }
+}
+```
+
+为什么会有这个问题呢？因为你扔进去的 `this.toggleButton` 函数，在 `button` 内部一定是通过 `onClick()` 这样的方式来调用的，这样的话，`this` 引用就会丢失为 `undefined`，那么 `React.Component` 上的 `setState` 就调用不到。
+
+可以直接去 React 官方示例看看：https://codepen.io/gaearon/pen/xEmzGg?editors=0010
+
+```javascript
+class Button extends React.Component {
+  ...
+
+  // ✅✅✅ This will work!
+  toggleButton = () => {
+    this.setState({ ... })
+  }
+
+  ...
+}
+```
+
+解决方案呢，自然也有很多种，比如引用 `@autobind`、使用 ES7 的 `::this.toggleButton`、使用箭头函数等。比如上面 👆 这种最常用的解决方案。那么同学们有没有想过这个问题，为什么这样写 `this` 应用就可以正确拿到呢？「因为箭头函数将 `this` 绑定到词法作用域的上下文中了呀~」那谁来给我解释一下这句话呢？反正我是从来没理解过这个「外层」的作用域，应该是绑定到哪里。因此，只好另辟路径，直接看源码来理解这个写法的含义。
+
+我写了个简单的例子，足以复现这个问题：
+
+```javascript
+class Button {
+  constructor() {
+    this.value = 1
+  }
+
+  increment = () => {
+    this.value += 2
+  }
+
+  render() {
+    const onClick = this.increment
+    onClick()
+  }
+}
+```
+
+当我们调用 `render()` 时，`increment()` 这样的调用方式会使 `this` 引用无法被初始化，这也正是我们传入的 `onClick` 在 React 中会被调用的方式。而上图的 `increment` 写法可以重新拯救失去的 `this` 引用！让我们来看看源代码，一探究竟。
+
+```javascript
+'use strict'
+
+var _createClass = (function() {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i]
+      descriptor.enumerable = descriptor.enumerable || false
+      descriptor.configurable = true
+      if ('value' in descriptor) descriptor.writable = true
+      Object.defineProperty(target, descriptor.key, descriptor)
+    }
+  }
+  return function(Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps)
+    if (staticProps) defineProperties(Constructor, staticProps)
+    return Constructor
+  }
+})()
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError('Cannot call a class as a function')
+  }
+}
+
+var Button = (function() {
+  function Button() {
+    var _this = this
+
+    _classCallCheck(this, Button)
+
+    this.increment = function() {
+      _this.value += 2
+    }
+
+    this.value = 1
+  }
+
+  _createClass(Button, [
+    {
+      key: 'render',
+      value: function render() {
+        var increment = this.increment
+        increment()
+      },
+    },
+  ])
+
+  return Button
+})()
+```
+
 ## todo
 
 * 解释为啥 `Animal` 需要用一个函数包一下
