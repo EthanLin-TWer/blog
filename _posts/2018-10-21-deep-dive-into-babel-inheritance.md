@@ -468,28 +468,8 @@ class Button {
 ```javascript
 'use strict'
 
-var _createClass = (function() {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i]
-      descriptor.enumerable = descriptor.enumerable || false
-      descriptor.configurable = true
-      if ('value' in descriptor) descriptor.writable = true
-      Object.defineProperty(target, descriptor.key, descriptor)
-    }
-  }
-  return function(Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps)
-    if (staticProps) defineProperties(Constructor, staticProps)
-    return Constructor
-  }
-})()
-
-function _classCallCheck(instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError('Cannot call a class as a function')
-  }
-}
+var _createClass = (function() {})()
+function _classCallCheck(instance, Constructor) {}
 
 var Button = (function() {
   function Button() {
@@ -518,11 +498,9 @@ var Button = (function() {
 })()
 ```
 
-## todo
+我略去了大家耳熟能详的代码，只留下关键的部分。可以看到，编译后的代码中，**对 `Button` 实例的 `this` 引用被闭包保存了下来**！这种写法，与以前我们 `var that = this` 的写法是一致的，我也终于理解「不再需要 that 引用了」以及各种语焉不详的作用域啊最外层变量啊这些理论。其实，就是 `this` 引用会始终被绑定到构造函数上，而这底下是通过闭包实现的。只是把你以前手写的代码自动化生成而已。
 
-* 解释为啥 `Animal` 需要用一个函数包一下
-* 加一下 arrow function as variable 的例子
-* 查下规范 `writable` `configurable` `enumerable` 是啥
+在本文的第二个例子中，我们留意到 `Animal()` 构造函数被额外包了一层，当时不得其解。看到这里，我们也许可以理解它的意图：就是为了将你在类中编写的箭头函数做个闭包，将 `this` 引用存储下来，以做后用。
 
 [上一篇文章]: https://blog.linesh.tw/#/post/2018-10-18-javascript-prototypal-inheritance
 [babel used]: https://babeljs.io/repl/#?babili=false&browsers=&build=&builtIns=false&spec=false&loose=false&code_lz=Q&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=true&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=es2015%2Ces2017%2Creact%2Cstage-0%2Cstage-3&prettier=false&targets=&version=6.26.0&envVersion=
