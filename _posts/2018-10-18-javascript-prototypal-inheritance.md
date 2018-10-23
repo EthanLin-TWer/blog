@@ -95,6 +95,7 @@ function Cat(name, age) {
   Animal.call(this, name)
   this.age = age || 1
 }
+Cat.prototype = Object.create(Animal.prototype, { constructor: Cat })
 Cat.prototype.meow = function() {
   return `${this.getName()}eowww~~~~~, I'm ${this.age} year(s) old`
 }
