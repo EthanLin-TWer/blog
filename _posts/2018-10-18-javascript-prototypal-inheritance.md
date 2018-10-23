@@ -190,15 +190,15 @@ cat.say() // -> cat.__type__.prototype.say()
 
 ## 构造函数又是个啥玩意儿？
 
-再加入 constructor 这个东西，它与 `prototype`、`__proto__` 是什么关系？这个地方，说复杂就很复杂了，让我们尽量把它说简单一些。开始之前，我们需要查阅一下[语言规范][ECMAScript 2015(ES6) Specification]，看一些基本的定义：
+再加入 constructor 这个东西，它与 `prototype`、`__proto__` 是什么关系？这个地方，说复杂就很复杂了，让我们尽量把它说简单一些。开始之前，我们需要查阅一下[语言规范][ecmascript 2015(es6) specification]，看一些基本的定义：
 
-* [对象][Specification: object]：[对象是一组集合，其中可包含零个或多个属性。对象都有一个原型对象（译者注：即 [[Prototype]]/`__proto__`）][Specification: overview]
-* 函数：[是对象类型的一员][Specification: function] 
-* 构造函数：[构造函数是个用于创建对象的**函数对象**。每个构造函数都有一个 `prototype` 对象，用以实现原型式继承，作属性共享用][Specification: constructor]
+* [对象][specification: object]：[对象是一组集合，其中可包含零个或多个属性。对象都有一个原型对象（译者注：即 [[Prototype]]/`__proto__`）][specification: overview]
+* 函数：[是对象类型的一员][specification: function]
+* 构造函数：[构造函数是个用于创建对象的**函数对象**。每个构造函数都有一个 `prototype` 对象，用以实现原型式继承，作属性共享用][specification: constructor]
 
 这里说明了什么呢？说明了构造函数是函数，它比普通函数多一个 `prototype` 属性；而函数是对象，对象都有一个原型对象 `__proto__`。这个东西有什么作用呢？
 
-上节我们深挖了用于继承的原型链，它链接的是原型对象。而对象是通过构造函数生成的，也就是说，普通对象、原型对象、函数对象都将有它们的构造函数，这将为我们引出另一条链—— 
+上节我们深挖了用于继承的原型链，它链接的是原型对象。而对象是通过构造函数生成的，也就是说，普通对象、原型对象、函数对象都将有它们的构造函数，这将为我们引出另一条链——
 
 ![JavaScript Constructor Chain](https://user-images.githubusercontent.com/11895199/47259006-082c2200-d4d6-11e8-8abb-460b51719c50.png)
 
@@ -247,7 +247,7 @@ cat.say() // -> cat.__type__.prototype.say()
 * [Prototypal Inheritance in JavaScript](http://crockford.com/javascript/prototypal.html)
 * [How Prototypal Inheritance really works](http://blog.vjeux.com/2011/javascript/how-prototypal-inheritance-really-works.html)
 * [ECMAScript 2015(ES6) Specification](https://www.ecma-international.org/ecma-262/6.0/)
-* [从__proto__和prototype来深入理解JS对象和原型链](https://github.com/creeperyang/blog/issues/9)
+* [从**proto**和 prototype 来深入理解 JS 对象和原型链](https://github.com/creeperyang/blog/issues/9)
 * [JavaScript 深入之继承的多种方法](https://github.com/mqyqingfeng/Blog/issues/16)
 * [MDN: Inheritance in JavaScript][]
 * [MDN: Inheritance and the prototype chain][]
@@ -256,11 +256,11 @@ cat.say() // -> cat.__type__.prototype.say()
 
 [下一篇文章]: https://blog.linesh.tw/#/post/2018-10-21-deep-dive-into-babel-inheritance
 [javascript 语言精粹]: https://book.douban.com/subject/3590768/
-[mdn: inheritance and the prototype chain]: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance
+[mdn: inheritance in javascript]: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance
 [mdn: inheritance and the prototype chain]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain
 [mdn: details of the object model]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Details_of_the_Object_Model
 [mdn: `__proto__`]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto
-[Specification: overview]: https://www.ecma-international.org/ecma-262/6.0/#sec-ecmascript-overview
-[Specification: object]: https://www.ecma-international.org/ecma-262/6.0/#sec-terms-and-definitions-object
-[Specification: function]: https://www.ecma-international.org/ecma-262/6.0/#sec-terms-and-definitions-function
-[Specification: constructor]: https://www.ecma-international.org/ecma-262/6.0/#sec-constructor
+[specification: overview]: https://www.ecma-international.org/ecma-262/6.0/#sec-ecmascript-overview
+[specification: object]: https://www.ecma-international.org/ecma-262/6.0/#sec-terms-and-definitions-object
+[specification: function]: https://www.ecma-international.org/ecma-262/6.0/#sec-terms-and-definitions-function
+[specification: constructor]: https://www.ecma-international.org/ecma-262/6.0/#sec-constructor
