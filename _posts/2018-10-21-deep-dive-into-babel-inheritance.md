@@ -405,7 +405,7 @@ class Button extends React.Component {
       isToggleOn: true,
     }
     // 画重点 👇👇👇👇👇👇👇👇👇👇👇👇
-    this.toggleButton = this.toggleButton.bind(this)
+    // this.toggleButton = this.toggleButton.bind(this)
   }
 
   static propTypes = {
