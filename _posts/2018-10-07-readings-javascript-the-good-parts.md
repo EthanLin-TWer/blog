@@ -49,30 +49,7 @@ category: 读书笔记
 
 弱类型意味着很多事，一是写代码的时候你可以不用在意类型了，开发快；二是更优雅的表达力；三是更有表达力的继承方案的可能性（在继承一小节谈）。当然，类型系统对于编译期的问题发现也是很有价值的，在重构的时候也能给 IDE 提供更多的帮助。但作者认为，靠类型系统发现的 bug，不多也不大，相比起来类型系统就太重量，而弱类型是兼顾表达力和项目价值的优雅方案。
 
-JS 有哪些类型呢？一言以蔽之，最重要的有三类八种：**基本类型**、**对象**和**函数**。基本类型有 `string`、`boolean`、`number` 三种类型；函数包含一般函数和构造函数等；对象就是 `object` 类型，除了对象，它还包含数组、正则表达式、日期对象等。也就是说，以下所有东西都是 `object` 类型：
-
-```javascript
-typeof {} // 'object'
-typeof [] // 'object'
-typeof /s/ // 'object'
-typeof new Date() // 'object'
-```
-
-而以下东西是函数类型：
-
-```javascript
-typeof function() {} // 'function'
-typeof class Door {} // 'function'
-```
-
-另外还有一些奇葩类型：
-
-```javascript
-typeof null // 'object'
-typeof undefined // 'undefined'
-typeof NaN // 'undefined'
-typeof void 0 // 'undefined'
-```
+JS 有哪些类型呢？一言以蔽之，除了三种基本类型，其他都是对象。包括函数也是对象。基本类型有 `string`、`boolean`、`number` 三种，其他的诸如对象字面量、数组、正则表达式、日期对象、原型对象等，都是 `object` 类型的对象。
 
 ![JavaScript Data Types](https://i.stack.imgur.com/L1tYe.png)
 
@@ -118,7 +95,7 @@ JavaScript 里面函数是一等公民。这意味着啥呢？一等公民表示
 其中：
 
 * 第二种方案，由于 `this` 引用不会被正确初始化，因此一是尽量用于不维护内部状态的函数，二是应全部应用箭头函数，它修复了 `this` 引用的 bug
-* 抛弃第三种方案，一是因为一旦忘记用 `new` 运算符，`this` 会直接绑定到全局对象，并且无任何编译期和运行期的提示；二是因为没有任何使用场景。做类继承时应该全用 ES6 的 `class` API 
+* 抛弃第三种方案，一是因为一旦忘记用 `new` 运算符，`this` 会直接绑定到全局对象，并且无任何编译期和运行期的提示；二是因为没有任何使用场景。做类继承时应该全用 ES6 的 `class` API
 * 第四种方案，一开始以为有两个场景会用到：写框架代码时、做柯里化时。后来自己一写，发现实现柯里化不需要使用 `apply`；而框架代码，至今未见使用场景，故留作疑问
 
 #### 函数式
