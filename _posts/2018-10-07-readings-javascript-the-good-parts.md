@@ -217,16 +217,10 @@ const curry = (func) => {
 
 继承的本质，是为了实现「代码复用」，并且通常是数据+行为的复用。不同于 Java 这样的强类型语言，JavaScript 没有类，也没有强类型的束缚，因此它得以实现一套更加清爽、更加简洁的继承体系。当然，这套方案就是大家所熟知的原型继承。
 
-就方案来讲，ES6 的 `class` 语法糖应该是最简明的 API 了，功能和简洁性兼备。不过虽然它长得很像 Java 的类，但其实它根本就不是类。这点要明确。
+就方案来讲，ES6 提供的 `class` 语法糖是目前最完美的 API 了。不过虽然它长得很像 Java 的类，但其实它根本就不是类，底下的实现还是完全用的原型继承。关于继承相关的东西，另起了两篇博客进行了详尽的探究：
 
-|     方案     | 伪类继承 | 对象继承 | 函数模式 | ES6 `class` |
-| :----------: | :------: | :------: | :------: | :---------: |
-|   私有成员   |    无    |    无    |    有    |     无      |
-|  语法复杂度  |   复杂   |   简单   |   中等   |    简单     |
-|  访问 super  |    无    |    无    |    有    |     有      |
-| 共享方法内存 |    有    |    无    |    ?     |     有      |
-
-详见：http://blog.linesh.tw/#/post/2018-10-18-javascript-prototypal-inheritance
+* https://blog.linesh.tw/#/post/2018-10-18-javascript-prototypal-inheritance
+* https://blog.linesh.tw/#/post/2018-10-21-deep-dive-into-babel-inheritance
 
 ## 糟粕
 
