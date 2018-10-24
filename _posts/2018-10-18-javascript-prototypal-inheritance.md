@@ -203,7 +203,7 @@ cat.say() // -> cat.__type__.prototype.say()
 
 ![JavaScript Constructor Chain](https://user-images.githubusercontent.com/11895199/47259006-082c2200-d4d6-11e8-8abb-460b51719c50.png)
 
-在 JavaScript 中，谁是谁的构造函数，是通过 `constructor` 来标识的。正常来讲，普通对象（如图中的 `cat` 和 `{ name: 'Lin' }` 对象）是没有 `constructor` 属性的，它是从原型上继承而来；而图中粉红色的部分即是函数对象（如 `Cat` `Animal` `Object` 等），它们的原型对象是 `Function.prototype`，这没毛病。关键是，它们是函数对象，对象就有构造函数，那么函数的构造函数是啥呢？是 `Function`。那么问题又来了，`Function` 也是函数，它的构造函数是谁呢？是它自己。由此，`Function` 即是构造函数链的终结。
+在 JavaScript 中，谁是谁的构造函数，是通过 `constructor` 来标识的。正常来讲，普通对象（如图中的 `cat` 和 `{ name: 'Lin' }` 对象）是没有 `constructor` 属性的，它是从原型上继承而来；而图中粉红色的部分即是函数对象（如 `Cat` `Animal` `Object` 等），它们的原型对象是 `Function.prototype`，这没毛病。关键是，它们是函数对象，对象就有构造函数，那么函数的构造函数是啥呢？是 `Function`。那么问题又来了，`Function` 也是函数，它的构造函数是谁呢？**是它自己**：`Function.constructor === Function`。由此，`Function` 即是构造函数链的终结。
 
 上面我们提到，`constructor` 也可以用来实现原型链的向上查找，然后它却别有他用。有个啥用呢？一般认为，它是用以支撑 `instanceof` 关键字实现的数据结构。
 
@@ -221,6 +221,14 @@ cat.say() // -> cat.__type__.prototype.say()
 [![constructor/prototype/proto](http://www.mollypages.org/tutorials/jsobj_full.jpg)](http://www.mollypages.org/tutorials/js.mp)
 
 图都是引用自其它文章，点击图片可跳转到原文。其中，第一篇文章 [一张图理解 JS 的原型][] 是我见过解析得最详细的，本文的很多灵感也来自这篇文章。
+
+理解了上面两条链以后，这两个全图实际上就不难理解了。分享一下，怎么来读懂这个图：
+
+* 首先看构造函数链。所有的普通对象，`constructor` 都会指向它们的构造函数；而构造函数也是对象，它们最终会一级一级上溯到 `Function` 这个构造函数。`Function` 的构造函数是它自己，也即此链的终结；
+* `Function` 的 `prototype` 是 `Function.prototype`，它是个普通的原型对象；
+* 其次看原型链。所有的普通对象，`__proto__` 都会指向其构造函数的原型对象 `[Class].prototype`；而所有原型对象，包括构造函数链的终点 `Function.prototype`，都会最终上溯到 `Object.prototype`，终结于 null。
+
+也即是说，构造函数链的终点 `Function`，其原型又融入到了原型链中：`Function.prototype -> Object.prototype -> null`，最终抵达原型链的终点 `null`。至此这两条契合到了一起。
 
 ## 总结
 
