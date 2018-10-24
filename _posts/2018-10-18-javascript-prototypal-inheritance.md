@@ -244,8 +244,8 @@ cat.say() // -> cat.__type__.prototype.say()
 证据如下：
 
 ```javascript
-Object.prototype instanceof Object
-Object.prototype instanceof Function
+Object.prototype instanceof Object                // false
+Object.prototype instanceof Function              // false
 Object.prototype.__proto__ === Function.prototype // false
 ```
 
