@@ -230,6 +230,15 @@ cat.say() // -> cat.__type__.prototype.say()
 
 也即是说，构造函数链的终点 `Function`，其原型又融入到了原型链中：`Function.prototype -> Object.prototype -> null`，最终抵达原型链的终点 `null`。至此这两条契合到了一起。
 
+总结下来，可以概括成这几句话：
+
+* JS 世界的变量除了普通类型（`string` / `number` / `boolean` / `undefined`）外都是对象，包括函数也是对象
+* 所有对象都必须由函数生成，包括普通对象、原型对象及函数对象
+* 所有函数最终都生成自 `Function`，包括 `Function` 自己
+* 所有对象最终都继承自 `Object.prototype`，包括 `Function.prototype`，终止于 `null`
+
+这里还有最后一个所谓「鸡生蛋还是蛋生🐔」的问题：是先有 `Object.prorotype`，还是先有 `Function`？如果先有前者，那么此时 `Function` 还不在，这个对象又是由谁创建呢？如果先有后者，那么 `Function` 也是个对象，它的原型 `Function.prototype.__proto__` 从哪去继承呢？
+
 ## 总结
 
 讲到这里，我想关于 JavaScript 继承中的一些基本问题可以解释清楚了：
