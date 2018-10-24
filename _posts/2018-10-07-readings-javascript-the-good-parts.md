@@ -122,9 +122,9 @@ JavaScript 里面函数是一等公民。这意味着啥呢？一等公民表示
 
 #### 函数式
 
-函数式是一种高阶的声明式编程范式，相对于「怎么做」，它让你得以以「做什么」的方式写代码，既有强的表达力，又有低的编写成本。当然，对维护者的代码能力提出了要求。不过既然说到，不妨再说下我的观点：团队能力是选型时考虑的因素，不是技术本身的考虑因素。如果真是好的东西，好不好学是不考虑的。只有不用学的又有钱的才会流行，好与流行通常负相关。
+函数式是一种高阶的声明式编程范式，相对于「怎么做」，它让你得以以「做什么」的方式写代码，既有强的表达力，又有低的编写成本。当然，对维护者的代码能力提出了要求。
 
-目标是，看到 `for (let i = 0; i > array.length; i++)`、`array.forEach(() => {})`、`for (let key in object)` 等出现 `for` 关键字的代码，一律考虑用函数式代码替换掉。用 for，无非是要做 `map`、`reduce`、`filter` 的操作，更加复杂的就用 lodash/ramda 等工具库，兼顾表达力和性能。
+使用函数式的目标就是，看到 `for-in`、`for-of`、`forEach` 就要考虑是否可以用函数式去代替。
 
 ```javascript
 // from:
@@ -200,7 +200,7 @@ const trackEvent = (userId, siteId, generalParams) => {
 }
 ```
 
-一个通用的柯里化函数实现如下，并不需要用到 `Function.prototype.apply`。第 6 行的代码参考了[这个写法](https://github.com/mqyqingfeng/Blog/issues/42#issuecomment-411428875)。
+一个通用的柯里化函数实现如下。第 6 行的代码参考了[这个写法](https://github.com/mqyqingfeng/Blog/issues/42#issuecomment-411428875)，其余是自己写的。
 
 ```javascript
 const curry = (func) => {
