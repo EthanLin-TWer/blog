@@ -232,7 +232,7 @@ cat.say() // -> cat.__type__.prototype.say()
 
 总结下来，可以概括成这几句话：
 
-* JS 世界的变量除了普通类型（`string` / `number` / `boolean` / `undefined`）外都是对象，包括函数也是对象
+* JS 世界的变量除了普通类型外都是对象，包括函数也是对象
 * 所有对象都必须由函数生成，包括普通对象、原型对象及函数对象
 * 所有函数最终都生成自 `Function`，包括 `Function` 自己
 * 所有对象最终都继承自 `Object.prototype`，包括 `Function.prototype`，终止于 `null`
