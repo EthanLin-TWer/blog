@@ -237,7 +237,19 @@ cat.say() // -> cat.__type__.prototype.say()
 * 所有函数最终都生成自 `Function`，包括 `Function` 自己
 * 所有对象最终都继承自 `Object.prototype`，包括 `Function.prototype`，终止于 `null`
 
-这里还有最后一个所谓「鸡生蛋还是蛋生🐔」的问题：是先有 `Object.prorotype`，还是先有 `Function`？如果先有前者，那么此时 `Function` 还不在，这个对象又是由谁创建呢？如果先有后者，那么 `Function` 也是个对象，它的原型 `Function.prototype.__proto__` 从哪去继承呢？
+这里还有最后一个所谓「鸡生蛋还是蛋生🐔」的问题：是先有 `Object.prorotype`，还是先有 `Function`？如果先有前者，那么此时 `Function` 还不在，这个对象又是由谁创建呢？如果先有后者，那么 `Function` 也是个对象，它的原型 `Function.prototype.__proto__` 从哪去继承呢？这个问题，看似无解。但从 [这篇文章：从__proto__和prototype来深入理解JS对象和原型链][从__proto__和 prototype 来深入理解 JS 对象和原型链] 中，我们发现了一个合理的解释，那就是：
+
+> `Object.prototype` 是个神之对象。它不由 `Function` 这个函数构造产生。
+
+证据如下：
+
+```javascript
+Object.prototype instanceof Object
+Object.prototype instanceof Function
+Object.prototype.__proto__ === Function.prototype // false
+```
+
+JS 对象世界的构造次序应该是：`Object.prototype` -> `Function.prototype` -> `Function` -> `Object` -> ...
 
 ## 总结
 
@@ -259,13 +271,17 @@ cat.say() // -> cat.__type__.prototype.say()
 
 是对象上一个指向构造函数的引用。用来辅助 `instanceof` 等关键字的实现。
 
+> 🐔生蛋还是蛋生🐔？
+
+神生鸡，鸡生蛋。
+
 ## 参考
 
 * [一张图理解 JS 的原型](https://juejin.im/post/5b729c24f265da280f3ad010)
 * [Prototypal Inheritance in JavaScript](http://crockford.com/javascript/prototypal.html)
 * [How Prototypal Inheritance really works](http://blog.vjeux.com/2011/javascript/how-prototypal-inheritance-really-works.html)
 * [ECMAScript 2015(ES6) Specification](https://www.ecma-international.org/ecma-262/6.0/)
-* [从**proto**和 prototype 来深入理解 JS 对象和原型链](https://github.com/creeperyang/blog/issues/9)
+* [从__proto__和 prototype 来深入理解 JS 对象和原型链](https://github.com/creeperyang/blog/issues/9)
 * [JavaScript 深入之继承的多种方法](https://github.com/mqyqingfeng/Blog/issues/16)
 * [MDN: Inheritance in JavaScript][]
 * [MDN: Inheritance and the prototype chain][]
