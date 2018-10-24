@@ -217,7 +217,6 @@ const curry = (func) => {
 | `new Function()` |  ❌  |  一旦忘记，`this`就会绑定到全局对象，且无任何提示   |
 |      无模块      |  --  | 已有 import/export、CommonJS、UMD 等模块化解决方案  |
 |  `==` && 假值表  |  🌵  | 一律用 `===`/`!==` 避免类型转换，除了极少量特殊场合 |
-|     `typeof`     |  🌵  |                        无解                         |
 
 ## ESLint & prettier
 
@@ -234,7 +233,6 @@ const curry = (func) => {
 格式美，主要是指代码的格式。只说一点：让结构相似、联系紧密、层次相同的东西放到一起。位置上的紧密体现关系上的紧密，这是美学观点。过几天找具体例子来贴。
 
 * [x] https://github.com/airbnb/javascript
-* https://standardjs.com/
 * https://google.github.io/styleguide/jsguide.html
 * https://eslint.org/docs/4.0.0/rules/
 * https://github.com/bendc/frontend-guidelines
@@ -243,78 +241,23 @@ const curry = (func) => {
 
 https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb-base/rules
 
-1.  (general) use single quotes, tab size, print width, semicolons, arrow parens, trailing commas
-2.  (values) no-var && no-undef
-3.  (references) prefer-const & no-const-assign
-4.  (object) no-new-object
-5.  (object) object-shorthand
-6.  (object) quote-props: only when they are invalid identifiers
-7.  ?(object) no-prototype-builtins
-8.  prefer object spread operator
-9.  (array) no-array-constructor
-10. prefer array spread operator
-11. (array) array-callback-return `[1,2,3].map(x => x + 1)`
-12. (array&object) prefer-destructuring
-13. use object destructuring instead of array destructuring because adding new item is easy without breaking existing ones for order issue
-14. (templates) prefer-template template-curly-spacing
-15. no-eval
-16. no-useless-escape
-17. (function) wrap-iife
-18. (function) no-loop-func
-19. (function) prefer-rest-params
-20. use default parameters syntax rather than mutating the function arguments
-21. avoid side effects with default parameters `function (a = b++) {}`
-22. always put default parameters last
-23. (function) no-new-func
-24. (function) no-params-reassign never mutate/reassign parameters
-25. (function) prefer-spread - this disables most the usage of `apply` regards function arguments spreading
-26. (function) function-paren-newline - conflicts with prettier?
-27. (arrow-function) prefer-arrow-callback arrow-spacing - go with prettier
-28. (arrow-function) arrow-parens arrow-body-style
-29. wrap function in parentheses when the body spans over multiple lines for readability
-30. (arrow-function) implicit-arrow-linebreak - handled by prettier
-31. (classes) always use `class`
-32. (classes) always use `extends` for inheritance
-33. (constructor) no-useless-constructor
-34. (classes) no-dupe-class-members
-35. (modules) no-duplicate-imports
-36. (modules) no-mutable-exports
-37. (modules) import/first
-38. (modules) import/no-webpack-loader-syntax
-39. (iterators) no-iterator -> best! enforces functional programming!
-40. (generators) generator-star-spacing!
-41. (properties) dot-notation
-42. (properties) no-restricted-properties `const binary = 2 ** 10`
-43. (variables) one-var
-44. (variables) group all your consts and all your lets
-45. (variables) no-multi-assign -> creates global variables
-46. (variables) no-plusplus
-47. (variables) no-unused-vars
-48. (equality) eqeqeq
-49. (comparison) use shortcuts for booleans, but explicit comparisons for strings and numbers
-50. (comparison) no-nested-ternary, styles will be handled by prettier
-51. (comparison) no-unneeded-ternary
-52. (comparison) no-mixed-operators
-53. (blocks) nonblock-statement-body-position
-54. (blocks) brace-style, should be handled by prettier
-55. (blocks) no-else-return
-56. (comments) use `/* */` for multi-line comments
-57. (comments) use `//` for single-line comments. Place single line comments on a newline above the subject of the comment. Put an empty line before the comment unless it’s on the first line of a block.
-58. (comments) spaced-comment
-59. (spaces) all airbnb rules are covered by prettier
-60. (casts) no-new-wrappers
-61. (naming) camelcase
-62. (naming) new-cap for only constructors and classes
-63. (naming) no-underscore-dangle
-64. (naming) constant naming rules
+1.  [?] use object destructuring instead of array destructuring because adding new item is easy without breaking existing ones for order issue
+2.  [-] use default parameters syntax rather than mutating the function arguments - no-param-reassign
+3.  [-] avoid side effects with default parameters `function (a = b++) {}`
+4.  [-] always put default parameters last
+5.  [-](classes) always use `class`
+6.  [-](classes) always use `extends` for inheritance
+7.  [-](variables) group all your consts and all your lets
+8.  [-](comments) use `/* */` for multi-line comments
+9.  [-](comments) use `//` for single-line comments. Place single line comments on a newline above the subject of the comment. Put an empty line before the comment unless it’s on the first line of a block.
 
 arguable:
 
-1.  func-style
-2.  space-before-function-paren space-before-blocks
-3.  no-confusing-arrow
-4.  always use `import`/`export`
-5.  import/prefer-default-export -> prevents refactoring?
-6.  no-case-declarations
-7.  func-call-spacing
-8.  do not use JavaScript getters/setters 24.2
+2.  func-style
+3.  space-before-function-paren space-before-blocks
+4.  no-confusing-arrow
+5.  always use `import`/`export`
+6.  import/prefer-default-export -> prevents refactoring?
+7.  no-case-declarations
+8.  func-call-spacing
+9.  do not use JavaScript getters/setters 24.2
