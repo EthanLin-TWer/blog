@@ -242,22 +242,11 @@ const curry = (func) => {
 https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb-base/rules
 
 1.  [?] use object destructuring instead of array destructuring because adding new item is easy without breaking existing ones for order issue
-2.  [-] use default parameters syntax rather than mutating the function arguments - no-param-reassign
-3.  [-] avoid side effects with default parameters `function (a = b++) {}`
-4.  [-] always put default parameters last
-5.  [-](classes) always use `class`
-6.  [-](classes) always use `extends` for inheritance
-7.  [-](variables) group all your consts and all your lets
-8.  [-](comments) use `/* */` for multi-line comments
-9.  [-](comments) use `//` for single-line comments. Place single line comments on a newline above the subject of the comment. Put an empty line before the comment unless it’s on the first line of a block.
-
-arguable:
-
-2.  func-style
-3.  space-before-function-paren space-before-blocks
-4.  no-confusing-arrow
-5.  always use `import`/`export`
-6.  import/prefer-default-export -> prevents refactoring?
-7.  no-case-declarations
-8.  func-call-spacing
-9.  do not use JavaScript getters/setters 24.2
+2.  use default parameters syntax rather than mutating the function arguments - no-param-reassign
+3.  avoid side effects with default parameters `function (a = b++) {}`
+4.  always put default parameters last
+5.  (classes) always use `class`
+6.  (classes) always use `extends` for inheritance
+7.  (variables) group all your consts and all your lets
+8.  (comments) use `/* */` for multi-line comments
+9.  (comments) use `//` for single-line comments. Place single line comments on a newline above the subject of the comment. Put an empty line before the comment unless it’s on the first line of a block.
