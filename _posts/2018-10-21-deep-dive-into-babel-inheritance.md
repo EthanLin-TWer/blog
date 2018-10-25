@@ -250,7 +250,32 @@ var Tiger = (function(_Animal) {
 })(Animal)
 ```
 
-相比无继承的代码，这里主要增加了几个函数。`_possibleConstructorReturn` 顾名思义，可能不是很重要，回头再读。精华在 `_inherits(Tiger, Animal)` 这个函数，我们按顺序来读一下。首先是一段异常处理，简单地检查了 `superClass` 要么是个函数，要么得是个 null。也就是说，如果你这样写那是不行的：
+相比无继承的代码，这里主要增加了几个函数。`_possibleConstructorReturn` 顾名思义，可能不是很重要，回头再读。精华在 `_inherits(Tiger, Animal)` 这个函数，我们按顺序来读一下。
+
+```javascript
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== 'function' && superClass !== null) {
+    throw new TypeError(
+      'Super expression must either be null or a function, not ' +
+        typeof superClass
+    )
+  }
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      enumerable: false,
+      writable: true,
+      configurable: true,
+    },
+  })
+  if (superClass)
+    Object.setPrototypeOf
+      ? Object.setPrototypeOf(subClass, superClass)
+      : (subClass.__proto__ = superClass)
+}
+```
+
+首先是一段异常处理，简单地检查了 `superClass` 要么是个函数，要么得是个 null。也就是说，如果你这样写那是不行的：
 
 ```javascript
 const Something = 'not-a-function'
@@ -269,15 +294,30 @@ function _inherits(subClass, superClass) {
 
 很明显，是为了避免任何对 `subClass.prototype` 的修改影响到 `superClass.prototype`。使用 `Object.create(asPrototype)` 出来的对象，其实上是将 `subClass.prototype.__proto__ = superClass.prototype`，这样 `subClass` 也就继承了 `superClass`，可以达到这样两个目的：
 
-1.  当查找到 `subClass` 上没有的属性时，会自动往 `superClass` 上找；这样 `superClass.prototype` 原型上发生的修改都能实时反映到 `subClass` 上
-2.  `subClass.prototype` 本身是个新的对象，可以存放 `subClass` 自己的属性，这样 `subClass.prototype` 上的任何修改不会影响到 `superClass.prototype`
+1.  `superClass.prototype` 原型上发生的修改都能实时反映到 `subClass` 的实例上
+2.  `subClass.prototype` 上的任何修改不会影响到 `superClass.prototype`
 
-最后，如果 `superClass` 不为空，那么将 `subClass.__proto__` 设置为 `superClass`。这点我并不是很理解。
+最后，如果 `superClass` 不为空，那么将 `subClass.__proto__` 设置为 `superClass`。这是为了继承 `superClass` 的静态方法和属性。如以下的例子中，`Cat.TYPE` 能获取到 `Animal.TYPE`：
+
+```javascript
+class Animal {
+  static TYPE = 'PAPER'
+  static createTyping() {
+    return Animal.TYPE
+  }
+}
+
+class Cat extends Animal {}
+
+console.log(Cat.TYPE)           // PAPER
+console.log(Cat.createTyping()) // PAPER
+```
 
 至此，一个简单的继承就完成了。在使用了 `extends` 关键字后，实际上背后发生的事情是：
 
 * 子「类」`prototype` 上的 `__proto__` 被正确设置，指向父「类」的 `prototype`: `subClass.prototype = { __proto__: superClass.prototype }`
 * 子「类」`prototype` 上的 `constructor` 被正确初始化，这样 `instanceof` 关系能得到正确结果
+* 子「类」的 `__proto__` 被指向父「类」，这样父「类」上的静态字段和方法能被子「类」继承
 
 好，要点看完了。后面内容跟继承关系不大，但既然源码扒都扒了，我们不妨继续深入探索一些场景：
 
