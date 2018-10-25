@@ -11,7 +11,6 @@ category: 读书笔记
 * 语言基本要素
 * 精华
 * 糟粕
-* ESLint && prettier
 
 ## 导读
 
@@ -202,51 +201,142 @@ const curry = (func) => {
 
 ## 糟粕
 
-原书中把 JavaScript 不好的东西分两种：毒瘤和糟粕。简而言之，毒瘤就是一无是处的特性，应该用都不用；糟粕是那些有时很有用，有时又很坑的特性，这样的特性更要规避，因为你只有深入思考阅读才能知道功能正常还是坑，这违反编程语言应该直接、表达力强的价值观。在这里，具体区分不是重点，我列出来，这些特性**都不要用**就对了。并且，最好通过 ESLint 等工具加以固定。
+原书中把 JavaScript 不好的东西分两种：毒瘤和糟粕。简而言之，毒瘤就是一无是处的特性，应该用都不用；糟粕是那些有时很有用，有时又很坑的特性，这样的特性更要规避，因为你只有深入思考阅读才能知道功能正常还是坑，这违反编程语言应该直接、表达力强的价值观。在这里，具体区分不是重点，我列出来一些书里提到的糟粕特性，这些特性**都不要用**就对了。
 
 |       糟粕       | 建议 |                      规避方法                       |
 | :--------------: | :--: | :-------------------------------------------------: |
 |     全局变量     |  ❌  |   NodeJS 每个文件都有自己的作用域，部分解决此问题   |
-|   自动插入分号   |  ❌  |                  使用 ESLint 禁止                   |
 |      伪数组      |  ❌  |          用 ES6 的参数解构代替 `argument`           |
-|      `eval`      |  ❌  | 缺点：运行时代码、lint 工具无效；注入攻击；降低性能 |
-|    `continue`    |  ❌  |            任何 `continue` 都应该重构掉             |
+|      `eval`      |  ❌  |          lint 工具无效；注入攻击；降低性能          |
 |   缺少块的语句   |  ❌  |                  使用 ESLint 禁止                   |
-|  类型的包装对象  |  ❌  |            使用基本类型、`{}`、`[]`替代             |
-|      `void`      |  ❌  |                       没场景                        |
+|   自动插入分号   |  ❌  |         使用 ESLint 禁止一些易出 bug 的写法         |
+|    `continue`    |  ❌  | ESLint `no-continue`: 任何 `continue` 都应该重构掉  |
+|  类型的包装对象  |  ❌  | ESLint: `no-new-wrappers`: 使用基本类型、`{}`等替代 |
+|      `void`      |  ❌  |              ESLint: `no-void`: 没场景              |
+|  `==` && 假值表  |  ❌  |  ESLint: `eqeqeq`: 一律用 `===`/`!==` 避免类型转换  |
 | `new Function()` |  ❌  |  一旦忘记，`this`就会绑定到全局对象，且无任何提示   |
 |      无模块      |  --  | 已有 import/export、CommonJS、UMD 等模块化解决方案  |
-|  `==` && 假值表  |  🌵  | 一律用 `===`/`!==` 避免类型转换，除了极少量特殊场合 |
 
-## ESLint & prettier
+这些东西，其实就只是学习用。在项目中，必须要用一个 ESLint 和 prettier 来加以规范，一个是你很难始终记住所有的规则，一个是你不能保证所有人都能始终遵守。于是，我自己写了个 [ESLint 规则](https://github.com/linesh-simplicity/eslint-config-javascript-the-good-parts)，用来在自己的个人项目中使用。 
 
-本书中关于 JavaScript 的精华与糟粕，说白了最后就是一个 ESLint 规则，强制必须使用哪些好的写法，哪些坏的写法一定不让用。关于编程风格方面的东西，现在已经有 prettier 这样的工具，提供一个唯一的格式化方案，可以杜绝团队内部的风格争论，提高工作效率和代码整体统一性。经过试用，它的这个唯一的格式化方案还相当完美，我可以毫不夸张的说，在我工作过的项目中，99.9%的场景使用 prettier 格式化出来的风格都是完美的。
-
-关于代码风格这事，作为一个洁癖患者我必须多说两句。我一直是把代码当程序员的「作品」来看，就好像小说之于其作者、音乐词曲之于作曲者，都是精雕细琢、明心见性的东西，容不得半点马虎。就好比《黄金时代》之于王小波，好比《燕窝》之于吴青峰。它的美，不仅来源于内容，而且在于内容的表达形式、在于用词美、韵律美、格式美。那么代码的韵律美比较玄幻咱就不说了，说说其他美。
+关于代码风格这事，作为一个洁癖患者我必须多说两句。我一直是把代码当程序员的「作品」来看，就好像小说之于其作者、音乐词曲之于作曲者，都是精雕细琢、明心见性的东西，容不得半点马虎。就好比《黄金时代》之于王小波，好比《燕窝》之于吴青峰。它的美，不仅来源于内容，而且在于内容的表达形式。经常有人认为，内容是独立于形式之外的，内容好就行，形式怎样都不会影响内容。[《娱乐至死》](https://book.douban.com/subject/26319730/)告诉大家，错了。媒介（形式）不仅影响内容，媒介还选择内容。媒介即隐喻。
 
 > 写出《黄金时代》前，我从未觉得自己写得好。——王小波
 >
 > 完美一字不差。——《燕窝》，吴青峰
 
-用词美，当然是指命名。该讲究的得讲究，`item`、`element`、`result` 这样的东西，偶尔达意，但大多数时候，还是可以根据业务含义讲究讲究的。用词到位的一个体现是：不多一义，也不少一义，但意思直观明白，一眼即懂。
+所以最后，这本书的所有糟粕、推荐写法，归总下来就是这样一份 ESLint 规则了。学完忘掉，用上这份 rule。就是对我个人学习成果最大的效益了。
 
-格式美，主要是指代码的格式。只说一点：让结构相似、联系紧密、层次相同的东西放到一起。位置上的紧密体现关系上的紧密，这是美学观点。过几天找具体例子来贴。
+```javascript
+module.exports = {
+  env: { es6: true },
+  plugins: ["import"],
+  rules: {
+    // variables
+    "one-var": "never",
+    "no-var": "error",
+    "no-undef": "error",
+    "no-unused-vars": "error",
+    "no-multi-assign": "error",
+    "no-plusplus": "error",
 
-* [x] https://github.com/airbnb/javascript
-* https://google.github.io/styleguide/jsguide.html
+    // references
+    "prefer-const": "error",
+    "no-const-assign": "error",
+
+    // object
+    "object-shorthand": ["error", "always"],
+    "prefer-object-spread": "error",
+    "dot-notation": "error",
+
+    // array
+    "array-callback-return": "error",
+    "prefer-destructuring": [
+      "error",
+      {
+        array: true,
+        object: true,
+      },
+      { enforceForRenamedProperties: true },
+    ],
+
+    // string templates
+    "prefer-template": "error",
+    "template-curly-spacing": "error",
+
+    // functions
+    "no-loop-func": "error",
+    "no-param-reassign": "error",
+    "prefer-spread": "error",
+    "prefer-rest-params": "error",
+    "arrow-body-style": "error",
+    "func-style": "error",
+
+    // class
+    "no-useless-constructor": "error",
+    "no-dupe-class-members": "error",
+    "no-class-assign": "error",
+
+    // module
+    "no-duplicate-imports": "error",
+    "import/no-mutable-exports": "error",
+    "import/first": "error",
+
+    // wrappers
+    "no-new-object": "error",
+    "no-array-constructor": "error",
+    "no-new-wrappers": "error",
+    "no-new-func": "error",
+
+    // comments
+    "spaced-comment": "error",
+
+    // blocks
+    "no-else-return": "error",
+    "no-continue": "error",
+
+    // misc
+    eqeqeq: "error",
+    "no-void": "error",
+    "no-eval": "error",
+    "no-useless-escape": "error",
+    "no-unneeded-ternary": "off",
+
+    // basic prettier options
+    semi: "off",
+    quotes: "off",
+    "max-len": "off",
+    "comma-dangle": "off",
+    "arrow-parens": "off",
+
+    // prettier will handle this perfectly
+    "quote-props": "off",
+    "wrap-iife": "off",
+    "function-paren-newline": "off",
+    "prefer-arrow-callback": "off",
+    "arrow-spacing": "off",
+    "generator-star-spacing": "off",
+    "no-nested-ternary": "off",
+    "no-mixed-operators": "off",
+    "brace-style": "off",
+    "space-before-blocks": "off",
+    // prettier is opinionated on this about having or not spaces before&after functions.
+    // Stick to prettier to save your life on styling. It's not that bad.
+    "space-before-function-paren": "off",
+    "func-call-spacing": "off",
+
+    // still validating...
+    camelcase: "off",
+    "implicit-arrow-linebreak": "off",
+    "new-cap": "off",
+    "no-underscore-dangle": "off",
+    "no-prototype-builtins": "off",
+  },
+}
+```
+
+## 待阅读规则
+
+* https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb-base/rules
 * https://eslint.org/docs/4.0.0/rules/
-* https://github.com/bendc/frontend-guidelines
-
-### ESLint 规则
-
-https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb-base/rules
-
-1.  [?] use object destructuring instead of array destructuring because adding new item is easy without breaking existing ones for order issue
-2.  use default parameters syntax rather than mutating the function arguments - no-param-reassign
-3.  avoid side effects with default parameters `function (a = b++) {}`
-4.  always put default parameters last
-5.  (classes) always use `class`
-6.  (classes) always use `extends` for inheritance
-7.  (variables) group all your consts and all your lets
-8.  (comments) use `/* */` for multi-line comments
-9.  (comments) use `//` for single-line comments. Place single line comments on a newline above the subject of the comment. Put an empty line before the comment unless it’s on the first line of a block.
+* https://google.github.io/styleguide/jsguide.html
