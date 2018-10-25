@@ -217,7 +217,7 @@ const curry = (func) => {
 | `new Function()` |  ❌  |  一旦忘记，`this`就会绑定到全局对象，且无任何提示   |
 |      无模块      |  --  | 已有 import/export、CommonJS、UMD 等模块化解决方案  |
 
-这些东西，其实就只是学习用。在项目中，必须要用一个 ESLint 和 prettier 来加以规范，一个是你很难始终记住所有的规则，一个是你不能保证所有人都能始终遵守。于是，我自己写了个 [ESLint 规则](https://github.com/linesh-simplicity/eslint-config-javascript-the-good-parts)，用来在自己的个人项目中使用。 
+这些东西，其实就只是学习用。在项目中，必须要用一个 ESLint 和 prettier 来加以规范，一个是你很难始终记住所有的规则，一个是你不能保证所有人都能始终遵守。于是，我自己写了个 [ESLint 规则](https://github.com/linesh-simplicity/eslint-config-javascript-the-good-parts)，用来在自己的个人项目中使用。
 
 关于代码风格这事，作为一个洁癖患者我必须多说两句。我一直是把代码当程序员的「作品」来看，就好像小说之于其作者、音乐词曲之于作曲者，都是精雕细琢、明心见性的东西，容不得半点马虎。就好比《黄金时代》之于王小波，好比《燕窝》之于吴青峰。它的美，不仅来源于内容，而且在于内容的表达形式。经常有人认为，内容是独立于形式之外的，内容好就行，形式怎样都不会影响内容。[《娱乐至死》](https://book.douban.com/subject/26319730/)告诉大家，错了。媒介（形式）不仅影响内容，媒介还选择内容。媒介即隐喻。
 
@@ -236,9 +236,14 @@ module.exports = {
     "one-var": "never",
     "no-var": "error",
     "no-undef": "error",
+    "no-shadow": "error",
+    "no-plusplus": "error",
+    "no-label-var": "error",
+    "no-redeclare": "error",
+    "no-undefined": "error",
     "no-unused-vars": "error",
     "no-multi-assign": "error",
-    "no-plusplus": "error",
+    "no-use-before-define": "error",
 
     // references
     "prefer-const": "error",
@@ -262,6 +267,7 @@ module.exports = {
 
     // string templates
     "prefer-template": "error",
+    "no-useless-concat": "error",
     "template-curly-spacing": "error",
 
     // functions
@@ -271,11 +277,19 @@ module.exports = {
     "prefer-rest-params": "error",
     "arrow-body-style": "error",
     "func-style": "error",
+    "no-useless-call": "error",
+    "consistent-return": "error",
+    "no-extra-bind": "error",
+    "no-invalid-this": "error",
 
     // class
     "no-useless-constructor": "error",
+    "lines-between-class-members": "error",
     "no-dupe-class-members": "error",
     "no-class-assign": "error",
+    "no-this-before-super": "error",
+    "new-parens": "error",
+    "enforce-methods-use-this": "error",
 
     // module
     "no-duplicate-imports": "error",
@@ -290,17 +304,52 @@ module.exports = {
 
     // comments
     "spaced-comment": "error",
+    "no-inline-comments": "off",
 
     // blocks
     "no-else-return": "error",
     "no-continue": "error",
+    "default-case": "error",
+    "no-unreachable": "error",
+
+    // types
+    "valid-typeof": "error",
+
+    // programming styles
+    "max-lines": [
+      "off",
+      {
+        max: 300,
+        skipBlankLines: true,
+        skipComments: true,
+      },
+    ],
+    "max-lines-per-function": [
+      "off",
+      {
+        max: 50,
+        skipBlankLines: true,
+        skipComments: true,
+        IIFEs: true,
+      },
+    ],
 
     // misc
     eqeqeq: "error",
+    yoda: "error",
     "no-void": "error",
+    "no-with": "error",
     "no-eval": "error",
+    "no-caller": "error",
+    "no-sequences": "error",
+    "no-cond-assign": "error",
+    "no-empty-return": "error",
+    "no-implied-eval": "error",
+    "no-global-assign": "error",
     "no-useless-escape": "error",
-    "no-unneeded-ternary": "off",
+    "no-implicit-globals": "error",
+    "no-unneeded-ternary": "error",
+    "no-console": "warning",
 
     // basic prettier options
     semi: "off",
@@ -310,16 +359,30 @@ module.exports = {
     "arrow-parens": "off",
 
     // prettier will handle this perfectly
-    "quote-props": "off",
+    curly: "off",
     "wrap-iife": "off",
-    "function-paren-newline": "off",
-    "prefer-arrow-callback": "off",
+    "quote-props": "off",
+    "brace-style": "off",
+    "key-spacing": "off",
     "arrow-spacing": "off",
+    "comma-spacing": "off",
+    "space-infix-ops": "off",
+    "no-multi-spaces": "off",
+    "keyword-spacing": "off",
+    "no-trailing-spaces": "off",
+    "yield-star-spacing": "off",
+    "rest-spread-spacing": "off",
+    "switch-colon-spacing": "off",
+    "array-bracket-spacing": "off",
     "generator-star-spacing": "off",
+    "computed-property-spacing": "off",
     "no-nested-ternary": "off",
     "no-mixed-operators": "off",
-    "brace-style": "off",
     "space-before-blocks": "off",
+    "prefer-arrow-callback": "off",
+    "array-bracket-newline": "off",
+    "array-element-newline": "off",
+    "function-paren-newline": "off",
     // prettier is opinionated on this about having or not spaces before&after functions.
     // Stick to prettier to save your life on styling. It's not that bad.
     "space-before-function-paren": "off",
@@ -327,6 +390,7 @@ module.exports = {
 
     // still validating...
     camelcase: "off",
+    "no-extend-native": "off",
     "implicit-arrow-linebreak": "off",
     "new-cap": "off",
     "no-underscore-dangle": "off",
@@ -334,9 +398,3 @@ module.exports = {
   },
 }
 ```
-
-## 待阅读规则
-
-* https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb-base/rules
-* https://eslint.org/docs/4.0.0/rules/
-* https://google.github.io/styleguide/jsguide.html
