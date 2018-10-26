@@ -19,17 +19,17 @@ Jul 20, 2018 跟凤凤聊了一下，又觉得：写作本来就是唯一警醒�
 
 ## 目录
 
-1. 为什么要做单元测试
-   1. 单元测试的上下文：敏捷、快、质量好
-   2. 质量的保障：测试、架构、和其他
-   3. 单元测试的依据：测试金字塔
-2. 如何做单元测试
-   1. 什么是好的单元测试？它有什么特征？
-   2. 一个 React 应用的单元测试策略是什么？
-   3. 如何在一个 React 应用中落地上述测试策略？
-3. 单元测试的局限
-   1. 为了达到「持续改进」的目标，应该与自动化测试体系结合起来。单一的单元测试对质量保障的效果有限
-   2. 需要其他类型工具的配合，如 TypeScript、IDE 重构快捷键等
+1.  为什么要做单元测试
+    1.  单元测试的上下文：敏捷、快、质量好
+    2.  质量的保障：测试、架构、和其他
+    3.  单元测试的依据：测试金字塔
+2.  如何做单元测试
+    1.  什么是好的单元测试？它有什么特征？
+    2.  一个 React 应用的单元测试策略是什么？
+    3.  如何在一个 React 应用中落地上述测试策略？
+3.  单元测试的局限
+    1.  为了达到「持续改进」的目标，应该与自动化测试体系结合起来。单一的单元测试对质量保障的效果有限
+    2.  需要其他类型工具的配合，如 TypeScript、IDE 重构快捷键等
 
 ## 为什么要做单元测试
 
@@ -79,19 +79,18 @@ Jul 20, 2018 跟凤凤聊了一下，又觉得：写作本来就是唯一警醒�
 
 我们项目上的 React-redux 应用架构如上所述。这个架构中包含了几个层级，分别有不同的特点，因此也有不同的测试策略：
 
-| 架构层级 | 测试内容 | 测试策略 | 解释 |
-| :---: | :--- | :--- | :---|
-| action(creator) 层 | 是否正确创建 action 对象 | 一般不需要测试，视信心而定 | 这个层级非常简单，基础设施搭好以后一般不可能出错，属于架构带来的简单性 |
-| reducer 层 | 是否正确完成计算 | 对于有逻辑的 reducer 需要100%覆盖率 | 这个层级 input -> output 明确，又有业务逻辑的计算在内，天然属于单元测试宠爱的对象 |
-| selector 层 | 是否正确完成计算 | 对于有复杂逻辑的 selector 需要100%覆盖率 | 这个层级 input -> output 明确，又有复杂的业务逻辑计算，天然属于单元测试宠爱的对象 |
-| saga(副作用) 层 | 是否获取了正确的参数去调用 API，并使用正确的数据存取回 redux 中 | 对于是否获取了正确参数、是否调用正确的 API、是否使用了正确的返回值保存数据、业务分支逻辑、异常分支需要100%覆盖 | 这个层级也有业务逻辑，对前面所述的5大方面进行测试很有重构价值 |
-| component(组件接入) 层 | 是否渲染了正确的组件 | <ul></ul><ul><li>组件的分支渲染逻辑要求100%覆盖</li><li>交互事件的调用参数一般要求100%覆盖</li><li>被 redux connect 过的组件不测</li><li>纯 UI 不测</li><li>CSS 不测</li></ul> | 这个层级最为复杂，测试策略还是以「代价最低，收益最高」为原则进行 |
-| UI 层 | 样式是否正确 | 目前不测 | 这个事情关键目前我理解在于，能不能提供可视化的快照对比，哪怕是成本高一些 |
+|        架构层级        | 测试内容                                                        | 测试策略                                                                                                                                                                         | 解释                                                                              |
+| :--------------------: | :-------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------- |
+|   action(creator) 层   | 是否正确创建 action 对象                                        | 一般不需要测试，视信心而定                                                                                                                                                       | 这个层级非常简单，基础设施搭好以后一般不可能出错，属于架构带来的简单性            |
+|       reducer 层       | 是否正确完成计算                                                | 对于有逻辑的 reducer 需要 100%覆盖率                                                                                                                                             | 这个层级 input -> output 明确，又有业务逻辑的计算在内，天然属于单元测试宠爱的对象 |
+|      selector 层       | 是否正确完成计算                                                | 对于有复杂逻辑的 selector 需要 100%覆盖率                                                                                                                                        | 这个层级 input -> output 明确，又有复杂的业务逻辑计算，天然属于单元测试宠爱的对象 |
+|    saga(副作用) 层     | 是否获取了正确的参数去调用 API，并使用正确的数据存取回 redux 中 | 对于是否获取了正确参数、是否调用正确的 API、是否使用了正确的返回值保存数据、业务分支逻辑、异常分支需要 100%覆盖                                                                  | 这个层级也有业务逻辑，对前面所述的 5 大方面进行测试很有重构价值                   |
+| component(组件接入) 层 | 是否渲染了正确的组件                                            | <ul></ul><ul><li>组件的分支渲染逻辑要求 100%覆盖</li><li>交互事件的调用参数一般要求 100%覆盖</li><li>被 redux connect 过的组件不测</li><li>纯 UI 不测</li><li>CSS 不测</li></ul> | 这个层级最为复杂，测试策略还是以「代价最低，收益最高」为原则进行                  |
+|         UI 层          | 样式是否正确                                                    | 目前不测                                                                                                                                                                         | 这个事情关键目前我理解在于，能不能提供可视化的快照对比，哪怕是成本高一些          |
 
 这里做一些补充。一是不测 redux connect 过的组件这个策略。理由是成本远高于收益：要牺牲开发体验（搞起来没那么快了），要配置依赖（配置 store、 `<Provider />`，在大型或遗留系统中补测试还很可能遇到 `@connect` 组件里套 `@connect` 组件的场景）；然后收益也只是可能覆盖到了几个极少数出现的场景。得不偿失，果断不测。
 
 另外，UI 测试这块，团队之前尝试过 snapshot 测试，然而在「保证 UI 不受非预期改变」这点上收益不大，成本也偏高。所以我个人持非常保留的态度，不推荐。
-
 
 ## 好测试的特征
 
@@ -101,7 +100,7 @@ Jul 20, 2018 跟凤凤聊了一下，又觉得：写作本来就是唯一警醒�
 * 仅对输入输出敏感（比如，不应该对执行次序敏感）
 * 不关注（或极少关注）内部实现（只要输入输出没变，测试就不应该挂，从而保证重构进行）
 
-遵循好这三条基本原则，可以很大程度提高测试的稳定性、降低维护成本，让其能为项目后续的重构和持续改进保驾护航，能作为活文档让所有团队成员阅读理解。
+遵循好这三条基本原则，可以很大程度提高测试的稳定性、降低维护成本，让其能为项目后续的重构和续改进保驾护航，能作为活文档让所有团队成员阅读理解。
 
 ## reducer 测试
 
@@ -127,7 +126,7 @@ test('should save loading start indicator when action isLoadingProducts is dispa
 export default createReducers((on) => {
   on(actions.saveUserComments, (state, action) => {
     return state.merge({
-      comments: uniqBy(state.comments.concat(action.payload.comments), 'id')
+      comments: uniqBy(state.comments.concat(action.payload.comments), 'id'),
     })
   })
 })
@@ -309,20 +308,27 @@ test('should execute loginHookSaga actions in correct order', () => {
   const generator = cloneableGenerator(fetchDataOnProductDetail)(action)
 
   generator.next() // cannot take the same selector as the implementation did
-  expect(generator.next(credentials).value).toEqual(put(actions.fetchProductDetailSaga(10085)))
-  expect(generator.next().value).toEqual(put(actions.fetchProductComments(10085)))
-  expect(generator.next().value).toEqual(put(actions.fetchUserUnreadComments(10085, 28071562837)))
-  expect(generator.next().value).toEqual(put(actions.fetchProductPromotions(10085)))
+  expect(generator.next(credentials).value).toEqual(
+    put(actions.fetchProductDetailSaga(10085))
+  )
+  expect(generator.next().value).toEqual(
+    put(actions.fetchProductComments(10085))
+  )
+  expect(generator.next().value).toEqual(
+    put(actions.fetchUserUnreadComments(10085, 28071562837))
+  )
+  expect(generator.next().value).toEqual(
+    put(actions.fetchProductPromotions(10085))
+  )
   expect(generator.next().value).toEqual(put(actions.fetchAdsSaga()))
 })
 ```
 
 这个方案写多了，大家开始感受到了痛点，读者是否也能感受得到：
 
-1. 测试分明就是把实现抄了一遍。这违反上述所说「仅对输入输出敏感」的原则
-2. 当在实现中某个部分加入新的语句时，该语句后续所有的测试都会挂掉，并且出错信息非常难以描述原因，导致常常要陷入「调试测试」的境地，这种场景下我们说维护测试确实是成本
-3. 测试没有重点，随便改点什么都会挂测试，无法很好支持「重构」这种改变内部实现但不改变业务行为的代码清理行为
-
+1.  测试分明就是把实现抄了一遍。这违反上述所说「仅对输入输出敏感」的原则
+2.  当在实现中某个部分加入新的语句时，该语句后续所有的测试都会挂掉，并且出错信息非常难以描述原因，导致常常要陷入「调试测试」的境地，这种场景下我们说维护测试确实是成本
+3.  测试没有重点，随便改点什么都会挂测试，无法很好支持「重构」这种改变内部实现但不改变业务行为的代码清理行为
 
 ### 正确姿势
 
@@ -333,17 +339,20 @@ import { call } from 'redux-saga/effects'
 
 export function* fetchUserUnreadComments({ payload: { productId, userId } }) {
   try {
-    const { data: { comments, newCommentsSinceLastReply } } = yield call(
-      Api.get,
-      `products/${productId}/comments?userId=${userId}`
-    )
+    const {
+      data: { comments, newCommentsSinceLastReply },
+    } = yield call(Api.get, `products/${productId}/comments?userId=${userId}`)
 
     const hasUnreadComments = newCommentsSinceLastReply > 0
     yield put(actions.saveProductComments(productId, comments))
     yield put(actions.hasUnreadCommentsSinceLastReply(hasUnreadComments))
 
     if (hasUnreadComments) {
-      yield put(actions.saveNotification(`有${newCommentsSinceLastReply}条新回复，快去看看吧`))
+      yield put(
+        actions.saveNotification(
+          `有${newCommentsSinceLastReply}条新回复，快去看看吧`
+        )
+      )
     }
   } catch (error) {}
 }
@@ -359,9 +368,21 @@ test('should fetch user unread comments and show notifications if there are any'
   }
   const comments = [
     { id: 283992, author: '男***8', comment: '价廉物美，相信奥康旗舰店' },
-    { id: 283993, author: '雨***成', comment: '因为工作穿皮鞋时间较多，所以一双合脚的鞋子...' },
-    { id: 283994, author: '叶***亮', comment: '不错，很软，我买了大一码，因为脚宽些，是真皮的，划算萌东上...' },
-    { id: 283995, author: '替***崽', comment: '磕到了，脚踝疼得不好穿，要不你们试试' },
+    {
+      id: 283993,
+      author: '雨***成',
+      comment: '因为工作穿皮鞋时间较多，所以一双合脚的鞋子...',
+    },
+    {
+      id: 283994,
+      author: '叶***亮',
+      comment: '不错，很软，我买了大一码，因为脚宽些，是真皮的，划算萌东上...',
+    },
+    {
+      id: 283995,
+      author: '替***崽',
+      comment: '磕到了，脚踝疼得不好穿，要不你们试试',
+    },
   ]
   const response = {
     data: {
@@ -373,17 +394,21 @@ test('should fetch user unread comments and show notifications if there are any'
 
   await testSaga(fetchUserUnreadComments, action)
 
-  expect(Api.get).toHaveBeenCalledWith('products/10085/comments?userId=28071562837')
+  expect(Api.get).toHaveBeenCalledWith(
+    'products/10085/comments?userId=28071562837'
+  )
 
   expect(actions.saveProductComments).toHaveBeenDispatchedWith(10085, comments)
-  expect(actions.saveNotification).toHaveBeenDispatchedWith('有2条新回复，快去看看吧')
+  expect(actions.saveNotification).toHaveBeenDispatchedWith(
+    '有2条新回复，快去看看吧'
+  )
 })
 ```
 
 这个测试略长，但写习惯就好。总之，它的优点在于：
 
 * 非常容易准备数据：store、mock API response
-* 覆盖了一个业务场景（获取编号 10085 产品的评论列表，如果在用户上次访问之后有2条未读回复，那么提醒用户「有2条新回复」），当这个业务场景（也就是准备的测试数据）不变时，无论你怎么修改优化内部实现，这个测试都不会挂，真正做到了测试支持重构的作用
+* 覆盖了一个业务场景（获取编号 10085 产品的评论列表，如果在用户上次访问之后有 2 条未读回复，那么提醒用户「有 2 条新回复」），当这个业务场景（也就是准备的测试数据）不变时，无论你怎么修改优化内部实现，这个测试都不会挂，真正做到了测试支持重构的作用
 * 可以仅断言你关心的点，不断言中间某些东西也不会有次序问题导致测试挂掉（比如上例中，我们就没有断言 `actions.hasUnreadCommentsSinceLastReply` 是否真正被 dispatch 出去）
 * 自定义的 `expect(action).toHaveBeenDispatchedWith(payload)` matcher 很有表达力，且出错信息友好
 
@@ -396,7 +421,7 @@ expect.extend({
 })
 ```
 
-上面是我们认为比较好的副作用测试工具、测试策略和测试方案。使用时紧紧抓住一开始提到的4点主要的业务价值来测试即可。
+上面是我们认为比较好的副作用测试工具、测试策略和测试方案。使用时紧紧抓住一开始提到的 4 点主要的业务价值来测试即可。
 
 ## component 测试
 
@@ -433,14 +458,14 @@ expect.extend({
 
 综上，`@connect` 组件不测，因为框架本身已做了大部分测试，剩下的场景出 bug 频率不高，而施加测试的话提高成本（准备依赖和数据），降低开发体验，模糊测试场景，性价比不大，所以强烈建议省了这份心。不测 `@connect` 过的组件，其实也是 [官方文档](https://redux.js.org/recipes/writing-tests#connected-components) 推荐的做法。
 
-然后，基于上面第1、2个结论，映射回四类组件的结构当中去，我们可以得到下面的表格，然后发现…每种组件都要测**渲染分支**和**事件调用**，跟组件类型根本没必然的关联…不过，功能型组件有可能会涉及一些其他的模式，因此又大致分出一小节来谈。
+然后，基于上面第 1、2 个结论，映射回四类组件的结构当中去，我们可以得到下面的表格，然后发现…每种组件都要测**渲染分支**和**事件调用**，跟组件类型根本没必然的关联…不过，功能型组件有可能会涉及一些其他的模式，因此又大致分出一小节来谈。
 
 | 组件类型 / 测试内容 | 分支渲染逻辑 | 事件调用 | `@connect` | 纯 UI |
-| :---: | :---: | :---: | :---: | :---: |
-| 展示型组件 | ✅ | ✅ | - | ✖️ |
-| 容器型组件 | ✅ | ✅ | ✖️ | ✖️ |
-| 通用 UI 组件 | ✅ | ✅ | - | ✖️ |
-| 功能型组件 | ✅ | ✅ | ✖️ | ✖️ |
+| :-----------------: | :----------: | :------: | :--------: | :---: |
+|     展示型组件      |      ✅      |    ✅    |     -      |  ✖️   |
+|     容器型组件      |      ✅      |    ✅    |     ✖️     |  ✖️   |
+|    通用 UI 组件     |      ✅      |    ✅    |     -      |  ✖️   |
+|     功能型组件      |      ✅      |    ✅    |     ✖️     |  ✖️   |
 
 ### 一般的业务型组件
 
@@ -469,7 +494,11 @@ test('should not render a comments section when product has no comments', () => 
 test('should render a comments section when product has comments', () => {
   const comments = [
     { id: 283992, author: '男***8', comment: '价廉物美，相信奥康旗舰店' },
-    { id: 283993, author: '雨***成', comment: '因为工作穿皮鞋时间较多，所以一双合脚的鞋子...' },
+    {
+      id: 283993,
+      author: '雨***成',
+      comment: '因为工作穿皮鞋时间较多，所以一双合脚的鞋子...',
+    },
   ]
   const component = shallow(<ProductDetailPage comments={comments} />)
 
@@ -491,16 +520,24 @@ const ProductItem = ({ id, productName, introduction, trackPressEvent }) => (
   </TouchableWithoutFeedback>
 )
 ```
+
 ```js
 test('should send product id and name to analytics system when user press the product item', () => {
   const trackPressEvent = jest.fn()
   const component = shallow(
-    <ProductItem id={100832} introduction="iMac Pro - Power to the pro." trackPressEvent={trackPressEvent} />
+    <ProductItem
+      id={100832}
+      introduction="iMac Pro - Power to the pro."
+      trackPressEvent={trackPressEvent}
+    />
   )
 
   component.find(TouchableWithoutFeedback).simulate('press')
 
-  expect(trackPressEvent).toHaveBeenCalledWith(100832, 'iMac Pro - Power to the pro.')
+  expect(trackPressEvent).toHaveBeenCalledWith(
+    100832,
+    'iMac Pro - Power to the pro.'
+  )
 })
 ```
 
@@ -618,7 +655,10 @@ const ProductItem = ({ isRead, productName, comments }) => (
   <Readable initialStatus={isRead}>
     {(isRead) => (
       <>
-        <ItemContent title={productName} style={[styles.normal, isRead && styles.readStyle]} />
+        <ItemContent
+          title={productName}
+          style={[styles.normal, isRead && styles.readStyle]}
+        />
         {comments.length > 0 && <Comments comments={comments} />}
       </>
     )}
@@ -636,10 +676,19 @@ test('should render a Comment component when comment is not empty', () => {
     <ProductItem
       isRead={false}
       productName="iMac Pro"
-      comments={['awesome products', 'I will buy 10 for my friends', 'I would love to have such a friend!']}
+      comments={[
+        'awesome products',
+        'I will buy 10 for my friends',
+        'I would love to have such a friend!',
+      ]}
     />
   )
-  const productItem = shallow(component.find(Readable).props().children())
+  const productItem = shallow(
+    component
+      .find(Readable)
+      .props()
+      .children()
+  )
 
   const commentsSection = productItem.find(Comments)
 
@@ -662,16 +711,15 @@ test('should render a Comment component when comment is not empty', () => {
 * 之所以优先选择单元测试，是依据测试金字塔的成本收益比原则确定得到的
 * 好的单元测试具备三大特征：**仅对输入输出敏感**、**不依赖于内部实现**、**快且稳定**
 * 测试也有测试策略：在 React 的典型架构下，一个测试体系大概分为五层：组件、action、reducer、selector、副作用层。它们分别的测试策略为：
-  * reducer、selector 的重逻辑代码要求100%覆盖
+  * reducer、selector 的重逻辑代码要求 100%覆盖
   * 副作用层主要测试：**是否拿到了正确的参数**、**是否调用了正确的 API**、**是否保存了正确的数据**、**业务逻辑**、**异常逻辑** 五个层面
   * 组件层两测两不测：**分支渲染逻辑** 和 **事件、交互调用** 必测；纯 UI、`@connect` 过的高阶组件不测
   * action 层选择性覆盖：可不测
 * 其他高级技巧：定制测试工具（`jest.extend`）、参数化测试（`test.each()`）等
 
+## 施工中 🚧 - 待补充 & 待修改
 
-## 施工中🚧 - 待补充 & 待修改
-
-* [x] 代码进一步脱敏
+* [ ] 代码进一步脱敏
 * [ ] 补充个「简介」section，可以拿来上前端期刊。期刊的话，还有些文章级别的东西要整理，批评《浅出》的言论就不要上了；调调更积极一些，尽量对人有信心，不要随意喷能力问题。要强调测试是难的，需要练习的，测试作为二等公民所以有学习成本的观点是错的，测试是一等公民；要（吗）帮忙指出入门路径，使初学者的入门感觉愉悦而非痛苦。要强调作为个人学习是必要的，作为 Leader 合适地考虑学习成本、能力路径、从易到难并由此设计测试策略是必要的；对外发布的话，需要对「快照测试」的部分做更客观的评价，「强烈不推荐」这个结论可能不是很经得住实践考验
 * 走查一下项目，主要关注几个方面：
   * 有哪些可以测的东西没有写测试的？有哪些因为设计不好写的太复杂而没有写测试的？
@@ -696,10 +744,10 @@ test('should render a Comment component when comment is not empty', () => {
 * [ ] 谷歌或百度一下，前端 React 单元测试相关的文章；看下别人写过的东西，取长补短
 * [ ] 最近听见了前端工作者经常质疑的一个问题：「是不是所有的代码都要 TDD 啊？感觉 TDD 不适用于前端啊？」我的结论是：TDD 的两大核心思想 **快速反馈**、**设计工具** 依然是适用的，但产生于后端 Java 为主的这种完全 OO 风格编程语境下 TDD 其某些具体实践，可能确实不能完全适用于前端重 UI、交互的语境，UT 在 UI 及其相关领域，并不是合理的快速反馈方式。而 **测试策略**这个事情，刚好从政策的层面解答了「是不是所有代码都要 TDD」这个问题：测试策略的制定者凭借经验决定，什么代码使用 UT 来获得反馈是好的、需要的，然后凡是不在策略里的就不需要 TDD，凡是在策略里的就需要 TDD
 * [ ] 然后对于另一个说法：「进度紧所以没法 TDD」。我理解这个话多数情况下是个借口。对于不在测试策略（不适合 TDD）中的代码，不需要 TDD 甚至可以允许没有测试；对于在测试策略中的代码，你说进度紧所以没法 TDD，意思是用 TDD 就更慢，那我理解大概几种可能性，只有最后一种比较有合理性：
-    * 技能不熟所以没法在适合使用 UT 以获得快速反馈的代码上获得快速反馈；或是说：
-    * 你认为 TDD 方法论中使用 UT 来获得快速反馈的这个方式是无效的；或是说：
-    * 你想说的不是 TDD 慢，而是写测试慢；或是说：
-    * 原代码库设计极其不佳乱成一团导致很难 TDD，又因为进度压力没法偿还以前技术债
+  * 技能不熟所以没法在适合使用 UT 以获得快速反馈的代码上获得快速反馈；或是说：
+  * 你认为 TDD 方法论中使用 UT 来获得快速反馈的这个方式是无效的；或是说：
+  * 你想说的不是 TDD 慢，而是写测试慢；或是说：
+  * 原代码库设计极其不佳乱成一团导致很难 TDD，又因为进度压力没法偿还以前技术债
 * [ ] 前端某些元素其实是没法 TDD 的，也就因此没有办法收到重构的保护。那么，这些元素有没有可能有安全的重构方法？
 * [ ] TDD 的核心思想：**快速反馈**、**设计工具**在实践中随时可用。但是要谈「前端的 TDD」这个话题，我还必须了解前端在解决什么问题，对比其中可用 UT 来解决的问题比例，才有厚重的东西来谈前端的 TDD。现在还没太有能量
 
@@ -743,7 +791,7 @@ test('should render a Comment component when comment is not empty', () => {
 
 因此，差异比对这一块，如果没有特别的坑，可以做到比较低的成本；比对方式，仍然遵照 Git 进行文本比对的方式即可。
 
-### 更新快照 
+### 更新快照
 
 * 可以通过命令行的方式 `jest --updateSnapshot`，但执行太耗时，并且要它执行完以后你才可以 commit，需要等待，打断节奏；
 * 可以通过 `jest --watch` 的方式，在快照更新并确认要更新后按个 `w` 去更新，但我用的是 WebStorm 的测试面板，它通常被我放在副屏，不在主屏，这样我要么需要通过 `cmd + 4` 或鼠标移动的方式切换到测试面板去执行这个「按 `w` 更新快照」的操作，然后再通过两下 `escape` 或鼠标移动点击的方式回主面板。当我核心注意力在红绿循环中的时候，这无疑需要额外的注意力来切换屏幕、进行鼠标操作，乃是大忌，频繁执行测试下，对工作流和节奏的打乱更要命
@@ -761,18 +809,18 @@ test('should render a Comment component when comment is not empty', () => {
 
 ## [总结](https://github.com/linesh-simplicity/linesh-simplicity.github.io/issues/200#issuecomment-405648726)
 
->  这是一段也许还不太成熟的观点，故意隐藏收起，没想到同学还是看了，哈哈。感谢阅读和反馈！
+> 这是一段也许还不太成熟的观点，故意隐藏收起，没想到同学还是看了，哈哈。感谢阅读和反馈！
 >
 > 嗯，你说的对，snapshot 建立起 baseline 以后，整套工作机制最最重要的就是要人**去看**。我其实有提到「在你比对了差异并确认需要更新后」这个过程的，不过说是 `precommit` 阶段做可能有误，至少也应该是在填写了 commit message 发起一次 commit 以后，也许应该在 `postcommit`，但这样不知道又会不会循环触发 commit 流程。总之要点在于，对，它是需要人去看去仔细检查的。
 >
 > 我对快照测试最主要的观望点在于**需要人为去看**这个事情，以及**运行频率**的问题：
 >
-> 1. 如果我们在做 TDD，*人为去看* 这个事情是否凭空就在红绿循环中间加了一道？是否会延长反馈周期？或者是否我们需要调整红绿循环的工作流来适应快照测试的加入？
-> 2. 人为去看，你真的得很仔细去看。**人为、仔细**是快照测试整套机制工作的基础：
->    1. 可能大部分时候，改动都是你期望的（因为本来就在改 UI），仔细对比之后发现并无改动，提交
->    2. 可能少部分时候，改动中即有期望的部分也有误修改的部分，仔细对比之后，纠出错误，回滚误改部分，get 测试好处，提交；
->    3. 可能少部分时候，改动全是你非预期的，对比之后，全是错误，全部回滚，大大 get 测试好处，提
-> 3. 提交粒度。是每次 commit 的时候保证快照测试更新，还是每次 push 的时候保证快照测试更新？
+> 1.  如果我们在做 TDD，_人为去看_ 这个事情是否凭空就在红绿循环中间加了一道？是否会延长反馈周期？或者是否我们需要调整红绿循环的工作流来适应快照测试的加入？
+> 2.  人为去看，你真的得很仔细去看。**人为、仔细**是快照测试整套机制工作的基础：
+>     1.  可能大部分时候，改动都是你期望的（因为本来就在改 UI），仔细对比之后发现并无改动，提交
+>     2.  可能少部分时候，改动中即有期望的部分也有误修改的部分，仔细对比之后，纠出错误，回滚误改部分，get 测试好处，提交；
+>     3.  可能少部分时候，改动全是你非预期的，对比之后，全是错误，全部回滚，大大 get 测试好处，提
+> 3.  提交粒度。是每次 commit 的时候保证快照测试更新，还是每次 push 的时候保证快照测试更新？
 >
 > 前面说的各种 precommit 脚本、IDE Git 插件，都是为了尝试解决第一个问题，这只是个技术问题，不做也行，就是慢一点点；而对于第二个问题，如果说，实践起来，真的是「大部分时候，改动都是你期望的」，那么我们要求每次快照变化都要「人为、细心」去检查这个事情，是不是其实收益并没有付出那么大？长久下去，是否可能导致团队厌烦情绪而放松了细心检查这个过程，从而使得快照测试的价值打折扣？而第三个问题，如果是 push 粒度更新快照测试，那么很显然失去了原子提交的优势；如果是 commit 粒度的更新，那就回到了人为、细心这个要求上，那还是要看第二点问题，是否真实存在，能不能解决。
 >
@@ -783,4 +831,5 @@ test('should render a Comment component when comment is not empty', () => {
 > 也许这段结论更加成熟一点了呢。
 
 https://benmccormick.org/2016/09/19/testing-with-jest-snapshots-first-impressions 。这里将 ST 的优缺点和利弊权衡都讲得好。
+
 </details>
