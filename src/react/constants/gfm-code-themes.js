@@ -16,6 +16,4 @@ const notBadThemes = [
   'hljs/vs2015',
 ]
 
-export const randomTheme = () => {
-  return sample(notBadThemes)
-}
+export const randomTheme = () => sample(notBadThemes)

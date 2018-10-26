@@ -3,7 +3,7 @@
   "plugins": ["prettier", "jsx-control-statements", "import"],
   "extends": [
     "prettier",
-    "eslint:recommended",
+    "javascript-the-good-parts",
     "plugin:jsx-control-statements/recommended",
     "plugin:react/recommended"
   ],
@@ -13,18 +13,26 @@
     "browser": true,
     "es6": true
   },
-  "globals":{
+  "globals": {
     "__DEV__": true
   },
   "rules": {
     "prettier/prettier": "error",
-    "import/order": ["error", {
-      "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
-      "newlines-between": "always"
-    }],
-    "lines-between-class-members": "error",
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "newlines-between": "always"
+      }
+    ],
     "no-empty": ["error", { "allowEmptyCatch": true }],
-    "no-useless-escape": "off",
 
     "react/no-unescaped-entities": "off",
     "react/no-deprecated": "off",
@@ -32,5 +40,10 @@
     "react/display-name": "off",
 
     "react/jsx-no-undef": [2, { "allowGlobals": true }]
+  },
+  "settings": {
+    "react": {
+      "version": "16.4"
+    }
   }
 }

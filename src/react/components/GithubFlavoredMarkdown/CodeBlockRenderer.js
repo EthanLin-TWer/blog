@@ -4,7 +4,7 @@ import SyntaxHighlighter from 'react-syntax-highlighter'
 
 import { randomTheme } from '../../constants/gfm-code-themes'
 const theme = randomTheme()
-const style = require(`react-syntax-highlighter/styles/${theme}`).default
+const { default: style } = require(`react-syntax-highlighter/styles/${theme}`)
 
 export class CodeBlockRenderer extends React.Component {
   static propTypes = {
