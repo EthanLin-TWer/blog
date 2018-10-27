@@ -182,7 +182,7 @@ test('should dispatch saveUserComments action with fetched user comments', () =>
 
 ### reducer 测试
 
-最为简单的 reducer 测试，仅一一对应保存数据切片。此种 reducer 可以不需要测试覆盖，因为基本由架构简单和逻辑简单保证，不需要靠读测试用例来理解。
+reducer 大概有两种：一种比较简单，仅一一保存对应的数据切片；一种复杂一些，里面具有一些计算逻辑。对于第一种 reducer，写起来非常简单，简单到甚至可以不需要用测试去覆盖。其正确性基本由简单的架构和逻辑去保证的。下面是对一个简单 reducer 做测试的例子：
 
 ```js
 import reducers from './reducers'
@@ -204,7 +204,10 @@ test('should save loading start indicator when action isLoadingProducts is dispa
 export default createReducers((on) => {
   on(actions.saveUserComments, (state, action) => {
     return state.merge({
-      comments: uniqBy(state.comments.concat(action.payload.comments), 'id'),
+      comments: uniqBy(
+        state.comments.concat(action.payload.comments), 
+        'id',
+      ),
     })
   })
 })
