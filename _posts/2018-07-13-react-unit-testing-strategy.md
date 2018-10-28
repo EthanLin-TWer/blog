@@ -566,7 +566,12 @@ test('should render a comments section and a header when there are comments', ()
 测试事件的一个场景如下：当某条产品被点击时，应该将产品相关的信息发送给埋点系统进行埋点。
 
 ```js
-const ProductItem = ({ id, productName, introduction, trackPressEvent }) => (
+export const ProductItem = ({
+  id,
+  productName,
+  introduction,
+  trackPressEvent,
+}) => (
   <TouchableWithoutFeedback onPress={() => trackPressEvent(id, productName)}>
     <View>
       <Title name={productName} />
@@ -577,7 +582,12 @@ const ProductItem = ({ id, productName, introduction, trackPressEvent }) => (
 ```
 
 ```js
-test('should send product id and name to analytics system when user press the product item', () => {
+import { ProductItem } from './index'
+
+test(`
+  should send product id and name to analytics system 
+  when user press the product item
+`, () => {
   const trackPressEvent = jest.fn()
   const component = shallow(
     <ProductItem
@@ -596,7 +606,14 @@ test('should send product id and name to analytics system when user press the pr
 })
 ```
 
-简单得很吧。这里的几个测试，在你改动了样式相关的东西时，不会挂掉；但是如果你改动了分支逻辑或函数调用的内容时，它就会挂掉了。而分支逻辑或函数调用，恰好是我觉得接近业务的地方，所以它们对保护代码逻辑、保护重构是有价值的。当然，它们多少还是依赖了组件内部的实现细节，比如说 `find(TouchableWithoutFeedback)`、`expect().toHaveLength(1)`，都分别做了「组件内部使用了 `TouchableWithoutFeedback`」、「该组件最多只应该渲染一个 `VideoPlayer` 组件」这样的假设，而这些假设很可能是会变的。这对于组件测试来说，是不够完美的地方。也正因此，我认为从架构上正确地拆分组件树才如此重要，如果你的每个组件都十分清晰直观、逻辑分明，那么像上面这样的组件测起来也就很轻松，一般就遵循 `shallow` -> `find(Component)` -> 断言的三段式，哪怕是了解了一些组件的内部细节，通常也在可控的范围内，维护起来成本并不高。这是目前我觉得平衡了表达力、重构意义和测试成本的最佳实践
+简单得很吧。这里的几个测试，在你改动了样式相关的东西时，不会挂掉；但是如果你改动了分支逻辑或函数调用的内容时，它就会挂掉了。而分支逻辑或函数调用，恰好是我觉得接近业务的地方，所以它们对保护代码逻辑、保护重构是有价值的。当然，它们多少还是依赖了组件内部的实现细节，比如说 `find(TouchableWithoutFeedback)`，还是做了「组件内部使用了 `TouchableWithoutFeedback` 组件」这样的假设，而这个假设很可能是会变的。也就是说，如果我换了一个组件来接受点击事件，尽管点击时的行为依然发生，但这个测试仍然会挂掉。这就违反了我们所说了「有且仅有一个使测试失败的理由」。这对于组件测试来说，是不够完美的地方。
+
+但这个问题无法避免。因为组件本质是渲染组件树，那么测试中要与组件树关联，必然要通过 组件名、id 这样的 selector，这些 selector 的关联本身就是使测试挂掉的「另一个理由」。但对组件的分支、事件进行测试又有一定的价值，无法避免。所以，我认为这个部分还是要用，只不过同时需要一些限制，以控制这些假设为维护测试带来的额外成本：
+
+* 不要断言组件内部结构。像那些 `expect(component.find('div > div > p').html().toBe('Content')` 的真的就算了吧
+* 正确拆分组件树。一个组件尽量只负责一个功能，不允许堆叠太多的函数和功能。要符合单一职责原则
+
+如果你的每个组件都十分清晰直观、逻辑分明，那么像上面这样的组件测起来也就很轻松，一般就遵循 `shallow` -> `find(Component)` -> 断言的三段式，哪怕是了解了一些组件的内部细节，通常也在可控的范围内，维护起来成本并不高。这是目前我觉得平衡了表达力、重构意义和测试成本的实践。
 
 #### 功能型组件
 
