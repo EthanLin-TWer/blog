@@ -266,7 +266,7 @@ reducer 作为纯函数，非常适合做单元测试，加之一般在 reducer 
 * 表达力极强：测试描述已经写得清楚「当使用新获取到的留言数据分发 action `saveUserComments` 时，应该与已有留言合并并去除重复的部分」；此外，测试数据只准备了足够体现「合并」这个操作的两条 id 的数据，而没有放很多的数据，形成杂音；
 * 快、稳定：没有任何依赖，测试代码不包含准备数据、调用、断言外的任何逻辑
 
-## selector 测试
+### selector 测试
 
 selector 同样是重逻辑的地方，可以认为是 reducer 到组件的延伸。它也是一个纯函数，测起来与 reducer 一样方便、价值不菲，也是应该重点照顾的部分。况且，稍微大型一点的项目，应该说必然会用到 selector。原因我[讲在这里](https://github.com/linesh-simplicity/linesh-simplicity.github.io/issues/122#issuecomment-340986205)。下面看一个 selector 的测试用例：
 
@@ -319,7 +319,7 @@ test('should transform label array to object', () => {
 })
 ```
 
-## saga 测试
+### saga 测试
 
 saga 是负责调用 API、处理副作用的一层。在实际的项目上副作用还有其他的中间层进行处理，比如 redux-thunk、redux-promise 等，本质是一样的，只不过 saga 在测试性上要好一些。这一层副作用怎么测试呢？**首先为了保证单元测试的速度和稳定性，像 API 调用这种不确定性的依赖我们一定是要 mock 掉的**。经过仔细总结，我认为这一层主要的测试内容有五点：
 
@@ -329,7 +329,7 @@ saga 是负责调用 API、处理副作用的一层。在实际的项目上副�
 * 异常逻辑
 * 其他副作用是否发生（比如有时有需要 Emit 的事件、需要保存到 IndexDB 中去的数据等）
 
-### 来自官方的错误姿势
+#### 来自官方的错误姿势
 
 redux-saga 官方提供了一个 [util: `CloneableGenerator`](https://github.com/redux-saga/redux-saga/blob/master/docs/advanced/Testing.md#branching-saga) 用以帮我们写 saga 的测试。这是我们项目使用的第一种测法，大概会写出来的测试如下：
 
@@ -403,7 +403,7 @@ test('should only save the three five recommended products and show ads when use
 3.  为了测试两个重要的业务「只保存获取回来的前三个推荐产品」、「对非 VIP 用户推送广告」，不得不在前面先按次序先断言许多个不重要的实现
 4.  测试没有重点，随便改点什么都会挂测试
 
-### 正确姿势
+#### 正确姿势
 
 于是，针对以上痛点，我们理想中的 saga 测试应该：1) 不依赖实现次序；2) 允许仅对真正关心的、有价值的业务进行测试；3) 支持不改动业务行为的重构。如此一来，测试的保障效率和开发者体验都将大幅提升。
 
@@ -453,7 +453,7 @@ expect.extend({
 
 上面是我们认为比较好的副作用测试工具、测试策略和测试方案。使用时，需要牢记你真正关心的业务价值点（本节开始提到的 5 点），以及做到在较为复杂的单元测试中始终坚守三大基本原则。唯如此，单元测试才能真正提升开发速度、支持重构、充当业务上下文的文档。
 
-## component 测试
+### component 测试
 
 组件测试其实是实践最多，争论也最多的地方。React 组件是一个高度自治的单元，从分类上来看，它大概有这么几类：
 
