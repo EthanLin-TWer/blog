@@ -317,66 +317,97 @@ test('should transform label array to object', () => {
 
 ## saga 测试
 
-saga 是负责调用 API、处理副作用的一层。这一层副作用怎么测试呢，首先为了保证单元测试的速度和稳定性，像 API 调用这种不确定性的依赖我们一定是要 mock 掉的。在实际的项目上有可能副作用是通过其他的中间层进行处理，比如 redux-thunk、redux-promise 等，但主要的思想是一样的。这一层经过总结，我认为主要的测试内容包括：
+saga 是负责调用 API、处理副作用的一层。在实际的项目上副作用还有其他的中间层进行处理，比如 redux-thunk、redux-promise 等，本质是一样的，只不过 saga 在测试性上要好一些。这一层副作用怎么测试呢？**首先为了保证单元测试的速度和稳定性，像 API 调用这种不确定性的依赖我们一定是要 mock 掉的**。经过仔细总结，我认为这一层主要的测试内容有五点：
 
 * 是否使用正确的参数（通常是从 action payload 或 redux 中来），调用了正确的 API
 * 对于 mock 的 API 返回，是否保存了正确的数据（通常是通过 action 保存到 redux 中去）
 * 主要的业务逻辑（比如仅当用户满足某些权限时才调用 API 等）
 * 异常逻辑
+* 其他副作用是否发生（比如有时有需要 Emit 的事件、需要保存到 IndexDB 中去的数据等）
 
-### 不完美的姿势
+### 来自官方的错误姿势
 
 redux-saga 官方提供了一个 [util: `CloneableGenerator`](https://github.com/redux-saga/redux-saga/blob/master/docs/advanced/Testing.md#branching-saga) 用以帮我们写 saga 的测试。这是我们项目使用的第一种测法，大概会写出来的测试如下：
 
 ```js
-export function* fetchDataOnProductDetail({ payload: { productId, userId } }) {
-  const { userRole } = yield select((store) => store.credentails)
+import chunk from 'lodash/chunk'
 
-  yield put(actions.fetchProductDetailSaga(productId))
-  yield put(actions.fetchProductComments(productId))
-  yield put(actions.fetchUserUnreadComments(productId, userId))
-  yield put(actions.fetchProductPromotions(productId))
+export function* onEnterProductDetailPage(action) {
+  yield put(actions.notImportantAction1('loading-stuff'))
+  yield put(actions.notImportantAction2('analytics-stuff'))
+  yield put(actions.notImportantAction3('http-stuff'))
+  yield put(actions.notImportantAction4('other-stuff'))
 
-  if (userRole !== UserRole.VIP_USER) {
-    yield put(actions.fetchAdsSaga())
+  const recommendations = yield call(Api.get, 'products/recommended')
+  const [products = []] = chunk(recommendations, 3)
+
+  yield put(actions.importantActionToSaveRecommendedProducts(products))
+
+  const {
+    payload: { userId },
+  } = action
+  const { vipList } = yield select((store) => store.credentails)
+  if (!vipList.includes(userId)) {
+    yield put(actions.importantActionToFetchAds())
   }
 }
 ```
 
 ```js
+import { put, call } from 'saga-effects'
 import { cloneableGenerator } from 'redux-saga/utils'
+import { onEnterProductDetailPage } from './saga'
 
-test('should execute loginHookSaga actions in correct order', () => {
-  const action = { payload: { productId: 10085, userId: 28071562837 } }
-  const credentials = { userRole: UserRole.NOT_VIP_USER }
-  const generator = cloneableGenerator(fetchDataOnProductDetail)(action)
+const product = (productId) => ({ productId })
 
-  generator.next() // cannot take the same selector as the implementation did
+test('should only save the three five recommended products and show ads when user enters the product detail page given the user is not a VIP', () => {
+  const action = { payload: { userId: 233 } }
+  const credentials = { vipList: [2333] }
+  const fourRecommendedProducts = [
+    product(1),
+    product(2),
+    product(3),
+    product(4),
+  ]
+  const firstThreeProducts = [product(1), product(2), product(3)]
+  const generator = cloneableGenerator(onEnterProductDetailPage)(action)
+
+  expect(generator.next().value).toEqual(
+    actions.notImportantAction1('loading-stuff')
+  )
+  expect(generator.next().value).toEqual(
+    actions.notImportantAction2('analytics-stuff')
+  )
+  expect(generator.next().value).toEqual(
+    actions.notImportantAction3('http-stuff')
+  )
+  expect(generator.next().value).toEqual(
+    actions.notImportantAction4('other-stuff')
+  )
+
+  expect(generator.next().value).toEqual(call(Api.get, 'products/recommended'))
+  expect(generator.next(fourRecommendedProducts).value).toEqual(
+    firstThreeProducts
+  )
+  generator.next()
   expect(generator.next(credentials).value).toEqual(
-    put(actions.fetchProductDetailSaga(10085))
+    put(actions.importantActionToFetchAds())
   )
-  expect(generator.next().value).toEqual(
-    put(actions.fetchProductComments(10085))
-  )
-  expect(generator.next().value).toEqual(
-    put(actions.fetchUserUnreadComments(10085, 28071562837))
-  )
-  expect(generator.next().value).toEqual(
-    put(actions.fetchProductPromotions(10085))
-  )
-  expect(generator.next().value).toEqual(put(actions.fetchAdsSaga()))
 })
 ```
 
-这个方案写多了，大家开始感受到了痛点，读者是否也能感受得到：
+这个方案写多了，大家开始感受到了痛点，明显违背我们前面提到的一些原则：
 
-1.  测试分明就是把实现抄了一遍。这违反上述所说「仅对输入输出敏感」的原则
-2.  当在实现中某个部分加入新的语句时，该语句后续所有的测试都会挂掉，并且出错信息非常难以描述原因，导致常常要陷入「调试测试」的境地，这种场景下我们说维护测试确实是成本
-3.  测试没有重点，随便改点什么都会挂测试，无法很好支持「重构」这种改变内部实现但不改变业务行为的代码清理行为
+1.  测试分明就是把实现抄了一遍。这违反上述所说「有且仅有一个挂测试的理由」的原则，改变实现次序也将会使测试挂掉
+2.  当在实现中某个部分加入新的语句时，该语句后续所有的测试都会挂掉，并且出错信息非常难以描述原因，导致常常要陷入「调试测试」的境地，这也是依赖于实现次序带来的恶果，根本无法支持「重构」这种改变内部实现但不改变业务行为的代码清理行为
+3.  为了测试两个重要的业务「只保存获取回来的前三个推荐产品」、「对非 VIP 用户推送广告」，不得不在前面先按次序先断言许多个不重要的实现
+4.  测试没有重点，随便改点什么都会挂测试
 
 ### 正确姿势
 
-于是，针对以上痛点，我们想出了可能的解决方案：是否可以通过将 saga 全部执行一遍，搜集所有 dispatch 出去的 action，然后由开发者自由断言某个 action 是否被正确 dispatch？这样的话，可以只测试你真正关心的、与业务逻辑相关的部分，并且可以做到**与次序解耦**、**重构改动了代码而不挂测试**，从而大大提升测试效率和开发体验。恰好，redux-saga 官方就有这么一个跑测试的工具：[`runSaga`](https://redux-saga.js.org/docs/api/#runsagaoptions-saga-args)。于是，我们推出了我们的第二版 saga 测试方案：**`runSaga` + 自定义拓展 jest 的 `expect` 断言**。最终，使用这个工具写出来的 saga 测试，看起来是这样子的：
+于是，针对以上痛点，我们理想中的 saga 测试应该：1) 不依赖实现次序；2) 允许仅对真正关心的、有价值的业务进行测试；3) 支持不改动业务行为的重构。如此一来，测试的保障效率和开发者体验都将大幅提升。
+
+于是，我们发现官方提供了这么一个跑测试的工具，刚好可以用来完美满足我们的需求：[`runSaga`](https://redux-saga.js.org/docs/api/#runsagaoptions-saga-args)。我们可以用它将 saga 全部执行一遍，搜集所有发布出去的 action，由开发者自由断言其感兴趣的 action！基于这个发现，我们推出了我们的第二版 saga 测试方案：**`runSaga` + 自定义拓展 jest 的 `expect` 断言**。最终，使用这个工具写出来的 saga 测试，几近完美：
 
 ```js
 import { call } from 'redux-saga/effects'
@@ -779,7 +810,6 @@ test('should render a Comment component when comment is not empty', () => {
 * [ ] `{ comments.length > 0 && <Comments comments={comments} />` feature envy 例子重构，找个更合适的例子
 * [ ] saga 章节统一下例子
 * [ ] 那种根据代码条件逻辑而有不同样式的代码，怎么测？`Visible` 这样的组件，可读性提升了，consumer 端怎么测试？如果只测传给 `Visible` 的参数，显然就变成测试实现了
-* [ ] 是否可以把所有「不好的姿势」的内容抽成独立的章节？
 * [ ] 所涉及的测试，皆用 fixture 突出关键信息，隐去无关信息的准备
 * [ ] 以「函数为子组件」的模式，是不是都可以写个专门的 helper 来屏蔽掉这些细节？
 * [ ] 更细致的组件测试的例子：如 mock、更接近「实现」更违背「不应关注实现」但具有业务价值的例子、如何 mock 系统级别的依赖，如 `moment()` `Date.now` 等
@@ -792,6 +822,7 @@ test('should render a Comment component when comment is not empty', () => {
   * 原代码库设计极其不佳乱成一团导致很难 TDD，又因为进度压力没法偿还以前技术债
 * [ ] TDD 的核心思想：**快速反馈**、**设计工具**在实践中随时可用。但是要谈「前端的 TDD」这个话题，我还必须了解前端在解决什么问题，对比其中可用 UT 来解决的问题比例，才有厚重的东西来谈前端的 TDD。现在还没太有能量
 * [ ] 前端某些元素其实是没法 TDD 的，也就因此没有办法收到重构的保护。那么，这些元素有没有可能有安全的重构方法？
+* [x] 是否可以把所有「不好的姿势」的内容抽成独立的章节？
 * [x] 补充个「简介」section，可以拿来上前端期刊。期刊的话，还有些文章级别的东西要整理：
   * [x] 批评《浅出》的言论就不要上了；
   * [x] 调调更积极一些，尽量对人有信心，不要随意喷能力问题。 - 不要随意喷可以，积极做不到
