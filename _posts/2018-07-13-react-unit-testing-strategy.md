@@ -343,7 +343,8 @@ export function* onEnterProductDetailPage(action) {
   yield put(actions.notImportantAction4('other-stuff'))
 
   const recommendations = yield call(Api.get, 'products/recommended')
-  const [products = []] = chunk(recommendations, 3)
+  const MAX_RECOMMENDATIONS = 3
+  const [products = []] = chunk(recommendations, MAX_RECOMMENDATIONS)
 
   yield put(actions.importantActionToSaveRecommendedProducts(products))
 
@@ -365,7 +366,11 @@ import { onEnterProductDetailPage } from './saga'
 
 const product = (productId) => ({ productId })
 
-test('should only save the three five recommended products and show ads when user enters the product detail page given the user is not a VIP', () => {
+test(`
+  should only save the three recommended products and show ads 
+  when user enters the product detail page 
+  given the user is not a VIP
+`, () => {
   const action = { payload: { userId: 233 } }
   const credentials = { vipList: [2333] }
   const recommendedProducts = [product(1), product(2), product(3), product(4)]
@@ -417,7 +422,11 @@ import { onEnterProductDetailPage } from './saga'
 
 const product = (productId) => ({ productId })
 
-test('should only save the three five recommended products and show ads when user enters the product detail page given the user is not a VIP', async () => {
+test(`
+  should only save the three recommended products and show ads 
+  when user enters the product detail page 
+  given the user is not a VIP
+`, async () => {
   const action = { payload: { userId: 233 } }
   const store = { credentials: { vipList: [2333] } }
   const recommendedProducts = [product(1), product(2), product(3), product(4)]
