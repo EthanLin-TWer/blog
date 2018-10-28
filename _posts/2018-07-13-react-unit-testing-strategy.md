@@ -27,6 +27,7 @@ tags: react unit-test tdd enzyme jest
     6.  component 测试
         * 业务型组件 - 分支渲染
         * 业务型组件 - 事件调用
+        * 功能型组件 - `children` 型高阶组件
     7.  utils 测试
 
 ## 为什么要做单元测试
@@ -615,18 +616,22 @@ test(`
 
 如果你的每个组件都十分清晰直观、逻辑分明，那么像上面这样的组件测起来也就很轻松，一般就遵循 `shallow` -> `find(Component)` -> 断言的三段式，哪怕是了解了一些组件的内部细节，通常也在可控的范围内，维护起来成本并不高。这是目前我觉得平衡了表达力、重构意义和测试成本的实践。
 
-#### 功能型组件
+#### 功能型组件 - `children` 型高阶组件
 
-功能型组件，指的是跟业务无关的另一类组件：它是功能型的，更像是底层支撑着业务组件运作的基础组件，比如路由组件、分页组件等。这些组件可能会偏重逻辑多一点，但本质测法跟业务组件是一致的：都是测分支渲染和事件调用。但由于它偏功能型的特性，使得它在设计上常会出现一些业务型组件不常出现的设计模式，如高阶组件、以函数为子组件等。下面分别针对这几种进行分述。
-
-#### `children` 型组件
+功能型组件，指的是跟业务无关的另一类组件：它是功能型的，更像是底层支撑着业务组件运作的基础组件，比如路由组件、分页组件等。这些组件一般偏重逻辑多一点，关心 UI 少一些。其本质测法跟业务组件是一致的：不关心 UI 具体渲染，只测分支渲染和事件调用。但由于它偏功能型的特性，使得它在设计上常会出现一些业务型组件不常出现的设计模式，如高阶组件、以函数为子组件等。下面分别针对这几种进行分述。
 
 ```js
 export const FeatureToggle = ({ features, featureName, children }) => {
-  if (!features[featureName]) return null
+  if (!features[featureName]) {
+    return null
+  }
 
   return children
 }
+
+export default connect((store) => ({ features: store.global.features }))(
+  FeatureToggle
+)
 ```
 
 ```js
@@ -637,134 +642,44 @@ import { View } from 'react-native'
 import FeatureToggles from './featureToggleStatus'
 import { FeatureToggle } from './index'
 
-const SomeComponent = () => <View />
+const DummyComponent = () => <View />
 
 test('should not render children component when remote toggle is empty', () => {
   const component = shallow(
     <FeatureToggle features={{}} featureName="promotion618">
-      <SomeComponent />
+      <DummyComponent />
     </FeatureToggle>
   )
 
-  expect(component.find(SomeComponent)).toHaveLength(0)
+  expect(component.find(DummyComponent)).toHaveLength(0)
 })
 
-test('should render children component when remote toggle object is present given promotion618 feature is on', () => {
+test('should render children component when remote toggle is present and stated on', () => {
   const features = {
     promotion618: FeatureToggles.on,
   }
 
   const component = shallow(
     <FeatureToggle features={features} featureName="promotion618">
-      <SomeComponent />
+      <DummyComponent />
     </FeatureToggle>
   )
 
-  expect(component.find(SomeComponent)).toHaveLength(1)
+  expect(component.find(DummyComponent)).toHaveLength(1)
 })
 
-test('should not render children component when remote toggle object is present given promotion618 feature is off', () => {
+test('should not render children component when remote toggle object is present but stated off', () => {
   const features = {
     promotion618: FeatureToggles.off,
   }
 
   const component = shallow(
     <FeatureToggle features={features} featureName="promotion618">
-      <SomeComponent />
+      <DummyComponent />
     </FeatureToggle>
   )
 
-  expect(component.find(SomeComponent)).toHaveLength(0)
-})
-```
-
-#### 以函数为子组件类组件
-
-既然是侧重逻辑的功能型组件，它的设计模式就比较多样一些，其中经常会出现「以函数为子组件」的这种设计模式。至于为什么会用到这种模式，它的利弊如何呢，可以看看程墨书中关于高阶组件的这部分，讲的很到位，这里不再细补充。还是以代码为例子：
-
-```js
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
-import { TouchableOpacity, View } from 'react-native'
-
-import { Indicator } from '../Indicator'
-import styles from './styles'
-
-export default class Readable extends PureComponent {
-  static propTypes = {
-    children: PropTypes.func,
-    initialStatus: PropTypes.bool,
-  }
-
-  state = {
-    pressed: false,
-  }
-
-  get readStatus() {
-    return this.state.pressed || this.props.initialStatus
-  }
-
-  onPress = () => this.setState({ pressed: true })
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <Indicator status={this.readStatus} />
-
-        <TouchableOpacity activeOpacity={0.8} onPress={this.onPress}>
-          {this.props.children(this.readStatus)}
-        </TouchableOpacity>
-      </View>
-    )
-  }
-}
-```
-
-这个组件，顾名思义，是负责管理「已读未读」的组件：它接受一个 children，负责记录它是否已被点击（阅读）过的状态，并将此状态作为参数，调用 children 时传递给它。再来看使用它的地方：
-
-```js
-const ProductItem = ({ isRead, productName, comments }) => (
-  <Readable initialStatus={isRead}>
-    {(isRead) => (
-      <>
-        <ItemContent
-          title={productName}
-          style={[styles.normal, isRead && styles.readStyle]}
-        />
-        {comments.length > 0 && <Comments comments={comments} />}
-      </>
-    )}
-  </Readable>
-)
-```
-
-好，现在比如你要测 `ProductItem` 里面的这段「是否渲染评论组件」的逻辑，你要怎么测呢？一般的 `shallow(<ProductItem />)`，里面这段以函数作为子组件的函数可不会被调用哟？
-
-目前我们项目解决方案是，手动拿到 children 这个函数，再手动 `shallow` 渲染一下，然后再测。再次地，这非常有侵入性，对实现了解比上面的例子更多。这是我所能接受的差不多一个平衡点了，就是如果准备再复杂一些，我就会开始觉得麻烦了。
-
-```js
-test('should render a Comment component when comment is not empty', () => {
-  const componant = shallow(
-    <ProductItem
-      isRead={false}
-      productName="iMac Pro"
-      comments={[
-        'awesome products',
-        'I will buy 10 for my friends',
-        'I would love to have such a friend!',
-      ]}
-    />
-  )
-  const productItem = shallow(
-    component
-      .find(Readable)
-      .props()
-      .children()
-  )
-
-  const commentsSection = productItem.find(Comments)
-
-  expect(commentsSection).toHaveLength(1)
+  expect(component.find(DummyComponent)).toHaveLength(0)
 })
 ```
 
@@ -828,3 +743,93 @@ test('should render a Comment component when comment is not empty', () => {
   * [x] 要强调作为个人学习是必要的，作为 Leader 合适地考虑学习成本、能力路径、从易到难并由此设计测试策略是必要的；- 文章本是理想之地，不为 leader 做特殊考虑
 * [x] 关于 AT 的常见看法「编写和维护成本高」可能不正确，需要进一步润色用词
 * [x] 对外发布的话，需要对「快照测试」的部分做更客观的评价，「强烈不推荐」这个结论可能不是很经得住实践考验。对「DOM 测试」也做个评价
+
+## Readable 例子
+
+
+#### 功能型组件 - 以函数为子组件
+
+既然是侧重逻辑的功能型组件，它的设计模式就比较多样一些，其中经常会出现「以函数为子组件」的这种设计模式。至于为什么会用到这种模式，它的利弊如何呢，程墨有本书[《深入浅出 React 和 Redux》](https://book.douban.com/subject/27033213/)，讲的很到位，这里不再细补充。还是以代码为例子：
+
+```js
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
+import { TouchableOpacity, View } from 'react-native'
+
+import { Indicator } from '../Indicator'
+import styles from './styles'
+
+export default class Readable extends PureComponent {
+  static propTypes = {
+    children: PropTypes.func,
+    initialStatus: PropTypes.bool,
+  }
+
+  state = {
+    pressed: false,
+  }
+
+  get readStatus() {
+    return this.state.pressed || this.props.initialStatus
+  }
+
+  onPress = () => this.setState({ pressed: true })
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <Indicator status={this.readStatus} />
+
+        <TouchableOpacity activeOpacity={0.8} onPress={this.onPress}>
+          {this.props.children(this.readStatus)}
+        </TouchableOpacity>
+      </View>
+    )
+  }
+}
+```
+
+这个组件，顾名思义，是负责管理「已读未读」的组件：它接受一个 children，负责记录它是否已被点击（阅读）过的状态，并将此状态作为参数，调用 children 时传递给它。再来看使用它的地方：
+
+```js
+const ProductItem = ({ isRead, productName }) => (
+  <Readable initialStatus={isRead}>
+    {(isRead) => (
+      <ItemContent
+        title={productName}
+        style={[styles.normal, isRead && styles.readStyle]}
+      />
+    )}
+  </Readable>
+)
+```
+
+好，现在比如你要测 `ProductItem` 里面的这段「是否渲染评论组件」的逻辑，你要怎么测呢？一般的 `shallow(<ProductItem />)`，里面这段以函数作为子组件的函数可不会被调用哟？
+
+目前我们项目解决方案是，手动拿到 children 这个函数，再手动 `shallow` 渲染一下，然后再测。再次地，这非常有侵入性，对实现了解比上面的例子更多。这是我所能接受的差不多一个平衡点了，就是如果准备再复杂一些，我就会开始觉得麻烦了。
+
+```js
+test('should render a Comment component when comment is not empty', () => {
+  const componant = shallow(
+    <ProductItem
+      isRead={false}
+      productName="iMac Pro"
+      comments={[
+        'awesome products',
+        'I will buy 10 for my friends',
+        'I would love to have such a friend!',
+      ]}
+    />
+  )
+  const productItem = shallow(
+    component
+      .find(Readable)
+      .props()
+      .children()
+  )
+
+  const commentsSection = productItem.find(Comments)
+
+  expect(commentsSection).toHaveLength(1)
+})
+```
