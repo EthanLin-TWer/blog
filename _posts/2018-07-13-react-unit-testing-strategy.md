@@ -18,6 +18,7 @@ tags: react unit-test tdd enzyme jest
     2.  actions 测试
     3.  reducer 测试
     4.  selector 测试
+    5.  saga 测试
 
 ## 为什么要做单元测试
 
@@ -356,6 +357,7 @@ export function* onEnterProductDetailPage(action) {
 ```js
 import { put, call } from 'saga-effects'
 import { cloneableGenerator } from 'redux-saga/utils'
+import { Api } from 'src/utils/axios'
 import { onEnterProductDetailPage } from './saga'
 
 const product = (productId) => ({ productId })
@@ -363,13 +365,8 @@ const product = (productId) => ({ productId })
 test('should only save the three five recommended products and show ads when user enters the product detail page given the user is not a VIP', () => {
   const action = { payload: { userId: 233 } }
   const credentials = { vipList: [2333] }
-  const fourRecommendedProducts = [
-    product(1),
-    product(2),
-    product(3),
-    product(4),
-  ]
-  const firstThreeProducts = [product(1), product(2), product(3)]
+  const recommendedProducts = [product(1), product(2), product(3), product(4)]
+  const firstThreeRecommendations = [product(1), product(2), product(3)]
   const generator = cloneableGenerator(onEnterProductDetailPage)(action)
 
   expect(generator.next().value).toEqual(
@@ -386,8 +383,8 @@ test('should only save the three five recommended products and show ads when use
   )
 
   expect(generator.next().value).toEqual(call(Api.get, 'products/recommended'))
-  expect(generator.next(fourRecommendedProducts).value).toEqual(
-    firstThreeProducts
+  expect(generator.next(recommendedProducts).value).toEqual(
+    firstThreeRecommendations
   )
   generator.next()
   expect(generator.next(credentials).value).toEqual(
@@ -410,81 +407,36 @@ test('should only save the three five recommended products and show ads when use
 于是，我们发现官方提供了这么一个跑测试的工具，刚好可以用来完美满足我们的需求：[`runSaga`](https://redux-saga.js.org/docs/api/#runsagaoptions-saga-args)。我们可以用它将 saga 全部执行一遍，搜集所有发布出去的 action，由开发者自由断言其感兴趣的 action！基于这个发现，我们推出了我们的第二版 saga 测试方案：**`runSaga` + 自定义拓展 jest 的 `expect` 断言**。最终，使用这个工具写出来的 saga 测试，几近完美：
 
 ```js
-import { call } from 'redux-saga/effects'
+import { put, call } from 'saga-effects'
+import { Api } from 'src/utils/axios'
+import { testSaga } from '../../../testing-utils'
+import { onEnterProductDetailPage } from './saga'
 
-export function* fetchUserUnreadComments({ payload: { productId, userId } }) {
-  try {
-    const {
-      data: { comments, newCommentsSinceLastReply },
-    } = yield call(Api.get, `products/${productId}/comments?userId=${userId}`)
+const product = (productId) => ({ productId })
 
-    const hasUnreadComments = newCommentsSinceLastReply > 0
-    yield put(actions.saveProductComments(productId, comments))
-    yield put(actions.hasUnreadCommentsSinceLastReply(hasUnreadComments))
+test('should only save the three five recommended products and show ads when user enters the product detail page given the user is not a VIP', async () => {
+  const action = { payload: { userId: 233 } }
+  const store = { credentials: { vipList: [2333] } }
+  const recommendedProducts = [product(1), product(2), product(3), product(4)]
+  const firstThreeRecommendations = [product(1), product(2), product(3)]
+  Api.get = jest.fn().mockImplementations(() => recommendedProducts)
 
-    if (hasUnreadComments) {
-      yield put(
-        actions.saveNotification(
-          `有${newCommentsSinceLastReply}条新回复，快去看看吧`
-        )
-      )
-    }
-  } catch (error) {}
-}
-```
+  await testSaga(onEnterProductDetailPage, action, store)
 
-```js
-test('should fetch user unread comments and show notifications if there are any', async () => {
-  const action = {
-    payload: {
-      productId: 10085,
-      userId: 28071562837,
-    },
-  }
-  const comments = [
-    { id: 283992, author: '男***8', comment: '价廉物美，相信奥康旗舰店' },
-    {
-      id: 283993,
-      author: '雨***成',
-      comment: '因为工作穿皮鞋时间较多，所以一双合脚的鞋子...',
-    },
-    {
-      id: 283994,
-      author: '叶***亮',
-      comment: '不错，很软，我买了大一码，因为脚宽些，是真皮的，划算萌东上...',
-    },
-    {
-      id: 283995,
-      author: '替***崽',
-      comment: '磕到了，脚踝疼得不好穿，要不你们试试',
-    },
-  ]
-  const response = {
-    data: {
-      comments: comments,
-      newCommentsSinceLastReply: 2,
-    },
-  }
-  Api.get = jest.fn().mockImplementation(() => createResponse(response))
-
-  await testSaga(fetchUserUnreadComments, action)
-
-  expect(Api.get).toHaveBeenCalledWith(
-    'products/10085/comments?userId=28071562837'
-  )
-
-  expect(actions.saveProductComments).toHaveBeenDispatchedWith(10085, comments)
-  expect(actions.saveNotification).toHaveBeenDispatchedWith(
-    '有2条新回复，快去看看吧'
-  )
+  expect(Api.get).toHaveBeenCalledWith('products/recommended')
+  expect(
+    actions.importantActionToSaveRecommendedProducts
+  ).toHaveBeenDispatchedWith(firstThreeRecommendations)
+  expect(actions.importantActionToFetchAds).toHaveBeenDispatched()
 })
 ```
 
-这个测试略长，但写习惯就好。总之，它的优点在于：
+这个测试略长，但它依然遵循 given-when-then 的结构。并且同样是测试「只保存获取回来的前三个推荐产品」、「对非 VIP 用户推送广告」两个关心的业务点，其中自有简洁的规律：
 
-* 非常容易准备数据：store、mock API response
-* 覆盖了一个业务场景（获取编号 10085 产品的评论列表，如果在用户上次访问之后有 2 条未读回复，那么提醒用户「有 2 条新回复」），当这个业务场景（也就是准备的测试数据）不变时，无论你怎么修改优化内部实现，这个测试都不会挂，真正做到了测试支持重构的作用
-* 可以仅断言你关心的点，不断言中间某些东西也不会有次序问题导致测试挂掉（比如上例中，我们就没有断言 `actions.hasUnreadCommentsSinceLastReply` 是否真正被 dispatch 出去）
+* 非常容易准备输入数据：action、store、mock API 返回
+* 当输入不变时，无论你怎么修改优化内部实现，这个测试关心的业务场景都不会挂，真正做到了测试保护重构、支持重构的作用
+* 可以仅断言你关心的点，忽略不重要或不关心的中间过程（比如上例中，我们就没有断言其他 `notImportant` 的 action 是否被 dispatch 出去）
+* 与次序无关。调整产品代码内部 dispatch action 的次序也不会使测试失败
 * 自定义的 `expect(action).toHaveBeenDispatchedWith(payload)` matcher 很有表达力，且出错信息友好
 
 这个自定义的 matcher 是通过 jest 的 `expect.extend` 扩展实现的：
@@ -496,7 +448,7 @@ expect.extend({
 })
 ```
 
-上面是我们认为比较好的副作用测试工具、测试策略和测试方案。使用时紧紧抓住一开始提到的 4 点主要的业务价值来测试即可。
+上面是我们认为比较好的副作用测试工具、测试策略和测试方案。使用时，需要牢记你真正关心的业务价值点（本节开始提到的 5 点），以及做到在较为复杂的单元测试中始终坚守三大基本原则。唯如此，单元测试才能真正提升开发速度、支持重构、充当业务上下文的文档。
 
 ## component 测试
 
@@ -808,7 +760,6 @@ test('should render a Comment component when comment is not empty', () => {
     * `DevFeatures` 里提供了一个实例，如何在一个测试中需要多次用到一个 mock，并且返回不同的值
     * 测不测组件类上的实例方法呢？大部分时间不测，它们就像 private 方法，一般是你重构出来的，你有这个疑惑，很可能说明没有好好 tasking，没有 TDD；有小部分场景，是因为 simulate 事件不好测，那么这种场景下你可以做假设、直接调实例方法。
 * [ ] `{ comments.length > 0 && <Comments comments={comments} />` feature envy 例子重构，找个更合适的例子
-* [ ] saga 章节统一下例子
 * [ ] 那种根据代码条件逻辑而有不同样式的代码，怎么测？`Visible` 这样的组件，可读性提升了，consumer 端怎么测试？如果只测传给 `Visible` 的参数，显然就变成测试实现了
 * [ ] 所涉及的测试，皆用 fixture 突出关键信息，隐去无关信息的准备
 * [ ] 以「函数为子组件」的模式，是不是都可以写个专门的 helper 来屏蔽掉这些细节？
@@ -822,6 +773,7 @@ test('should render a Comment component when comment is not empty', () => {
   * 原代码库设计极其不佳乱成一团导致很难 TDD，又因为进度压力没法偿还以前技术债
 * [ ] TDD 的核心思想：**快速反馈**、**设计工具**在实践中随时可用。但是要谈「前端的 TDD」这个话题，我还必须了解前端在解决什么问题，对比其中可用 UT 来解决的问题比例，才有厚重的东西来谈前端的 TDD。现在还没太有能量
 * [ ] 前端某些元素其实是没法 TDD 的，也就因此没有办法收到重构的保护。那么，这些元素有没有可能有安全的重构方法？
+* [x] saga 章节统一下例子
 * [x] 是否可以把所有「不好的姿势」的内容抽成独立的章节？
 * [x] 补充个「简介」section，可以拿来上前端期刊。期刊的话，还有些文章级别的东西要整理：
   * [x] 批评《浅出》的言论就不要上了；
