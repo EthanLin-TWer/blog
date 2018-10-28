@@ -17,6 +17,7 @@ tags: react unit-test tdd enzyme jest
     1.  React 应用的单元测试策略
     2.  actions 测试
     3.  reducer 测试
+    4.  selector 测试
 
 ## 为什么要做单元测试
 
@@ -263,27 +264,30 @@ reducer 作为纯函数，非常适合做单元测试，加之一般在 reducer 
 
 ## selector 测试
 
-selector 是重逻辑的地方，并且它也是一个纯函数，与 reducer 测试享受同样待遇：纯净的输入输出，简易的测试准备。下面给一个先看一个稍微简单点的 selector 测试用例：
+selector 同样是重逻辑的地方，可以认为是 reducer 到组件的延伸。它也是一个纯函数，测起来与 reducer 一样方便、价值不菲，也是应该重点照顾的部分。况且，稍微大型一点的项目，应该说必然会用到 selector。原因我[讲在这里](https://github.com/linesh-simplicity/linesh-simplicity.github.io/issues/122#issuecomment-340986205)。下面看一个 selector 的测试用例：
 
 ```js
 import { createSelector } from 'reselect'
 
-const transformSelectedLabelArrayToObjectForPerformance = (labels) => {
-  return labels
-    .map((label) => ({
-      [label.name]: label.active,
-    }))
-    .reduce((a, b) => ({ ...a, ...b }), {})
-}
-
-export const selectedProductLabels = createSelector(
+// for performant access/filtering in React component
+export const labelArrayToObjectSelector = createSelector(
   [(store, ownProps) => store.products[ownProps.id].labels],
-  transformSelectedLabelArrayToObjectForPerformance
+  (labels) => {
+    return labels.reduce(
+      (result, { code, active }) => ({
+        ...result,
+        [code]: active,
+      }),
+      {}
+    )
+  }
 )
 ```
 
 ```js
-test('should map array of product labels to object for performant component access', () => {
+import { labelArrayToObjectSelector } from './selector'
+
+test('should transform label array to object', () => {
   const store = {
     products: {
       10085: {
@@ -305,13 +309,11 @@ test('should map array of product labels to object for performant component acce
     ankle: false,
   }
 
-  const productLabels = selectedProductLabels(store, { id: 10085 })
+  const productLabels = labelArrayToObjectSelector(store, { id: 10085 })
 
   expect(productLabels).toEqual(expected)
 })
 ```
-
-可以看到，调 selector 如调普通函数，无需特别准备，另外数据的准备也是非常简单的，不需要复杂的 mock 技巧。
 
 ## saga 测试
 
