@@ -13,13 +13,20 @@ tags: react unit-test tdd enzyme jest
     1.  单元测试的上下文
     2.  测试策略：测试金字塔
     3.  如何写好单元测试：好测试的特征
+        * 有且仅有一个失败的理由
+        * 表达力极强
+        * 快、稳定
 2.  React 单元测试策略及落地
     1.  React 应用的单元测试策略
     2.  actions 测试
     3.  reducer 测试
     4.  selector 测试
     5.  saga 测试
+        * 来自官方的错误姿势
+        * 正确姿势
     6.  component 测试
+        * 业务型组件 - 分支渲染
+        * 业务型组件 - 事件调用
     7.  utils 测试
 
 ## 为什么要做单元测试
@@ -511,46 +518,50 @@ expect.extend({
 |    通用 UI 组件     |      ✅      |    ✅    |     -      |  ✖️   |
 |     功能型组件      |      ✅      |    ✅    |     ✖️     |  ✖️   |
 
-#### 一般的业务型组件
+#### 业务型组件 - 分支渲染
 
 ```js
-const ProductDetailPage = ({ name, introduction, details, comments }) => (
-  <>
-    <Title name={name} />
-    <Introduction introduction={introduction} />
-    <ProductDetail content={details} />
-    {comments.length > 0 && <Comments comments={comments} />}
-  </>
+export const CommentsSection = ({ comments }) => (
+  <div>
+    {comments.length > 0 && <h2>Comments</h2>}
+
+    {comments.map((comment) => <Comment content={comment} key={comment.id} />)}
+  </div>
 )
 ```
 
-对应的测试如下，测试的是不同的分支渲染逻辑：该产品条目是否应渲染一个评论组件。
+对应的测试如下，测试的是不同的分支渲染逻辑：没有评论时，则不渲染 Comments header。
 
 ```js
-test('should not render a comments section when product has no comments', () => {
-  const component = shallow(<ProductDetailPage comments={[]} />)
+import { CommentsSection } from './index'
+import { Comment } from './Comment'
 
-  const commentsSection = component.find(Comments)
+test('should not render a header and any comment sections when there is no comments', () => {
+  const component = shallow(<CommentsSection comments={[]} />)
 
-  expect(commentsSection).toHaveLength(0)
+  const header = component.find('h2')
+  const comments = component.find(Comment)
+
+  expect(header).toHaveLength(0)
+  expect(comments).toHaveLength(0)
 })
 
-test('should render a comments section when product has comments', () => {
-  const comments = [
-    { id: 283992, author: '男***8', comment: '价廉物美，相信奥康旗舰店' },
-    {
-      id: 283993,
-      author: '雨***成',
-      comment: '因为工作穿皮鞋时间较多，所以一双合脚的鞋子...',
-    },
+test('should render a comments section and a header when there are comments', () => {
+  const contents = [
+    { id: 1, author: '男***8', comment: '价廉物美，相信奥康旗舰店' },
+    { id: 2, author: '雨***成', comment: '所以一双合脚的鞋子...' },
   ]
-  const component = shallow(<ProductDetailPage comments={comments} />)
+  const component = shallow(<CommentsSection comments={contents} />)
 
-  const commentsSection = component.find(Comments)
+  const header = component.find('h2')
+  const comments = component.find(Comment)
 
-  expect(commentsSection).toHaveLength(1)
+  expect(header.html()).toBe('Content')
+  expect(comments).toHaveLength(2)
 })
 ```
+
+#### 业务型组件 - 事件调用
 
 测试事件的一个场景如下：当某条产品被点击时，应该将产品相关的信息发送给埋点系统进行埋点。
 
