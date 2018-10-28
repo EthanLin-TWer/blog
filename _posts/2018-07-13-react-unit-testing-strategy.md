@@ -15,7 +15,8 @@ tags: react unit-test tdd enzyme jest
     3.  如何写好单元测试：好测试的特征
 2.  React 单元测试策略及落地
     1.  React 应用的单元测试策略
-    2.  如何在一个 React 应用中落地上述测试策略？
+    2.  actions 测试
+    3.  reducer 测试
 
 ## 为什么要做单元测试
 
@@ -184,11 +185,27 @@ test('should dispatch saveUserComments action with fetched user comments', () =>
 
 reducer 大概有两种：一种比较简单，仅一一保存对应的数据切片；一种复杂一些，里面具有一些计算逻辑。对于第一种 reducer，写起来非常简单，简单到甚至可以不需要用测试去覆盖。其正确性基本由简单的架构和逻辑去保证的。下面是对一个简单 reducer 做测试的例子：
 
+```javascript
+import Immutable from 'seamless-immutable'
+
+const initialState = Immutable.from({
+  isLoadingProducts: false,
+})
+
+export default createReducer((on) => {
+  on(actions.isLoadingProducts, (state, action) => {
+    return state.merge({
+      isLoadingProducts: action.payload.isLoadingProducts,
+    })
+  })
+}, initialState)
+```
+
 ```js
 import reducers from './reducers'
 import actions from './actions'
 
-test('should save loading start indicator when action isLoadingProducts is dispatched given is loading is true', () => {
+test('should save loading start indicator when action isLoadingProducts is dispatched given isLoadingProducts is true', () => {
   const state = { isLoadingProducts: false }
   const expected = { isLoadingProducts: true }
 
@@ -198,9 +215,11 @@ test('should save loading start indicator when action isLoadingProducts is dispa
 })
 ```
 
-一个较为复杂、具备测试价值的 reducer 可能如下，它在保存数据的同时，还进行了合并、去重的操作：
+下面是一个较为复杂、更具备测试价值的 reducer 例子，它在保存数据的同时，还进行了合并、去重的操作：
 
 ```js
+import uniqBy from 'lodash/uniqBy'
+
 export default createReducers((on) => {
   on(actions.saveUserComments, (state, action) => {
     return state.merge({
@@ -214,25 +233,20 @@ export default createReducers((on) => {
 import reducers from './reducers'
 import actions from './actions'
 
-test('should merge user comments within the same day and remove duplications when action saveUserComments is dispatched with new fetched comments', () => {
+test('should merge user comments and remove duplicated comments when action saveUserComments is dispatched with new fetched comments', () => {
   const state = {
-    comments: {
-      '2017-08-21': [{ id: 1, title: 'comments-1' }],
-    },
+    comments: [{ id: 1, content: 'comments-1' }],
   }
-  const comments = {
-    '2017-08-21': [
-      { id: 1, title: 'comments-1' },
-      { id: 2, title: 'comments-2' },
-    ],
-  }
+  const comments = [
+    { id: 1, content: 'comments-1' },
+    { id: 2, content: 'comments-2' },
+  ]
+
   const expected = {
-    comments: {
-      '2017-08-21': [
-        { id: 1, title: 'comments-1' },
-        { id: 2, title: 'comments-2' },
-      ],
-    },
+    comments: [
+      { id: 1, content: 'comments-1' },
+      { id: 2, content: 'comments-2' },
+    ],
   }
 
   const result = reducers(state, actions.saveUserComments(comments))
@@ -241,37 +255,11 @@ test('should merge user comments within the same day and remove duplications whe
 })
 ```
 
-### 错误姿势
+reducer 作为纯函数，非常适合做单元测试，加之一般在 reducer 中做重逻辑处理，此处做单元测试保护的价值也很大。请留意，上面所说的单元测试，是不是符合我们描述的单元测试基本原则：
 
-上面这个 reducer 测试形态应该是最轻量级的了，直接 import 进来待测的单元（reducer），按照 `newState = reducer(previousState, action)` 的 API 扔给它当前 reducer 的 state 状态和待处理的 action，准备数据也十分方便，然后直接断言返回的结果。相反，之前项目采取过这样的测试姿势，虽然区别不大，但仍然可以看出差距：
-
-```js
-import configureStore from './store'
-import actions from './actions'
-
-test('should save loading start indicator when action isLoadingProducts is dispatched given is loading is true', () => {
-  const state = {
-    products: {
-      isLoadingProducts: false,
-    },
-  }
-  const expected = {
-    isLoadingProducts: true,
-  }
-
-  const store = configureStore(state)
-  store.dispatch(actions.isLoadingProducts(true))
-
-  expect(store.getState().products).toMatchObject(expected)
-})
-```
-
-代码看起来也不长，但感觉就是太重了！毛病在哪里呢？就先不讲这个 store 其实是用的真实的 store，也不讲 `dispatch`/`getStore` 这两个代码与 redux 实现方式耦合，这段测试代码还有两点其他的坏味道：
-
-* 准备测试 reducer 的 state 时，还必须知道它注册在 `products` 这个 key 下，一方面这与实际的产品代码是耦合，另一方面为了测试一个单元你需要知道额外的信息，重一
-* `store.getState().products` 拿回来的是整个 reducer 切片，里面除了你要断言的 `isLoadingProducts` 字段，还可能有其他的字段（如果你不是 mock 的话，用的就是真实的 reducer `initState`），这导致你没法做 `toEqual` 的精确对比。当然可以有其他的解决方案（比如 `getState().products.isLoadingProducts` 或使用 `toMatchObject` 断言），但「测试受到其他部分影响」这个事实，也造成你需要了解额外的知识才能把测试写对，重二
-
-一开始介绍的 reducer 测试就不存在这两种问题。纯正的纯函数测试。
+* 有且仅有一个失败的理由：当输入不变时，仅当我们被测「合并去重」的业务操作不符预期时，才可能挂掉测试
+* 表达力极强：测试描述已经写得清楚「当使用新获取到的留言数据分发 action `saveUserComments` 时，应该与已有留言合并并去除重复的部分」；此外，测试数据只准备了足够体现「合并」这个操作的两条 id 的数据，而没有放很多的数据，形成杂音；
+* 快、稳定：没有任何依赖，测试代码不包含准备数据、调用、断言外的任何逻辑
 
 ## selector 测试
 
