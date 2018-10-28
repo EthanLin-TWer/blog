@@ -428,7 +428,7 @@ test(`
 
 #### 正确姿势
 
-于是，针对以上痛点，我们理想中的 saga 测试应该：1) 不依赖实现次序；2) 允许仅对真正关心的、有价值的业务进行测试；3) 支持不改动业务行为的重构。如此一来，测试的保障效率和开发者体验都将大幅提升。
+针对以上痛点，我们理想中的 saga 测试应该是这样：1) 不依赖实现次序；2) 允许仅对真正关心的、有价值的业务进行测试；3) 支持不改动业务行为的重构。如此一来，测试的保障效率和开发者体验都将大幅提升。
 
 于是，我们发现官方提供了这么一个跑测试的工具，刚好可以用来完美满足我们的需求：[`runSaga`](https://redux-saga.js.org/docs/api/#runsagaoptions-saga-args)。我们可以用它将 saga 全部执行一遍，搜集所有发布出去的 action，由开发者自由断言其感兴趣的 action！基于这个发现，我们推出了我们的第二版 saga 测试方案：**`runSaga` + 自定义拓展 jest 的 `expect` 断言**。最终，使用这个工具写出来的 saga 测试，几近完美：
 
@@ -461,12 +461,11 @@ test(`
 })
 ```
 
-这个测试略长，但它依然遵循 given-when-then 的结构。并且同样是测试「只保存获取回来的前三个推荐产品」、「对非 VIP 用户推送广告」两个关心的业务点，其中自有简洁的规律：
+这个测试已经简短了许多，没有了无关断言的杂音，依然遵循 given-when-then 的结构。并且同样是测试「只保存获取回来的前三个推荐产品」、「对非 VIP 用户推送广告」两个关心的业务点，其中自有简洁的规律：
 
-* 非常容易准备输入数据：action、store、mock API 返回
-* 当输入不变时，无论你怎么修改优化内部实现，这个测试关心的业务场景都不会挂，真正做到了测试保护重构、支持重构的作用
-* 可以仅断言你关心的点，忽略不重要或不关心的中间过程（比如上例中，我们就没有断言其他 `notImportant` 的 action 是否被 dispatch 出去）
-* 与次序无关。调整产品代码内部 dispatch action 的次序也不会使测试失败
+* 当输入不变时，无论你怎么优化内部实现、调整内部次序，这个测试关心的业务场景都不会挂，真正做到了测试保护重构、支持重构的作用
+* 可以仅断言你关心的点，忽略不重要或不关心的中间过程（比如上例中，我们就没有断言其他 `notImportant` 的 action 是否被 dispatch 出去），消除无关断言的杂音，提升了表达力
+* 使用了 `product` 这样的测试数据创建套件（fixtures），精简测试数据，消除无关数据的杂音，提升了表达力
 * 自定义的 `expect(action).toHaveBeenDispatchedWith(payload)` matcher 很有表达力，且出错信息友好
 
 这个自定义的 matcher 是通过 jest 的 `expect.extend` 扩展实现的：
@@ -573,7 +572,7 @@ test('should render a comments section and a header when there are comments', ()
   const header = component.find('h2')
   const comments = component.find(Comment)
 
-  expect(header.html()).toBe('Content')
+  expect(header.html()).toBe('Comments')
   expect(comments).toHaveLength(2)
 })
 ```
