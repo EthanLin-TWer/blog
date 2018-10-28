@@ -188,7 +188,7 @@ test('should dispatch saveUserComments action with fetched user comments', () =>
   const expected = {
     type: 'saveUserComments',
     payload: {
-      comments,
+      comments: [],
     },
   }
 
@@ -232,23 +232,31 @@ test('should save loading start indicator when action isLoadingProducts is dispa
 
 下面是一个较为复杂、更具备测试价值的 reducer 例子，它在保存数据的同时，还进行了合并、去重的操作：
 
+<!-- prettier-ignore-start -->
 ```js
 import uniqBy from 'lodash/uniqBy'
 
 export default createReducers((on) => {
   on(actions.saveUserComments, (state, action) => {
     return state.merge({
-      comments: uniqBy(state.comments.concat(action.payload.comments), 'id'),
+      comments: uniqBy(
+        state.comments.concat(action.payload.comments), 
+        'id',
+      ),
     })
   })
 })
 ```
+<!-- prettier-ignore-end -->
 
 ```js
 import reducers from './reducers'
 import actions from './actions'
 
-test('should merge user comments and remove duplicated comments when action saveUserComments is dispatched with new fetched comments', () => {
+test(`
+  should merge user comments and remove duplicated comments 
+  when action saveUserComments is dispatched with new fetched comments
+`, () => {
   const state = {
     comments: [{ id: 1, content: 'comments-1' }],
   }
@@ -343,6 +351,7 @@ saga 是负责调用 API、处理副作用的一层。在实际的项目上副�
 
 redux-saga 官方提供了一个 [util: `CloneableGenerator`](https://github.com/redux-saga/redux-saga/blob/master/docs/advanced/Testing.md#branching-saga) 用以帮我们写 saga 的测试。这是我们项目使用的第一种测法，大概会写出来的测试如下：
 
+<!-- prettier-ignore-start -->
 ```js
 import chunk from 'lodash/chunk'
 
@@ -358,15 +367,14 @@ export function* onEnterProductDetailPage(action) {
 
   yield put(actions.importantActionToSaveRecommendedProducts(products))
 
-  const {
-    payload: { userId },
-  } = action
+  const { payload: { userId } } = action
   const { vipList } = yield select((store) => store.credentails)
   if (!vipList.includes(userId)) {
     yield put(actions.importantActionToFetchAds())
   }
 }
 ```
+<!-- prettier-ignore-end -->
 
 ```js
 import { put, call } from 'saga-effects'
@@ -523,15 +531,21 @@ expect.extend({
 
 #### 业务型组件 - 分支渲染
 
+<!-- prettier-ignore-start -->
 ```js
 export const CommentsSection = ({ comments }) => (
   <div>
-    {comments.length > 0 && <h2>Comments</h2>}
+    {comments.length > 0 && (
+      <h2>Comments</h2>
+    )}
 
-    {comments.map((comment) => <Comment content={comment} key={comment.id} />)}
+    {comments.map((comment) => (
+      <Comment content={comment} key={comment.id} />
+    )}
   </div>
 )
 ```
+<!-- prettier-ignore-end -->
 
 对应的测试如下，测试的是不同的分支渲染逻辑：没有评论时，则不渲染 Comments header。
 
@@ -622,6 +636,7 @@ test(`
 
 功能型组件，指的是跟业务无关的另一类组件：它是功能型的，更像是底层支撑着业务组件运作的基础组件，比如路由组件、分页组件等。这些组件一般偏重逻辑多一点，关心 UI 少一些。其本质测法跟业务组件是一致的：不关心 UI 具体渲染，只测分支渲染和事件调用。但由于它偏功能型的特性，使得它在设计上常会出现一些业务型组件不常出现的设计模式，如高阶组件、以函数为子组件等。下面分别针对这几种进行分述。
 
+<!-- prettier-ignore-start -->
 ```js
 export const FeatureToggle = ({ features, featureName, children }) => {
   if (!features[featureName]) {
@@ -631,10 +646,11 @@ export const FeatureToggle = ({ features, featureName, children }) => {
   return children
 }
 
-export default connect((store) => ({ features: store.global.features }))(
-  FeatureToggle
-)
+export default connect(
+  (store) => ({ features: store.global.features })
+)(FeatureToggle)
 ```
+<!-- prettier-ignore-end -->
 
 ```js
 import React from 'react'
