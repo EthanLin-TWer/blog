@@ -40,7 +40,18 @@ const { config } = require('./config')
       './_posts/2018-10-25-readings-understand-ecmascript-6.md',
       'utf-8'
     )
-    const { frontMatters } = parse(post)
+    const {
+      frontMatters: { juejinId },
+      // content,
+    } = parse(post)
+
+    // article hasn't been published
+    if (!juejinId) {
+      await driver.findElement(By.css('li.nav-item.menu')).click()
+      await driver.findElement(By.css('.fw-write')).click()
+    }
+
+    await driver.wait(Until.elementLocated(By.css('sdfasdfasdfs')))
   } finally {
     await driver.quit()
   }
