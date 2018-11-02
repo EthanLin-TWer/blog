@@ -1,18 +1,13 @@
 import { createSelector } from 'reselect'
-import formatter from 'front-matter'
+
+import { parse } from '../../../util/jekyll-parser'
 
 const getPost = (store, ownProps) => {
   return store.detail.posts[ownProps.match.params.id]
 }
 
 export const parseJekyllPost = createSelector([getPost], (post = '') => {
-  // front-matter assumes '---' front matter separator on the first line, unnecessary empty lines will cause parse to fail
-  // https://github.com/jxson/front-matter
-  const { attributes: frontMatters, body: content } = formatter(post.trim())
-  return {
-    frontMatters,
-    content,
-  }
+  return parse(post)
 })
 
 export const getTitleAsMarkdown = ({ title }) => {

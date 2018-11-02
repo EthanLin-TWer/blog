@@ -117,7 +117,8 @@
   },
   "jest": {
     "testMatch": [
-      "<rootDir>/src/react/**/*.test.js"
+      "<rootDir>/src/react/**/*.test.js",
+      "<rootDir>/src/util/**/*.test.js"
     ],
     "setupFiles": [
       "<rootDir>/enzyme.config.js"
