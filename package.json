@@ -24,7 +24,8 @@
     "build:release": "onchange 'src/react/**/*.js' -e 'dist' -v -i -- npm run build:react",
     "start:release": "http-server dist -c-1 -i",
     "build:react": "webpack --mode production",
-    "deploy:react": "./scripts/deploy-react.sh"
+    "deploy:react": "./scripts/deploy-react.sh",
+    "publish:dev": "node deploy/index.js"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -59,6 +60,7 @@
     "prettier": "^1.12.1",
     "prop-types": "^15.6.2",
     "redux-devtools-extension": "^2.13.5",
+    "selenium-webdriver": "^4.0.0-alpha.1",
     "style-loader": "^0.22.1",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
