@@ -4,15 +4,17 @@ const { config } = require('./config')
 ;(async function() {
   const driver = await new Builder().forBrowser('chrome').build()
   const {
-    url,
-    username,
-    password,
-    selectors: {
-      loginText,
-      loginForm,
-      usernameInputField,
-      passwordInputField,
-      loginButton,
+    juejin: {
+      url,
+      username,
+      password,
+      selectors: {
+        loginText,
+        loginForm,
+        usernameInputField,
+        passwordInputField,
+        loginButton,
+      },
     },
   } = config
 
