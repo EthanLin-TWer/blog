@@ -38,16 +38,45 @@ category: 读书笔记
 
 ## 拾遗
 
-* [ ] 第 1 章 块级作用域绑定
+* [x] 第 1 章 块级作用域绑定
 * [x] 第 3 章 函数
 * [x] 第 4 章 扩展对象的功能性
 * [x] 第 5 章 解构：使数据访问更便捷
 * [x] 第 9 章 JavaScript 中的类
-* [ ] 第 10 章 改进的数组功能
+* [x] 第 10 章 改进的数组功能
 * [ ] 第 13 章 用模块封装代码
 * [ ] 附录 A ECMAScript 6 中较小的改动
 * [ ] 附录 B ECMAScript 7(2016)
 * [ ] 索引 学英语
+
+### 块级作用域绑定
+
+块级作用域，说白了就是达到跟正常编程语言一样的效果，修正现有 JS 中一些令人困惑的特性，包括：
+
+* 没有块级作用域。这意味着，块中声明的变量会被直接提升到上一级的函数或全局作用域中，循环中的变量也会被提升到全局
+* 在全局作用域（非函数作用域）中声明的变量会直接挂载到全局对象上(`window` / `global`)
+* 会有经典的循环问题，贡献了许多面试题
+
+而 ES6 中新出的 `const` / `let` 声明就解决了这些问题。所以，最佳实践是：
+
+* 不需要改变值的变量，一律用 `const` 声明
+* 需要改变值的变量，一律用 `let` 声明
+* 除非你在没有 `const`/`let` 的环境下工作（如兼容老版浏览器、写 babel 这种工具等），否则完全弃用 `var` 声明；
+
+### 函数
+
+* 默认参数 -> 默认参数的临时死区（TDZ）
+* 无命名参数 -> ...args over arguments[index]
+* arguments 参数被完全移除：这已经通过 ESLint 固化下来
+* 调试信息：[function].name
+* new.target：判断是不是通过 `new` 调用
+* 箭头函数
+  * 修正了 this 指向：所谓指向最近一个有 this 作用域的函数
+  * 没有 [[Constructor]]，因此不能 new，也因此没有 prototype，因此引擎可以做优化
+  * 没有 this、super
+  * 没有 arguments 参数对象
+  * 可以说，是一个 JavaScript 函数本来应该是的样子：更明确的 this 绑定；没有继承；无状态函数（没有 this）
+* 尾调用优化
 
 ### 扩展对象的功能性
 
@@ -66,21 +95,6 @@ ES6 的其中一个设计目标是：不再创建新的全局函数，也不在 
 
 这节内容我早已溜得飞起，因而也没什么惊喜。讲了对象和数组的解构、嵌套解构、解构变量重命名与默认值。混合解构以前少用，但也是理所当然地好用。可以说，解构特性极大程度地解决了数据获取和中间变量重命名的问题，使大多数代码都变得更加简洁了。
 
-### 函数
-
-* 默认参数 -> 默认参数的临时死区（TDZ）
-* 无命名参数 -> ...args over arguments[index]
-* arguments 参数被完全移除：这已经通过 ESLint 固化下来
-* 调试信息：[function].name
-* new.target：判断是不是通过 `new` 调用
-* 箭头函数
-  * 修正了 this 指向：所谓指向最近一个有 this 作用域的函数
-  * 没有 [[Constructor]]，因此不能 new，也因此没有 prototype，因此引擎可以做优化
-  * 没有 this、super
-  * 没有 arguments 参数对象
-  * 可以说，是一个 JavaScript 函数本来应该是的样子：更明确的 this 绑定；没有继承；无状态函数（没有 this）
-* 尾调用优化
-
 ### 类
 
 * [JavaScript 原型继承之精髓](https://blog.linesh.tw/#/post/2018-10-18-javascript-prototypal-inheritance)
@@ -92,6 +106,33 @@ ES6 的其中一个设计目标是：不再创建新的全局函数，也不在 
 * 可以利用 `new.target` 模拟抽象基类
 
 ### 改进的数组功能
+
+加了几个新方法，主要是以前的 `Array()` 构造函数行为太灵活以至于易出 bug，因此加了一些实用方法来避免对构造函数的误用。它误就误在，其行为跟参数个数和类型是相关的，这 TM 就很烧脑了，烧脑就容易出错：
+
+```javascript
+const fixedLength = Array(1)
+fixedLength.length // 1
+fixedLength[0] // undefined
+
+const populatedArray = Array('1')
+populatedArray.length // 1
+populatedArray[0] // 1
+
+const array = Array(1, 1)
+array.length // 2
+array[0] // 1
+array[1] // 1
+
+const stillArray = Array(1, '1')
+stillArray.length // 2
+stillArray[0] // 1
+stillArray[1] // '1'
+```
+
+* `Array.from`。用于**将一个类数组对象（或可迭代对象）转换成为数组**
+* `Array(n)`。似乎构造函数本就只应该这么用，它会**创建一个含有 n 个元素的数组**
+* `Array.fill`。用于为数组填充值。一般与 `Array()` 配合起来用
+* [弃用] `Array.of`。修正了构造函数中的第一个令人困惑的场景，问题是后三个都是可以用字面量来生成的，这个函数显鸡肋
 
 ## 增广
 
