@@ -1,4 +1,8 @@
+const fs = require('fs')
+
 const { Builder, By, until: Until } = require('selenium-webdriver')
+
+const { parse } = require('../src/util/jekyll-parser')
 
 const { config } = require('./config')
 ;(async function() {
@@ -32,7 +36,11 @@ const { config } = require('./config')
     // this will only appear when successfully logged in
     await driver.wait(Until.elementLocated(By.css('li.nav-item.menu')))
 
-    await driver.wait(Until.elementLocated(By.css('asdfasdfasdf')))
+    const post = fs.readFileSync(
+      './_posts/2018-10-25-readings-understand-ecmascript-6.md',
+      'utf-8'
+    )
+    const { frontMatters } = parse(post)
   } finally {
     await driver.quit()
   }

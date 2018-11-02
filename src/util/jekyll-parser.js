@@ -1,4 +1,4 @@
-import formatter from 'front-matter'
+const formatter = require('front-matter')
 
 const parse = (post = '') => {
   if (!post) {
