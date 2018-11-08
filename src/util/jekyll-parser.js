@@ -1,6 +1,6 @@
 const formatter = require('front-matter')
 
-const parse = (post = '') => {
+export const parse = (post = '') => {
   if (!post) {
     return {
       frontMatters: {},
@@ -19,8 +19,4 @@ const parse = (post = '') => {
     frontMatters,
     content,
   }
-}
-
-module.exports = {
-  parse,
 }

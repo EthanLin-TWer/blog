@@ -2,6 +2,7 @@ const fs = require('fs')
 
 const { Builder, By, until: Until } = require('selenium-webdriver')
 
+// This won't work for now for ES6 imports
 const { parse } = require('../src/util/jekyll-parser')
 
 const { config } = require('./config')
