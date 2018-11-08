@@ -2,6 +2,7 @@
 title: 下篇博客的内容
 ---
 
+* 为什么 for i 循环就能 wait for async，否则就不行
 * 想学 TDD 看什么入门书籍？
 * 入职时希望养成的技能和意识？/ 《入行时我希望有人早点告诉我的 8 件事》
 * 处理下单元测试这篇文章的 todolist：https://github.com/linesh-simplicity/linesh-simplicity.github.io/issues/200
