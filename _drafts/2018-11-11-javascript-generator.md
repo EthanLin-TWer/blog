@@ -65,4 +65,42 @@ String.prototype[Symbol.iterator] // [Function: [Symbol.iterator]]
 
 能用来实现 `async` / `await` 自然是神奇的，我准备再写一篇文章来总结。懒求值这个事情我看来好像就是瞎扯，因为如果 generator 函数最终被自动化，你哪里有手动「懒」一把的地方？还不是一把全执行完。当然，可能是我没有理解到它的场景。
 
-像 `redux-saga` 就利用了 generator。其精华就在利用了 `yield take(action)` 这个异步等待的事件来达到实现上的暂停，同一个业务不同阶段的代码可以都写在一块，更加内聚。然而，对于很多只是把它当同步副作用来使的开发者（包括我），懒求值形同虚设，还不都是跟同步一样一把梭完。
+像 `redux-saga` 就利用了 generator。其精华就在利用了 `yield take(action)` 这个异步等待的事件来达到实现上的暂停，同一个业务不同阶段的代码可以都写在一块，更加内聚。然而，对于很多只是把它当同步副作用来使的开发者（包括我），懒求值形同虚设，还不都是跟同步一样一把求完。
+
+其他的还有：向生成器传递参数、生成器的组合、用于实现异步流程控制等。大概代码如下：
+
+```javascript
+function* run(generator) {
+  let result = null
+  let value = null
+
+  do {
+    result = generator.next(value)
+    value = result.value
+
+    if (typeof value === 'function') {
+      value(function(error, data) {
+        if (error) {
+          return generator.throw(error)
+        }
+
+        result = generator.next(data)
+        value = result.value
+      })
+    }
+  } while (!result.done)
+}
+
+function readFile(filename) {
+  return function(callback) {
+    fs.readFile(filename, callback)
+  }
+}
+
+run(function*() {
+  let content = yield readFile('package.json')
+  console.log(content)
+})
+```
+
+这个方案比较完美地解决了异步变同步的问题，也能解决嵌套回调的问题。不过它是通过契约这么做的，有一定的毛病：最主要一个是，你要改造所有返回异步的函数，包装一下将后续流程包装在 `callback` 里面。这个东西可以通过 `thunkify` 轻松做到，但是，从调用端来看，是没有任何「契约」的。我既不知道你那边返回的是啥，你重构了以后也很难想象所有调用点都会收到影响，没有运行时的提示。
