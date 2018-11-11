@@ -183,5 +183,55 @@ ES6 的 `import` / `export` 实则是借鉴了以上各种优秀方案形成的�
 
 综上，这两个新技术结论如下：
 
-* 如果你不是在写框架代码，一般的业务代码中应该用不到 `Map` 或 `Set`
-* `WeakMap`/`WeakSet` 在解决闭包中私有变量及引用垃圾回收上是有作用的
+* **如果你不是在写框架代码，一般的业务代码中应该用不到 `Map` 或 `Set`**
+* **`WeakMap`/`WeakSet` 在解决闭包中私有变量及引用垃圾回收上是有作用的**
+
+### 迭代器（Iterator）和生成器（Generator）
+
+这两个东西是有关联的。生成器是用来生成迭代器的东西，那么先了解下迭代器是啥，为啥要用这个东西。
+
+迭代器是一类**特殊对象**，它具有用来**访问迭代过程**的**专用接口**。可以这样理解，它是专门用来简化循环（也即是迭代）过程的一类接口。任何具备这类接口特征的对象，都认为具有了迭代器的特征。先来看看手写循环过程的痛点在哪里：
+
+```javascript
+const colors = ['blue', 'green', 'red']
+for (let i = 0; i < colors.length; i++) {
+  console.log(colors[i])
+}
+```
+
+痛点一，对于每类数组，其循环结构的模板代码都是重复的；二，需要手动管理索引，以获得对应元素的值；三，对于多重循环，不同层之间的索引值可能相互引用修改，难以调试。可以说，这正是「命令式」编程的典范，我们希望这个循环过程更加「声明式」一些。于是，如果每一个「可迭代对象」都能有一个结构统一的迭代器来访问它们，那么循环结构将可以得到简化：
+
+```javascript
+function createIterator(items) {
+  let index = 0
+  return {
+    next() {
+      const done = index >= items.length
+      const value = done ? undefined : items[index]
+      index += 1
+
+      return { value, done }
+    },
+  }
+}
+```
+
+如上所示，迭代器其实就是一个拥有 `next()` 接口的对象，该接口被调用时，返回两个值：迭代是否已经结束，以及当前的元素值。它将索引操作封装在迭代器内部，从而避免了我们手动去管理索引。实际上，ES6 提供的 `for..of`，就是应用了这样一个迭代器后得到的语法糖，我们可以直接拿到值：
+
+```javascript
+const colors = ['blue', 'green', 'red']
+for (let color of colors) {
+  console.log(color)
+}
+```
+
+在 ES6 中，这个迭代器函数被保存到原型上的 `[Symbol.iterator]` 键上。也即是说，所有提供了这个键的对象，都能被当成可迭代对象被访问（如 `for..of` 运算符、展开运算符等 `...object`）。在内建类型中，`Array`、`Map`、`Set`、`String` 都是可迭代对象，其内建迭代器分别是：
+
+<!-- prettier-ignore-start -->
+```javascript
+Array.prototype[Symbol.iterator]  // [Function: values]
+Set.prototype[Symbol.iterator]    // [Function: values]
+Map.prototype[Symbol.iterator]    // [Function: entries]
+String.prototype[Symbol.iterator] // [Function: [Symbol.iterator]]
+```
+<!-- prettier-ignore-end -->
