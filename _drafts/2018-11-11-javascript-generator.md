@@ -6,9 +6,10 @@ summary...
 
 ## 目录
 
-* 迭代器 - Iterator
+* 迭代器 - iterator
+* 生成器 - generator
 
-## 迭代器 - Iterator
+## 迭代器 - iterator
 
 迭代器和生成器是你天天在用但又感知不到的东西。生成器是用来生成迭代器的东西，其基础还是迭代器。让我们先从迭代器入手。
 
@@ -62,54 +63,19 @@ function createArrayIterator(items) {
 |  `Map.prototype[Symbol.iterator]`   |      `[Function: entries]`      |
 | `String.prototype[Symbol.iterator]` | `[Function: [Symbol.iterator]]` |
 
-这个东西到目前为止，看起来都还没什么价值（当然，它是一种十分常见的编程模式）。再来看看生成器，它本质上是一个迭代器（因为每一次执行都返回一个迭代器），也可以用来生成迭代器，只不过它返回的迭代器除了可以 `next()`，还可以 `throw()`。看到这里，我觉得，`next()` 这个过程如果不能恰好自动化地解决一些问题，那就没什么作用。
+然而呢，到目前为止，这个东西看起来还没什么价值。除了，它本身是一种十分常见的编程模式；除了，可以为你自定义的对象定义迭代器……好像就没啥价值了。
 
-逛了一圈知乎，提到有这个几个作用：
+## 生成器 - generator
 
-* 懒求值 lazy evaluation
-* 异步流程控制 `async` / `await`
+生成器函数。生成什么的函数呢？是生成迭代器的一个函数，它会返回一个迭代器，只不过用它生成的迭代器，除了可以 `next()`，还可以 `throw()`。一方面，可以用它来方便地生成一些迭代器；但它最大的价值，还在于 `yield` 语句提供了暂停执行的能力。只有在被 `next()` 的时候，它才会接着往下执行。
 
-能用来实现 `async` / `await` 自然是神奇的，我准备再写一篇文章来总结。懒求值这个事情我看来好像就是瞎扯，因为如果 generator 函数最终被自动化，你哪里有手动「懒」一把的地方？还不是一把全执行完。当然，可能是我没有理解到它的场景。
+这里有两个重点：一个是，被谁 `next()`？一个是，这种暂停执行的能力有什么价值？
 
-像 `redux-saga` 就利用了 generator。其精华就在利用了 `yield take(action)` 这个异步等待的事件来达到实现上的暂停，同一个业务不同阶段的代码可以都写在一块，更加内聚。然而，对于很多只是把它当同步副作用来使的开发者（包括我），懒求值形同虚设，还不都是跟同步一样一把求完。
+不管是被谁 `next()`，它都应该是一个**自动化的程序**。抽象出迭代器接口，以及自动化创建迭代器的生成器函数，目标无非是为了更灵活、更自动化的流程控制。因此，只有当这个「流程控制」具备自动化的能力时，生成器和迭代器函数才显出其价值。在语言规范中，称这两者为 Control Abstraction（流程）控制抽象层，也是这个道理。这是学习生成器质问其价值的一个重要回答。也就是说，很多其他（比如知乎上讲的）作用都不是非生成器不可的价值。
 
-其他的还有：向生成器传递参数、生成器的组合、用于实现异步流程控制等。大概代码如下：
+其次是，这种暂停执行的能力有什么价值？目前看到的就是实现异步流程的同步化（`async` / `await`），以及 `redux-saga` 这样的应用。其他还没看到什么特别的价值。有些人说，支持「懒求值」，这个事情我看来好像就是瞎扯，因为如果 generator 函数最终被自动化，你哪里有手动「懒」一把的地方？还不是一把全执行完。当然，可能是我没有理解到它的场景。
 
-```javascript
-function* run(generator) {
-  let result = null
-  let value = null
+总结起来，什么时候可以考虑用生成器技术呢，两个：
 
-  do {
-    result = generator.next(value)
-    value = result.value
-
-    if (typeof value === 'function') {
-      value(function(error, data) {
-        if (error) {
-          return generator.throw(error)
-        }
-
-        result = generator.next(data)
-        value = result.value
-      })
-    }
-  } while (!result.done)
-}
-
-function readFile(filename) {
-  return function(callback) {
-    fs.readFile(filename, callback)
-  }
-}
-
-run(function*() {
-  let content = yield readFile('package.json')
-  console.log(content)
-})
-```
-
-这个方案比较完美地解决了异步变同步的问题，也能解决嵌套回调的问题。不过它是通过契约这么做的，有一定的毛病：最主要一个是，你要改造所有返回异步的函数，包装一下将后续流程包装在 `callback` 里面。这个东西可以通过 `thunkify` 轻松做到，但是，从调用端来看，是没有任何「契约」的。我既不知道你那边返回的是啥，你重构了以后也很难想象所有调用点都会收到影响，没有运行时的提示。
-
-* http://www.dabeaz.com/finalgenerator/
-* http://www.dabeaz.com/finalgenerator/FinalGenerator.pdf
+* 需要实现一套可以**自动化**的**流程控制**程序时
+* 需要利用**暂停执行**的能力时
