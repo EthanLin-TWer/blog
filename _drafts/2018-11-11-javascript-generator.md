@@ -35,16 +35,17 @@ for (color of colors) {
 }
 ```
 
-这是 ES6 提供的 `for..of` 语法。当然，你可以说它就是把循环过程封装在关键字下，但试想一下，如果它处理的不是数组呢？你就不能以索引的方式来访问元素了，对不？你也就不能用 `length` 的方式来判断循环结束了，对不？于是我们想到，为了使我们对命令式循环的处理流程更加通用，我们需要为所谓的「可迭代对象」规定一个统一的接口，然后就能在 `for..of` 底下使用一套统一的算法来迭代它们了。
+这是 ES6 提供的 `for..of` 语法。当然，你可以说它就是把循环过程封装在关键字下，但试想一下，如果它处理的不是数组呢？你就不能以索引的方式来访问元素了，对不？你也就不能用 `length` 的方式来判断循环结束了，对不？于是我们想到，为了使我们对命令式循环的处理流程更加通用，我们需要为每一类所谓的「可迭代对象」编写一个具有统一接口的迭代器，然后就能在 `for..of` 底下基于一套相同的迭代器接口来访问它们了。
+
+一个典型的迭代器，主要就是要提供一个 `next` 接口，这个接口需要回答两个问题：下一个元素的值是啥，以及是否还有下一个元素。
 
 ```javascript
-function createIterator(items) {
+function createArrayIterator(items) {
   let index = 0
   return {
     next() {
       const done = index >= items.length
-      const value = done ? undefined : items[index]
-      index += 1
+      const value = done ? undefined : items[index++]
 
       return { value, done }
     },
@@ -52,25 +53,14 @@ function createIterator(items) {
 }
 ```
 
-如上所示，迭代器其实就是一个拥有 `next()` 接口的对象，该接口被调用时，返回两个值：迭代是否已经结束，以及当前的元素值。它将索引操作封装在迭代器内部，从而避免了我们手动去管理索引。实际上，ES6 提供的 `for..of`，就是应用了这样一个迭代器后得到的语法糖，我们可以直接拿到值：
+在 ES6 中，这个迭代器函数被保存到原型上的 `[Symbol.iterator]` 键上。**也即是说，所有提供了这个键的对象，都能被当成可迭代对象被访问**（如 `for..of` 运算符、展开运算符 `...object` 等）。JS 中内建类型的可迭代对象分别有：
 
-```javascript
-const colors = ['blue', 'green', 'red']
-for (let color of colors) {
-  console.log(color)
-}
-```
-
-在 ES6 中，这个迭代器函数被保存到原型上的 `[Symbol.iterator]` 键上。**也即是说，所有提供了这个键的对象，都能被当成可迭代对象被访问（如 `for..of` 运算符、展开运算符等 `...object`）**。在内建类型中，`Array`、`Map`、`Set`、`String` 都是可迭代对象，其内建迭代器分别是：
-
-<!-- prettier-ignore-start -->
-```javascript
-Array.prototype[Symbol.iterator]  // [Function: values]
-Set.prototype[Symbol.iterator]    // [Function: values]
-Map.prototype[Symbol.iterator]    // [Function: entries]
-String.prototype[Symbol.iterator] // [Function: [Symbol.iterator]]
-```
-<!-- prettier-ignore-end -->
+|              内建类型               |             迭代器              |
+| :---------------------------------: | :-----------------------------: |
+| `Array.prototype[Symbol.iterator]`  |      `[Function: values]`       |
+|  `Set.prototype[Symbol.iterator]`   |      `[Function: values]`       |
+|  `Map.prototype[Symbol.iterator]`   |      `[Function: entries]`      |
+| `String.prototype[Symbol.iterator]` | `[Function: [Symbol.iterator]]` |
 
 这个东西到目前为止，看起来都还没什么价值（当然，它是一种十分常见的编程模式）。再来看看生成器，它本质上是一个迭代器（因为每一次执行都返回一个迭代器），也可以用来生成迭代器，只不过它返回的迭代器除了可以 `next()`，还可以 `throw()`。看到这里，我觉得，`next()` 这个过程如果不能恰好自动化地解决一些问题，那就没什么作用。
 
