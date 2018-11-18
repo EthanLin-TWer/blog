@@ -65,18 +65,13 @@ category: 读书笔记
 
 ### 函数
 
-* 默认参数 -> 默认参数的临时死区（TDZ）
-* 无命名参数 -> ...args over arguments[index]
-* arguments 参数被完全移除：这已经通过 ESLint 固化下来
-* 调试信息：[function].name
-* new.target：判断是不是通过 `new` 调用
-* 箭头函数
-  * 修正了 this 指向：所谓指向最近一个有 this 作用域的函数
-  * 没有 [[Constructor]]，因此不能 new，也因此没有 prototype，因此引擎可以做优化
-  * 没有 this、super
-  * 没有 arguments 参数对象
-  * 可以说，是一个 JavaScript 函数本来应该是的样子：更明确的 this 绑定；没有继承；无状态函数（没有 this）
-* 尾调用优化
+* 使用参数解构替代类数组参数对象 `arguments` - 这可以通过 ESLint 规则固化
+* `[function].name`：用做调试信息
+* `new.target`：用以判断函数是否通过 `new` 方式被调用
+* 箭头函数：JS 函数原本应该有的样子。**所有非类方法的函数都应尽量使用箭头函数声明**
+  * 修正了 this 指向：现在指向了最后一次调用它的有 `this` 指针的对象
+  * 没有 `this`、`super`、`arguments` 参数对象、`[[Constructor]]`、`prototype` 等一切函数以外、类范畴以内的东西。引擎可以针对箭头函数做优化
+* 规范了函数的尾调用优化
 
 ### 扩展对象的功能性
 
