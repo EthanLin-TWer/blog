@@ -164,7 +164,7 @@ ES6 的 `import` / `export` 实则是借鉴了以上各种优秀方案形成的�
 ## 增广
 
 * [ ] 第 2 章 字符串和正则表达式
-* [ ] 第 6 章 Symbol 和 Symbol 属性
+* [x] 第 6 章 Symbol 和 Symbol 属性
 * [x] 第 7 章 Set 集合与 Map 集合
 * [x] 第 8 章 迭代器（Iterator）和生成器（Generator）
 * [x] 第 11 章 Promise 与异步编程
@@ -172,18 +172,7 @@ ES6 的 `import` / `export` 实则是借鉴了以上各种优秀方案形成的�
 
 ### Symbol 和 Symbol 属性
 
-* Symbol 可用于「可计算属性名」 - 还有很多其他东西也开始可以用做 Map 和 Set 的「可计算属性名」
-* Symbol.for 用于创建全局可共享的 Symbol - 有什么使用制约？全局的东西，被 override 怎么办？
-* 它是第六种基本类型，神妙
-* 有个问题：因为 JS 缺乏强类型，所以这种错误很难辨别：
-  const sit = Symbol('sit')
-  const obj = {
-  sit: 'string sit',
-  [sit]: 'symbol sit',
-  }
-  obj.sit
-  obj[sit]
-* 最强悍的
+**JS 中的第六种基本类型**。它可以被用来做对象的属性名，可以用 `Symbol.for` 来创建全局共享的 symbol。不过跟下一章我们要讲到的 `Set` 和 `Map` 一样，它在你写业务代码过程应该极少有使用场景。其真正的价值，在于以其为媒介，将共享更多 JS 引擎内部实现的方法变得优雅，使开发者有了更多定制 JS 语言 API 实现的机会。
 
 ### Set 集合与 Map 集合
 
