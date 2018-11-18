@@ -179,7 +179,7 @@ ES6 的 `import` / `export` 实则是借鉴了以上各种优秀方案形成的�
 |    `Symbol.hasInstance`     | `instanceof` 操作符的内部实现                |
 | `Symbol.isConcatSpreadable` | 影响 `Array.prototype.concat` 实现的规整方式 |
 |      `Symbol.iterator`      | 用于标识「可迭代对象」的迭代器接口           |
-|      `Symbol.species`       | ?                                            |
+|      `Symbol.species`       | 用于标识继承（派生）对象的返回类型           |
 |    `Symbol.toPrimitive`     | 发生原始值类型转换时的转换接口               |
 |    `Symbol.toStringTag`     | 用于在多个全局执行环境下标识对象             |
 
@@ -220,3 +220,26 @@ Promise 是第二版的异步问题解决方案。结合 ES6 的 generator，则
 
 * 维护了三个内部状态 `[[pending]] / [[fulfilled]] / [[rejected]]`
 * 支持非 `Promise` 的 `resolve` 以支持链式调用，等
+
+### 代理（Proxy）和反射（Reflection）API
+
+反射曾经是我非常感兴趣的一个话题，毕业设计就是深入研究 Java 反射机制。**所谓反射，指的是一个运行时的程序，具备获取程序自身元信息、改变自身执行方式的能力**。对于 Java 这门静态编译型语言来说，编译期它已经可以拥有类的注解、接口、继承关系等信息；其反射能力最突出的一点是，**可以在运行时根据字符串动态创建类的实例对象**。这是编译时的代码所做不到的。而 JS 的反射，与 Java 又有异同。
+
+由于 JS 中函数是一等公民，所以函数名这个东西，运行时是能拿到的，但是函数参数就不行了；又由于 JS 中有太过灵活的 `eval()` 函数，所以根据字符串名称生成对应类实例的事，变着法子也是能做的 `eval(\`new ${className.toUpperCase()}()\`)`
+
+| 代理陷阱          | 覆写的特性                     | 默认特性                    |
+| :---------------- | :----------------------------- | :-------------------------- |
+| get               | 获取一个对象属性值时           | `Reflect.get`               |
+| set               | 写入一个对象属性值时           | `Reflect.set`               |
+| has               | `in` 操作符                    | `Reflect.has`               |
+| deleteProperty    | `delete` 操作符                | `Reflect.deleteProperty`    |
+| getPrototypeOf    | `Object.getPrototypeOf`        | `Reflect.getPrototypeOf`    |
+| setPrototypeOf    | `Object.setPrototypeOf`        | `Reflect.setPrototypeOf`    |
+| isExtensible      | `Object.isExtensible`          | `Reflect.isExtensible`      |
+| preventExtensions | `Object.preventExtensions`     | `Reflect.preventExtensions` |
+| defineProperty    | `Object.defineProperty`        | `Reflect.defineProperty`    |
+| ownKeys           | `Object.keys`                  | `Reflect.ownKeys`           |
+|                   | `Object.getOwnPropertyNames`   |                             |
+|                   | `Object.getOwnPropertySymbols` |                             |
+| apply             | 通过非构造函数方式调用函数时   | `Reflect.apply`             |
+| constructor       | 使用 `new` 操作符调用函数时    | `Reflect.constructor`       |
