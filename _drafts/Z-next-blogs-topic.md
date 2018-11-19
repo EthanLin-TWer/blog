@@ -2,7 +2,7 @@
 title: 下篇博客的内容
 ---
 
-* get set `[Symbol.iterator]` 这些东西，可以认为是语言的元特性。而反射可以对它们进行一些代理，从而达到覆盖的目的
+* 写一些 generator / promise / await 的 babel 解析代码
 * 为什么 for i 循环就能 wait for async，否则就不行
 * 想学 TDD 看什么入门书籍？
 * 入职时希望养成的技能和意识？/ 《入行时我希望有人早点告诉我的 8 件事》

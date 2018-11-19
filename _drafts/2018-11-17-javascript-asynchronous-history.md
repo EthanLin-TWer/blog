@@ -54,3 +54,4 @@ run(function*() {
 * https://medium.com/@makk.bit/babel-under-the-hood-63e3fb961243
 * https://maurobringolf.ch/2018/01/oss-deep-dive-babels-javascript-parsing-algorithm/
 * https://segmentfault.com/a/1190000016345537
+* http://www.dabeaz.com/finalgenerator/
