@@ -2,6 +2,8 @@
 title: 下篇博客的内容
 ---
 
+* V-DOM
+* hand craft a React
 * 写一些 generator / promise / await 的 babel 解析代码
 * 为什么 for i 循环就能 wait for async，否则就不行
 * 想学 TDD 看什么入门书籍？
