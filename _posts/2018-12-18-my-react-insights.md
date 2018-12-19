@@ -37,5 +37,5 @@ React 对自己的定位首先就是：一个构建 UI 的库，优点是**声�
 
 [es6]: https://blog.linesh.tw/#/post/2018-10-25-readings-understand-ecmascript-6
 [component-or-layers]: https://github.com/xufei/blog/issues/50
-[react-on-es6]: https://babeljs.io/blog/2015/06/07/react-on-es6-plus
+[react-on-es6]: https://babeljs.io/blog/2015/07/07/react-on-es6-plus
 [jsx]: https://reactjs.org/docs/jsx-in-depth.html
