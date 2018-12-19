@@ -19,6 +19,10 @@ React 篇：
 
 ES6 已在[这里][es6]另起文章，总而言之，并没有特别可讲之处。用 ES6 可以省去许多模板代码，使代码减少许多杂音；使用 JSX 则使你的 React 代码更加声明式。尽管它们都不是 React 本身的优点，但对于编写优雅的 React 代码大有裨益。
 
+[在 React 中会用到的 ES6 特性][react-on-es6]主要包括：类及其(静态)字段（`state = {}; static propTypes = {}` 等）、箭头函数、装饰器、对象解构、数组解构、复合解构、模板字符串等。
+
+[JSX][] 会将所有类 HTML 元素转换成 `React.createElement(component, props, ...children)` 的底层 API，是 React 声明式的来源之一。
+
 ## React 唯一视角：声明式、组件化
 
 ![image](https://user-images.githubusercontent.com/11895199/32177871-55a775d8-bd59-11e7-9ac9-7a2031b024c9.png)
@@ -33,3 +37,5 @@ React 对自己的定位首先就是：一个构建 UI 的库，优点是**声�
 
 [es6]: https://blog.linesh.tw/#/post/2018-10-25-readings-understand-ecmascript-6
 [component-or-layers]: https://github.com/xufei/blog/issues/50
+[react-on-es6]: https://babeljs.io/blog/2015/06/07/react-on-es6-plus
+[jsx]: https://reactjs.org/docs/jsx-in-depth.html
