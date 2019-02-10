@@ -31,7 +31,7 @@ Now, many, perhaps most of these offerings are not bad things, at least for the 
 
 The picture is not so attractive for developers, all the people engaged in actually building the products that the “Agile” enterprises are undertaking. When “Agile” ideas are applied poorly, they often lead to more interference with developers, less time to do the work, higher pressure, and demands to “go faster”. This is bad for the developers, and, ultimately, bad for the enterprise as well, because doing “Agile” poorly will result, more often than not, in far more defects and much slower progress than could be attained. Often, good developers leave such organizations, resulting in a less effective enterprise than prior to installing “Agile”.
 
-然而，“只要做了就有改进”的美丽图景，对于那些奉命开发产品的、奋战在一线开发者们来说，就是另一幅光景了。如果你导入的“敏捷”与真敏捷相去甚远，往往只会增加开发者的制约；他们的工作时间会减少，压力却更大，收到更多“快速前进”的要求。这对于开发者来讲很糟糕，最终对企业也不利。错误地实施“敏捷”可能带来许多恶果，导致比之前更多的缺陷出现，大大降低团队的开发速率。好的开发者最后也多会离开这样的组织，使得企业相比没有导入“敏捷”之前，组织效率反而更低了。
+然而，“只要做了就有改进”的美丽图景，对于那些奉命开发产品的、奋战在一线的开发者们来说，就是另一幅光景了。如果你导入的“敏捷”与真敏捷相去甚远，往往只会增加开发者的制约：他们的工作时间会减少，压力却更大，有更多人要求他们“快速前进”。这对于开发者来讲很糟糕，最终对企业也不利。错误地实施“敏捷”可能带来许多恶果，导致比之前更多的缺陷出现，大大降低团队的开发速率。好的开发者最后也多会离开这样的组织，使得企业相比没有导入“敏捷”之前，组织效率反而更低了。
 
 ### Safe, not SAFe
 
@@ -39,27 +39,33 @@ The picture is not so attractive for developers, all the people engaged in actua
 
 My thinking is taken from something Kent Beck said over a decade ago. I would like the world to be safe for developers. At my core, I am a developer, despite years of management, consulting, and writing. I worked with code earlier today, and do so every week if not daily. So it breaks my heart to see the ideas we wrote about in the Agile Manifesto used to make developers’ lives worse, instead of better. It also saddens me that the enterprise isn’t getting what it could out of the deal, but my main concern is for the people doing the work.
 
-我之观点，Kent Beck早在二十多年前就有过敦敦告诫。我希冀开发者的工作环境能够更有安全感。尽管有过管理的经验、咨询的经验，以及写作的经验，我曾经是——如今也仍然还是——一个软件开发者。我今天早上还写了代码哩，如果不能做到每天都写，我也会坚持一周至少写点代码。正因如此，当我察觉我们这群人当年在敏捷宣言里写下的话语只是使开发者的处境变得更困难了而已时，我心痛无法形容。企业本来可以从敏捷中收获更多，但却没有；这也使我伤心，但一线开发者们的处境更使我感怀。
+我之观点，Kent Beck 早在二十多年前就有过敦敦告诫。我希冀开发者的工作环境能够更有安全感。尽管有过管理的经验、咨询的经验，以及写作的经验，我曾经是——如今也仍然还是——一个软件开发者。我今天早上还写了代码哩，如果不能做到每天都写，我也会坚持一周至少写点代码。正因如此，当我察觉我们这群人当年在敏捷宣言里写下的话语只是使开发者的处境变得更困难了而已时，我心痛无法形容。企业本来可以从敏捷中收获更多，但却没有；这也使我伤心，但一线开发者们的处境更使我感怀。
 
 Over a period of years, I’ve heard from many developers who say that “Agile” sucks. (Usually they say that “Scrum” sucks, because most people in organizations trying to do “Agile” are in organizations trying to do Scrum.) I’ve tried to help those people understand that their organization is doing “Agile” wrong: they’re not doing what the Manifesto authors recommended, what Scrum recommends, what the many Agile Software Development experts recommend. My hope was that people within the sound of my voice would help themselves, and their organizations, move closer to the real ideas behind Manifesto Agile and away from the many forms of Faux Agile or Dark Agile that we see around us.
 
-过去的十几年里，我不止一次听到有开发者说，“敏捷”就是个垃圾。（他们其实是讲“Scrum”是垃圾，因为通常做“敏捷”的公司真正想做的其实是“Scrum”，所以他们对“敏捷”爱屋及乌了一番）我努力想让他们知道，他们的公司把“敏捷”都做错了：他们所做的既不是“敏捷宣言”的作者所推荐的敏捷，也不是Scrum所推崇的敏捷，不是“敏捷软件开发联盟”的专家们所推荐的敏捷。我希望这段话能够帮助人们、帮助他们的组织与*宣言敏捷*中的真知灼见为伍，远离周围形形色色的*骗子敏捷*、*暗黑敏捷*。
+过去的十几年里，我不止一次听到有开发者说，“敏捷”就是个垃圾。（他们其实是想讲“Scrum”是垃圾，因为通常做“敏捷”的公司真正想做的其实都是“Scrum”）我努力想让他们知道，他们的公司把“敏捷”都做错了：他们所做的既不是“敏捷宣言”的作者所推荐的敏捷，也不是 Scrum 所推崇的敏捷，当然也不是“敏捷软件开发联盟”的专家们所推荐的敏捷。我希望这段话能够帮助人们、帮助他们的组织与*宣言敏捷*中的真知灼见为伍，远离周围形形色色的*骗子敏捷*、_暗黑敏捷_。
 
 That’s not really working out. Efforts like “Advanced” Scrum training and certifications, and leadership-focused efforts are good, and may bear fruit over time, but they will proceed at best slowly and may never really filter down to the poor developers in the “Code Mines of Ohio”.
 
-光靠框架、方法论来鼓吹“敏捷”是不行的。花费心思举办“高级”Scrum培训、签发敏捷证书、搞领导力培训等，是好事，也可能结出硕果，但这是个缓慢的进程，不可能一蹴而就，底层可怜的开发者们也可能永远享受不到敏捷化改革带来的利益。
+光靠框架、方法论来鼓吹“敏捷”是不行的。花费心思举办“高级”Scrum 培训、签发敏捷证书、搞领导力培训等，是好事，也可能结出硕果，但这是个缓慢的进程，不可能一蹴而就，底层可怜的开发者们也可能永远享受不到敏捷化改革带来的利益。
 
 It’s time to try something new, and here it is:
 
-现在，是时候尝试些新的做法了。以下就是我的几个“锦囊妙计”：
+现在，是时候尝试些新的做法了。以下是我的几个“锦囊妙计”：
 
 ## Developers should abandon “Agile”
 
 Mind you, developers will continue to find themselves working under Scrum conditions, or in organizations using SAFe. Some may even encounter more obscure “Agile” approaches like “DAD”, or, if they’re fortunate, more enlightened approaches like “Modern Agile”, or “Heart of Agile”. Some may even be lucky enough to find themselves doing Extreme Programming, also known as “The Scrum That Actually Works”.
 
+不过嘛，短期来看，开发者们仍需继续在一些 Scrum 的环境下工作，也许他们的组织仍在使用 SAFe。不幸一点的开发者可能会遇见更令人费解的“敏捷”流派，比如“DAD”等；如果遇见更开化的“现代敏捷”、“敏捷之心”等流派，那就幸运一点。人品爆发的话，可以遇见一些在做极限编程（XP）的团队。XP正是那种被称作“真正管用的Scrum”。
+
 ### Detach from named methods
 
+### 不要拘泥于招式
+
 Be that as it may, I believe that developers should detach their thinking from any particular named “Agile” method. Instead, they should turn their attention and learning to ways of doing software development that will work within any of those “Agile” methods. Those development approaches, to me, involve use of practices such as, but not limited to, those of Extreme Programming. More generally, developers’ work should adhere to the foundational principles that support Agile Software Development, as we had in mind when we wrote the Manifesto. Today, I’d summarize the ideas this way:
+
+虽然无法选择工作的环境，但我认为一位真正的开发者应该有独立的思考，而不应盲目遵守任何书本上的“敏捷”方法。相反，开发者应该真正关注和学习的应该是软件开发的正确方式——那些放诸任何“敏捷”方法而皆准的开发方式。对我而言，极限编程的实践是正确开发方式的一部分，但不是唯一的一部分。
 
 No matter what framework or method your management thinks they are applying, learn to work this way:
 
