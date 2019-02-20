@@ -31,7 +31,7 @@ Now, many, perhaps most of these offerings are not bad things, at least for the 
 
 The picture is not so attractive for developers, all the people engaged in actually building the products that the “Agile” enterprises are undertaking. When “Agile” ideas are applied poorly, they often lead to more interference with developers, less time to do the work, higher pressure, and demands to “go faster”. This is bad for the developers, and, ultimately, bad for the enterprise as well, because doing “Agile” poorly will result, more often than not, in far more defects and much slower progress than could be attained. Often, good developers leave such organizations, resulting in a less effective enterprise than prior to installing “Agile”.
 
-然而，“只要做了就有改进”的美丽图景，对于那些奉命开发产品的、奋战在一线的开发者们来说，就是另一幅光景了。如果你导入的“敏捷”与真敏捷相去甚远，往往只会增加开发者的制约：他们的工作时间会减少，压力却更大，有更多人要求他们“快速前进”。这对于开发者来讲很糟糕，最终对企业也不利。错误地实施“敏捷”可能带来许多恶果，导致比之前更多的缺陷出现，大大降低团队的开发速率。好的开发者最后也多会离开这样的组织，使得企业相比没有导入“敏捷”之前，组织效率反而更低了。
+然而，“只要做了就有改进”的美丽图景，对于那些奉命开发产品的、奋战在一线的开发者们来说，就是另一幅光景了。如果你导入的“敏捷”与真敏捷相去甚远，往往只会增加开发者的制约：他们的工作时间会减少，压力却更大，有更多人要求他们“快速前进”。这对于开发者来讲很糟糕，最终对企业也不利。错误地实施“敏捷”可能带来许多恶果，导致比之前更多的缺陷出现，大大降低团队的开发速率。好的开发者最后也多半会离开这样的组织，使得企业相比没有导入“敏捷”之前，组织效率反而更低了。
 
 ### Safe, not SAFe
 
@@ -39,7 +39,7 @@ The picture is not so attractive for developers, all the people engaged in actua
 
 My thinking is taken from something Kent Beck said over a decade ago. I would like the world to be safe for developers. At my core, I am a developer, despite years of management, consulting, and writing. I worked with code earlier today, and do so every week if not daily. So it breaks my heart to see the ideas we wrote about in the Agile Manifesto used to make developers’ lives worse, instead of better. It also saddens me that the enterprise isn’t getting what it could out of the deal, but my main concern is for the people doing the work.
 
-我之观点，Kent Beck 早在二十多年前就有过敦敦告诫。我希冀开发者的工作环境能够更有安全感。尽管有过管理的经验、咨询的经验，以及写作的经验，我曾经是——如今也仍然还是——一个软件开发者。我今天早上还写了代码哩，如果不能做到每天都写，我也会坚持一周至少写点代码。正因如此，当我察觉我们这群人当年在敏捷宣言里写下的话语只是使开发者的处境变得更困难了而已时，我心痛无法形容。企业本来可以从敏捷中收获更多，但却没有；这也使我伤心，但一线开发者们的处境更使我感怀。
+我之观点，Kent Beck 早在二十多年前就有过敦敦告诫。我希冀开发者的工作环境能够更有安全感。尽管有过管理的经验、咨询的经验，以及写作的经验，我曾经是——如今也仍然还是——一个软件开发者。我今天早上还写了代码哩，如果不能做到每天都写，我也会坚持一周至少写点代码。正因如此，当我察觉我们这群人当年在敏捷宣言里写下的话语只是使开发者的处境变得更困难了而已时，我的心痛无以言表。企业本来可以从敏捷中收获更多，但却没有；这也使我伤心，但一线开发者们的处境更使我感怀。
 
 Over a period of years, I’ve heard from many developers who say that “Agile” sucks. (Usually they say that “Scrum” sucks, because most people in organizations trying to do “Agile” are in organizations trying to do Scrum.) I’ve tried to help those people understand that their organization is doing “Agile” wrong: they’re not doing what the Manifesto authors recommended, what Scrum recommends, what the many Agile Software Development experts recommend. My hope was that people within the sound of my voice would help themselves, and their organizations, move closer to the real ideas behind Manifesto Agile and away from the many forms of Faux Agile or Dark Agile that we see around us.
 
@@ -65,17 +65,27 @@ Mind you, developers will continue to find themselves working under Scrum condit
 
 Be that as it may, I believe that developers should detach their thinking from any particular named “Agile” method. Instead, they should turn their attention and learning to ways of doing software development that will work within any of those “Agile” methods. Those development approaches, to me, involve use of practices such as, but not limited to, those of Extreme Programming. More generally, developers’ work should adhere to the foundational principles that support Agile Software Development, as we had in mind when we wrote the Manifesto. Today, I’d summarize the ideas this way:
 
-虽然无法选择工作的环境，但我认为一位真正的开发者应该有独立的思考，而不应盲目遵守任何书本上的“敏捷”方法。相反，开发者应该真正关注和学习的应该是软件开发的正确方式——那些放诸任何“敏捷”方法而皆准的开发方式。对我而言，极限编程的实践是正确开发方式的一部分，但不是唯一的一部分。
+虽然无法选择工作的环境，但我认为一位真正的开发者应该有独立的思考，而不应盲目遵守任何书本上的“敏捷”方法。相反，开发者应该真正关注和学习的应该是软件开发的正确方式——那些放诸任何“敏捷”方法而皆准的开发方式。对我而言，极限编程的实践是正确开发方式的一部分，但不是唯一的一部分。具体来讲，开发者应该遵循的是那些支撑着敏捷软件开发的基本原则，这些原则是我们起初写下敏捷宣言时的观点。今天，我愿意用以下方式重新总结这些观点：
 
 No matter what framework or method your management thinks they are applying, learn to work this way:
+
+不管公司的管理层认为他们在推行的是何种框架或方法论，请始终遵循以下方式开展工作：
 
 * Produce running, tested, working, integrated software every two weeks, every week. Build your skills until you can create a new fully operational version every day, twice a day, multiple times a day.
 * Keep the design of that software clean. As it grows, the design will tend to become complex and crufty. Resist and reverse this tendency consciously, refactoring in tiny continuous steps, all the time, so that your rate of progress is as steady and consistent as possible.
 * Use the current increment of software as the foundation for all your conversations with your product leadership and management. Speak in terms of what’s ready to go, and in terms of what they’d like you to do next.
 
+* 尝试以星期为单位产出一个可运行的、经过完整测试和集成的软件。围绕“创建可工作软件”这个目标构建团队能力，不断缩短交付周期到每天一次、每天两次、每天许多次。
+* 保证软件可工作的同时，保持其设计整洁。随着软件演进，其设计往往渐趋复杂。你需要抵抗这种趋势，使用细小的步子持续进行重构，如此才能反转软件腐坏的趋势，尽可能保持开发速率的平稳、一致。
+* 与产品经理和领导层交流时，使用当前最新的软件作为沟通语言。沟通时，以“什么特性已经准备好上线”及“下一步要做什么”为重心。
+
 This is the development team’s best hope for a reasonable life. By keeping the software always ready to go, we can hit any deadline with the best possible result. “Is today the deadline? Here’s what we’ve got, it’s ready to ship.”
 
+要想体面地工作，以上建议是开发团队最合理的依靠了。只有保证软件随时都是可发布的状态，我们才能以最好的结果面对随时到来的上线。“今天就要上线吗？好的，这就是最新的软件，我们已经准备好交付它了。”
+
 As we lead up to the deadline, and as we negotiate what to do next, the running software in our hands lets us keep the conversation focused on the next, most important thing to do, rather than the near-infinite list of things they think they want. It’s not easy to change the focus from “do all this” to “do this next”, but it’s our best chance for a decent life, and it’s often quite possible to get the focus to change, as we work to collaborate with our leaders rather than just work under them.
+
+一旦
 
 ## Under an imposed approach
 
