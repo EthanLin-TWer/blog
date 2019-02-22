@@ -7,6 +7,7 @@ title: 「译」开发者是时候放弃敏捷了
 【改我】敏捷宣言创始人之一 Ron Jeffries 告诫开发者，是时候抛弃你认为的所谓「敏捷」了。
 
 > 原文地址：[https://ronjeffries.com/articles/018-01ff/abandon-1/](https://ronjeffries.com/articles/018-01ff/abandon-1/)
+> 
 > 原文日期：May 10, 2018
 
 # Developers Should Abandon Agile
@@ -75,7 +76,7 @@ No matter what framework or method your management thinks they are applying, lea
 * Keep the design of that software clean. As it grows, the design will tend to become complex and crufty. Resist and reverse this tendency consciously, refactoring in tiny continuous steps, all the time, so that your rate of progress is as steady and consistent as possible.
 * Use the current increment of software as the foundation for all your conversations with your product leadership and management. Speak in terms of what’s ready to go, and in terms of what they’d like you to do next.
 
-* 尝试以星期为单位产出一个可运行的、经过完整测试和集成的软件。围绕“创建可工作软件”这个目标构建团队能力，不断缩短交付周期到每天一次、每天两次、每天许多次。
+* 尝试以周为单位产出一个可运行的、经过完整测试和集成的软件。围绕“创建可工作软件”这个目标构建团队能力，不断缩短交付周期到每天一次、每天两次、每天许多次。
 * 保证软件可工作的同时，保持其设计整洁。随着软件演进，其设计往往渐趋复杂。你需要抵抗这种趋势，使用细小的步子持续进行重构，如此才能反转软件腐坏的趋势，尽可能保持开发速率的平稳、一致。
 * 与产品经理和领导层交流时，使用当前最新的软件作为沟通语言。沟通时，以“什么特性已经准备好上线”及“下一步要做什么”为重心。
 
@@ -85,13 +86,17 @@ This is the development team’s best hope for a reasonable life. By keeping the
 
 As we lead up to the deadline, and as we negotiate what to do next, the running software in our hands lets us keep the conversation focused on the next, most important thing to do, rather than the near-infinite list of things they think they want. It’s not easy to change the focus from “do all this” to “do this next”, but it’s our best chance for a decent life, and it’s often quite possible to get the focus to change, as we work to collaborate with our leaders rather than just work under them.
 
-一旦
+一旦我们开始直面死线，开始专注于“接下来要做的事”，手中那个可运行的软件就可以使对话聚焦于下一件真正最重要的事情上，而非跟一份长长的形似臆想出来的需求列表死磕。“做完所有固定的需求”到“接下来先做这一件事”的思维转变并不容易，但这是获得一个体面生活的最后机会；只要我们与领导们更紧密地协作，而非仅仅听从他们的命令干活，完成思维的转变往往指日可待。
 
 ## Under an imposed approach
 
 Too commonly, the “Agile” approach a team uses has been imposed. Larger-scale “Agile” methods appear actually to recommend imposition of process. I include here the so-called “SAFe” method, Scaled Scrum, and LeSS among others. These are pitched to the enterprise, and the enterprise is expected to “install” them, or “roll them out”.
 
+不幸的是，团队采用什么“敏捷”实践往往不由团队所控制。许多大型的“敏捷”方法论反而在倡导更重的流程，其中较有代表性的包括（所谓的）“SAFe”、Scaled Scrum、LeSS等方法论。这些方法论是针对企业级场景而生的，而企业不趋之、不用之好像也显得不够专业一样。
+
 As a developer, you can be sure that this roll-out will not go smoothly nor in a truly Agile fashion. You’ll not likely be trained, much less educated, much less given the real help you need to do your job. Your leadership will perhaps have been trained, perhaps for as much as an entire week(!), to prepare them to bring about this sweeping change in the organization’s approach to product and software development. The road is likely to be a bit bumpy.
+
+而作为开发者你很清楚，这样的“敏捷”导入不可能一帆风顺，也很难带来真正敏捷的工作方式。他们多半不会对你进行培训，不会教你必要的知识，更不太可能给到你日常工作中真正需要的一些帮助。但他们倒是很可能对领导层进行培训（也许是持续一整周的培训！），以
 
 But if you can reliably select work to do over the course of a “Sprint” or “boxcar” or whatever your release train conductor starts calling the time period, and accomplish that work, packaging it up in a running, tested, integrated, ready-to-go new version of the system, you’ll be equipped to do the best it’s possible to do.
 
