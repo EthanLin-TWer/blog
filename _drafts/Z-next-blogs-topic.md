@@ -2,6 +2,7 @@
 title: 下篇博客的内容
 ---
 
+* CSS迁移记可以写成一篇文章
 * CSS modules: css module, css in js 
 * V-DOM
 * hand craft a React
