@@ -22,6 +22,18 @@ title: 程序员元技能（一）：Git
 
 配套实践
 
+* check-in dance
+  * run local build
+  * commit
+  * check ci
+  * git pull --rebase
+  * run local build(automated by git hooks)
+  * git push
+  * check ci(necessary cause ci run something else)
+* not good behaviour
+  * commit
+  * git pull --rebase
+  * gp
 * github flow / trunk based development
 * tasking
 
