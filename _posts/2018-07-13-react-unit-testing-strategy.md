@@ -12,7 +12,7 @@ tags: react unit-test tdd enzyme jest
 1.  第一部分：为什么必须做单元测试
     1.  单元测试的上下文
     2.  测试策略——测试金字塔
-    3.  TDD——单元测试的灵魂
+    3.  TDD——单元测试的核心灵魂
 2.  第二部分：什么是好的单元测试
 3.  第三部分：React 单元测试策略
 4.  第四部分：React 单元测试落地
@@ -68,7 +68,7 @@ tags: react unit-test tdd enzyme jest
 
 关于测试金字塔的补充阅读：[测试金字塔实战](https://insights.thoughtworks.cn/practical-test-pyramid/)。
 
-### TDD——单元测试的灵魂
+### TDD——单元测试的核心灵魂
 
 ## 第二部分：什么是好的单元测试
 
