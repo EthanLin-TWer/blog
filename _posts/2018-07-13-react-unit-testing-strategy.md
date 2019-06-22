@@ -107,7 +107,7 @@ it('should return summed up total amount 1000 when there are three products pric
 * **只测一条分支**
 * **表达力极强**
 * **不包含逻辑**
-* **运行速度极快**
+* **运行速度快**
 
 ### 只关注输入输出，不关注内部实现
 
@@ -147,7 +147,7 @@ it('should return summed up total amount 1000 when there are three products pric
 
 跟写声明式的代码一样的道理，测试需要都是简单的声明：准备数据、调用函数、断言，让人一眼就明白这个测试在测什么。如果含有逻辑，你读的时候就要多花时间理解；一旦测试挂掉，你咋知道是实现挂了还是测试本身就挂了呢？
 
-### 运行速度极快
+### 运行速度快
 
 单元测试只有在毫秒级别内完成，开发者才会愿意频繁地运行它，将其作为快速反馈的手段也才能成立。那么为了使单元测试更快，我们需要：
 
@@ -196,7 +196,7 @@ it('should return summed up total amount 1000 when there are three products pric
 
 ### actions 测试
 
-这一层太过简单，基本都可以不用测试，获益于架构的简单性。当然，如果有些经常出错的 action，再针对性地对这些 action creator 补充测试。
+这一层获益于架构的简单性，甚至都可以不用测试。当然，如果有些经常出错的action，可以针对性地对这些action creator补充测试。其测试方法如下：
 
 ```js
 export const saveUserComments = (comments) => ({
@@ -218,14 +218,16 @@ test('should dispatch saveUserComments action with fetched user comments', () =>
       comments: [],
     },
   }
+  
+  const result = actions.saveUserComments(comments)
 
-  expect(actions.saveUserComments(comments)).toEqual(expected)
+  expect(result).toEqual(expected)
 })
 ```
 
 ### reducer 测试
 
-reducer 大概有两种：一种比较简单，仅一一保存对应的数据切片；一种复杂一些，里面具有一些计算逻辑。对于第一种 reducer，写起来非常简单，简单到甚至可以不需要用测试去覆盖。其正确性基本由简单的架构和逻辑去保证的。下面是对一个简单 reducer 做测试的例子：
+reducer 大概有两种：一种比较简单，仅一一保存对应的数据切片；一种复杂一些，里面具有一些计算逻辑。对于第一种 reducer，写起来非常简单，简单到甚至可以不需要用测试去覆盖，其正确性基本由简单的架构和逻辑去保证。下面是对一个简单 reducer 做测试的例子：
 
 ```javascript
 import Immutable from 'seamless-immutable'
@@ -259,7 +261,6 @@ test('should save loading start indicator when action isLoadingProducts is dispa
 
 下面是一个较为复杂、更具备测试价值的 reducer 例子，它在保存数据的同时，还进行了合并、去重的操作：
 
-<!-- prettier-ignore-start -->
 ```js
 import uniqBy from 'lodash/uniqBy'
 
@@ -274,14 +275,13 @@ export default createReducers((on) => {
   })
 })
 ```
-<!-- prettier-ignore-end -->
 
 ```js
 import reducers from './reducers'
 import actions from './actions'
 
 test(`
-  should merge user comments and remove duplicated comments 
+  should merge user comments and remove duplicated comments by comment id 
   when action saveUserComments is dispatched with new fetched comments
 `, () => {
   const state = {
@@ -305,11 +305,12 @@ test(`
 })
 ```
 
-reducer 作为纯函数，非常适合做单元测试，加之一般在 reducer 中做重逻辑处理，此处做单元测试保护的价值也很大。请留意，上面所说的单元测试，是不是符合我们描述的单元测试基本原则：
+reducer 作为纯函数，非常适合做单元测试，加之一般在 reducer 中做重逻辑处理，此处做单元测试保护的价值很大。请留意，上面所说的单元测试，是不是符合我们描述的单元测试基本原则：
 
-* 有且仅有一个失败的理由：当输入不变时，仅当我们被测「合并去重」的业务操作不符预期时，才可能挂掉测试
-* 表达力极强：测试描述已经写得清楚「当使用新获取到的留言数据分发 action `saveUserComments` 时，应该与已有留言合并并去除重复的部分」；此外，测试数据只准备了足够体现「合并」这个操作的两条 id 的数据，而没有放很多的数据，形成杂音；
-* 快、稳定：没有任何依赖，测试代码不包含准备数据、调用、断言外的任何逻辑
+* 只关注输入输出，不关注内部实现：在输入不变时，仅可能因为“合并去重”的业务操作不符预期时才会挂测试
+* 表达力极强：测试描述已经写得清楚“当使用新获取到的留言数据分发 action `saveUserComments` 时，应该与已有留言合并并去除重复的部分”；此外，测试数据只准备了足够体现“合并”这个操作的两条 id 的数据，而没有放很多的数据，形成杂音；
+* 不包含逻辑：测试代码不包含准备数据、调用、断言外的任何逻辑
+* 运行速度快：没有任何依赖
 
 ### selector 测试
 
