@@ -29,6 +29,7 @@ tags: react unit-test tdd enzyme jest
     6.  utils 测试
 5.  总结
 6.  未尽话题
+7.  参考
 
 ## 第一部分：为什么必须做单元测试
 
@@ -115,7 +116,7 @@ it('should return summed up total amount 1000 when there are three products pric
 
 另外，还有一些测试（比如下文要看到的 saga 官方推荐的测试），它需要测试实现代码的执行次序。这也是一种“关注内部实现”的测试，这就使得除了输入输出外，还有“执行次序”这个因素可能使测试挂掉。显然，这样的测试也不利于重构的开展。
 
-此外，对外部依赖采取mock策略，同样是某种程度上的“关注内部实现”，因为mock的失败同样将导致测试的失败，而非真正业务场景的失败。对待mock的态度，我认为是谨慎使用，但本文未做展开。肖鹏有篇文章[《Mock的七宗罪》](https://gitbook.cn/books/58fa1af500a2684bf77511bc/index.html)对此展开了详细描述，我还没细看，这里只能先分享给读者。
+此外，对外部依赖采取mock策略，同样是某种程度上的“关注内部实现”，因为mock的失败同样将导致测试的失败，而非真正业务场景的失败。对待mock的态度，我认为是谨慎使用，但本文未做展开。肖鹏有篇文章[Mock的七宗罪](https://gitbook.cn/books/58fa1af500a2684bf77511bc/index.html)对此展开了详细描述，我还没细看，这里只能先分享给读者。
 
 ### 只测一条分支
 
@@ -783,13 +784,18 @@ test.each([
 
 ## 未尽话题
 
-讲完 React 下的单元测试尚且已经这么花费篇幅，文章中难免还有些我十分想提又意犹未尽的地方。比如完整的测试策略、比如重构、比如整洁代码设计模式等。如果读者有由此文章而生发、而疑虑、而不吐不快的种种兴趣和分享，都十分欢迎留下你的想法和指点。写文交流，乐趣如此。感谢。
+诚然，关于构建一个完整的前端测试体系，有一些点是本文没有涉及到的，或因为没有涉猎，或因为尚未尝试，或因为未有结论，一并罗列于下。有兴趣的读者可来电交流。
+
+* 其他层级的测试：前端典型的其他层级测试如契约测试、端到端测试等
+* CSS的测试
+* HTML的测试与重构
 
 ## 参考
 
 * [敏捷在中国这十五年](http://gigix.thoughtworkers.org/2018/3/7/agile-in-china-fifteen-years/)
 * [为什么TDD是敏捷的核心实践](https://zhuanlan.zhihu.com/p/63944676)
 * [测试金字塔实战](https://insights.thoughtworks.cn/practical-test-pyramid/)
+* [Mock的七宗罪](https://gitbook.cn/books/58fa1af500a2684bf77511bc/index.html)
 
 ## todolist
 
