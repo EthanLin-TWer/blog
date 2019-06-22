@@ -351,7 +351,7 @@ test('should transform label array to object', () => {
       },
     },
   }
-  const expected = {
+  const expectedActiveness = {
     canvas: false,
     casual: false,
     oxford: false,
@@ -361,25 +361,24 @@ test('should transform label array to object', () => {
 
   const productLabels = labelArrayToObjectSelector(store, { id: 10085 })
 
-  expect(productLabels).toEqual(expected)
+  expect(productLabels).toEqual(expectedActiveness)
 })
 ```
 
 ### saga 测试
 
-saga 是负责调用 API、处理副作用的一层。在实际的项目上副作用还有其他的中间层进行处理，比如 redux-thunk、redux-promise 等，本质是一样的，只不过 saga 在测试性上要好一些。这一层副作用怎么测试呢？**首先为了保证单元测试的速度和稳定性，像 API 调用这种不确定性的依赖我们一定是要 mock 掉的**。经过仔细总结，我认为这一层主要的测试内容有五点：
+saga 是负责调用 API、处理副作用的一层。在实际的项目上副作用还有其他的中间层进行处理，比如 redux-thunk、redux-promise 等，本质是一样的，只不过 saga 在测试性上要好一些。这一层副作用怎么测试呢？首先为了保证单元测试的速度和稳定性，像 API 调用这种不确定性的依赖我们一定是要 mock 掉的。经过仔细总结，我认为这一层主要的测试内容有五点：
 
 * 是否使用正确的参数（通常是从 action payload 或 redux 中来），调用了正确的 API
 * 对于 mock 的 API 返回，是否保存了正确的数据（通常是通过 action 保存到 redux 中去）
-* 主要的业务逻辑（比如仅当用户满足某些权限时才调用 API 等）
-* 异常逻辑
+* 主要的业务逻辑（比如仅当用户满足某些权限时才调用 API 等分支逻辑）
+* 异常逻辑（比如找不到用户等异常逻辑）
 * 其他副作用是否发生（比如有时有需要 Emit 的事件、需要保存到 IndexDB 中去的数据等）
 
 #### 来自官方的错误姿势
 
 redux-saga 官方提供了一个 [util: `CloneableGenerator`](https://github.com/redux-saga/redux-saga/blob/master/docs/advanced/Testing.md#branching-saga) 用以帮我们写 saga 的测试。这是我们项目使用的第一种测法，大概会写出来的测试如下：
 
-<!-- prettier-ignore-start -->
 ```js
 import chunk from 'lodash/chunk'
 
@@ -402,7 +401,6 @@ export function* onEnterProductDetailPage(action) {
   }
 }
 ```
-<!-- prettier-ignore-end -->
 
 ```js
 import { put, call } from 'saga-effects'
@@ -449,14 +447,24 @@ test(`
 
 这个方案写多了，大家开始感受到了痛点，明显违背我们前面提到的一些原则：
 
-1.  测试分明就是把实现抄了一遍。这违反上述所说「有且仅有一个挂测试的理由」的原则，改变实现次序也将会使测试挂掉
-2.  当在实现中某个部分加入新的语句时，该语句后续所有的测试都会挂掉，并且出错信息非常难以描述原因，导致常常要陷入「调试测试」的境地，这也是依赖于实现次序带来的恶果，根本无法支持「重构」这种改变内部实现但不改变业务行为的代码清理行为
-3.  为了测试两个重要的业务「只保存获取回来的前三个推荐产品」、「对非 VIP 用户推送广告」，不得不在前面先按次序先断言许多个不重要的实现
+* **只关注输入输出，不关注内部实现**
+* **只测一条分支**
+* **表达力极强**
+* **不包含逻辑**
+* **运行速度极快**
+
+1.  测试分明就是把实现抄了一遍。这违反上述所说“不关注内部实现”的原则：action的分发顺序也是一种内部实现，改变实现次序也将使测试挂掉
+2.  当在实现中某个部分加入新的语句时，该语句后续所有的测试都会挂掉，并且出错信息非常难以描述原因，导致常常要陷入“调试测试”的境地，这也是依赖于实现次序带来的恶果，根本无法支持重构这种改变内部实现但不改变业务行为的代码清理行为
+3.  为了测试两个重要的业务“只保存获取回来的前三个推荐产品”、“对非 VIP 用户推送广告”，不得不在前面先按次序断言许多个不重要的实现
 4.  测试没有重点，随便改点什么都会挂测试
 
 #### 正确姿势
 
-针对以上痛点，我们理想中的 saga 测试应该是这样：1) 不依赖实现次序；2) 允许仅对真正关心的、有价值的业务进行测试；3) 支持不改动业务行为的重构。如此一来，测试的保障效率和开发者体验都将大幅提升。
+针对以上痛点，我们认为真正能够保障质量、重构和开发者体验的 saga 测试应该是这样：
+
+1. 不依赖实现次序；
+2. 允许仅对真正关心的、有价值的业务进行测试；
+3. 支持不改动业务行为的重构；
 
 于是，我们发现官方提供了这么一个跑测试的工具，刚好可以用来完美满足我们的需求：[`runSaga`](https://redux-saga.js.org/docs/api/#runsagaoptions-saga-args)。我们可以用它将 saga 全部执行一遍，搜集所有发布出去的 action，由开发者自由断言其感兴趣的 action！基于这个发现，我们推出了我们的第二版 saga 测试方案：**`runSaga` + 自定义拓展 jest 的 `expect` 断言**。最终，使用这个工具写出来的 saga 测试，几近完美：
 
@@ -489,7 +497,7 @@ test(`
 })
 ```
 
-这个测试已经简短了许多，没有了无关断言的杂音，依然遵循 given-when-then 的结构。并且同样是测试「只保存获取回来的前三个推荐产品」、「对非 VIP 用户推送广告」两个关心的业务点，其中自有简洁的规律：
+这个测试已经简短了许多，没有了无关断言的杂音，依然遵循 given-when-then 的结构，并且同样是测试“只保存获取回来的前三个推荐产品”、“对非 VIP 用户推送广告”两个关心的业务点：
 
 * 当输入不变时，无论你怎么优化内部实现、调整内部次序，这个测试关心的业务场景都不会挂，真正做到了测试保护重构、支持重构的作用
 * 可以仅断言你关心的点，忽略不重要或不关心的中间过程（比如上例中，我们就没有断言其他 `notImportant` 的 action 是否被 dispatch 出去），消除无关断言的杂音，提升了表达力
@@ -505,24 +513,28 @@ expect.extend({
 })
 ```
 
-上面是我们认为比较好的副作用测试工具、测试策略和测试方案。使用时，需要牢记你真正关心的业务价值点（本节开始提到的 5 点），以及做到在较为复杂的单元测试中始终坚守三大基本原则。唯如此，单元测试才能真正提升开发速度、支持重构、充当业务上下文的文档。
+上面是我们认为比较好的副作用测试工具、测试策略和测试方案。使用时，需要牢记你真正关心的业务价值点（也即本节开始提到的 5 点），以及做到在较为复杂的单元测试中始终坚守几条基本原则。唯如此，单元测试才能真正提升开发速度、支持重构、充当业务上下文的文档。
+
+> 作者注：本文成文后，社区又有一些简化测试的方案出来。读者也可带着这些测试原则去考察一番：
+> 
+> * https://github.com/jfairbank/redux-saga-test-plan
+> * https://github.com/testing-library/react-testing-library
 
 ### component 测试
 
-组件测试其实是实践最多，测试实践看法和分歧也最多的地方。React 组件是一个高度自治的单元，从分类上来看，它大概有这么几类：
+组件测试其实是实践最多、测试实践看法和分歧也最多的地方。React 组件是一个高度自治的单元，从分类上来看，它大概有这么几类：
 
 * 展示型业务组件
 * 容器型业务组件
 * 通用 UI 组件
 * 功能型组件
 
-先把这个分类放在这里，待会回过头来谈。对于 React 组件测什么不测什么，我有一些思考，也有一些判断标准：除去功能型组件，其他类型的组件一般是以渲染出一个语法树为终点的，它描述了页面的 UI 内容、结构、样式和一些逻辑 `component(props) => UI`。内容、结构和样式，比起测试，直接在页面上调试反馈效果更好。测也不是不行，但都难免有不稳定的成本在；逻辑这块，还是有一测的价值，但需要控制好依赖。综合「好的单元测试标准」作为原则进行考虑，我的建议是：两测两不测。
+先把这个分类放在这里，待会回过头来谈。对于 React 组件测什么不测什么，我有一些思考，也有一些判断标准：除去功能型组件，其他类型的组件一般是以渲染出一个语法树为终点的，它描述了页面的 UI 内容、结构、样式和一些逻辑 `component(props) => UI`。内容、结构和样式，比起测试，直接在页面上调试反馈效果更好。测也不是不行，但都难免有不稳定的成本在；逻辑这块，有一测的价值，但需要控制好依赖。综合上面提到的测试原则进行考虑，我的建议是：两测两不测。
 
 * 组件分支渲染逻辑必须测
 * 事件调用和参数传递一般要测
-* 纯 UI 不在单元测试层级测
 * 连接 redux 的高阶组件不测
-* 其他的一般不测（比如 CSS，官方文档有反例）
+* 渲染出来的 UI 不在单元测试层级测
 
 组件的分支逻辑，往往也是有业务含义和业务价值的分支，添加单元测试既能保障重构，还可顺便做文档用；事件调用同样也有业务价值和文档作用，而事件调用的参数调用有时可起到保护重构的作用。
 
@@ -535,17 +547,15 @@ expect.extend({
 * map 过的 `props` 是否正确地被传递给了组件
 * redux 对应的数据切片更新时，是否会使用新的 `props` 触发组件进行一次更新
 
-这四个点，`react-redux` [已经都帮你测过了](https://github.com/reduxjs/react-redux/blob/master/test/components/connect.spec.js)，[已经证明 work 了](https://github.com/reduxjs/react-redux/issues/325#issuecomment-199449298)，为啥要重复测试自寻烦恼呢？当然，不测这个东西的话，还是有这么一种可能，就是你 export 的纯组件测试都是过的，但是代码实际运行出错。穷尽下来主要可能是这几种问题：
+这四个点，`react-redux` [已经都帮你测过了](https://github.com/reduxjs/react-redux/blob/master/test/components/connect.spec.js)，[已经证明 work 了](https://github.com/reduxjs/react-redux/issues/325#issuecomment-199449298)，开发者没有必要进行测试。当然，不测这个东西的话，还是有这么一种可能，就是你 export 的纯组件测试都是过的，但是代码实际运行出错。穷尽下来主要可能是这几种问题：
 
 * 你在 `mapStateToProps` 中打错了字或打错了变量名
 * 你写了 `mapStateToProps` 但没有 connect 上去
 * 你在 `mapStateToProps` 中取的路径是错的，在 redux 中已经被改过
 
-第一、二种可能，无视。测试不是万能药，不能预防人主动犯错，这种场景如果是小步提交发现起来是很快的，如果不小步提交那什么测试都帮不了你的；如果某段数据获取的逻辑多处重复，则可以考虑将该逻辑抽取到 selector 中并进行单独测试。
+第一、二种可能，如果是小步前进其实发现起来很快。如果某段数据获取的逻辑多处重复，则可以考虑将该逻辑抽取到 selector 中并进行单独测试；第三种可能，确实是问题，但由于在我所在项目发生频率较低（部分因为上个项目没有类型系统我们不会随意改 redux 的数据结构…），所以针对这些少量出现的场景，不必要采取错杀一千的方式进行完全覆盖。默认不测，出了问题或者经常可能出问题的部分，再策略性地补上测试进行固定即可。
 
-第三种可能，确实是问题，但发生频率目前看来较低。为啥呢，因为没有类型系统我们不会也不敢随意改 redux 的数据结构啊…（这侵入性重的框架哟）所以针对这些少量出现的场景，不必要采取错杀一千的方式进行完全覆盖。默认不测，出了问题或者经常可能出问题的部分，再策略性地补上测试进行固定即可。
-
-综上，`@connect` 组件不测，因为框架本身已做了大部分测试，剩下的场景出 bug 频率不高，而施加测试的话提高成本（准备依赖和数据），降低开发体验，模糊测试场景，性价比不大，所以强烈建议省了这份心。不测 `@connect` 过的组件，其实也是 [官方文档](https://redux.js.org/recipes/writing-tests#connected-components) 推荐的做法。
+综上，`@connect` 组件默认不测，因为框架本身已做了大部分测试，剩下的场景出 bug 频率不高，而施加测试的话提高成本（准备依赖和数据），降低开发体验，性价比不大，所以建议省了这份心。不测 `@connect` 过的组件，其实也是 [官方文档](https://redux.js.org/recipes/writing-tests#connected-components) 推荐的做法。
 
 然后，基于上面第 1、2 个结论，映射回四类组件的结构当中去，我们可以得到下面的表格，然后发现…每种组件都要测**渲染分支**和**事件调用**，跟组件类型根本没必然的关联…不过，功能型组件有可能会涉及一些其他的模式，因此又大致分出一小节来谈。
 
@@ -558,7 +568,6 @@ expect.extend({
 
 #### 业务型组件 - 分支渲染
 
-<!-- prettier-ignore-start -->
 ```js
 export const CommentsSection = ({ comments }) => (
   <div>
@@ -572,7 +581,6 @@ export const CommentsSection = ({ comments }) => (
   </div>
 )
 ```
-<!-- prettier-ignore-end -->
 
 对应的测试如下，测试的是不同的分支渲染逻辑：没有评论时，则不渲染 Comments header。
 
@@ -650,12 +658,14 @@ test(`
 })
 ```
 
-简单得很吧。这里的几个测试，在你改动了样式相关的东西时，不会挂掉；但是如果你改动了分支逻辑或函数调用的内容时，它就会挂掉了。而分支逻辑或函数调用，恰好是我觉得接近业务的地方，所以它们对保护代码逻辑、保护重构是有价值的。当然，它们多少还是依赖了组件内部的实现细节，比如说 `find(TouchableWithoutFeedback)`，还是做了「组件内部使用了 `TouchableWithoutFeedback` 组件」这样的假设，而这个假设很可能是会变的。也就是说，如果我换了一个组件来接受点击事件，尽管点击时的行为依然发生，但这个测试仍然会挂掉。这就违反了我们所说了「有且仅有一个使测试失败的理由」。这对于组件测试来说，是不够完美的地方。
+简单得很吧。这里的几个测试，在你改动了样式相关的东西时，不会挂掉；但是如果你改动了分支逻辑或函数调用的内容时，它就会挂掉了。而分支逻辑或函数调用，恰好是我觉得接近业务的地方，所以它们对保护代码逻辑、保护重构是有价值的。当然，它们多少还是依赖了组件内部的实现细节，比如说 `find(TouchableWithoutFeedback)`，还是做了“组件内部使用了 `TouchableWithoutFeedback` 组件”这样的假设，而这个假设很可能是会变的。也就是说，如果我换了一个组件来接受点击事件，尽管点击时的行为依然发生，但这个测试仍然会挂掉。这就违反了我们所说了“不关注内部实现”原则，这对于组件测试来说，确实是不够完美的地方。
 
-但这个问题无法避免。因为组件本质是渲染组件树，那么测试中要与组件树关联，必然要通过 组件名、id 这样的 selector，这些 selector 的关联本身就是使测试挂掉的「另一个理由」。但对组件的分支、事件进行测试又有一定的价值，无法避免。所以，我认为这个部分还是要用，只不过同时需要一些限制，以控制这些假设为维护测试带来的额外成本：
+但这个问题无法避免。因为组件本质是渲染组件树，那么测试中要与组件树关联，必然要通过组件名、id这样的 selector，这些 selector 的关联本身就是一些“内部实现”的细节。但对组件的分支、事件进行测试又有一定的价值，无法避免。所以，我认为这个部分还是要用，只不过同时需要一些限制，以控制这些假设为维护测试带来的额外成本：
 
 * 不要断言组件内部结构。像那些 `expect(component.find('div > div > p').html().toBe('Content')` 的真的就算了吧
-* 正确拆分组件树。一个组件尽量只负责一个功能，不允许堆叠太多的函数和功能。要符合单一职责原则
+* 正确拆分组件树。一个组件尽量只负责一个（或一组高度相关的）功能，不允许堆叠太多的函数和功能
+
+也就是说，如果你发现你很难快速地准备对组件的测试，那么有可能是你的组件太复杂了，这也是一个坏味道。多数情况下是组件承担了太多的职责，你应该将它们拆成更小的组件，使其符合单一职责原则。
 
 如果你的每个组件都十分清晰直观、逻辑分明，那么像上面这样的组件测起来也就很轻松，一般就遵循 `shallow` -> `find(Component)` -> 断言的三段式，哪怕是了解了一些组件的内部细节，通常也在可控的范围内，维护起来成本并不高。这是目前我觉得平衡了表达力、重构意义和测试成本的实践。
 
@@ -663,7 +673,6 @@ test(`
 
 功能型组件，指的是跟业务无关的另一类组件：它是功能型的，更像是底层支撑着业务组件运作的基础组件，比如路由组件、分页组件等。这些组件一般偏重逻辑多一点，关心 UI 少一些。其本质测法跟业务组件是一致的：不关心 UI 具体渲染，只测分支渲染和事件调用。但由于它偏功能型的特性，使得它在设计上常会出现一些业务型组件不常出现的设计模式，如高阶组件、以函数为子组件等。下面分别针对这几种进行分述。
 
-<!-- prettier-ignore-start -->
 ```js
 export const FeatureToggle = ({ features, featureName, children }) => {
   if (!features[featureName]) {
@@ -677,7 +686,6 @@ export default connect(
   (store) => ({ features: store.global.features })
 )(FeatureToggle)
 ```
-<!-- prettier-ignore-end -->
 
 ```js
 import React from 'react'
@@ -689,7 +697,7 @@ import { FeatureToggle } from './index'
 
 const DummyComponent = () => <View />
 
-test('should not render children component when remote toggle is empty', () => {
+test('should not render children component when remote toggle does not exist', () => {
   const component = shallow(
     <FeatureToggle features={{}} featureName="promotion618">
       <DummyComponent />
@@ -699,7 +707,7 @@ test('should not render children component when remote toggle is empty', () => {
   expect(component.find(DummyComponent)).toHaveLength(0)
 })
 
-test('should render children component when remote toggle is present and stated on', () => {
+test('should render children component when remote toggle is present and is on', () => {
   const features = {
     promotion618: FeatureToggles.on,
   }
@@ -713,7 +721,7 @@ test('should render children component when remote toggle is present and stated 
   expect(component.find(DummyComponent)).toHaveLength(1)
 })
 
-test('should not render children component when remote toggle object is present but stated off', () => {
+test('should not render children component when remote toggle is present but is off', () => {
   const features = {
     promotion618: FeatureToggles.off,
   }
@@ -730,7 +738,7 @@ test('should not render children component when remote toggle object is present 
 
 ### utils 测试
 
-每个项目都会有 utils。一般来说，我们期望 util 都是纯函数，即是不依赖外部状态、不改变参数值、不维护内部状态的函数。这样的函数测试效率也非常高。测试原则跟前面所说的也并没什么不同，不再赘述。不过值得一提的是，因为 util 函数多是数据驱动，一个输入对应一个输出，并且不需要准备任何依赖，这使得它非常适合采用参数化测试的方法。这种测试方法，可以提升数据准备效率，同时依然能保持详细的用例信息、错误提示等优点。jest 从 23 后就内置了对参数化测试的支持了，如下：
+每个项目都会有 utils。一般来说，我们期望 util 都是纯函数，即是不依赖外部状态、不改变参数值、不维护内部状态的函数。这样的函数测试效率也非常高。测试原则跟前面所说的也并没什么不同，不再赘述。不过值得一提的是，因为 util 函数多是数据驱动，一个输入对应一个输出，并且不需要准备任何依赖，这使得它多了一种测试的选择，也即是参数化测试的方式。参数化测试可以提升数据准备效率，同时依然能保持详细的用例信息、错误提示等优点。jest 从 23 后就内置了对参数化测试的支持，如下：
 
 ```javascript
 test.each([
@@ -752,20 +760,25 @@ test.each([
 
 ![image](https://user-images.githubusercontent.com/11895199/41195038-a0a747b2-6c58-11e8-9ba0-f1c7916850d8.png)
 
+当然，对纯数据驱动的测试，也有一些不同的看法，认为这样可能丢失一些描述业务场景的测试描述。所以这种方式还主要看项目组的接受度。
+
 ## 总结
 
 好，到此为止，本文的主要内容也就讲完了。总结下来，本文主要覆盖到的内容如下：
 
 * 单元测试对于任何 React 项目（及其他任何项目）来说都是必须的
-* 我们需要自动化的测试套件，根本目标是为了提升企业和团队的 IT「响应力」
-* 之所以优先选择单元测试，是依据测试金字塔的成本收益比原则确定得到的
-* 好的单元测试具备三大特征：**有且仅有一个失败的理由**、**表达力极强**、**快、稳定**
-* 单元测试也有测试策略：在 React 的典型架构下，一个测试体系大概分为六层：组件、action、reducer、selector、副作用层、utils。它们分别的测试策略为：
-  * reducer、selector 的重逻辑代码要求 100% 覆盖
-  * utils 层的纯函数要求 100% 覆盖
-  * 副作用层主要测试：**是否拿到了正确的参数**、**是否调用了正确的 API**、**是否保存了正确的数据**、**业务逻辑**、**异常逻辑** 五个层面
-  * 组件层两测两不测：**分支渲染逻辑必测**、**事件、交互调用必测**；纯 UI（包括 CSS）不测、`@connect` 过的高阶组件不测
+* 我们需要自动化的测试套件，根本目标是支持随时随地的代码调整、持续改进，从而提升团队响应力
+* 使用TDD开发是得到好的单元测试的唯一途径
+* 好的单元测试具备几大特征：**不关注内部实现**、**只测一条分支**、**表达力极强**、**不包含逻辑**、**运行速度快**
+* 单元测试也有测试策略：在 React 的典型架构下，一个典型的测试策略为：
+  * reducer、selector 层的逻辑代码要求 100% 覆盖
+  * saga（副作用）层：**是否拿到了正确的参数**、**是否调用了正确的 API**、**是否保存了正确的数据**、**业务逻辑**、**异常逻辑**五个层面要求100%覆盖
   * action 层选择性覆盖：可不测
+  * utils 层的纯函数要求 100% 覆盖
+  * 组件层：
+    * **分支渲染逻辑必测**、**事件、交互调用**要求100%覆盖；
+    * `@connect` 过的高阶组件不测
+    * 纯 UI 一般不测
 * 其他高级技巧：定制测试工具（`jest.extend`）、参数化测试等
 
 ## 未尽话题
