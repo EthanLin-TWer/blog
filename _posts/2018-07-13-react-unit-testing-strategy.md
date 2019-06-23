@@ -73,7 +73,7 @@ tags: react unit-test tdd enzyme jest
 
 那么如何掌握TDD呢？事实上非常简单，多练即可。你可关注微信公众号“程序员练功房”，也可扫码直接开始你的十四天编程训练营，刻意练习，打好TDD基础。
 
-![十四天编程训练营](https://pic1.zhimg.com/80/v2-18987a23ddbaeefef25a89494e9888f8_hd.jpg)
+![十四天编程训练营](https://user-images.githubusercontent.com/11895199/59976313-3af26100-95f5-11e9-8c93-2805d0b6e5ea.png)
 
 ## 第二部分：什么是好的单元测试
 
