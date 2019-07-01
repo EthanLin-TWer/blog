@@ -20,8 +20,6 @@ tags: react unit-test tdd enzyme jest
     2.  reducer 测试
     3.  selector 测试
     4.  saga 测试
-        * 来自官方的错误姿势
-        * 正确姿势
     5.  component 测试
         * 业务型组件 - 分支渲染
         * 业务型组件 - 事件调用
@@ -98,7 +96,7 @@ it('should return summed up total amount 1000 when there are three products pric
   const result = computeTotalAmount(products)
 
   // then - 断言结果
-  expect(result).toBe(5)
+  expect(result).toBe(1000)
 })
 ```
 
