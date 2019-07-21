@@ -26,3 +26,4 @@ title: 下篇博客的内容
 * Webpack 的 sourcemap 选项如何配置？有何区别？loader 的原理？
 * 翻墙的原理？DNS 原理？在 Windows 上 Mac 上如何查看？如何配置？实操？
 * 开发者体验：out-of-box 的模板：项目配置模板、CI 模板；配置（dot files）全自动化；快捷键系统；全系统一键管理 - ??
+* 整理一下霖灏的tasking，产出成文章
