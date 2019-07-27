@@ -2,17 +2,16 @@ import { createSelector } from 'reselect'
 
 import { parse } from '../../../util/jekyll-parser'
 
-const getPost = (store, ownProps) => {
-  return store.detail.posts[ownProps.match.params.id]
-}
+const getPost = (store, ownProps) =>
+  store.detail.posts[ownProps.match.params.id]
 
-export const parseJekyllPost = createSelector([getPost], (post = '') => {
-  return parse(post)
-})
+export const parseJekyllPost = createSelector(
+  [getPost],
+  (post = '') => parse(post)
+)
 
-export const getTitleAsMarkdown = ({ title }) => {
-  return title ? `# ${title.trim()}` : ''
-}
+export const getTitleAsMarkdown = ({ title }) =>
+  title ? `# ${title.trim()}` : ''
 
 export const parseContent = (content) => {
   const trimmedContent = content.trim()

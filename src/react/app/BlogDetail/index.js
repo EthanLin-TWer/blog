@@ -37,7 +37,18 @@ export class BlogDetailOnlyForTesting extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchBlogDetail(this.props.match.params.id)
+    const {
+      props: {
+        fetchBlogDetail,
+        title,
+        match: {
+          params: { id },
+        },
+      },
+    } = this
+
+    fetchBlogDetail(id)
+    document.title = title
   }
 
   render() {
@@ -57,6 +68,7 @@ export class BlogDetailOnlyForTesting extends React.Component {
   }
 }
 
-export const BlogDetail = connect(mapStateToProps, mapDispatchToProps)(
-  BlogDetailOnlyForTesting
-)
+export const BlogDetail = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BlogDetailOnlyForTesting)
