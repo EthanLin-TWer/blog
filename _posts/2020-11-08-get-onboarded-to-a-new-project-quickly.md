@@ -124,6 +124,10 @@ title: 如何快速了解一个项目
 
 下个系列，打算写写：作为TL应该如何搭建一个新项目，以及inception的主要流程及checklist。
 
+* [](https://github.com/gigix/jungling/blob/master/InceptionChecklist.png)
+* [https://github.com/phodal/new-project-checklist](https://github.com/phodal/new-project-checklist)
+* [【新项目检查清单】帮你规范开发流程](https://zhuanlan.zhihu.com/p/59697431)
+
 ## 参考文章
 
 * [梦想风暴 - 当我加入项目时，我要了解什么](http://dreamhead.blogbus.com/logs/224229646.html)
