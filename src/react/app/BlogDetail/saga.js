@@ -8,7 +8,7 @@ function* fetchBlogDetail({ payload: { id } }) {
   try {
     const { data } = yield call(
       axios.get,
-      `https://raw.githubusercontent.com/linesh-simplicity/blog/master/_posts/${id}.md`
+      `https://cdn.jsdelivr.net/gh/linesh-simplicity/blog@master/_posts/${id}.md`
     )
     yield put(actions.saveBlogDetail(id, data))
   } catch (error) {}
