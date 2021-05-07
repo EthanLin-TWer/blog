@@ -1,5 +1,5 @@
 ---
-title: 读书笔记：《深入理解 ES6》
+title: 读《深入理解 ES6》
 category: 读书笔记
 ---
 
