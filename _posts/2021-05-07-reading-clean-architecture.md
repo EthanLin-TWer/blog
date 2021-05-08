@@ -17,6 +17,7 @@ category: 读书笔记
   * [如何管理依赖关系](#如何管理依赖关系)
   * [如何管理边界/通信方式](#如何管理边界/通信方式)
 * [软件架构的案例及分析](#软件架构的案例及分析)
+* [参考](#参考)
 
 ## 全书结构
 
@@ -33,7 +34,7 @@ category: 读书笔记
 
 其他的部分，固然不乏精彩的洞见（比如面向对象的本质是基于多态能力对源码级依赖进行管控的架构意义上的能力、SRP中指出系统的行为者actor是导致软件修改的原因，等），但我的读书过程仅集中在“软件架构”和“组件”这两条主线上，因而我会弱化这些部分的讨论、留给读者自行阅读。这些被弱化的章节包括：第2-3部分（编程范式、设计原则）、第5部分部分章节（第20-21、22-23、25-26、28-29章，读者可按需阅读）以及第6部分的部分实现细节章节（第30-32章，一句话可以说完：数据库、UI、框架都应该依赖于业务逻辑组件作为其插件，以免污染核心架构）。
 
-### 什么是软件架构
+## 什么是软件架构
 
 这是本书第1部分探讨的问题。
 
@@ -60,16 +61,31 @@ category: 读书笔记
 
 弄清楚软件架构的根本目标、方法论及研究对象，本书的主要内容和结构就无比清晰地呈现在了我们面前。接下来，我们需要研究本书第二个关键的概念，也就是软件架构的主要研究对象——组件。
 
-### 什么是组件
+## 什么是组件
 
+[中文版译本中对“组件”的定义与原意有些出入][架构整洁之道导读（二）续]，这个时候我们可以直接去阅读原文。我把[O'Reilly上原书对组件定义的前两段][12 - Components]摘录如下并做了强调：
 
+> **Components are the units of deployment. They are the smallest entities that can be deployed as part of a system**. In Java, they are jar files. In Ruby, they are gem files. In .Net, they are DLLs. In compiled languages, they are aggregations of binary files. In interpreted languages, they are aggregations of source files. In all languages, they are the granule of deployment.
+> 
+> Components can be linked together into a single executable. Or they can be aggregated together into a single archive, such as a .war file. Or they can be independently deployed as separate dynamically loaded plugins, such as .jar or .dll or .exe files. **Regardless of how they are eventually deployed, well-designed components always retain the ability to be independently deployable** and, therefore, independently developable.
 
-### 软件架构的研究内容
+这两段指出了作者对“组件”的定义，具备**物理级别的部署单元**和**源码级别的逻辑单元**两个层次。建立这个区分极其重要，它将直接影响你阅读后续章节的流畅性，在全书的行文中作者提到的“组件”有时主要指物理意义上的“部署单元”（比如13-14章讨论组件聚合和耦合时），有时又主要指源码意义上的“逻辑单元”（比如第22章P183页的图22.2显然不能理解为应用的每个分层都是物理意义上的部署单元，我曾经一度陷入混乱和自我怀疑之中）。
 
-#### 如何划分组件：聚合与耦合
+组件作为物理意义上的部署单元，这层含义应该很明确，因为作者说“组件是软件的部署单元，是可以作为系统的一部分被部署的最小实体”。那么部署单元又是指什么？这两段举例了，对于编译型语言来说，它可以是一组二进制文件的集合（比如.jar文件、DLL文件等）；对于解释型语言来说，它直接就是一组源代码文件的集合。通读12章后续“组件发展史”等几小节后，你会发现作者所说的部署单元，就是指经过“编译”（compile）、“链接”（link）等阶段（解释型语言可能不存在这些阶段）之后得到的产物：一个可以被加载器（loader）直接加载（load）并执行（execute）的文件。我的理解，说白了，**组件就是一个可执行文件**。它是一个部署概念。
 
-#### 如何管理依赖关系
+再来看组件作为源码意义上的逻辑单元这层含义。原文讲，“不管组件**最终**被如何部署（采用何种部署形式），设计良好的组件应该始终保有可被独立部署的能力”。也即是说，哪怕是一个尚未成为物理形式的可独立部署单元、但在设计随时保有这种可能性的组件——也就是源码级别的一组文件集合——仍然可以称为组件。这肯定了组件在作为部署单元的物理意义之外的另一种可能形式，也即仅仅存在于源代码级别的逻辑单元。
 
-#### 如何管理边界/通信方式
+## 软件架构的研究内容
 
-### 软件架构的案例及分析
+### 如何划分组件：聚合与耦合
+
+### 如何管理依赖关系
+
+### 如何管理边界/通信方式
+
+## 软件架构的案例及分析
+
+## 参考
+
+[架构整洁之道导读（二）续]: https://www.jianshu.com/p/fdb8c8a604b1
+[12 - Components]: https://www.oreilly.com/library/view/clean-architecture-a/9780134494272/ch12.xhtml#ch12
