@@ -1,5 +1,5 @@
 ---
-title: 读《JavaScript 语言精髓》
+title: 《JavaScript 语言精髓》导读
 category: 读书笔记
 ---
 
