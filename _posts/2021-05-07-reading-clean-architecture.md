@@ -19,7 +19,6 @@ category: 读书笔记
   * [如何管理边界/通信方式](#如何管理边界/通信方式)
 * [软件架构的案例及分析](#软件架构的案例及分析)
 * [结语](#结语)
-* [参考](#参考)
 
 ## 全书结构
 
@@ -151,13 +150,11 @@ SAP指出，组件的抽象化程度应该与稳定性保持一致。也即是�
 
 ![Clean Architecture](https://blog.cleancoder.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg)
 
-34章是关于分层架构如何组织依赖关系的佳作（Simon Brown同时也是[程序员必读之软件架构][]一书的作者）。
+34章是关于分层架构如何组织依赖关系的佳作（Simon Brown同时也是[程序员必读之软件架构][]一书的作者），强烈建议仔细阅读。
 
 ## 结语
 
 
-
-## 参考
 
 [架构整洁之道导读（二）续]: https://www.jianshu.com/p/fdb8c8a604b1
 [架构整洁之道导读（三）]: https://www.jianshu.com/p/d651c9fb1755
