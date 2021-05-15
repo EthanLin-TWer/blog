@@ -9,15 +9,16 @@ category: 读书笔记
 
 ## 目录
 
-* [x] [全书结构](#全书结构)
-* [x] [什么是软件架构](#什么是软件架构)
-* [x] [什么是组件](#什么是组件)
-* [x] [软件架构的研究内容](#软件架构的研究内容)
-  * [x] [如何划分组件：聚合原则](#如何划分组件：聚合原则)
-  * [x] [避免反模式：组件耦合](#避免反模式：组件耦合)
-  * [x] [如何管理依赖关系](#如何管理依赖关系)
-  * [x] [如何管理边界/通信方式](#如何管理边界/通信方式)
+* [全书结构](#全书结构)
+* [什么是软件架构](#什么是软件架构)
+* [什么是组件](#什么是组件)
+* [软件架构的研究内容](#软件架构的研究内容)
+  * [如何划分组件：聚合原则](#如何划分组件：聚合原则)
+  * [避免反模式：组件耦合](#避免反模式：组件耦合)
+  * [如何管理依赖关系](#如何管理依赖关系)
+  * [如何管理边界/通信方式](#如何管理边界/通信方式)
 * [软件架构的案例及分析](#软件架构的案例及分析)
+* [结语](#结语)
 * [参考](#参考)
 
 ## 全书结构
@@ -146,9 +147,20 @@ SAP指出，组件的抽象化程度应该与稳定性保持一致。也即是�
 
 ## 软件架构的案例及分析
 
+在22章，作者给出了一个架构方案，综合了前面提到的几个关键性的架构问题，包括组件拆分、解耦模式、依赖关系设计等。其中，最关键的一点是它要遵循19章所提到的依赖原则：依赖永远由低层组件指向高层组件。
+
+![Clean Architecture](https://blog.cleancoder.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg)
+
+34章是关于分层架构如何组织依赖关系的佳作（Simon Brown同时也是[程序员必读之软件架构][]一书的作者）。
+
+## 结语
+
+
+
 ## 参考
 
 [架构整洁之道导读（二）续]: https://www.jianshu.com/p/fdb8c8a604b1
 [架构整洁之道导读（三）]: https://www.jianshu.com/p/d651c9fb1755
 [12 - Components]: https://www.oreilly.com/library/view/clean-architecture-a/9780134494272/ch12.xhtml#ch12
-[Granularity]: http://condor.depaul.edu/dmumaugh/OOT/Design-Principles/granularity.pdf 
+[Granularity]: http://condor.depaul.edu/dmumaugh/OOT/Design-Principles/granularity.pdf
+[程序员必读之软件架构]: https://www.douban.com/search?q=%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BF%85%E8%AF%BB%E4%B9%8B%E8%BD%AF%E4%BB%B6%E6%9E%B6%E6%9E%84
