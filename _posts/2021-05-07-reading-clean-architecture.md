@@ -158,7 +158,7 @@ SAP指出，组件的抽象化程度应该与稳定性保持一致。也即是�
 
 ## 结语
 
-
+待写。
 
 [架构整洁之道导读（二）续]: https://www.jianshu.com/p/fdb8c8a604b1
 [架构整洁之道导读（三）]: https://www.jianshu.com/p/d651c9fb1755
