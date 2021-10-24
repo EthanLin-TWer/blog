@@ -1,3 +1,8 @@
+# TODOLIST General
+
+* 修一下Travis的deploy
+* 重新架构一下博客
+
 # TODOLIST #23 
 
 * [x] 可以自动登录
