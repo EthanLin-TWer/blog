@@ -15,8 +15,7 @@
     "lint:fix": "npm run lint -- --fix",
     "test": "jest",
     "test:watch": "npm test -- --watch",
-    "test:ci": "npm test -- --coverage --verbose",
-    "sanity": "npm run lint && npm test",
+    "sanity": "npm run lint && npm test -- --coverage --verbose",
     "start": "npm run start:server & npm run start:jekyll & wait",
     "start:server": "webpack-dev-server --mode development --hot --open",
     "start:jekyll": "rm -rf _site && bundle exec jekyll serve --watch --incremental --verbose",
@@ -147,6 +146,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "./scripts/hooks/pre-commit.sh",
+      "pre-push": "./scripts/push-ghpages-branch.sh",
       "commit-msg": "./scripts/hooks/validate-commit-msg.sh ${HUSKY_GIT_PARAMS}"
     }
   }
