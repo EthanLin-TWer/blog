@@ -16,9 +16,9 @@ cp CNAME dist/CNAME
 
 ## force push local built /dist to origin gh-pages
 cd dist
-git add .
-git commit -m "Deploying to gh-pages from master ${$(git rev-parse HEAD):0:8}"
-git push --force --no-verify origin
+local headSHA=$(git rev-parse HEAD)
+git add . --force
+git commit -m "Deploying to gh-pages from master ${headSHA:0:8}"
 git push --force --no-verify origin gh-pages
 
 ## clean-up dist folder in local
