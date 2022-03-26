@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+headSHA=$(git rev-parse HEAD)
+
 # clean-up
 rm -rf dist
 
@@ -16,7 +18,6 @@ cp CNAME dist/CNAME
 
 ## force push local built /dist to origin gh-pages
 cd dist
-headSHA=$(git rev-parse HEAD)
 git add . --force
 git commit -m "🤖 Deploying to gh-pages from master ${headSHA:0:8}" --no-verify
 git push --force --no-verify origin gh-pages
