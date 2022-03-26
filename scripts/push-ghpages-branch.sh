@@ -18,8 +18,9 @@ cp CNAME dist/CNAME
 cd dist
 local headSHA=$(git rev-parse HEAD)
 git add . --force
-git commit -m "Deploying to gh-pages from master ${headSHA:0:8}"
+git commit -m "🤖 Deploying to gh-pages from master ${headSHA:0:8}" --no-verify
 git push --force --no-verify origin gh-pages
 
-## clean-up dist folder in local
+## clean-up
+git worktree remove dist
 rm -rf dist
