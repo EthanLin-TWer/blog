@@ -9,3 +9,8 @@ category: JavaScript
 * right now in our project, we use TypeScript + Babel to transpile code that runs in browser and jest environments
 * How Babel process your code: `code string written in ESx + TS + JSX --(@babel/preset-typescript)--> ESx + JSX code with type information erased --(@babel/preset-react)--> ESx + JavaScript code --(@babel/preset-env)--> ES5 code`
 * How TypeScript process your code: `code string written in ESx + TS + JSX --(tsc compiler)--> ES5 code`
+
+## References
+
+* [Babel config options](https://babeljs.io/docs/en/options)
+* [TypeScript config options](https://typescriptlang.org/tsconfig)
