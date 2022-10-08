@@ -25,6 +25,7 @@ category: JavaScript
 * transpiling is a process to transform a piece of code (usually written in newer syntax/operators supported in higher ECMAScript specifications) to another piece of code (usually written in older syntax constructs like ES5 or even ES3 that older browsers can understand)
 * polyfill-ing usually involves new functions in existing global objects instead of new syntax/constructs, so there is no transpilations needed, but some scripts is needed to fill in the gap (to add/update the new functions)
 * [core-js](https://github.com/zloirock/core-js#index) is the most commonly used polyfill library
+* basically, when using Babel, transpiling and polyfill-ing are the two things both needed for you to write with latest ES codes and transpile to the older, `@babel/preset-env` is the preset who is doing all these for you behind the scenes
 
 ## References
 
