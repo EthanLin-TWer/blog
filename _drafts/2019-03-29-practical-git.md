@@ -42,4 +42,9 @@ title: 程序员元技能（一）：Git
 * revert 起来非常方便 - 通常 revert 场景也只会出现在主干分支、小步提交的团队，大步的提交没法 revert，不主干分支 revert 往往也极麻烦，能 PR 成功说明已经经过繁重的流程
 * 消灭调试。上一个提交，你一定要保证可以运行；有了这个保证以后，再也不会本地一坨文件，不好好测试一番根本无法保证功能正确，并且不知道应该提交哪些；做错了，随时切换掉，以更小的步子重做即可，根本不需要考虑为啥会出错（JS 同一文件里 import 继承了自己的类的例子）
 
-##
+## Git hooks 
+
+* [Hook sequence](https://wilsonmar.github.io/git-hooks/)
+* [A nice diagram](https://devopedia.org/git-hooks)
+* [Hook overview](https://www.analysisandsolutions.com/code/git-hooks-summary-cheat-sheet.htm)
+* [The Missing Git Hooks Documentation](https://longair.net/blog/2011/04/09/missing-git-hooks-documentation/)
