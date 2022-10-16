@@ -30,6 +30,7 @@ category: JavaScript
 ## References
 
 * [Is Babel still relevant for TypeScript projects?](https://dev.to/mbeaudru/is-babel-still-relevant-for-typescript-projects-36a7)
+* [Should you use babel or TypeScript](https://www.typescriptlang.org/docs/handbook/babel-with-typescript.html)
 * [Babel config options](https://babeljs.io/docs/en/options)
 * [TypeScript config options](https://typescriptlang.org/tsconfig)
 
