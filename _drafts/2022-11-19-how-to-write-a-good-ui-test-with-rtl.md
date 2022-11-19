@@ -10,6 +10,7 @@ category: JavaScript
   - you need to do this when you: 1) trigger multiple calls in an action; 2) there are other async actions happened outside of React's stack, like `setTimeout`, `jest.mockTimer`, etc
   - you could also use `await screen.findByXXX` to allow some waiting for simple scenarios
   - you will then need `await waitForElementToBeRemoved()` to wait for some loading / modal / etc.. disappearing
+  - [all async methods are listed here](https://testing-library.com/docs/dom-testing-library/api-async/)
 - [x] why should we use `await` for `screen.(get/find/query)By` function?
   - only `screen.findByXXX()` returns a promise that waits for the element to show up in 1s by default
 - [x] difference of `getBy`, `queryBy` and `findBy`? when should I use which one?
@@ -32,3 +33,10 @@ category: JavaScript
 - how `waitFor()` know when should it stop to wait if there are multiple mixed `screen.get` and `expect` calls inside?
 - how about `act(() => {})`, `act(async () => { await })`, `await act(()) => {})` and `await act(async () => { await })`
 - how `waitFor()` ... what?
+
+## Referencing 
+
+* [React Testing Library - Query APIs](https://testing-library.com/docs/queries/about)
+* [Appearance and Disappearance](https://testing-library.com/docs/guide-disappearance/)
+* [React Testing Library and the “not wrapped in act” Errors](https://davidwcai.medium.com/react-testing-library-and-the-not-wrapped-in-act-errors-491a5629193b)
+* [You Probably Don't Need act() in Your React Tests](https://plainenglish.io/blog/you-probably-dont-need-act-in-your-react-tests-2a0bcd2ad65c)
