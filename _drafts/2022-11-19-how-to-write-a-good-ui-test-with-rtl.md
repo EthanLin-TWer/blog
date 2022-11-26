@@ -29,6 +29,8 @@ category: JavaScript
   - simple: with design system like MUI: encapsulate selectors
   - medium: with one API call in rendering + clicking event: handled by `act()` by default, only `await screen.find` needed
   - complexer: triggers multiple API calls: explicit `act()` and/or `waitFor` `waitForElementToBeRemoved` needed
+  - complexer: with async promise you need to wait in `renderHooks`
+  - complexer: with exception you want to test but it's thrown in a promise in `renderHooks`
   - complexest: with complex interaction like form / submit / validation 
 - how `waitFor()` know when should it stop to wait if there are multiple mixed `screen.get` and `expect` calls inside?
 - how about `act(() => {})`, `act(async () => { await })`, `await act(()) => {})` and `await act(async () => { await })`
