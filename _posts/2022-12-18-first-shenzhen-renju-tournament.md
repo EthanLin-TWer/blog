@@ -11,7 +11,7 @@ category: renju
 
 <p align="center" >
   <img 
-    src="https://user-images.githubusercontent.com/16990861/208316177-40bec1c5-a6c1-46c3-90c8-1ddea4212414.jpg" 
+    src="https://user-images.githubusercontent.com/16990861/208456374-e25fbea5-3c1f-403e-80e4-d3fa9bee7e29.JPG" 
     width="70%"
   />
 </p>
