@@ -81,6 +81,7 @@
     "redux": "^4.0.0",
     "redux-actions": "^2.4.0",
     "redux-saga": "^0.16.0",
+    "rehype-raw": "^6.1.1",
     "remark-gfm": "^3.0.1",
     "reselect": "^3.0.1",
     "seamless-immutable": "^7.1.3"
@@ -126,6 +127,7 @@
     "moduleNameMapper": {
       "\\.(styl|css)$": "identity-obj-proxy",
       "github-markdown-css": "identity-obj-proxy",
+      "rehype-raw": "identity-obj-proxy",
       "remark-gfm": "identity-obj-proxy"
     },
     "verbose": false,
