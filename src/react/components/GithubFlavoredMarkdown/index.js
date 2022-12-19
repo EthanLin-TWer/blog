@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import 'github-markdown-css'
 
 import { CodeBlockRenderer } from './CodeBlockRenderer'
@@ -16,6 +17,7 @@ export class GithubFlavoredMarkdown extends React.Component {
       <ReactMarkdown
         source={this.props.data}
         renderers={{ code: CodeBlockRenderer }}
+        remarkPlugins={[remarkGfm]}
         className="markdown-body"
       />
     )
