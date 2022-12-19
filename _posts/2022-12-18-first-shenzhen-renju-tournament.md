@@ -9,7 +9,12 @@ category: renju
 
 我报名的是12岁以上专业规则组。规则很简单，就是山口规则（黑方指定开局+有禁+三手交换+五手n打），每方基本用时30分钟，每走一步加15秒（哦对了，比赛那棋钟手感拍着真的好）。
 
-![](https://user-images.githubusercontent.com/16990861/208316177-40bec1c5-a6c1-46c3-90c8-1ddea4212414.jpg)
+<p align="center" >
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/208316177-40bec1c5-a6c1-46c3-90c8-1ddea4212414.jpg" 
+    width="70%"
+  />
+</p>
 
 ### 第一轮 轮空
 
@@ -19,24 +24,54 @@ category: renju
 
 岚月三打，交换后林从羽执黑，5A-23，18。
 
-![](https://user-images.githubusercontent.com/16990861/208304167-f509c97a-df13-45ee-808f-8ed98a154be5.jpg)
+<p align="center" >
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/208304167-f509c97a-df13-45ee-808f-8ed98a154be5.jpg" 
+    width="70%"
+  />
+</p>
 
 由于不擅长下激烈的对攻局面，所以正常情况下我很少主动开名岚山新几类局面，所以小刚叫岚月三打我就想，得，真是怕啥来啥。记得岚月三打是平衡局面，快速回忆了一下几个白4的三打点我还记得，能试着下下，于是我换了。白打立4，一二打点我记得，在三打和实战四打之间，在我眼里显然是实战5可能导致更激烈的交换，我当时心态是虽然不太知道这个后面定式，但是既然结论平衡那么黑棋一定有解，这是我的第一盘棋，拿来好好算一算，激发一下状态。于是我没有选择三打5，而是选择了实战四打。后来小刚表示，这个5他也没有准备，赛前主要是针对三打黑5做了一些准备，我无意中避开了研究。
 
-![](https://user-images.githubusercontent.com/16990861/208305339-d0a7e36c-2b77-4fa5-8bc0-4300c2b1ee4f.png)
+<p align="center" >
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/208305339-d0a7e36c-2b77-4fa5-8bc0-4300c2b1ee4f.png" 
+    width="250"
+  />
+</p>
+
 
 实战6意料之中。黑7在实战7和6左上花费了一些时间，实战7主要也是考虑实战这个8，因为挡2成双2是正常的实战逻辑，然后黑下9-15的交换与我的计算一致。实际上，这里7-8似乎才是最强，实战7白8直接活三可以必胜，但是这几路进攻的思路实战算不清楚应该很难直接走出。
 
-![](https://user-images.githubusercontent.com/16990861/208305349-bf3bc4d0-7625-4f46-aaec-c34e827088e1.png)
-![](https://user-images.githubusercontent.com/16990861/208305391-e4975336-4e20-415e-b178-c9aeb20a01cf.png)
+<p align="center" >
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/208305349-bf3bc4d0-7625-4f46-aaec-c34e827088e1.png" 
+    width="250"
+  />
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/208305391-e4975336-4e20-415e-b178-c9aeb20a01cf.png" 
+    width="250"
+  />
+</p>
 
 （上两图：白8必胜）
 
-![](https://user-images.githubusercontent.com/16990861/208305473-ea6dfdc6-571f-4384-9059-862758568962.png)
+<p align="center" >
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/208305473-ea6dfdc6-571f-4384-9059-862758568962.png" 
+    width="250"
+  />
+</p>
 
 实战9-17预想的交换，10右挡则11-14，黑有优势；12也是必然。15之后白横线活二由于牵制也无法vct，只能交换，然后留下黑棋上方三个活二。走到这里，我觉得我活过开局的目标已经达成，状态也得到了一定程度的预热，布局策略上是成功的，局面判断甚至还是黑优。但其实，软件判断18之后局面仍然是白稍优。这种局势判断上的偏差使得白18后，我一直在寻找VCT。
 
-![](https://user-images.githubusercontent.com/16990861/208305882-0d60cfd0-fbaa-4b7b-a5eb-5b54182f29e8.png)
+
+<p align="center" >
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/208305882-0d60cfd0-fbaa-4b7b-a5eb-5b54182f29e8.png" 
+    width="250"
+  />
+</p>
 
 19-25就是这种思路下的产物。黑棋左边的VCT由于白反四的存在无法成立，但有25的存在左边的线路即可先手成立，这个发现使我眼前一亮，以至于我发现26的手段后也并未仔细验算，只是认为黑防住白四三后仍然不丢失但并未细算，完全没有发现白棋这里的必胜形。实战26后黑棋恍然大悟，但为时已晚。此时黑棋剩余用时记得仍有7分钟左右。
 
@@ -46,7 +81,12 @@ category: renju
 
 疏星二打，不交换，5A-6。
 
-![](https://user-images.githubusercontent.com/16990861/208306912-67e46b04-af75-4504-809f-58b2fe05fc82.jpg)
+<p align="center" >
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/208306912-67e46b04-af75-4504-809f-58b2fe05fc82.jpg" 
+    width="70%"
+  />
+</p>
 
 吸取上一轮的教训，这一轮我假黑。我的想法是首先应该避免任何可能速败的变化，于是我开疏星二打，黑白都行，反正我也不会。
 
@@ -62,30 +102,63 @@ category: renju
 
 寒星四打，交换后林从羽执黑，5A-8，12，13。
 
-![](https://user-images.githubusercontent.com/16990861/208308377-c0485dbe-7e6f-46bc-abf9-4544beff2765.jpg)
+<p align="center" >
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/208308377-c0485dbe-7e6f-46bc-abf9-4544beff2765.jpg" 
+    width="70%"
+  />
+</p>
 
 柏霖谱量充足，对我来说仍然是尽量活过开局拼中盘。我假后，也省去了想开局的烦恼。寒星四打，打点我晓得，稍加思索决定执黑。黑7、黑9的定式没有走错。白12后，黑13进行了一定时间的考虑，决定走实战13。这一手后续查阅似乎是必败，但总之当时我既不清楚定式下法，白棋似乎也一时想不起来正确打点。白棋在思考14、16的下法消耗了约10分钟左右时间，黑棋在上半盘落后的时间被稍微追回。
 
-![](https://user-images.githubusercontent.com/16990861/208309439-2b6e8b4e-38b3-4ef4-851c-36712022d520.png)
+<p align="center" >
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/208309439-2b6e8b4e-38b3-4ef4-851c-36712022d520.png" 
+    width="250"
+  />
+</p>
 
 对于实战的14-20的交换，15、19的防守是必然，我利用白棋计算的时间已算清楚，逆止的话白棋都有简单的抓禁（见下图）；17是简化局面的下法，此点冲走对黑棋似也不亏？黑19防守后，20的手段可以预见。白20这个局部，我认为是能防住的。如果防住，那么我活过开局的策略就成功，得到进入中盘的机会；如果不仅防住还拿到先手，那么这个局部的处理就是成功的。但是我清楚，这个局部变化仍然不少，需要仔细计算。
 
-![](https://user-images.githubusercontent.com/16990861/208309397-ff5a21be-dd32-4a06-a0df-4d47b09071bb.png)
-![](https://user-images.githubusercontent.com/16990861/208309414-c66462d6-94a4-4780-8c60-1a8397d834fb.png)
+<p align="center" >
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/208309397-ff5a21be-dd32-4a06-a0df-4d47b09071bb.png" 
+    width="250"
+  />
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/208309414-c66462d6-94a4-4780-8c60-1a8397d834fb.png" 
+    width="250"
+  />
+</p>
 
 （上两图：15、19逆止白棋胜法）
 
-![](https://user-images.githubusercontent.com/16990861/208309645-47cf5ee3-49bf-4ecb-b3fc-22cd1b029791.png)
+<p align="center" >
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/208309645-47cf5ee3-49bf-4ecb-b3fc-22cd1b029791.png" 
+    width="250"
+  />
+</p>
 
 然而23是必败的，白简单4步抓三三……（~~但是我清楚，这个局部变化仍然不少，需要仔细计算~~又TM打脸了）但是可能这个局部过于激烈，双方都在计算冲四交换后的局面先后，没有意识到这个地方存在速胜/速败，28错过抓禁。29后，白棋在此处的应对消耗了约15分钟左右时间，记得大约剩2-3分钟，黑棋大约剩下6-7分钟。32后，局面和时间上对黑棋一度变得有利。
 
-![](https://user-images.githubusercontent.com/16990861/208309740-a58a3689-9f0c-43bf-a535-c08ebe28091d.png)
+<p align="center" >
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/208309740-a58a3689-9f0c-43bf-a535-c08ebe28091d.png" 
+    width="250"
+  />
+</p>
 
 33寒星常见进攻，同时盖住26-16的眠三。在33的进攻方向上，我也考虑了下方的黑棋，19-29-31这条眠三可以借用到H3这个点，但是如果黑棋33-K6直接向下活三，白棋挡下，此处我无把握局部有必胜。考虑到时间的限制，实战33是对白棋压力更大的下法，黑棋无需在右下主动先动手。如果34盖5-17的活二，则35-35仍然成立，随后上面随便团角对时限下的白棋仍然是巨大的压力。
 
 实战34是时限下合理的做法，做眠二尽量给黑棋进攻造成困扰。35、37仍然保持压力。38是自然的想法，但是否比盖黑眠二更急？不过总而言之，这里白棋没有时间做更多的考虑了，只能凭借棋感。
 
-![](https://user-images.githubusercontent.com/16990861/208310216-fa1b1978-a994-4092-94b9-108206b8691a.png)
+<p align="center" >
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/208310216-fa1b1978-a994-4092-94b9-108206b8691a.png" 
+    width="250"
+  />
+</p>
 
 38后在上面材料足够，终于可以活39这个三，40挡后，上面黑顺利走出必胜。最后黑棋剩下约1-2分钟，白棋超时。
 
@@ -99,7 +172,12 @@ category: renju
 
 山月二打，交换后林从羽执黑，5A-G7。
 
-![](https://user-images.githubusercontent.com/16990861/208311345-b1d46103-8942-4656-a5d5-ba810ef76354.jpg)
+<p align="center" >
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/208311345-b1d46103-8942-4656-a5d5-ba810ef76354.jpg" 
+    width="70%"
+  />
+</p>
 
 由于平时下棋少，这是我第一次在实战中对线段位棋手，说实在，心里还是有点开心的。胜负不论，认真切磋，认真下好每一手棋。
 
@@ -111,11 +189,21 @@ category: renju
 
 白8-12的交换夺回先手不难验算，此后白胜毫无悬念，比赛草草结束。事后复盘，欣煜说比较强的7是下图这个，他构想了8和10的走法，但没完全算到必胜。这路变化也确实是杀了，实战即便真的走到这个7，相信白棋也不难现场杀出。
 
-![](https://user-images.githubusercontent.com/16990861/208311941-20047d69-810b-4dbd-b813-22521d3dedd7.png)
+<p align="center" >
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/208311941-20047d69-810b-4dbd-b813-22521d3dedd7.png" 
+    width="250"
+  />
+</p>
 
 棋评开头说过了，由于我对“挺过开局”策略的（过分）强调，导致我潜意识里总是认为五手n打的部分到找出可打的5手打点就算完成任务，所以我很依赖于记打点，打完打点开局部分的一大“任务”就结束。这种错误的想法导致我在本局甚至没有仔细验算两个黑5打点的位置就匆匆应战，对生死局甚无敬畏。事后复盘，正确5最简明一路互挡的变化并不复杂，经过简单的分析实战完全有可能走到黑优，跟实战速败是天差地别。
 
-![](https://user-images.githubusercontent.com/16990861/208312074-dd4ccfeb-8ca1-4356-82ca-16e8e17da883.png)
+<p align="center" >
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/208312074-dd4ccfeb-8ca1-4356-82ca-16e8e17da883.png" 
+    width="250"
+  />
+</p>
 
 不知道黑棋后续还准备了什么变化，我有空再拆拆。但是这局开局的速败，除了定式积累方面的原因，我想更多还是比赛经验少了，在不该急的时候反而急。每一个打点的结论，哪怕你知道结论，在打点之前仍然需要有个验证的过程：要把后续主要的变化过一遍，确认肉眼可见的白6都有可靠的定型手段。多算几路，不要潜意识觉得开局就要快，对于实在不清楚的打点，你直接砸一半时间算都没问题。一局棋花10分钟就匆匆必败，还是相当可惜。
 
@@ -123,13 +211,23 @@ category: renju
 
 花月六打，不交换，5A-6，J10，24，J8，J7。
 
-![](https://user-images.githubusercontent.com/16990861/208312372-fba67ae5-d6bc-4c55-8d54-6166e811348c.jpg)
+<p align="center" >
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/208312372-fba67ae5-d6bc-4c55-8d54-6166e811348c.jpg" 
+    width="70%"
+  />
+</p>
 
 花月六打，因为局面不会太激烈，我下黑白都行。但对手没有走最强4。这个局面，我记得看索8谱的时候说是有10个左右的必胜/黑大优打点，吸取上一局的教训，我把给出的每个打点（除了一二打）白棋有反击的下法（主要是一些团角做二的下法）都过滤了一遍，给出六打，没有问题。
 
 白6做活二，是实战尽可能复杂化局面的下法。黑7-11容易想到的应对，但黑11花费了黑棋不少时间去验算防点，此外我还考虑过11-29通三路的变化，但12-11后局势过于复杂，感觉黑棋亏很多。对于实战的11，主要是验算12往外盖住斜活二的变化，黑棋能不能VCT或至少取得优势，考虑到白棋做长连必须，之后横线眠三并无法减弱黑棋的优势（如下图），我才拍下这个11。
 
-![](https://user-images.githubusercontent.com/16990861/208313202-cc679bc8-1f6b-40f9-aa5e-2e2445275962.png)
+<p align="center" >
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/208313202-cc679bc8-1f6b-40f9-aa5e-2e2445275962.png" 
+    width="250"
+  />
+</p>
 
 实战的12倒没在我的考虑范围之内。考虑到跳三后白棋仍然必须牺牲眠三冲出长连，并且黑棋牵制到G9这个点，白棋没有VCT，黑棋可以接受。这里我花了一些时间验算黑棋不会速败后就走了13。白棋没花过多时间走出14-18的最佳交换，但19防守后局面过于复杂且黑棋明显占优。这里白棋花了大量时间计算防守。白20有一些小陷阱，除了横线上的四三外，I线上还存在抓三三的手段。黑21、23应对无误。之后白棋再无法防守，黑棋一套VCT取胜。此时黑棋剩余不到一分钟时间，主要是前期在确认黑7和11上花费了较长时间。
 
@@ -139,7 +237,12 @@ category: renju
 
 明星二打，交换后林国玲执黑，5A-7。
 
-![](https://user-images.githubusercontent.com/16990861/208314335-e8ada75e-5005-4dbd-b23b-82323d0d1c77.jpg)
+<p align="center" >
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/208314335-e8ada75e-5005-4dbd-b23b-82323d0d1c77.jpg" 
+    width="70%"
+  />
+</p>
 
 最后一轮，不知为何，我的心情变得相对轻松，失去了很强的求胜欲，就想开开心心下盘棋然后回家。然后我本以为最后一轮我是白棋，不是开局方，因为上一局我已经持黑。得知我持黑的情况下，我忽然有了平时没有的想法，那就是试试我很久以前准备的一个骗招，看看效果如何。其实，在第一天赛程结束，得知我第二天可能对阵林国玲的时候，我就有了这个想法，拿激烈的黑优对攻局面让黑棋走，但是当时始终觉得不太稳妥，原因是无法确保对手会交换，以及这个局面后续的攻击能力如何。然而，由于我在最后一轮这不太谨慎的轻松心情，以及我前面提到的，第一天赛程结束后对于我自己目标本身的游移不定，导致了我在这一轮的冒险倾向增加了😂于是我开局铤而走险，最后死了。
 
@@ -156,6 +259,12 @@ category: renju
 * 除了打点，脱谱的第一手或局面的关键点一定要停下来验算，直接砸一半时间，避免有时间但是速败。一定要避免可以算但是没算清楚就落子
 * 下来多刻意练习下激烈对攻的局面，把名岚山新的一二打必胜熟悉一下
 
-![](https://user-images.githubusercontent.com/16990861/208316093-b3d281ee-38b3-4df4-bac9-e3bc6e29cd51.JPG)
+<p align="center" >
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/208316093-b3d281ee-38b3-4df4-bac9-e3bc6e29cd51.JPG" 
+    width="70%"
+  />
+</p>
+
 
 最后的最后，感谢深圳市棋协和各位工作人员的辛勤工作，让我们作为选手能够参加比赛、以棋会友，在深圳找到一起玩棋的小伙伴。这次赛事的组织，我觉得也非常成功，秩序井然，能够看出主办方的丰富经验和细致用心。庆祝深圳市第一届五子棋锦标赛顺利闭幕，也期待下一次比赛的到来！
