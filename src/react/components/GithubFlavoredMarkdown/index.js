@@ -16,12 +16,13 @@ export class GithubFlavoredMarkdown extends React.Component {
   render() {
     return (
       <ReactMarkdown
-        source={this.props.data}
-        renderers={{ code: CodeBlockRenderer }}
-        remarkPlugins={[remarkGfm, rehypeRaw]}
-        skipHtml={false}
+        components={{ code: CodeBlockRenderer }}
+        rehypePlugins={[rehypeRaw]}
+        remarkPlugins={[remarkGfm]}
         className="markdown-body"
-      />
+      >
+        {this.props.data}
+      </ReactMarkdown>
     )
   }
 }
