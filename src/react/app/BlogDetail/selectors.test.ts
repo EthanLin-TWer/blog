@@ -13,15 +13,8 @@ title: React 应用单元测试策略
         },
       },
     }
-    const ownProps = {
-      match: {
-        params: {
-          id: 1,
-        },
-      },
-    }
 
-    const result = parseJekyllPost(store, ownProps)
+    const result = parseJekyllPost(store.detail.posts['1'])
 
     expect(result.frontMatters).toEqual({
       title: 'React 应用单元测试策略',

@@ -6,7 +6,9 @@ exclude:
   - dist
   - package.json
   - package-lock.json
-  - webpack.config.js
+  - webpack.base.config.js
+  - webpack.dev.config.js
+  - webpack.prod.config.js
   - favicon.ico
   - TODOLIST.md
 include:

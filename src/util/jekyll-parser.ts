@@ -1,6 +1,6 @@
 const formatter = require('front-matter')
 
-export const parse = (post = '') => {
+export const parse = (post: string | null = '') => {
   if (!post) {
     return {
       frontMatters: {},

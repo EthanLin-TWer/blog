@@ -13,6 +13,7 @@ test('should set post data under the id when handling action saveBlogDetail', ()
     },
   }
 
+  // @ts-ignore
   const result = reducer(state, actions.saveBlogDetail(id, data))
 
   expect(result).toEqual(expected)

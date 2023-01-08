@@ -9,6 +9,7 @@ npm-debug.log
 dist
 .jekyll-metadata
 _site
+.output
 
 # umi
 .umi

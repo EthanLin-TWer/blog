@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { createActions } from '../../utils/redux'
 
 export const actions = createActions({
