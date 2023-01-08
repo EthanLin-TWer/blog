@@ -23,5 +23,5 @@ git commit -m "🤖 Deploying to gh-pages from master ${headSHA:0:8}" --no-verif
 git push --force --no-verify origin gh-pages
 
 ## clean-up
-git worktree remove dist
 rm -rf dist
+git worktree remove -f dist
