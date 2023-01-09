@@ -9,6 +9,8 @@ git branch -D gh-pages
 
 # prepare dist/ and build
 git worktree add dist gh-pages
+## removes everything except hidden files like .git/
+find dist -not -path '*/\.*' -delete
 npm run build:react
 
 # copy all necessary files to /dist for deployment to gh-pages branch
@@ -19,11 +21,9 @@ cp CNAME dist/CNAME
 
 ## force push local built /dist to origin gh-pages
 cd dist || return
-git checkout gh-pages
-git add . --force
+git add .
 git commit -m "🤖 Deploying to gh-pages from master ${headSHA:0:8}" --no-verify
 git push --force --no-verify origin gh-pages
-git checkout master
 cd ..
 
 ## clean-up
