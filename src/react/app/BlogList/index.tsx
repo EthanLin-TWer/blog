@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
 
-import { axios } from '../../utils/axios'
+import { axiosServer } from '../../utils/axios'
 
 import { BlogSummary } from './BlogSummary'
 
@@ -11,6 +11,10 @@ interface Blog {
   title: string
   summary: string
   createdDate: string
+  category?: string
+  tags?: string
+  url?: string
+  date?: string
 }
 
 interface State {
@@ -21,10 +25,10 @@ interface State {
 export const BlogList: FC<Props, State> = () => {
   const [{ blogs }, setBlogs] = useState<State>({ blogs: [] })
   useEffect(() => {
-    axios.get('api/posts.json').then(({ data }) => {
-      setBlogs(data)
+    axiosServer.get('/api/posts.json').then(({ data }) => {
+      setBlogs({ blogs: data })
     })
-  })
+  }, [])
 
   return blogs.map(({ id, path, title, summary, createdDate }) => (
     <BlogSummary

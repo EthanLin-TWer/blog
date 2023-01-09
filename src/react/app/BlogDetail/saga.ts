@@ -1,6 +1,6 @@
 import { takeEvery, call, put } from 'redux-saga/effects'
 
-import { axios } from '../../utils/axios'
+import { axiosNormal } from '../../utils/axios'
 
 import { actions } from './actions'
 
@@ -8,7 +8,7 @@ import { actions } from './actions'
 function* fetchBlogDetail({ payload: { id } }) {
   try {
     const { data } = yield call(
-      axios.get,
+      axiosNormal.get,
       `https://cdn.jsdelivr.net/gh/linesh-simplicity/blog@master/_posts/${id}.md`
     )
     // @ts-ignore

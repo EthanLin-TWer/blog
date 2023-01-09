@@ -2,6 +2,7 @@ const path = require('path')
 const { ProvidePlugin } = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+const Dotenv = require('dotenv-webpack')
 
 const rules = [
   { test: /\.(css)$/i, use: ['style-loader', 'css-loader'] },
@@ -47,6 +48,9 @@ const plugins = [
       },
     ],
   }),
+  new Dotenv({
+    path: `./.env.${process.env.NODE_ENV === 'production' ? 'production' : 'development'}`,
+  })
 ]
 
 const devServer = {
@@ -57,9 +61,9 @@ const devServer = {
   // contentBase: path.join(__dirname, 'src/react'),
   proxy: {
     '/api': {
-      target: 'http://localhost:4000',
+      target: 'http://127.0.0.1:4000',
       changeOrigin: true,
-      pathRewrite: {},
+      secure: false,
     },
   },
   client: {
