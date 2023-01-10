@@ -10,7 +10,4 @@ export const axiosServer = axiosInstance.create({
 
 export const axiosNormal = axiosInstance.create({
   timeout: 20 * 1000,
-  headers: {
-    'Access-Control-Allow-Origin': '*',
-  },
 })
