@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  createBrowserRouter,
+  createHashRouter,
   createRoutesFromElements,
   Route,
 } from 'react-router-dom'
@@ -8,7 +8,7 @@ import {
 import { BlogList } from './BlogList'
 import { BlogDetail } from './BlogDetail'
 
-export const AppRoutes = createBrowserRouter(
+export const AppRoutes = createHashRouter(
   createRoutesFromElements(
     <>
       <Route path="/" element={<BlogList />} />
