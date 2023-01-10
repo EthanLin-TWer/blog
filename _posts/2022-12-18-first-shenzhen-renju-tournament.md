@@ -26,7 +26,7 @@ category: renju
 
 <p align="center" >
   <img 
-    src="https://user-images.githubusercontent.com/16990861/208304167-f509c97a-df13-45ee-808f-8ed98a154be5.jpg" 
+    src="https://cdn.jsdelivr.net/gh/EthanLin-TWer/cdn-images/blog/20230108234412.png" 
     width="70%"
   />
 </p>
