@@ -17,3 +17,6 @@ _site
 
 # Coverage
 coverage
+
+# Local files
+TODOLIST.md
