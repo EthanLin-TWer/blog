@@ -12,11 +12,11 @@ category: renju
 <p align="center" >
   <img 
     src="https://user-images.githubusercontent.com/16990861/208456374-e25fbea5-3c1f-403e-80e4-d3fa9bee7e29.JPG" 
-    width="400"
+    height="400"
   />
   <img 
     src="https://user-images.githubusercontent.com/16990861/208316093-b3d281ee-38b3-4df4-bac9-e3bc6e29cd51.JPG" 
-    width="400"
+    height="400"
   />
 </p>
 
