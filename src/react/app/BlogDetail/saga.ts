@@ -9,7 +9,7 @@ function* fetchBlogDetail({ payload: { id } }) {
   try {
     const { data } = yield call(
       axiosNormal.get,
-      `https://cdn.jsdelivr.net/gh/linesh-simplicity/blog@master/_posts/${id}.md`
+      `https://cdn.jsdelivr.net/gh/linesh-simplicity/blog/_posts/${id}.md`
     )
     // @ts-ignore
     yield put(actions.saveBlogDetail(id, data))
