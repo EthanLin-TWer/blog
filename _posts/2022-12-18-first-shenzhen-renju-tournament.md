@@ -291,12 +291,32 @@ category: renju
 
 棋评开头说过了，由于我对“挺过开局”策略的（过分）强调，导致我潜意识里总是认为五手n打的部分到找出可打的5手打点就算完成任务，所以我很依赖于记打点，打完打点开局部分的一大“任务”就结束。这种错误的想法导致我在本局甚至没有仔细验算两个黑5打点的位置就匆匆应战，对生死局甚无敬畏。事后复盘，正确5最简明一路互挡的变化并不复杂，经过简单的分析实战完全有可能走到黑优，跟实战速败是天差地别。
 
+**复盘**：
+
 <p align="center" >
   <img 
-    src="https://user-images.githubusercontent.com/16990861/208312074-dd4ccfeb-8ca1-4356-82ca-16e8e17da883.png" 
+    src="https://user-images.githubusercontent.com/16990861/211816618-b79f4b7c-15d5-4833-8ed7-bf48f39ff14d.png" 
     width="250"
   />
 </p>
+
+<p align="center" >
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/211816762-692f5fb7-41d3-4df1-9146-432e895c92e1.png" 
+    width="250"
+  />
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/211816835-ee42609a-f8e0-41bc-ba2d-3605c6f78117.png" 
+    width="250"
+  />
+  <img 
+    src="https://user-images.githubusercontent.com/16990861/211816899-807a79cb-e55a-499c-9040-41aa2fe7cc1b.png" 
+    width="250"
+  />
+</p>
+
+
+**总结**：
 
 不知道黑棋后续还准备了什么变化，我有空再拆拆。但是这局开局的速败，除了定式积累方面的原因，我想更多还是比赛经验少了，在不该急的时候反而急。每一个打点的结论，哪怕你知道结论，在打点之前仍然需要有个验证的过程：要把后续主要的变化过一遍，确认肉眼可见的白6都有可靠的定型手段。多算几路，不要潜意识觉得开局就要快，对于实在不清楚的打点，你直接砸一半时间算都没问题。一局棋花10分钟就匆匆必败，还是相当可惜。
 
