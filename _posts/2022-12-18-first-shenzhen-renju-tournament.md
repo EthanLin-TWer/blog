@@ -357,11 +357,11 @@ category: renju
 
 <p align="center" >
   <img 
-    src="https://user-images.githubusercontent.com/16990861/211817303-c98e8a76-54bc-433d-b8e5-b3965f830c80.png" 
+    src="https://user-images.githubusercontent.com/16990861/211817478-916b9f71-c98a-49ce-bb13-fc42f15b4937.png" 
     width="250"
   />
   <img 
-    src="https://user-images.githubusercontent.com/16990861/211817478-916b9f71-c98a-49ce-bb13-fc42f15b4937.png" 
+    src="https://user-images.githubusercontent.com/16990861/211817303-c98e8a76-54bc-433d-b8e5-b3965f830c80.png" 
     width="250"
   />
 </p>
