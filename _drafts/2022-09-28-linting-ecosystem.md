@@ -43,3 +43,7 @@ Generally speaking, while using prettier with ESLint is one option, where you ca
 
 * How does ESLint's "extends" keyword work? What is the interface between ESLint and plugin developer?
 * Go over a list of rules in [ESLint:recommended](https://eslint.org/docs/latest/rules/), [plugin:@typescript-eslint/eslint-plugin:recommended](https://typescript-eslint.io/rules/) and [plugin:react-recommended](https://github.com/jsx-eslint/eslint-plugin-react#list-of-supported-rules)
+
+## TO read
+
+* https://github.com/typescript-eslint/typescript-eslint/issues/2051
