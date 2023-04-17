@@ -5,12 +5,12 @@
 * [x] react router dom + examples
 * [x] eslint + typescript parser
 * [x] prettier (separate config)
+* [x] husky
+  * [x] commit-msg: validate commit message
+  * [x] pre-commit: run lint & test
+  * [x] pre-push: runs deployment - no need to change  
 * TypeScript
 * ES2023 while writing code
-* husky
-  * [x] commit-msg: validate commit message
-  * pre-commit: run lint
-  * pre-push: runs test
 * webpack
 * dev server with hot reload
 * folder structure
