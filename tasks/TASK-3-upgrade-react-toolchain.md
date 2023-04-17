@@ -1,6 +1,6 @@
 # TASK-3 Upgrade React toolchain 
 
-* pnpm
+* [x] pnpm
 * react 18
 * react router dom + examples
 * ES2023 while writing code
