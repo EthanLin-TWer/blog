@@ -20,6 +20,5 @@
 * [x] redux + @reduxjs/toolkit + examples - currently not used
 * jest + RTL + examples
 * mock server with msw
-* README
-  * installation: `npm i -g pnpm@7`
+* [x] README
 * rewrite some code with hooks

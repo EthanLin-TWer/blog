@@ -5,8 +5,9 @@
 ## 开发
 
 ```bash
-npm i
-npm start
+npm i -g pnpm@7
+pnpm i
+pnpm start
 ```
 
 [issues]: https://github.com/linesh-simplicity/linesh-simplicity.github.io/issues
