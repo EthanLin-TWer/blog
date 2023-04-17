@@ -17,7 +17,7 @@
 * styling - styled-components + examples
 * UI - MUI + examples
 * environment variables
-* redux + @reduxjs/toolkit + examples
+* [x] redux + @reduxjs/toolkit + examples - currently not used
 * jest + RTL + examples
 * mock server with msw
 * README
