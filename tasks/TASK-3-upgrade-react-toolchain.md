@@ -3,12 +3,12 @@
 * [x] pnpm
 * [x] react 18
 * [x] react router dom + examples
-* TypeScript
-* ES2023 while writing code
 * [x] eslint + typescript parser
 * [x] prettier (separate config)
+* TypeScript
+* ES2023 while writing code
 * husky
-  * commit-msg: validate commit message
+  * [x] commit-msg: validate commit message
   * pre-commit: run lint
   * pre-push: runs test
 * webpack
