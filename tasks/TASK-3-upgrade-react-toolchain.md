@@ -2,7 +2,7 @@
 
 * [x] pnpm
 * [x] react 18
-* react router dom + examples
+* [x] react router dom + examples
 * ES2023 while writing code
 * TypeScript
 * eslint + typescript parser
