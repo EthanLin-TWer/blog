@@ -5,7 +5,7 @@
 * [x] react router dom + examples
 * TypeScript
 * ES2023 while writing code
-* eslint + typescript parser
+* [x] eslint + typescript parser
 * [x] prettier (separate config)
 * husky
   * commit-msg: validate commit message

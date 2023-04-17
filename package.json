@@ -149,5 +149,47 @@
     "singleQuote": true,
     "trailingComma": "es5",
     "arrowParens": "always"
+  },
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["prettier", "jsx-control-statements", "import"],
+    "extends": ["prettier", "javascript-the-good-parts", "plugin:jsx-control-statements/recommended", "plugin:react/recommended"],
+    "env": {
+      "jest": true,
+      "node": true,
+      "browser": true,
+      "es6": true
+    },
+    "globals": {
+      "__DEV__": true
+    },
+    "rules": {
+      "prettier/prettier": "error",
+      "import/order": [
+        "error",
+        {
+          "groups": [
+            "builtin",
+            "external",
+            "internal",
+            "parent",
+            "sibling",
+            "index"
+          ],
+          "newlines-between": "always"
+        }
+      ],
+      "no-empty": ["error", { "allowEmptyCatch": true }],
+      "react/no-unescaped-entities": "off",
+      "react/no-deprecated": "off",
+      "react/no-string-refs": "off",
+      "react/display-name": "off",
+      "react/jsx-no-undef": [2, { "allowGlobals": true }]
+    },
+    "settings": {
+      "react": {
+        "version": "16.4"
+      }
+    }
   }
 }
