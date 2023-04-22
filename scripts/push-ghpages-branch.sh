@@ -6,6 +6,7 @@ headSHA=$(git rev-parse HEAD)
 rm -rf dist
 git worktree remove -f dist
 git branch -D gh-pages
+mkdir dist
 
 # prepare dist/ and build
 git worktree add dist gh-pages
