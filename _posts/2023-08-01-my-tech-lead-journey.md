@@ -13,9 +13,40 @@ category: career, tech-lead
 
 记录工作笔记并且经常回顾，是对日常工作一个有益的尊重。正如developer记录编码时间可以发现自己编码过程的生涩点并加以刻意练习提高一样，TL记录工作时间同样有助于发现自己的工作侧重及生涩点，并加以有益的练习和提高。于是，我抓取了自己最近三个月来的工作日记，分析了一下自己日常不同工作类型的时间占比。采样点跨度三个月，共12周、41个工作日，采样时长288个小时，刚好经历一个完整的三个月一次的SAFE大迭代计划会，以及TW内部每半年一次的绩效评估。
 
-[![](https://mermaid.ink/img/pako:eNpNkE9LAkEYxr_KMLA3E9MM8SzRQTCwP5e5TO6rO7g7I7PvprEsBJEHg_4cEqEgjIIuJdEpP4-j-C3adZW6Dc_v9z4MT0gbygZappYVCimwTEJGOwIYXb0QenigfIFCySTKZYtRhsS5Ax4ccy34qQv-Wo7PagGCrqNWbTgRNjoJYbTQ6TEaRSSyLCZji_iO6lY4coICXSCHVdJVui1kizgq0D7ZIvui5ZAqnIHLJIkrjkz_aja9NoNxUrm9ky2m-Ww6Nfcjc3tvvh5WpLQh88HF_Gli-t-Lj2FC8qVsfo32gGOggdS6EvTic7y46ydGIb-5Na_D5eW7eXxZjp7N5Gd-85bw0l9Div59KLdLM9QD7XFhx2uGqbaaKd3AhiYPXGSUyShWeYCqfi4btIw6gAwNOjZHqAje0tyj5SZ3fYh-AZD9nK8?type=png)](https://mermaid.live/edit#pako:eNpNkE9LAkEYxr_KMLA3E9MM8SzRQTCwP5e5TO6rO7g7I7PvprEsBJEHg_4cEqEgjIIuJdEpP4-j-C3adZW6Dc_v9z4MT0gbygZappYVCimwTEJGOwIYXb0QenigfIFCySTKZYtRhsS5Ax4ccy34qQv-Wo7PagGCrqNWbTgRNjoJYbTQ6TEaRSSyLCZji_iO6lY4coICXSCHVdJVui1kizgq0D7ZIvui5ZAqnIHLJIkrjkz_aja9NoNxUrm9ky2m-Ww6Nfcjc3tvvh5WpLQh88HF_Gli-t-Lj2FC8qVsfo32gGOggdS6EvTic7y46ydGIb-5Na_D5eW7eXxZjp7N5Gd-85bw0l9Div59KLdLM9QD7XFhx2uGqbaaKd3AhiYPXGSUyShWeYCqfi4btIw6gAwNOjZHqAje0tyj5SZ3fYh-AZD9nK8)
+```mermaid
+%%{init: {"pie": {"textPosition": 0.5}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
+pie showData title TL working hours - High Level
+  "U内事务": 14.5
+  "人员发展": 18.5
+  "技术决策": 28.25
+  "Feature Owner管理": 32.5
+  "外部团队对接": 88.25
+  "团队事务": 106
+```
 
-[![](https://mermaid.ink/img/pako:eNqFVF1PE0EU_SuTTfqGLZSPKm9FJDFRaVhRH_ZlpAPd0O4221mLaZq0YgssIqK2QYFiFQM-0IoIwrbCj3FndnniLzj7YfsC68tm5957zrn33MnkuCk5jrhhLhDIiZKIh0FO4NIiEjjnD6M5HJMzIhZlyQ71BgfzPYDFEyiFHkFFhE-TKOMVM9i4ipHCY0WeRY_FOE7YGYHrT88JXD4P8oGAILEqkEnI2VGIIcAiTiLw8B7IysqsKM2AhKwqGXADjCgIOoFROSsJEmAsk6RcMvRlotVt1r6B4KAbN3SdrK2T1TVyUHEyN_9lqFagm01SPjT3q4yTlD8YrS_mp2LIbL0jzVOzXTX3lh1I-BrIbWYOmEDPRJQN0eoprS9ajT2roYfMQ809k40zh2EwGPEoxhDEqoLAeFZCitmom2_KdkV_R4NsfL5Y33ZHYRpG-6PVaLCf6IyYRLSySld-GSdLZGeXZWxkONLhvg7qtk1_tJhYFzjkDyLtF2TzOz-lqClS2nOreAyluJp2Rhr6X8N8dOwOiN21GnWy-NbT7Ou7rlnrfJ_ZTyvOElfqntMLrN-FkHco6F2_wr1XspDSsdGqXrYX6fsmfVWcQEkEM-hPoeieSbvAuO39su_-0mV7yeEa8Lh2qhfz3qTsAtDXX23vHMe9YLnE3w-NREOx8dDkE2eeSMeFK8FO46Z-bm78JAc140Qz9V0-aiNvdY3wRdLaMa29JFotloR4WlZSjmyvD5ScHjIVN2gXD_i2yO4Su6rG2ZZ1VO1iwv0-kIutGtG2rfnftLD7YGyCHi1bzQqz0-0sGPaXYxace3t1ozYs4u9GZ61M2r1PbBVWUSM737prZKvgergUUlJQjLM3K-cSOo-R-9LE0TRUk1jgBCnPSqGKZf65NMUNY0VFPZyajkOMRkU4o8CUG8z_BTYxeAE?type=png)](https://mermaid.live/edit#pako:eNqFVF1PE0EU_SuTTfqGLZSPKm9FJDFRaVhRH_ZlpAPd0O4221mLaZq0YgssIqK2QYFiFQM-0IoIwrbCj3FndnniLzj7YfsC68tm5957zrn33MnkuCk5jrhhLhDIiZKIh0FO4NIiEjjnD6M5HJMzIhZlyQ71BgfzPYDFEyiFHkFFhE-TKOMVM9i4ipHCY0WeRY_FOE7YGYHrT88JXD4P8oGAILEqkEnI2VGIIcAiTiLw8B7IysqsKM2AhKwqGXADjCgIOoFROSsJEmAsk6RcMvRlotVt1r6B4KAbN3SdrK2T1TVyUHEyN_9lqFagm01SPjT3q4yTlD8YrS_mp2LIbL0jzVOzXTX3lh1I-BrIbWYOmEDPRJQN0eoprS9ajT2roYfMQ809k40zh2EwGPEoxhDEqoLAeFZCitmom2_KdkV_R4NsfL5Y33ZHYRpG-6PVaLCf6IyYRLSySld-GSdLZGeXZWxkONLhvg7qtk1_tJhYFzjkDyLtF2TzOz-lqClS2nOreAyluJp2Rhr6X8N8dOwOiN21GnWy-NbT7Ou7rlnrfJ_ZTyvOElfqntMLrN-FkHco6F2_wr1XspDSsdGqXrYX6fsmfVWcQEkEM-hPoeieSbvAuO39su_-0mV7yeEa8Lh2qhfz3qTsAtDXX23vHMe9YLnE3w-NREOx8dDkE2eeSMeFK8FO46Z-bm78JAc140Qz9V0-aiNvdY3wRdLaMa29JFotloR4WlZSjmyvD5ScHjIVN2gXD_i2yO4Su6rG2ZZ1VO1iwv0-kIutGtG2rfnftLD7YGyCHi1bzQqz0-0sGPaXYxace3t1ozYs4u9GZ61M2r1PbBVWUSM737prZKvgergUUlJQjLM3K-cSOo-R-9LE0TRUk1jgBCnPSqGKZf65NMUNY0VFPZyajkOMRkU4o8CUG8z_BTYxeAE)
+```mermaid
+%%{init: {"pie": {"textPosition": 0.5}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
+pie showData title TL working hours - Breaking Down
+  "U内事务": 14.5
+  "人员发展": 18.5
+  "技术决策 - 写代码/结对编程": 12.5
+  "技术决策 - Code Review/方案讨论/糊方案图": 15.75
+  "Feature Owner管理": 32.5
+  "团队事务 - 会议 - Agile敏捷三大会": 27.75
+  "团队事务 - 会议 - 技术治理大会": 6
+  "团队事务 - 会议 - 异地Scrum全团队Standup": 16.5
+  "团队事务 - 会议 - SAFE PI计划会": 11.75
+  "团队事务 - 迭代故事卡技术准备/技术债管理": 20
+  "团队事务 - 其他（支持Release、支持开卡结卡等）": 24
+  "外部团队对接 - 敏捷团队内SM/BA/PO/UX": 17.5
+  "外部团队对接 - 技术线直属上级SA": 9.75
+  "外部团队对接 - 技术线架构办Platform": 10
+  "外部团队对接 - 平级团队": 4.5
+  "外部团队对接 - 三方依赖团队": 23
+  "外部团队对接 - 非功能性NFR测试等": 10.25
+  "外部团队对接 - 上线准备/对接": 7.75
+  "外部团队对接 - 其他（非计划内聊天等）": 7.5
+```
 
 WIP: 待解读
 
