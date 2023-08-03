@@ -2,6 +2,10 @@
 
 headSHA=$(git rev-parse HEAD)
 
+# stash changes
+git add .
+git stash push
+
 # clean-up
 rm -rf dist
 git worktree remove -f dist
@@ -31,3 +35,6 @@ cd ..
 rm -rf dist
 git worktree remove -f dist
 git branch -D gh-pages
+
+# pop stashed changes
+git stash pop
