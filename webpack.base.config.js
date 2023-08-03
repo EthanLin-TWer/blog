@@ -81,7 +81,7 @@ const config = {
     publicPath: '/',
   },
   resolve: {
-    extensions: ['*', '.js', '.ts', '.tsx'],
+    extensions: ['.*', '.js', '.ts', '.tsx'],
     extensionAlias: {
       '.mjs': ['.mjs', '.mts'],
     },
