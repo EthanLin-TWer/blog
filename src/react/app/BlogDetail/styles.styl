@@ -1,4 +1,17 @@
-.container {
-  max-width: 800px;
-  margin: 0 auto;
+.container-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  max-width: 960px; // this looks most comfortable to me as an article width
+  margin: 0 auto; // this makes sure the article is center aligned
+  // this makes sure horizontal spaces are present on smaller screens which is improves readability
+  padding: 0 8%;
 }
+
+.article-title,
+.article-summary {
+  text-align: center;
+}
+
+.article-content {}

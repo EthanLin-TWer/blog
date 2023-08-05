@@ -10,14 +10,15 @@ import './styles.styl'
 
 interface Props {
   data: string
+  className?: string
 }
 
-export const GithubFlavoredMarkdown: FC<Props> = ({ data }) => (
+export const GithubFlavoredMarkdown: FC<Props> = ({ data, className }) => (
   <ReactMarkdown
     components={{ code: CodeBlockRenderer }}
     rehypePlugins={[rehypeRaw]}
     remarkPlugins={[remarkGfm]}
-    className="markdown-body"
+    className={`markdown-body ${className}`}
   >
     {data}
   </ReactMarkdown>

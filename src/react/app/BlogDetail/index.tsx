@@ -7,6 +7,7 @@ import { GithubFlavoredMarkdown } from '../../components/GithubFlavoredMarkdown'
 
 import { actions } from './actions'
 import { getTitleAsMarkdown, parseContent, parseJekyllPost } from './selectors'
+import './styles.styl'
 
 interface Props {}
 interface State {
@@ -39,13 +40,24 @@ export const BlogDetail: FC<Props, State> = () => {
   }, [post])
 
   return (
-    <div className="container">
-      {blogDetail.title && <GithubFlavoredMarkdown data={blogDetail.title} />}
+    <div className="container-details">
+      {blogDetail.title && (
+        <GithubFlavoredMarkdown
+          data={blogDetail.title}
+          className="article-title"
+        />
+      )}
       {blogDetail.summary && (
-        <GithubFlavoredMarkdown data={blogDetail.summary} />
+        <GithubFlavoredMarkdown
+          data={blogDetail.summary}
+          className="article-summary"
+        />
       )}
       {blogDetail.content && (
-        <GithubFlavoredMarkdown data={blogDetail.content} />
+        <GithubFlavoredMarkdown
+          data={blogDetail.content}
+          className="article-content"
+        />
       )}
     </div>
   )
