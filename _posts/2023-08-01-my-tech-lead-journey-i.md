@@ -3,7 +3,9 @@ title: Tech Lead从入门到放弃（一）：TL真有50%时间写代码？
 category: career, tech-lead
 ---
 
-数据证明，只有10%！
+家人们，数据证明，真的只有10%的时间碰代码！
+
+> **太长不读：这篇文章里我通过自己过去三个月的时间分配，揭示了我10%编码时间背后的工作内容分配逻辑。然后，通过少量的样本和访谈，我指出了团队管理事务与团队规模的正相关关系，并草率地得出了10-12开发者规模作为TL编码时间有无的分界线。随后，我又指出增长的团队管理事务中占大头的部分是需求管理，也指出TL的一大职责便是确保PO/BA/UX/TL团队的工作产出符合预期。**
 
 在我入职TW的时候就对TL这个工作有一种神圣的敬意，觉得TL是团队里的全能小英雄，也是身为技术人的技能巅峰。在我的心目中，TL就是组里技术最强的人，TA不仅能带团队高效地交付高质量的功能，也能打点好跟上级和其他人的沟通，组里的一切TA都可以游刃有余。用大熊的话来说，就是当项目经理把这个项目交到你手里，他就啥也不用操心了，因为相信你一定会把项目管好。但是我发现，当我两年前真正戴上TL这顶帽子的时候，我却蕉绿了！其中最核心的困惑点还是，各种纷杂的事务扑面而来，许多事情需要响应，我写代码的时间不可避免地变少了。
 
@@ -13,18 +15,20 @@ category: career, tech-lead
 
 记录工作笔记并且经常回顾，是对日常工作一个有益的尊重。正如developer记录编码时间可以发现自己编码过程的生涩点并加以刻意练习提高一样，TL记录工作时间同样有助于发现自己的工作侧重及生涩点，并加以有益的练习和提高。于是，我抓取了自己最近三个月来的工作日记，分析了一下自己日常不同工作类型的时间占比。采样点跨度三个月，共12周、41个工作日，采样时长288个小时，刚好经历一个完整的三个月一次的SAFE大迭代计划会，以及TW内部每半年一次的绩效评估。
 
-<p align="center" >
+<p>
   <a href="https://mermaid.live/edit#pako:eNpNkE1LAkEcxr_KMLA3E9Ms8SzRQTCwl8tcJvefO7g7I7MzaSwLQeTBoPKQCAVhFHQpiU75eRzFb9G-KHYbnt_zPMz_CXBD2IDL2LICxpkqo4DgNgOCk5eCrjoUPlNM8FjKZYsZRLD24ZTZyoml0l4ujDXlgAcnVDJ65oK_ykdNNa1A1pUUrU2G4EK7S3AYotCyCI9cyHdEp0IVRYopF9BRFXWEbDHeRI7Q0kdb6IA1HVSFC3AJR1HFsendzKa3pj-OK7d3ssVUn02nZjAy9wPz_ZiQ0prM-1fz54np_Sw-hzHJl7L5FdoHqrQEVOtwkIuv8eKhFzsK-XXWvA2X1x_m6XU5ejGT3_nde3L8piFF_z6U28UZ7IH0KLOjgYPUlsyUbmDDOdWuIpjwMLJSrUT9kjdwWUkNGazbNlVQYbQpqZeK4R88CKHy">
     <img 
       src="https://mermaid.ink/img/pako:eNpNkE1LAkEcxr_KMLA3E9Ms8SzRQTCwl8tcJvefO7g7I7MzaSwLQeTBoPKQCAVhFHQpiU75eRzFb9G-KHYbnt_zPMz_CXBD2IDL2LICxpkqo4DgNgOCk5eCrjoUPlNM8FjKZYsZRLD24ZTZyoml0l4ujDXlgAcnVDJ65oK_ykdNNa1A1pUUrU2G4EK7S3AYotCyCI9cyHdEp0IVRYopF9BRFXWEbDHeRI7Q0kdb6IA1HVSFC3AJR1HFsendzKa3pj-OK7d3ssVUn02nZjAy9wPz_ZiQ0prM-1fz54np_Sw-hzHJl7L5FdoHqrQEVOtwkIuv8eKhFzsK-XXWvA2X1x_m6XU5ejGT3_nde3L8piFF_z6U28UZ7IH0KLOjgYPUlsyUbmDDOdWuIpjwMLJSrUT9kjdwWUkNGazbNlVQYbQpqZeK4R88CKHy?type=png" 
+      alt="TL working hours - high level"
     /> 
   </a>
 </p>
 
-<p align="center" >
+<p>
   <a href="https://mermaid.live/edit#pako:eNqFVF1T00AU_SuZzPQN-wlUeSsiM86odIioD3lZ6UIztEkn3VicTmdasQWCiKjtoECxigM-0IoIQlrhx5jdpE_8BTcfti8QXzLZs_ece--5dzbPTksJyI6wPl9eEAU0wuR5NiNAnrX_EJxHcSkrIEESLSjoHxpgeFbJwsdCAiUtKBQJBQsWiJIwDR8BWQBPUzDrClCpCQVBmUOyNNcn8WwkM8-zhQJT8Pl4kUYx2aSUGwMIMEhAKcg8vMfkJHlOEGeZpKTIWeYGMypDYANjUk7kRYaqTOFKWddWsNqwSxn0Dzm4rml4fQOvrePDqn1z898NUYtkq4UrR8ZBjWriyge9_cX4VAoY7Xe4dWZ0asb-ik0JX0O5TQ1jJuEzAeYCpHZGGktmc99sagHjSHXOePPcVhjyR12JcQiQIkNmIidC2Wg2jDcVKyLSy4E3P3c3dpxWaA6989FsNulPbFZIQVJdI6u_9NNlvLtHbyxmONrTvo7qlE1-tGmyPnHYm4Q7L_DWd25aVtK4vO9EcQiICSVjtzT8v4K52PgdJn7XbDbw0ls3Zyh0XbHmxQG1n1TtIa42XKcXab2LAfdQ1Pp-hYNXquDyid6uXXaWyPsWeVWahCkIsvBPseSccadIta350u_B8mVn2dYadLV2a90Ft1O6AOT1V8s723EXrJS5-4HRWCA-EZh6YvcT7blwJdku3NAujM2f-LCun6qGtsfFLOatvhGeTFI_IfWXWK3HUwDNSHLaThv0oOKzI5rFAa3gQc8S6S7RVdXPt83jWp8TjnhQutt1rO6YC79Jce_B-CQ5XjFbVWqnU5k_7J2OWnDhztVBLVrU243eWGlqZ5_oKMySine_9cdIR8EOsGkop4GQoO9Y3hG0HyPnpUnAGaCkEM_yYoGGAgVJ3HNxmh1BsgIHWCWTAAiOCWBWBmkHLPwFK5l9tQ">
     <img 
       src="https://mermaid.ink/img/pako:eNqFVF1T00AU_SuZzPQN-wlUeSsiM86odIioD3lZ6UIztEkn3VicTmdasQWCiKjtoECxigM-0IoIQlrhx5jdpE_8BTcfti8QXzLZs_ece--5dzbPTksJyI6wPl9eEAU0wuR5NiNAnrX_EJxHcSkrIEESLSjoHxpgeFbJwsdCAiUtKBQJBQsWiJIwDR8BWQBPUzDrClCpCQVBmUOyNNcn8WwkM8-zhQJT8Pl4kUYx2aSUGwMIMEhAKcg8vMfkJHlOEGeZpKTIWeYGMypDYANjUk7kRYaqTOFKWddWsNqwSxn0Dzm4rml4fQOvrePDqn1z898NUYtkq4UrR8ZBjWriyge9_cX4VAoY7Xe4dWZ0asb-ik0JX0O5TQ1jJuEzAeYCpHZGGktmc99sagHjSHXOePPcVhjyR12JcQiQIkNmIidC2Wg2jDcVKyLSy4E3P3c3dpxWaA6989FsNulPbFZIQVJdI6u_9NNlvLtHbyxmONrTvo7qlE1-tGmyPnHYm4Q7L_DWd25aVtK4vO9EcQiICSVjtzT8v4K52PgdJn7XbDbw0ls3Zyh0XbHmxQG1n1TtIa42XKcXab2LAfdQ1Pp-hYNXquDyid6uXXaWyPsWeVWahCkIsvBPseSccadIta350u_B8mVn2dYadLV2a90Ft1O6AOT1V8s723EXrJS5-4HRWCA-EZh6YvcT7blwJdku3NAujM2f-LCun6qGtsfFLOatvhGeTFI_IfWXWK3HUwDNSHLaThv0oOKzI5rFAa3gQc8S6S7RVdXPt83jWp8TjnhQutt1rO6YC79Jce_B-CQ5XjFbVWqnU5k_7J2OWnDhztVBLVrU243eWGlqZ5_oKMySine_9cdIR8EOsGkop4GQoO9Y3hG0HyPnpUnAGaCkEM_yYoGGAgVJ3HNxmh1BsgIHWCWTAAiOCWBWBmkHLPwFK5l9tQ?type=png" 
+      alt="TL working hours - breaking down"
     /> 
   </a>
 </p>
@@ -66,24 +70,31 @@ category: career, tech-lead
 
 在实践中，往往会由PO/BA/TL预先进行不少业务方案和技术方案的设计，然后才会交给团队进行Grooming。这并不是要阻碍团队参与需求的验证和方案贡献，而是为了在前期最大程度地确定下业务和（主要是）技术上存在的依赖，并产出一些技术设计的产物（时序图、架构图、API和数据库表设计等，并且提前与其他团队拉通确认），以最大限度地提升需求侧的输入质量，提升团队的Grooming效率，进而提升整个团队的开发效率。
 
-在笔者当前所在项目上，为了**给团队和Grooming会议提前准备2个迭代的需求**，PO/BA/UX/TL往往必须提前1-2个月就开始需求的获取、业务方案设计、UI设计、大体技术方案敲定等工作。具体的工作流程和输入输出在此暂不赘述，但是时间线上是这样的：
+在笔者当前所在项目上，为了**给团队和Grooming会议提前准备2个迭代的需求**，PO/BA/UX/TL往往必须提前1-2个月就开始需求的获取、业务方案设计、UI设计、大体技术方案敲定等工作，时间线如下图所示。在当前9位开发者规模的项目上，为了达到提前1-2个迭代的需求完成度，与需求管理相关的工作占到了25%左右，包括需求准备、技术设计、Feature Owner管理等。
 
-<p align="center" >
-  <a href="https://mermaid.live/edit#pako:eNp9kk9LAkEYxr_KMBBstLLtdtubZkVgJLlhh4UY3HEddGdlna1EBBEiskIQoiAjPXWIjC4dJOzLuP75Fs26mhnVYWB45vk9z8D7lmDKNjBUoYkoYzoFAJ2QwqbtWIiBJMZZsJT0VUZS2W3KsHOEckA-5g--6p9xszJ4rcb3ov331rjSEOK7UiQs7R9IWsyrV71aa1kFeccQgbKqKCFZCa3JIk_w0X730Tvrjp9u-x_3w-aDwKFImNtdIgKU5mUB-N08uD7tdy-8q7bXuAyvC7xJi3GiwGyn-Dd08-Z1695db_h8PqhVBs2XUac36rQFLSYl_EKGU5lf6C3Hti1CTRVYJId5B8UiMKfizO-SoH0aIhs-uUENYKdBIu8QyoC2EFCYiIfs34AZuSKrX4A8I-YJyvGCWZmblZ9mOXBDEVqYT5cYfOilyRAhy2AL61DlVwOnkZtjOtRpmVuRy-xEkaagyhwXi9DNG4jhKEGmg6yZiA3C_78T7NFkncqfC-HirQ">
+<p>
+  <a href="https://mermaid.live/edit#pako:eNp9kt1KAkEcxV9lGAg2WrXd7vZOsyIwkjTsQojBHXVwd1Z2ZysRQYSIrJCEKMhIrwoio5suJOxlXD_eoll1-xDrYmA4M79z5s-cIkwZKoYKzCDKWJICgI6ItW6YOmIggXEOLCRclZFUbpMybB4gDUiH_MBV3TVqlPuvlehOuPfeHJXrQnQ7EAoGdvcC8YhTqzjVJpCcy8dFBeRNVQTysiz7JNm3IoncxuV7nQfnpDN6uul93A0a9wInQ0GPsYkIUJrHTuifRP_quNc5cy5aTv08uCrwzHjEwyxmmIW_yes3p1NzbruD59N-tdxvvAzb3WG7JcQjgdhXNMOp7ByLDdMwdEIzCtCJhnkQxSLITEXvvk0mT5iaSKpLrlEVGGkQy5uEMhD_ZWCNxX32r4FHLkl-v1-Qp6NOSclDv61mKHkOJc9S0gSDItQx7wBReTWK46-GLIt1nIQK36o4jWyNJWGSlvhVZDMjVqApqDDTxiK08ypiOExQxkQ6VNJIs7iKVcJH2prUbdy60if2WfLi">
     <img 
-      src="https://mermaid.ink/img/pako:eNp9kk9LAkEYxr_KMBBstLLtdtubZkVgJLlhh4UY3HEddGdlna1EBBEiskIQoiAjPXWIjC4dJOzLuP75Fs26mhnVYWB45vk9z8D7lmDKNjBUoYkoYzoFAJ2QwqbtWIiBJMZZsJT0VUZS2W3KsHOEckA-5g--6p9xszJ4rcb3ov331rjSEOK7UiQs7R9IWsyrV71aa1kFeccQgbKqKCFZCa3JIk_w0X730Tvrjp9u-x_3w-aDwKFImNtdIgKU5mUB-N08uD7tdy-8q7bXuAyvC7xJi3GiwGyn-Dd08-Z1695db_h8PqhVBs2XUac36rQFLSYl_EKGU5lf6C3Hti1CTRVYJId5B8UiMKfizO-SoH0aIhs-uUENYKdBIu8QyoC2EFCYiIfs34AZuSKrX4A8I-YJyvGCWZmblZ9mOXBDEVqYT5cYfOilyRAhy2AL61DlVwOnkZtjOtRpmVuRy-xEkaagyhwXi9DNG4jhKEGmg6yZiA3C_78T7NFkncqfC-HirQ?type=png" 
+      src="https://mermaid.ink/img/pako:eNp9kt1KAkEcxV9lGAg2WrXd7vZOsyIwkjTsQojBHXVwd1Z2ZysRQYSIrJCEKMhIrwoio5suJOxlXD_eoll1-xDrYmA4M79z5s-cIkwZKoYKzCDKWJICgI6ItW6YOmIggXEOLCRclZFUbpMybB4gDUiH_MBV3TVqlPuvlehOuPfeHJXrQnQ7EAoGdvcC8YhTqzjVJpCcy8dFBeRNVQTysiz7JNm3IoncxuV7nQfnpDN6uul93A0a9wInQ0GPsYkIUJrHTuifRP_quNc5cy5aTv08uCrwzHjEwyxmmIW_yes3p1NzbruD59N-tdxvvAzb3WG7JcQjgdhXNMOp7ByLDdMwdEIzCtCJhnkQxSLITEXvvk0mT5iaSKpLrlEVGGkQy5uEMhD_ZWCNxX32r4FHLkl-v1-Qp6NOSclDv61mKHkOJc9S0gSDItQx7wBReTWK46-GLIt1nIQK36o4jWyNJWGSlvhVZDMjVqApqDDTxiK08ypiOExQxkQ6VNJIs7iKVcJH2prUbdy60if2WfLi?type=png" 
+      alt="PO/BA/UX/TL核心团队Way of Working"
     /> 
   </a>
 </p>
 
-### 时间管理
+因此，TL的一大职责，便是确保能为团队提供符合质量的、经过技术设计和验证的需求。为了达到这个目的，他必须有效管理PO/BA/UX的WoW，确保每个人都知道自己需要提前多久、产出符合何种标准的产物；他也必须在与架构组/平台组的方案沟通中主导方向、有效输出，以推进符合整体技术架构和团队需求的技术设计；此外，他还往往需要通过一些机制来适当地带动团队成员来分担一部分这些工作，并通过有效的管理确保团队总体进度和产出符合预期。这就是TL在团队的需求管理方面要做的事。
 
-> WIP: 待解读
+**再次总结一下，这篇文章里我通过自己过去三个月的时间分配，揭示了我10%编码时间背后的工作内容分配逻辑。然后，通过少量的样本和访谈，我们得出了团队管理事务与团队规模的正相关关系，并草率地得出了10-12开发者规模作为TL编码时间有无的分界线。随后，我又指出增长的团队管理事务中占大头的部分是需求管理，也指出TL的一大职责便是确保PO/BA/UX/TL团队的工作产出符合预期**。
 
-### 效率提升
+在下面的系列里，我打算继续写写TL的其他KPI、时间管理等问题，并将顺便讨论一下作为杠杆手段的Feature Owner实践是与非，以及其他现在暂时没想到的话题。敬请期待。
+
+* [Tech Lead从入门到放弃（二）：TL的KPI是什么？][My Tech Lead journey II]
+* [Tech Lead从入门到放弃（三）：Feature Owner是Anti-Practice吗？][My Tech Lead journey III]
+* [Tech Lead从入门到放弃（四）：浅谈时间管理][My Tech Lead journey IV]
 
 #### 参考
 
 * [Tech Lead之路]()
-* [关于时间管理的一点建议](https://juejin.cn/post/7225941608225652773)
-* [Tech Lead如何应对编码时间下降](https://zhuanlan.zhihu.com/p/518921041)
+
+[My Tech Lead journey II]: https://ethan.thoughtworkers.me/#/post/2023-08-03-my-tech-lead-journey-ii
+[My Tech Lead journey III]: https://ethan.thoughtworkers.me/#/post/2023-08-04-my-tech-lead-journey-iii
+[My Tech Lead journey IV]: https://ethan.thoughtworkers.me/#/post/2023-08-05-my-tech-lead-journey-iv
