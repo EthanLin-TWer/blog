@@ -13,18 +13,20 @@ category: career, tech-lead
 
 记录工作笔记并且经常回顾，是对日常工作一个有益的尊重。正如developer记录编码时间可以发现自己编码过程的生涩点并加以刻意练习提高一样，TL记录工作时间同样有助于发现自己的工作侧重及生涩点，并加以有益的练习和提高。于是，我抓取了自己最近三个月来的工作日记，分析了一下自己日常不同工作类型的时间占比。采样点跨度三个月，共12周、41个工作日，采样时长288个小时，刚好经历一个完整的三个月一次的SAFE大迭代计划会，以及TW内部每半年一次的绩效评估。
 
-<p align="center" >
+<p>
   <a href="https://mermaid.live/edit#pako:eNpNkE1LAkEcxr_KMLA3E9Ms8SzRQTCwl8tcJvefO7g7I7MzaSwLQeTBoPKQCAVhFHQpiU75eRzFb9G-KHYbnt_zPMz_CXBD2IDL2LICxpkqo4DgNgOCk5eCrjoUPlNM8FjKZYsZRLD24ZTZyoml0l4ujDXlgAcnVDJ65oK_ykdNNa1A1pUUrU2G4EK7S3AYotCyCI9cyHdEp0IVRYopF9BRFXWEbDHeRI7Q0kdb6IA1HVSFC3AJR1HFsendzKa3pj-OK7d3ssVUn02nZjAy9wPz_ZiQ0prM-1fz54np_Sw-hzHJl7L5FdoHqrQEVOtwkIuv8eKhFzsK-XXWvA2X1x_m6XU5ejGT3_nde3L8piFF_z6U28UZ7IH0KLOjgYPUlsyUbmDDOdWuIpjwMLJSrUT9kjdwWUkNGazbNlVQYbQpqZeK4R88CKHy">
     <img 
       src="https://mermaid.ink/img/pako:eNpNkE1LAkEcxr_KMLA3E9Ms8SzRQTCwl8tcJvefO7g7I7MzaSwLQeTBoPKQCAVhFHQpiU75eRzFb9G-KHYbnt_zPMz_CXBD2IDL2LICxpkqo4DgNgOCk5eCrjoUPlNM8FjKZYsZRLD24ZTZyoml0l4ujDXlgAcnVDJ65oK_ykdNNa1A1pUUrU2G4EK7S3AYotCyCI9cyHdEp0IVRYopF9BRFXWEbDHeRI7Q0kdb6IA1HVSFC3AJR1HFsendzKa3pj-OK7d3ssVUn02nZjAy9wPz_ZiQ0prM-1fz54np_Sw-hzHJl7L5FdoHqrQEVOtwkIuv8eKhFzsK-XXWvA2X1x_m6XU5ejGT3_nde3L8piFF_z6U28UZ7IH0KLOjgYPUlsyUbmDDOdWuIpjwMLJSrUT9kjdwWUkNGazbNlVQYbQpqZeK4R88CKHy?type=png" 
+      alt="TL working hours - high level"
     /> 
   </a>
 </p>
 
-<p align="center" >
+<p>
   <a href="https://mermaid.live/edit#pako:eNqFVF1T00AU_SuZzPQN-wlUeSsiM86odIioD3lZ6UIztEkn3VicTmdasQWCiKjtoECxigM-0IoIQlrhx5jdpE_8BTcfti8QXzLZs_ece--5dzbPTksJyI6wPl9eEAU0wuR5NiNAnrX_EJxHcSkrIEESLSjoHxpgeFbJwsdCAiUtKBQJBQsWiJIwDR8BWQBPUzDrClCpCQVBmUOyNNcn8WwkM8-zhQJT8Pl4kUYx2aSUGwMIMEhAKcg8vMfkJHlOEGeZpKTIWeYGMypDYANjUk7kRYaqTOFKWddWsNqwSxn0Dzm4rml4fQOvrePDqn1z898NUYtkq4UrR8ZBjWriyge9_cX4VAoY7Xe4dWZ0asb-ik0JX0O5TQ1jJuEzAeYCpHZGGktmc99sagHjSHXOePPcVhjyR12JcQiQIkNmIidC2Wg2jDcVKyLSy4E3P3c3dpxWaA6989FsNulPbFZIQVJdI6u_9NNlvLtHbyxmONrTvo7qlE1-tGmyPnHYm4Q7L_DWd25aVtK4vO9EcQiICSVjtzT8v4K52PgdJn7XbDbw0ls3Zyh0XbHmxQG1n1TtIa42XKcXab2LAfdQ1Pp-hYNXquDyid6uXXaWyPsWeVWahCkIsvBPseSccadIta350u_B8mVn2dYadLV2a90Ft1O6AOT1V8s723EXrJS5-4HRWCA-EZh6YvcT7blwJdku3NAujM2f-LCun6qGtsfFLOatvhGeTFI_IfWXWK3HUwDNSHLaThv0oOKzI5rFAa3gQc8S6S7RVdXPt83jWp8TjnhQutt1rO6YC79Jce_B-CQ5XjFbVWqnU5k_7J2OWnDhztVBLVrU243eWGlqZ5_oKMySine_9cdIR8EOsGkop4GQoO9Y3hG0HyPnpUnAGaCkEM_yYoGGAgVJ3HNxmh1BsgIHWCWTAAiOCWBWBmkHLPwFK5l9tQ">
     <img 
       src="https://mermaid.ink/img/pako:eNqFVF1T00AU_SuZzPQN-wlUeSsiM86odIioD3lZ6UIztEkn3VicTmdasQWCiKjtoECxigM-0IoIQlrhx5jdpE_8BTcfti8QXzLZs_ece--5dzbPTksJyI6wPl9eEAU0wuR5NiNAnrX_EJxHcSkrIEESLSjoHxpgeFbJwsdCAiUtKBQJBQsWiJIwDR8BWQBPUzDrClCpCQVBmUOyNNcn8WwkM8-zhQJT8Pl4kUYx2aSUGwMIMEhAKcg8vMfkJHlOEGeZpKTIWeYGMypDYANjUk7kRYaqTOFKWddWsNqwSxn0Dzm4rml4fQOvrePDqn1z898NUYtkq4UrR8ZBjWriyge9_cX4VAoY7Xe4dWZ0asb-ik0JX0O5TQ1jJuEzAeYCpHZGGktmc99sagHjSHXOePPcVhjyR12JcQiQIkNmIidC2Wg2jDcVKyLSy4E3P3c3dpxWaA6989FsNulPbFZIQVJdI6u_9NNlvLtHbyxmONrTvo7qlE1-tGmyPnHYm4Q7L_DWd25aVtK4vO9EcQiICSVjtzT8v4K52PgdJn7XbDbw0ls3Zyh0XbHmxQG1n1TtIa42XKcXab2LAfdQ1Pp-hYNXquDyid6uXXaWyPsWeVWahCkIsvBPseSccadIta350u_B8mVn2dYadLV2a90Ft1O6AOT1V8s723EXrJS5-4HRWCA-EZh6YvcT7blwJdku3NAujM2f-LCun6qGtsfFLOatvhGeTFI_IfWXWK3HUwDNSHLaThv0oOKzI5rFAa3gQc8S6S7RVdXPt83jWp8TjnhQutt1rO6YC79Jce_B-CQ5XjFbVWqnU5k_7J2OWnDhztVBLVrU243eWGlqZ5_oKMySine_9cdIR8EOsGkop4GQoO9Y3hG0HyPnpUnAGaCkEM_yYoGGAgVJ3HNxmh1BsgIHWCWTAAiOCWBWBmkHLPwFK5l9tQ?type=png" 
+      alt="TL working hours - breaking down"
     /> 
   </a>
 </p>
@@ -66,26 +68,18 @@ category: career, tech-lead
 
 在实践中，往往会由PO/BA/TL预先进行不少业务方案和技术方案的设计，然后才会交给团队进行Grooming。这并不是要阻碍团队参与需求的验证和方案贡献，而是为了在前期最大程度地确定下业务和（主要是）技术上存在的依赖，并产出一些技术设计的产物（时序图、架构图、API和数据库表设计等，并且提前与其他团队拉通确认），以最大限度地提升需求侧的输入质量，提升团队的Grooming效率，进而提升整个团队的开发效率。
 
-这是团队规模对需求获取等难度
+在笔者当前所在项目上，为了**给团队和Grooming会议提前准备2个迭代的需求**，PO/BA/UX/TL往往必须提前1-2个月就开始需求的获取、业务方案设计、UI设计、大体技术方案敲定等工作，时间线如下图所示。在当前9位开发者规模的项目上，为了达到提前1-2个迭代的需求完成度，与需求管理相关的工作占到了25%左右，包括需求准备、技术设计、Feature Owner管理等。
 
-在笔者当前所在项目上，为了**给团队和Grooming会议提前准备2个迭代的需求**，PO/BA/UX/TL往往必须提前1-2个月就开始需求的获取、业务方案设计、UI设计、大体技术方案敲定等工作。具体的工作流程和输入输出在此暂不赘述，但是时间线上是这样的：
-
-<p align="center" >
+<p>
   <a href="https://mermaid.live/edit#pako:eNp9kt1KAkEcxV9lGAg2WrXd7vZOsyIwkjTsQojBHXVwd1Z2ZysRQYSIrJCEKMhIrwoio5suJOxlXD_eoll1-xDrYmA4M79z5s-cIkwZKoYKzCDKWJICgI6ItW6YOmIggXEOLCRclZFUbpMybB4gDUiH_MBV3TVqlPuvlehOuPfeHJXrQnQ7EAoGdvcC8YhTqzjVJpCcy8dFBeRNVQTysiz7JNm3IoncxuV7nQfnpDN6uul93A0a9wInQ0GPsYkIUJrHTuifRP_quNc5cy5aTv08uCrwzHjEwyxmmIW_yes3p1NzbruD59N-tdxvvAzb3WG7JcQjgdhXNMOp7ByLDdMwdEIzCtCJhnkQxSLITEXvvk0mT5iaSKpLrlEVGGkQy5uEMhD_ZWCNxX32r4FHLkl-v1-Qp6NOSclDv61mKHkOJc9S0gSDItQx7wBReTWK46-GLIt1nIQK36o4jWyNJWGSlvhVZDMjVqApqDDTxiK08ypiOExQxkQ6VNJIs7iKVcJH2prUbdy60if2WfLi">
     <img 
       src="https://mermaid.ink/img/pako:eNp9kt1KAkEcxV9lGAg2WrXd7vZOsyIwkjTsQojBHXVwd1Z2ZysRQYSIrJCEKMhIrwoio5suJOxlXD_eoll1-xDrYmA4M79z5s-cIkwZKoYKzCDKWJICgI6ItW6YOmIggXEOLCRclZFUbpMybB4gDUiH_MBV3TVqlPuvlehOuPfeHJXrQnQ7EAoGdvcC8YhTqzjVJpCcy8dFBeRNVQTysiz7JNm3IoncxuV7nQfnpDN6uul93A0a9wInQ0GPsYkIUJrHTuifRP_quNc5cy5aTv08uCrwzHjEwyxmmIW_yes3p1NzbruD59N-tdxvvAzb3WG7JcQjgdhXNMOp7ByLDdMwdEIzCtCJhnkQxSLITEXvvk0mT5iaSKpLrlEVGGkQy5uEMhD_ZWCNxX32r4FHLkl-v1-Qp6NOSclDv61mKHkOJc9S0gSDItQx7wBReTWK46-GLIt1nIQK36o4jWyNJWGSlvhVZDMjVqApqDDTxiK08ypiOExQxkQ6VNJIs7iKVcJH2prUbdy60if2WfLi?type=png" 
+      alt="PO/BA/UX/TL核心团队Way of Working"
     /> 
   </a>
 </p>
 
----
-团队规模体现在什么地方？TL时间都到哪去了？看我得经验主要有两个：
-* 故事与需求管理。需求是否提前准备好（PO-BA-TL产出和时间节点是否匹配上）？是否有充足的优先级管理？是否存在临时加塞的情况？
-  * 如果要为团队准备比较ready的需求，在grooming上业务、UX和技术方案都比较ready了，那么以上提前量是要打要做的。
-  * 如果让BA在grooming当场澄清需求、团队当场出方案，从未见过，除非团队方案不依赖他人、业务问题可以直接得到回答、每个人都对代码很熟悉
-* 团队成熟度。
-* 外部团队对接。
-
+因此，TL的一大职责，便是确保能为团队提供符合质量的、经过技术设计和验证的需求。为了达到这个目的，他必须有效管理PO/BA/UX的WoW，确保每个人都知道自己需要提前多久、产出符合何种标准的产物；他也必须在与架构组/平台组的方案沟通中主导方向、有效输出，以推进符合整体技术架构和团队需求的技术设计；此外，他还往往需要通过一些机制来适当地带动团队成员来分担一部分这些工作，并通过有效的管理确保团队总体进度和产出符合预期。这就是TL在团队的需求管理方面要做的事。
 
 ### 时间管理
 
@@ -98,3 +92,5 @@ category: career, tech-lead
 * [Tech Lead之路]()
 * [关于时间管理的一点建议](https://juejin.cn/post/7225941608225652773)
 * [Tech Lead如何应对编码时间下降](https://zhuanlan.zhihu.com/p/518921041)
+
+[My Tech Lead journey II]: https://ethan.thoughtworkers.me/#/post/2023-08-04-my-tech-lead-journey-ii
