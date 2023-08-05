@@ -3,7 +3,9 @@ title: Tech Lead从入门到放弃（一）：TL真有50%时间写代码？
 category: career, tech-lead
 ---
 
-数据证明，只有10%！
+家人们，数据证明，真的只有10%的时间碰代码！
+
+> **太长不读：这篇文章里我通过自己过去三个月的时间分配，揭示了我10%编码时间背后的工作内容分配逻辑。然后，通过少量的样本和访谈，我指出了团队管理事务与团队规模的正相关关系，并草率地得出了10-12开发者规模作为TL编码时间有无的分界线。随后，我又指出增长的团队管理事务中占大头的部分是需求管理，也指出TL的一大职责便是确保PO/BA/UX/TL团队的工作产出符合预期。**
 
 在我入职TW的时候就对TL这个工作有一种神圣的敬意，觉得TL是团队里的全能小英雄，也是身为技术人的技能巅峰。在我的心目中，TL就是组里技术最强的人，TA不仅能带团队高效地交付高质量的功能，也能打点好跟上级和其他人的沟通，组里的一切TA都可以游刃有余。用大熊的话来说，就是当项目经理把这个项目交到你手里，他就啥也不用操心了，因为相信你一定会把项目管好。但是我发现，当我两年前真正戴上TL这顶帽子的时候，我却蕉绿了！其中最核心的困惑点还是，各种纷杂的事务扑面而来，许多事情需要响应，我写代码的时间不可避免地变少了。
 
@@ -81,16 +83,18 @@ category: career, tech-lead
 
 因此，TL的一大职责，便是确保能为团队提供符合质量的、经过技术设计和验证的需求。为了达到这个目的，他必须有效管理PO/BA/UX的WoW，确保每个人都知道自己需要提前多久、产出符合何种标准的产物；他也必须在与架构组/平台组的方案沟通中主导方向、有效输出，以推进符合整体技术架构和团队需求的技术设计；此外，他还往往需要通过一些机制来适当地带动团队成员来分担一部分这些工作，并通过有效的管理确保团队总体进度和产出符合预期。这就是TL在团队的需求管理方面要做的事。
 
-### 时间管理
+**再次总结一下，这篇文章里我通过自己过去三个月的时间分配，揭示了我10%编码时间背后的工作内容分配逻辑。然后，通过少量的样本和访谈，我们得出了团队管理事务与团队规模的正相关关系，并草率地得出了10-12开发者规模作为TL编码时间有无的分界线。随后，我又指出增长的团队管理事务中占大头的部分是需求管理，也指出TL的一大职责便是确保PO/BA/UX/TL团队的工作产出符合预期**。
 
-> WIP: 待解读
+在下面的系列里，我打算继续写写TL的其他KPI、时间管理等问题，并将顺便讨论一下作为杠杆手段的Feature Owner实践是与非，以及其他现在暂时没想到的话题。敬请期待。
 
-### 效率提升
+* [Tech Lead从入门到放弃（二）：TL的KPI是什么？][My Tech Lead journey II]
+* [Tech Lead从入门到放弃（三）：Feature Owner是Anti-Practice吗？][My Tech Lead journey III]
+* [Tech Lead从入门到放弃（四）：浅谈时间管理][My Tech Lead journey IV]
 
 #### 参考
 
 * [Tech Lead之路]()
-* [关于时间管理的一点建议](https://juejin.cn/post/7225941608225652773)
-* [Tech Lead如何应对编码时间下降](https://zhuanlan.zhihu.com/p/518921041)
 
-[My Tech Lead journey II]: https://ethan.thoughtworkers.me/#/post/2023-08-04-my-tech-lead-journey-ii
+[My Tech Lead journey II]: https://ethan.thoughtworkers.me/#/post/2023-08-03-my-tech-lead-journey-ii
+[My Tech Lead journey III]: https://ethan.thoughtworkers.me/#/post/2023-08-04-my-tech-lead-journey-iii
+[My Tech Lead journey IV]: https://ethan.thoughtworkers.me/#/post/2023-08-05-my-tech-lead-journey-iv
