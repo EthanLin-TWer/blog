@@ -37,7 +37,7 @@ category: career, tech-lead
 
 ### 团队规模
 
-你很可能发现，作为TL的你在项目上的时间分配和管理跟我有所不同。我当然也对这个问题很感兴趣，于是我拿着这个饼图也做了一些调研，这个采样量目前比较小，但是也足以让我们得出一个不严谨的结论：**团队规模越大，管理事务越多，TL的编码时间越少。10-12位Developer是一个分界线，团队管理超过这个规模，TL编码时间为0**。
+你很可能发现，作为TL的你在项目上的时间分配和管理跟我有所不同。我当然也对这个问题很感兴趣，于是我拿着这个饼图也做了一些调研，这个采样量目前比较小，但是也足以让我们得出一个不严谨的结论：**团队规模越大，团队事务越多，TL的编码时间越少。10-12位Developer是一个分界线，团队管理超过这个规模，TL编码时间为0**。
 
 我现在所在的全功能团队直接成员共18人，其中直接参与点数贡献的开发者9人，编码时间5%。然后我调研的一些在港澳的TL们，他们的团队与TL编码情况大致是这样：
 
@@ -48,7 +48,33 @@ category: career, tech-lead
 
 TODO: 找一个好的可视化表示。
 
+团队事务的多寡与团队规模成正相关关系，这很好理解，但是团队事务具体体现在哪些方面呢？这里有很多的影响因素，比如日常管理、梯队管理、外部依赖（及团队）管理等等，但是根据我的经验，相关性最强的一点还得数**需求管理**。
 
+### 需求管理
+
+在敏捷方法论中，团队以迭代（Iteration/Sprint）的方式运作，每个迭代大约1-2周。在每个迭代的开始，团队会通过一次IPM（Iteration Planning Meeting，迭代计划会）来确定本次迭代要完成的需求。为此，团队必须定期梳理需求，为IPM产出一个需求列表（Backlog），以供PO和团队在IPM上按照优先级安排需求开发。这个定期梳理需求的会议，在Scrum里面就叫Backlog Grooming，它的发生频率往往比IPM更加频繁，通常是每周1-2次。
+
+在理想的Scrum流程中，Grooming会议上由PO阐述需求的业务背景和业务价值，由BA讲述验收标准，而具体的业务方案（可以理解为UI和交互形式）和技术方案将由团队（大部分为开发人员组成）在会议上**现场确定**并现场估算点数。乍看起来，这个过程并不需要TL花费额外的精力参与，并且也有它一定的道理：全团队均能获得所有业务细节、参与方案设计，在知识上不存在明显的孤岛效应。
+
+TODO：补一个Scrum图，要体现团队activity以及需求在各个阶段的流转过程。
+
+但是我工作8年以来，没有一个项目是正经这么做的。我认为，让全团队现场确定业务和技术方案的做法体现的是Scrum作为发源欧美的一项方法论对时代背景做的一些假设，即：团队规模都相对较小（往往在6-8人左右）、团队成员成熟度较高（Senior开发人员占大部分）。而这些假设在实践中往往不真，并且因此经常遇到一些普遍的问题：
+
+* 团队能够在会议上高效地讨论并确定业务和技术方案 —— 在实际场景中，一处细节讨论就花费整个团队大半个小时的情况时有发生，讨论效率并不高。而且技术方案细节往往在会上也无法当场框定，可视化想法本身都需要花费不少时间。团队规模越大，需求越多，掣肘越明显
+* 团队可以自主决定技术方案 —— 这背后假设可能也是个小公司或小团队场景。在实际场景中，团队方案往往要与其他团队（如架构办、对点技术主管、解决方案设计师、兄弟团队、外部团队、安全团队等）协商才能确定
+* 团队每个人都知道每处业务和代码的细节 —— 在实际场景中，方案和意见往往由最熟悉对应业务或代码的成员贡献。我经历过一个6位开发者都是Senior Developer的小团队，仍然做不到每个人都知道每处代码和数据结构的细节
+
+在实践中，往往会由PO/BA/TL预先进行不少业务方案和技术方案的设计，然后才会交给团队进行Grooming。这并不是要阻碍团队参与需求的验证和方案贡献，而是为了在前期最大程度地确定下业务和（主要是）技术上存在的依赖，并产出一些技术设计的产物（时序图、架构图、API和数据库表设计等，并且提前与其他团队拉通确认），以最大限度地提升需求侧的输入质量，提升团队的Grooming效率，进而提升整个团队的开发效率。
+
+在笔者当前所在项目上，为了**给团队和Grooming会议提前准备2个迭代的需求**，PO/BA/UX/TL往往必须提前1-2个月就开始需求的获取、业务方案设计、UI设计、大体技术方案敲定等工作。具体的工作流程和输入输出在此暂不赘述，但是时间线上是这样的：
+
+<p align="center" >
+  <a href="https://mermaid.live/edit#pako:eNp9kk9LAkEYxr_KMBBstLLtdtubZkVgJLlhh4UY3HEddGdlna1EBBEiskIQoiAjPXWIjC4dJOzLuP75Fs26mhnVYWB45vk9z8D7lmDKNjBUoYkoYzoFAJ2QwqbtWIiBJMZZsJT0VUZS2W3KsHOEckA-5g--6p9xszJ4rcb3ov331rjSEOK7UiQs7R9IWsyrV71aa1kFeccQgbKqKCFZCa3JIk_w0X730Tvrjp9u-x_3w-aDwKFImNtdIgKU5mUB-N08uD7tdy-8q7bXuAyvC7xJi3GiwGyn-Dd08-Z1695db_h8PqhVBs2XUac36rQFLSYl_EKGU5lf6C3Hti1CTRVYJId5B8UiMKfizO-SoH0aIhs-uUENYKdBIu8QyoC2EFCYiIfs34AZuSKrX4A8I-YJyvGCWZmblZ9mOXBDEVqYT5cYfOilyRAhy2AL61DlVwOnkZtjOtRpmVuRy-xEkaagyhwXi9DNG4jhKEGmg6yZiA3C_78T7NFkncqfC-HirQ">
+    <img 
+      src="https://mermaid.ink/img/pako:eNp9kk9LAkEYxr_KMBBstLLtdtubZkVgJLlhh4UY3HEddGdlna1EBBEiskIQoiAjPXWIjC4dJOzLuP75Fs26mhnVYWB45vk9z8D7lmDKNjBUoYkoYzoFAJ2QwqbtWIiBJMZZsJT0VUZS2W3KsHOEckA-5g--6p9xszJ4rcb3ov331rjSEOK7UiQs7R9IWsyrV71aa1kFeccQgbKqKCFZCa3JIk_w0X730Tvrjp9u-x_3w-aDwKFImNtdIgKU5mUB-N08uD7tdy-8q7bXuAyvC7xJi3GiwGyn-Dd08-Z1695db_h8PqhVBs2XUac36rQFLSYl_EKGU5lf6C3Hti1CTRVYJId5B8UiMKfizO-SoH0aIhs-uUENYKdBIu8QyoC2EFCYiIfs34AZuSKrX4A8I-YJyvGCWZmblZ9mOXBDEVqYT5cYfOilyRAhy2AL61DlVwOnkZtjOtRpmVuRy-xEkaagyhwXi9DNG4jhKEGmg6yZiA3C_78T7NFkncqfC-HirQ?type=png" 
+    /> 
+  </a>
+</p>
 
 ----
 团队规模体现在什么地方？TL时间都到哪去了？看我得经验主要有两个：
@@ -57,8 +83,6 @@ TODO: 找一个好的可视化表示。
   * 如果让BA在grooming当场澄清需求、团队当场出方案，从未见过，除非团队方案不依赖他人、业务问题可以直接得到回答、每个人都对代码很熟悉
 * 团队成熟度。
 * 外部团队对接。
-
-### 需求管理与故事规模
 
 ### 时间管理
 
