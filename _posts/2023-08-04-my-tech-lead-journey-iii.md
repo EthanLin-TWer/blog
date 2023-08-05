@@ -1,5 +1,5 @@
 ---
-title: Tech Lead从入门到放弃（二）：Feature Owner是Anti-Practice吗？
+title: Tech Lead从入门到放弃（三）：Feature Owner是Anti-Practice吗？
 category: career, tech-lead
 ---
 
