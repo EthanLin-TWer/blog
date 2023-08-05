@@ -7,7 +7,7 @@ category: JavaScript
   - `waitFor` returns a promise, so you should always `await`
 - [x] what is `act()`? when should I use `act()`? 
   - most functions RTL provides are already in `act()`: `render` / `fireEvent` / `userEvent`, so most of the time you don't need to manually write `act()`
-  - you need to do this when you: 1) trigger multiple calls in an action; 2) there are other async actions happened outside of React's stack, like `setTimeout`, `jest.mockTimer`, etc
+  - you need to do this when you: 1) trigger multiple calls in an action; 2) there are other async actions happened outside of React's stack, like `setTimeout`, `jest.mockTimer`, `Promise`-like asynchronous callbacks, etc
   - you could also use `await screen.findByXXX` to allow some waiting for simple scenarios
   - you will then need `await waitForElementToBeRemoved()` to wait for some loading / modal / etc.. disappearing
   - [all async methods are listed here](https://testing-library.com/docs/dom-testing-library/api-async/)
@@ -23,7 +23,7 @@ category: JavaScript
   - only use `data-testid` to make tests stable: won't fail when you adjust dom structure, move elements/components around 
   - encapsulate RTL calls with another layer of helpers to make it expressive
   - customize jest testers/matchers? 
-  - testing strategy: what to mock? hook or API calls? 
+  - testing strategy: what to mock? hook or API calls? - API calls, since hook can contain logic
 - [?] examples? 
   - simplest: CURD rendering: with mocking
   - simple: with design system like MUI: encapsulate selectors
