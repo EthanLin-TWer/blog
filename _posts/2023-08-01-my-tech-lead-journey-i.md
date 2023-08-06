@@ -91,6 +91,29 @@ category: career, tech-lead
 * [Tech Lead从入门到放弃（三）：Feature Owner是Anti-Practice吗？][My Tech Lead journey III]
 * [Tech Lead从入门到放弃（四）：浅谈时间管理][My Tech Lead journey IV]
 
+<detail>
+  <summary><b>彩蛋 - PDCA</b></summary>
+  数据采集的目的，一是为了寻找洞见，二是为接下来的改进指明方向。比如，在上面的饼图细分中，我就发现了我在feature owner管理、异地全团队Standup（主要是跟PO Sync）、需求准备、外部团队对接方面还可以通过更精细地利用好Feature Owner这个杠杆来将更多工作委派出去，以此为自己争取更多时间来编码、与团队结对等。同时，本文完成后我仍然打算继续采集未来三个月的数据，并在这里做不定期更新。Q2和Q3数据做对比，相信我们能从中发现颇为有趣的TL工作洞见。
+
+  <p>
+    <a href="https://mermaid.live/edit#pako:eNpNkUtLQkEUx7_KMHB3JpXYw7VEC8PAHpvZTN6Td_A6I3PPTeNyIYhcGFQuEqEgjII2JdEqP4-j-C26D0N3w-__4Mw5Aa0qG2iBWlYgpMACCRhtCmA0eSG08VB5AoWSMVrP5jOEUd-DU2GjE6PtnfUwZuhAA064FvzMBW-Rj5rKPoKuoFb1ZYbRXLPNaBiS0LKYjFzEc1SryJETFOgCOSqRltJ1IWvEUb72yBrZFzWHlOACXCZJVHFsOjeT8a3pDuPKHJOWRWI-GY9Nb2Due-b7MZk5tU-7V9Pnken8zD77Md5YJvaAo6-BlFsS9OxrOHvorATNW39-_WGeXueDFzP6nd69x-LmVja_0BNlZZLdbJ5maAN0gws7Wm2Q-pIFpb-34Zz7LjLKZBhZuY-qcimrtIDahwz1mzZHKApe07zxD8EWqPRBeq3kaOEfyPqm9Q">
+      <img 
+        src="https://mermaid.ink/svg/pako:eNpNkUtLQkEUx7_KMHB3JpXYw7VEC8PAHpvZTN6jd_A6I3PPTeNyIYhcGFQuEqEgjII2JdEqP4-j-C26D0F3w-__4Mw5Aa0qG2iBWlYgpMACCRhtCWA0eSF08Fh5AoWSMdrM5jOEUd-Dc2GjE6Pdvc0wZuhAE864FvzCBW-Zj5rKPoKuoFaNVYbRXKvDaBiS0LKYjFzEc1S7yJETFOgCOSmRttINIevEUb72yAY5FHWHlOASXCZJVHFqurfTyZ3pjeLKHJOWRWI-nUxMf2ge-ubnKZk5tc9617OXsen-zr8GMd5aJQ6Ao6-BlNsS9Px7NH_srgXN-2Bx82me3xbDVzP-m91_xOL2Tja_1BNlbZL9bJ5maBN0kws7Wm2Q-pIFpb-3ocZ9FxllMoys3EdVuZJVWkDtQ4b6LZsjFAWva96khRp3vYiCLVDpo_RcydXCf27vp0A" 
+        alt="TL working hours - high level - Q3"
+      /> 
+    </a>
+  </p>
+  
+  <p>
+    <a href="https://mermaid.live/edit#pako:eNqNVE9PE0Ec_SqTTXpDFiR44FZAEhOQhoJ62MtIB7qh3W22sxbTNGnBFigiorZBC8UiBjywFRGkf4Tvoju72xNfgdmdbcuBVi_Nzpt57_3mza-_ODcrBxA3xHk8cVES8RCIC1xERALnfGG0iH1yVMSiLNlQX-9gDxA4NYqeigEctKH-gb6-hA3iIAqjJ1AR4fMQiroCVGpSxUjxY0VeaJMEbiCyKHCJBEh4PIJET4FoUI6NQgwBFnEIgelxEJOVBVGaB0FZVaLgHhhWEHSAUTkmCRKgKjMkk9ar6yRbslUHBMnjATauV6tka5tsbpGTnFN3a8fIJo2dMsmcmsd5qkkyH_XaF_Nzijdr70m5Ytbz5tG6S7nj_AhNC0yhFyKK8Ua-YpRWLe3I0qq8eZpla1K4ZLG0LMcQxKqCwGRMQoqplcy3mVsGpLDf2N5jl6AGev2TpWn0wzsvhpCR2zQ2fukXa-TgkO4w4d7BlnQnMqva-FGjXm3qPxxJfYnsfPfPKmqYpI_YKT-GUkCN2Oz7tm83vt879hD4Hllaiay-a1bbfyfHujqmsRs55_E2Sm7IK7TWFd5dJKvtqB50sCbpc72Wv66vGh_KxuvUFAohGEV_kym2JvUkFbcflv4er13X1xyxdnoH-caye1H69sabr3Z0TuQumEn7J_hhL--b5Gee3Y7wTqZTuFm9Mgs_yUlRv8ia1UO_14nhf2hG8dwoviLZoi8E8ZyshN2e7sgklVPqwED339n9brSRaJPql7vWWf4WrYtFY7dIsnvW8m8jefh4bMo4W7fKOZpls8W7WNHbX7lPytBWiZ3dShWzoI2MT7Oe4tmatbFr2jWPZjuQQrGxpOm1c95KZcnBN97c2fuT3Gf77U4Y5Hq4MFLCUAzQCRhnys4YYzMqgOagGsICJ0gJehSqWPa_lGa5IayoqIdTIwGI0agI5xUYboIoIGJZmWBD1ZmtiRuPNKvA">
+      <img 
+        src="https://mermaid.ink/svg/pako:eNqNVE9PE0Ec_SqTTXpDFiR44FZAEhOQhoJ62MtIB7qh3W22sxbTNGnBFigiorZBC8UiBjywFRGkf4Tvoju72xNfgdmdbcuBVi_Nzpt57_3mza-_ODcrBxA3xHk8cVES8RCIC1xERALnfGG0iH1yVMSiLNlQX-9gDxA4NYqeigEctKH-gb6-hA3iIAqjJ1AR4fMQiroCVGpSxUjxY0VeaJMEbiCyKHCJBEh4PIJET4FoUI6NQgwBFnEIgelxEJOVBVGaB0FZVaLgHhhWEHSAUTkmCRKgKjMkk9ar6yRbslUHBMnjATauV6tka5tsbpGTnFN3a8fIJo2dMsmcmsd5qkkyH_XaF_Nzijdr70m5Ytbz5tG6S7nj_AhNC0yhFyKK8Ua-YpRWLe3I0qq8eZpla1K4ZLG0LMcQxKqCwGRMQoqplcy3mVsGpLDf2N5jl6AGev2TpWn0wzsvhpCR2zQ2fukXa-TgkO4w4d7BlnQnMqva-FGjXm3qPxxJfYnsfPfPKmqYpI_YKT-GUkCN2Oz7tm83vt879hD4Hllaiay-a1bbfyfHujqmsRs55_E2Sm7IK7TWFd5dJKvtqB50sCbpc72Wv66vGh_KxuvUFAohGEV_kym2JvUkFbcflv4er13X1xyxdnoH-caye1H69sabr3Z0TuQumEn7J_hhL--b5Gee3Y7wTqZTuFm9Mgs_yUlRv8ia1UO_14nhf2hG8dwoviLZoi8E8ZyshN2e7sgklVPqwED339n9brSRaJPql7vWWf4WrYtFY7dIsnvW8m8jefh4bMo4W7fKOZpls8W7WNHbX7lPytBWiZ3dShWzoI2MT7Oe4tmatbFr2jWPZjuQQrGxpOm1c95KZcnBN97c2fuT3Gf77U4Y5Hq4MFLCUAzQCRhnys4YYzMqgOagGsICJ0gJehSqWPa_lGa5IayoqIdTIwGI0agI5xUYboIoIGJZmWBD1ZmtiRuPNKvA" 
+        alt="TL working hours - breaking down - Q3"
+      /> 
+    </a>
+  </p>
+</detail>
+
 #### 参考
 
 * [Tech Lead之路]()
