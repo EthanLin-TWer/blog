@@ -2,9 +2,10 @@
 
 headSHA=$(git rev-parse HEAD)
 
+# todo: this doesn't work well when: 1) no stash when pushing, 2) no stash when popped
 # stash changes
-git add .
-git stash push
+#git add .
+#git stash push
 
 # clean-up
 rm -rf dist
@@ -37,4 +38,4 @@ git worktree remove -f dist
 git branch -D gh-pages
 
 # pop stashed changes
-git stash pop
+#git stash pop
