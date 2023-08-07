@@ -9,7 +9,7 @@ function* fetchBlogDetail({ payload: { id } }) {
   try {
     const { data } = yield call(
       axiosNormal.get,
-      `${process.env.CDN_URL}/blog/_posts/${id}.md`
+      process.env.BLOG_DETAIL_API.replace('{id}', id)
     )
     // @ts-ignore
     yield put(actions.saveBlogDetail(id, data))
