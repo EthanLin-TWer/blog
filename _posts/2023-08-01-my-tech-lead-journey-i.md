@@ -91,7 +91,7 @@ category: career, tech-lead
 * [Tech Lead从入门到放弃（三）：Feature Owner是Anti-Practice吗？][My Tech Lead journey III]
 * [Tech Lead从入门到放弃（四）：浅谈时间管理][My Tech Lead journey IV]
 
-<detail>
+<details>
   <summary><b>彩蛋 - PDCA</b></summary>
   数据采集的目的，一是为了寻找洞见，二是为接下来的改进指明方向。比如，在上面的饼图细分中，我就发现了我在feature owner管理、异地全团队Standup（主要是跟PO Sync）、需求准备、外部团队对接方面还可以通过更精细地利用好Feature Owner这个杠杆来将更多工作委派出去，以此为自己争取更多时间来编码、与团队结对等。同时，本文完成后我仍然打算继续采集未来三个月的数据，并在这里做不定期更新。Q2和Q3数据做对比，相信我们能从中发现颇为有趣的TL工作洞见。
 
@@ -112,7 +112,7 @@ category: career, tech-lead
       /> 
     </a>
   </p>
-</detail>
+</details>
 
 #### 参考
 
