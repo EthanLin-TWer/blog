@@ -4,9 +4,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
 import { GithubFlavoredMarkdown } from '../../components/GithubFlavoredMarkdown'
+import { ErrorBoundary } from '../../components/ErrorBoundary'
 
 import { actions } from './actions'
 import { parseJekyllPost } from './selectors'
+
 import './styles.styl'
 
 interface Props {}
@@ -49,25 +51,27 @@ export const BlogDetail: FC<Props, State> = () => {
   }
 
   return (
-    <div className="container-details">
-      {blogDetail.title && (
-        <GithubFlavoredMarkdown
-          data={blogDetail.title}
-          className="article-title"
-        />
-      )}
-      {blogDetail.summary && (
-        <GithubFlavoredMarkdown
-          data={blogDetail.summary}
-          className="article-summary"
-        />
-      )}
-      {blogDetail.content && (
-        <GithubFlavoredMarkdown
-          data={blogDetail.content}
-          className="article-content"
-        />
-      )}
-    </div>
+    <ErrorBoundary>
+      <div className="container-details">
+        {blogDetail.title && (
+          <GithubFlavoredMarkdown
+            data={blogDetail.title}
+            className="article-title"
+          />
+        )}
+        {blogDetail.summary && (
+          <GithubFlavoredMarkdown
+            data={blogDetail.summary}
+            className="article-summary"
+          />
+        )}
+        {blogDetail.content && (
+          <GithubFlavoredMarkdown
+            data={blogDetail.content}
+            className="article-content"
+          />
+        )}
+      </div>
+    </ErrorBoundary>
   )
 }

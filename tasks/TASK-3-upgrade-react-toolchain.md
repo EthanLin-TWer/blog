@@ -19,7 +19,7 @@
   * Add Loading component when loading blog list
   * Add Loading component when loading blog detail
   * Add NoContent component when network failed in loading blog detail
-  * 
+  * Add Error component when component rendering goes wrong
 * environment variables
 * [x] redux + @reduxjs/toolkit + examples - currently not used
 * jest + RTL + examples
