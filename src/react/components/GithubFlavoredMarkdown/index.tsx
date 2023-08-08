@@ -18,7 +18,7 @@ export const GithubFlavoredMarkdown: FC<Props> = ({ data, className }) => (
     components={{ code: CodeBlockRenderer }}
     rehypePlugins={[rehypeRaw]}
     remarkPlugins={[remarkGfm]}
-    className={`markdown-body ${className}`}
+    className={`markdown-body ${className || ''}`}
   >
     {data}
   </ReactMarkdown>

@@ -20,7 +20,7 @@ export const BlogSummary: FC<Props> = ({
   <div className="container-list">
     <Link to={path}>
       <section className="post">
-        <div className="left">
+        <div className="title-container">
           <div className="title">{title}</div>
           <div className="created-date">{createdDate}</div>
         </div>
