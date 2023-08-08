@@ -1,67 +1,44 @@
-import { getTitleAsMarkdown, parseContent, parseJekyllPost } from './selectors'
+import { parseJekyllPost } from './selectors'
 
 describe('parseJekyllPost()', () => {
-  test('simple test to test integration with parser util', () => {
-    const store = {
-      detail: {
-        posts: {
-          1: `
+  const postContent = `
 ---
 title: React 应用单元测试策略
 ---
-          `,
-        },
-      },
-    }
 
-    const result = parseJekyllPost(store.detail.posts['1'])
+家人们，第一行默认是summary。
 
-    expect(result.frontMatters).toEqual({
-      title: 'React 应用单元测试策略',
-    })
-  })
-})
+后面的。
 
-describe('getTitleAsMarkdown', () => {
-  test('should return title as markdown level 1 header when title is not empty', () => {
-    const frontMatters = {
-      title: ' React 单元测试策略',
-    }
-    const title = getTitleAsMarkdown(frontMatters)
+全部。
 
-    expect(title).toEqual('# React 单元测试策略')
+都是。
+
+内容。
+
+> 默认Markdown都是支持的。
+  `
+
+  it('should parse post title', () => {
+    const post = parseJekyllPost(postContent)
+    expect(post.title).toBe('React 应用单元测试策略')
   })
 
-  test('should return empty string when title is empty', () => {
-    const frontMatters = {}
-    const title = getTitleAsMarkdown(frontMatters)
-
-    expect(title).toEqual('')
+  it('should parse first paragraph in the post as summary', () => {
+    const post = parseJekyllPost(postContent)
+    expect(post.summary).toBe('家人们，第一行默认是summary。')
   })
-})
 
-describe('parseContent', () => {
-  test('should get first paragraph as blog summary', () => {
-    const content = `
-    这是第一段内容，默认作为 summary。
-    
-    其他。
-    
-    第二段。
-    
-    > 一些其他的语法
-    `
-    const expected = {
-      summary: '这是第一段内容，默认作为 summary。',
-      detail: expect.stringContaining(`其他。
-    
-    第二段。
-    
-    > 一些其他的语法`),
-    }
+  it('should parse remaining as post content', () => {
+    const post = parseJekyllPost(postContent)
+    expect(post.content).toEqual(`后面的。
 
-    const result = parseContent(content)
+全部。
 
-    expect(result).toEqual(expected)
+都是。
+
+内容。
+
+> 默认Markdown都是支持的。`)
   })
 })

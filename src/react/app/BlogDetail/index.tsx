@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 import { GithubFlavoredMarkdown } from '../../components/GithubFlavoredMarkdown'
 
 import { actions } from './actions'
-import { getTitleAsMarkdown, parseContent, parseJekyllPost } from './selectors'
+import { parseJekyllPost } from './selectors'
 import './styles.styl'
 
 interface Props {}
@@ -31,11 +31,9 @@ export const BlogDetail: FC<Props, State> = () => {
   }, [postId])
 
   useEffect(() => {
-    const { frontMatters, content } = parseJekyllPost(post)
-    const title = getTitleAsMarkdown(frontMatters)
-    const { summary, detail } = parseContent(content)
+    const { title, summary, content } = parseJekyllPost(post)
 
-    setBlogDetail({ title, summary, content: detail })
+    setBlogDetail({ title: title && `# ${title}`, summary, content })
     document.title = title
   }, [post])
 
