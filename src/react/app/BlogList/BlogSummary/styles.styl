@@ -39,8 +39,12 @@
   }
 }
 
+
 // responsive layout
-@media (max-width: 900px) {
+// just means nothing but half screen width of my Dell D2718 4K monitor,
+// so it switches layout on half screen for me to compare which one I like more
+smaller-device-size = (1024 + 1)px
+@media (max-width: smaller-device-size) {
   .post {
     display: flex;
     flex-direction: column;
@@ -55,7 +59,7 @@
   }
 }
 
-@media (min-width: 900px) {
+@media (min-width: smaller-device-size) {
   .post {
     display: flex;
     flex-direction: row;
