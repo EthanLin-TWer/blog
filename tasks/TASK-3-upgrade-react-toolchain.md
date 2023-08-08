@@ -16,9 +16,14 @@
 * folder structure
 * styling - styled-components + examples
 * UI - MUI + examples
+  * Add Loading component when loading blog list
+  * Add Loading component when loading blog detail
+  * Add NoContent component when network failed in loading blog detail
+  * 
 * environment variables
 * [x] redux + @reduxjs/toolkit + examples - currently not used
 * jest + RTL + examples
+  * component level testing
 * mock server with msw
 * [x] README
 * rewrite some code with hooks
