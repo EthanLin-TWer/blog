@@ -35,6 +35,7 @@ export const BlogDetail: FC<Props, State> = () => {
 
     setBlogDetail({ title: title && `# ${title}`, summary, content })
     document.title = title
+    document.getElementsByTagName('meta').description.content = summary
   }, [post])
 
   return (
