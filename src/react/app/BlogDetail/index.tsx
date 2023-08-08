@@ -25,6 +25,8 @@ export const BlogDetail: FC<Props, State> = () => {
   const dispatch = useDispatch()
   const { postId } = useParams()
   const post = useSelector((store) => store.detail.posts[postId]) || ''
+  const isLoading =
+    useSelector((store) => store.detail.loading[postId]) || false
 
   useEffect(() => {
     dispatch(actions.fetchBlogDetail(postId))
@@ -37,6 +39,14 @@ export const BlogDetail: FC<Props, State> = () => {
     document.title = title
     document.getElementsByTagName('meta').description.content = summary
   }, [post])
+
+  if (isLoading) {
+    return <div>loading ...</div>
+  }
+
+  if (!post) {
+    return <div>there is no post at this path</div>
+  }
 
   return (
     <div className="container-details">
