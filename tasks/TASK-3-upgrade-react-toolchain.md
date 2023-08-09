@@ -15,6 +15,7 @@
 * dev server with hot reload
 * folder structure
 * styling - styled-components + examples
+  * https://stylus.bootcss.com/docs/operators.html - I feel css modules works better
 * UI - MUI + examples
   * Add Loading component when loading blog list
   * Add Loading component when loading blog detail
