@@ -8,6 +8,7 @@ mkdir -p dist
 npm run build:react
 
 # copy all necessary files to /dist for deployment to gh-pages branch
+cp -r _images dist/
 cp -r _drafts dist/
 cp -r _posts dist/
 cp -r api dist/
