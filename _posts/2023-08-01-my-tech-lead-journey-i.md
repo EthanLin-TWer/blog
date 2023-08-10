@@ -11,9 +11,9 @@ category: career, tech-lead
 
 变得有多少？通过精准的时间记录，我可以明确地告诉大家，这个数字是**10%**。准确来说，是9.8%，10%不到。其中，~5%的时间在直接编程或与团队成员结对编程，~5%的时间是在进行技术相关的讨论和决策。
 
-## TL日常工作时间一览
+## 时间都去哪儿了
 
-记录工作笔记并且经常回顾，是对日常工作一个有益的尊重。正如developer记录编码时间可以发现自己编码过程的生涩点并加以刻意练习提高一样，TL记录工作时间同样有助于发现自己的工作侧重及生涩点，并加以有益的练习和提高。于是，我抓取了自己最近三个月来的工作日记，分析了一下自己日常不同工作类型的时间占比。采样点跨度三个月，共12周、41个工作日，采样时长288个小时，刚好经历一个完整的三个月一次的SAFE大迭代计划会，以及TW内部每半年一次的绩效评估。
+最近一年，我有记录自己工作时间的习惯。我抓取了自己近三个月来的工作日记，分析了一下自己日常不同工作类型的时间占比。采样点跨度三个月，共12周、41个工作日，采样时长288个小时，刚好经历一个完整的三个月一次的SAFE大迭代计划会，以及TW内部每半年一次的绩效评估。
 
 <p>
   <a href="https://mermaid.live/edit#pako:eNpNkE1LAkEcxr_KMLA3E9Ms8SzRQTCwl8tcJvefO7g7I7MzaSwLQeTBoPKQCAVhFHQpiU75eRzFb9G-KHYbnt_zPMz_CXBD2IDL2LICxpkqo4DgNgOCk5eCrjoUPlNM8FjKZYsZRLD24ZTZyoml0l4ujDXlgAcnVDJ65oK_ykdNNa1A1pUUrU2G4EK7S3AYotCyCI9cyHdEp0IVRYopF9BRFXWEbDHeRI7Q0kdb6IA1HVSFC3AJR1HFsendzKa3pj-OK7d3ssVUn02nZjAy9wPz_ZiQ0prM-1fz54np_Sw-hzHJl7L5FdoHqrQEVOtwkIuv8eKhFzsK-XXWvA2X1x_m6XU5ejGT3_nde3L8piFF_z6U28UZ7IH0KLOjgYPUlsyUbmDDOdWuIpjwMLJSrUT9kjdwWUkNGazbNlVQYbQpqZeK4R88CKHy">
@@ -41,7 +41,9 @@ category: career, tech-lead
 
 ### 团队规模
 
-你很可能发现，作为TL的你在项目上的时间分配和管理跟我有所不同。我当然也对这个问题很感兴趣，于是我拿着这个饼图也做了一些调研，这个采样量目前比较小，但是也足以让我们得出一个不严谨的结论：**团队规模越大，团队事务越多，TL的编码时间越少。10-12位Developer是一个分界线，团队管理超过这个规模，TL编码时间为0**。
+你很可能发现，作为TL的你在项目上的时间分配和管理跟我有所不同。我当然也对这个问题很感兴趣，于是我拿着这个饼图也做了一些调研，这个采样量目前比较小，但是也足以让我们得出一个不严谨的结论：
+
+**团队规模越大，团队事务越多，TL的编码时间越少。10-12位Developer是一个分界线，团队管理超过这个规模，TL编码时间为0**。
 
 我现在所在的全功能团队直接成员共18人，其中直接参与点数贡献的开发者9人，编码时间5%。然后我调研的一些在港澳的TL们，他们的团队与TL编码情况大致是这样：
 
@@ -88,7 +90,7 @@ category: career, tech-lead
 在下面的系列里，我打算继续写写TL的其他KPI、时间管理等问题，并将顺便讨论一下作为杠杆手段的Feature Owner实践是与非，以及其他现在暂时没想到的话题。敬请期待。
 
 * [Tech Lead从入门到放弃（二）：TL的KPI是什么？][My Tech Lead journey II]
-* [Tech Lead从入门到放弃（三）：Feature Owner是Anti-Practice吗？][My Tech Lead journey III]
+* [Tech Lead从入门到放弃（三）：Feature Owner是反模式吗？][My Tech Lead journey III]
 * [Tech Lead从入门到放弃（四）：浅谈时间管理][My Tech Lead journey IV]
 
 <details>
