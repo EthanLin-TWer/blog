@@ -27,7 +27,6 @@
     "build:release": "onchange 'src/react/**/*.js' -e 'dist' -v -i -- npm run build:react",
     "start:release": "http-server dist -c-1 -i",
     "build:react": "NODE_ENV=production webpack -c webpack.prod.config.js --progress",
-    "deploy:react": "./scripts/deploy-react.sh",
     "publish:dev": "node deploy/index.js"
   },
   "devDependencies": {
