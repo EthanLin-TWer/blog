@@ -62,7 +62,7 @@ category: career, tech-lead
 
 也许，从这里可以得出的第一个建议是，**新晋TL的小伙伴们可以从团队规模10人、开发者5-6人规模的团队开始，这样你大概率仍然有50%时间与团队一起写代码，更利于你完成角色转变过程**。
 
-![](../_images/2023-08-01-team-size-coding-time-analysis.png)
+![](https://cdn.jsdelivr.net/gh/EthanLin-TWer/blog@gh-pages/_images/2023-08-01-team-size-coding-time-analysis.png)
 
 团队事务的多寡与团队规模成正相关关系，这很好理解，但是团队事务具体体现在哪些方面呢？这里有很多的影响因素，比如日常管理、梯队管理、外部依赖（及团队）管理等等，但是根据我的经验，相关性最强的一点还得数**需求管理**。
 
