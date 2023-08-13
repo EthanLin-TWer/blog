@@ -17,4 +17,4 @@ Situational Leadership。
 
 #### 参考
 
-* [Tech Lead之路]()
+* [Tech Lead之路](https://insights.thoughtworks.cn/tech-lead/)

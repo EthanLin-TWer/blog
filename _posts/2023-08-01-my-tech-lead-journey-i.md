@@ -94,7 +94,7 @@ category: career, tech-lead
   </a>
 </p>
 
-团队的结构、组织形态都可能影响这个工作方式的一个或多个环节。在理想Scrum团队中，所有角色都在同一空间和时区下工作，沟通毫无阻碍，那么这个过程可能很快，在团队规模较小的情况下，甚至很多对话都到每周的需求梳理会上发生也是可行的；在
+团队的结构、组织形态都可能影响这个工作方式的一个或多个环节。在理想Scrum团队中，所有角色都在同一空间和时区下工作，沟通毫无阻碍，那么这个过程可能很快，在团队规模较小的情况下，甚至很多对话都到每周的需求梳理会上发生也是可行的；而在后疫情时代，异地
 
 在笔者当前所在项目上，为了**给团队和Grooming会议提前准备2个迭代的需求**，PO/BA/UX/TL往往必须提前1-2个月就开始需求的获取、业务方案设计、UI设计、大体技术方案敲定等工作，时间线如下图所示。在当前9位开发者规模的项目上，为了达到提前1-2个迭代的需求完成度，与需求管理相关的工作占到了25%左右，包括需求准备、技术设计、Feature Owner管理等。
 
@@ -134,7 +134,7 @@ category: career, tech-lead
 
 #### 参考
 
-* [Tech Lead之路]()
+* [Tech Lead之路](https://insights.thoughtworks.cn/tech-lead/)
 
 [My Tech Lead journey II]: https://ethan.thoughtworkers.me/#/post/2023-08-03-my-tech-lead-journey-ii
 [My Tech Lead journey III]: https://ethan.thoughtworkers.me/#/post/2023-08-04-my-tech-lead-journey-iii
