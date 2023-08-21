@@ -9,6 +9,8 @@ category: career, tech-lead
 
 ## 
 
+* 习惯性分配工作，那么TL究竟干哪些活？
+
 #### 参考
 
 * [关于时间管理的一点建议](https://juejin.cn/post/7225941608225652773)
