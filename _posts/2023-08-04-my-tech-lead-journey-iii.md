@@ -3,7 +3,7 @@ title: Tech Lead从入门到放弃（三）：Feature Owner是反模式吗？
 category: career, tech-lead
 ---
 
-有些敏捷原教旨主义者认为，Feature Owner不是个好实践，但是也有许多用了feature owner实践之后的TL会表示：真香。
+有的人认为Feature Owner是个反模式，违背敏捷的团队知识所有原则；有的人则表示FO真香。本篇我们就来聊聊Feature Owner以及团队管理的那些事。
 
 ## Feature Owner
 
@@ -11,9 +11,15 @@ category: career, tech-lead
 
 ### Feature Owner是否必然造成知识孤岛？
 
-## 如何授权团队
+### TL还有什么管理杠杆/方法？
 
-Situational Leadership。
+### 管理团队究竟是在管什么？监工吗？
+
+## 团队管理
+
+如何判断团队梯队水平？有几个方法：
+* 一个是倩说的能力象限，如技术、沟通、说服、主动性/责任感、细心严谨、个人魅力等维度
+* 一个是按照职级梯队，然后按Situational Leadership，根据大家处在不同的阶段来决定领导方式
 
 #### 参考
 
