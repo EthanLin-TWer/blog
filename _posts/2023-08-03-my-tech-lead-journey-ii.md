@@ -3,7 +3,7 @@ title: Tech Lead从入门到放弃（二）：TL的KPI是什么？
 category: career, tech-lead
 ---
 
-对于Developer来说，他的工作产出衡量是每个迭代的贡献点数。那么对于TL来说，他的工作产出（即KPI）是什么？尤其是管理的部分？
+对于Developer来说，他的工作产出衡量是每个迭代的贡献点数。那么对于TL来说，他的工作产出（即KPI）是什么？尤其是管理的部分？佛说KPI，即非KPI，是名KPI。
 
 <Summary WIP>。本文仍然是草稿阶段。
 
