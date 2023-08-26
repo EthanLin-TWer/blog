@@ -2,7 +2,8 @@ const path = require('path')
 const { ProvidePlugin } = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
-const Dotenv = require('dotenv-webpack')
+const DotenvPlugin = require('dotenv-webpack')
+const dotenv = require('dotenv')
 
 const rules = [
   { test: /\.(css)$/i, use: ['style-loader', 'css-loader'] },
@@ -23,6 +24,9 @@ const rules = [
   },
   { test: /\.(mts|ts|tsx)$/, use: 'ts-loader' },
 ]
+
+const environment = process.env.NODE_ENV === 'production' ? 'production' : 'development'
+const dotenvFilePath = `./.env.${environment}`
 
 const plugins = [
   new HtmlWebpackPlugin({
@@ -48,9 +52,7 @@ const plugins = [
       },
     ],
   }),
-  new Dotenv({
-    path: `./.env.${process.env.NODE_ENV === 'production' ? 'production' : 'development'}`,
-  })
+  new DotenvPlugin({ path: dotenvFilePath })
 ]
 
 const devServer = {
@@ -78,7 +80,7 @@ const config = {
     path: path.resolve(__dirname, './dist'),
     filename: '[name].[contenthash].js',
     assetModuleFilename: 'assets/[hash][ext][query]',
-    publicPath: '/',
+    publicPath: dotenv.config({ path: dotenvFilePath }).parsed.CDN_URL,
   },
   resolve: {
     extensions: ['.*', '.js', '.ts', '.tsx'],

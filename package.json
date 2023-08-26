@@ -50,6 +50,7 @@
     "@typescript-eslint/parser": "^5.48.0",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.3",
+    "dotenv": "^16.3.1",
     "dotenv-webpack": "^8.0.1",
     "eslint": "^8.25.0",
     "eslint-config-javascript-the-good-parts": "^1.7.1",
@@ -152,7 +153,12 @@
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
     "plugins": ["prettier", "jsx-control-statements", "import"],
-    "extends": ["prettier", "javascript-the-good-parts", "plugin:jsx-control-statements/recommended", "plugin:react/recommended"],
+    "extends": [
+      "prettier",
+      "javascript-the-good-parts",
+      "plugin:jsx-control-statements/recommended",
+      "plugin:react/recommended"
+    ],
     "env": {
       "jest": true,
       "node": true,

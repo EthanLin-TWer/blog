@@ -1,7 +1,7 @@
 # TASK-4 Improve first screen performance 
 
-* 看看首先能不能用上jsDelivr的压缩+加速先，把main/vendor/runtime都应用一下缓存，要看看Webpack的配置
-  * https://github.com/EthanLin-TWer/blog/tree/gh-pages
+* [x] 看看首先能不能用上jsDelivr的压缩+加速先，把main/vendor/runtime都应用一下缓存，要看看Webpack的配置
+  * [x] `index.html`不缓存，main/vendor都可以缓存一下
 * 看看图片能不能压缩之后也放到gh-pages，然后同样通过CDN缓存压缩加速 —— 查看Github单个仓库的上限是多少，估算一下，有个好处是暂时不容易丢
   * 这个应该可以写个precommit的task直接处理一下的
 * 提升一下首屏加载性能，现在加载一个首页1M太扯了 - profile一下，code splitting或者砍掉无用的资源

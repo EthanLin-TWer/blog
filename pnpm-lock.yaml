@@ -22,6 +22,7 @@ specifiers:
   axios: ^0.18.1
   copy-webpack-plugin: ^11.0.0
   css-loader: ^6.7.3
+  dotenv: ^16.3.1
   dotenv-webpack: ^8.0.1
   eslint: ^8.25.0
   eslint-config-javascript-the-good-parts: ^1.7.1
@@ -113,6 +114,7 @@ devDependencies:
   '@typescript-eslint/parser': 5.58.0_ze6bmax3gcsfve3yrzu6npguhe
   copy-webpack-plugin: 11.0.0_webpack@5.79.0
   css-loader: 6.7.3_webpack@5.79.0
+  dotenv: 16.3.1
   dotenv-webpack: 8.0.1_webpack@5.79.0
   eslint: 8.38.0
   eslint-config-javascript-the-good-parts: 1.7.1_w3bgh7wuyi2s4a5uyoix3vpvnm
@@ -2796,6 +2798,11 @@ packages:
       webpack: 5.79.0_webpack-cli@4.10.0
     dev: true
 
+  /dotenv/16.3.1:
+    resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
+    engines: {node: '>=12'}
+    dev: true
+
   /dotenv/8.6.0:
     resolution: {integrity: sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==}
     engines: {node: '>=10'}
@@ -3601,7 +3608,7 @@ packages:
     resolution: {integrity: sha512-oWb1Z6mkHIskLzEJ/XWX0srkpkTQ7vaopMQkyaEIoq0fmtFVxOthb8cCxeT+p3ynTdkk/RZwbgG4brR5BeWECw==}
     engines: {node: '>= 4.0'}
     os: [darwin]
-    deprecated: fsevents 1 will break on node v14+ and could be using insecure binaries. Upgrade to fsevents 2.
+    deprecated: The v1 package contains DANGEROUS / INSECURE binaries. Upgrade to safe fsevents v2
     requiresBuild: true
     dependencies:
       bindings: 1.5.0
