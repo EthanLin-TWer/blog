@@ -5,6 +5,8 @@ category: career, tech-lead
 
 有的人认为Feature Owner是个反模式，违背敏捷的团队知识所有原则；有的人则表示FO真香。本篇我们就来聊聊Feature Owner以及团队管理的那些事。
 
+<Summary WIP>本文仍然是草稿阶段。
+
 ## Feature Owner
 
 ### Feature Owner的职责是什么？
