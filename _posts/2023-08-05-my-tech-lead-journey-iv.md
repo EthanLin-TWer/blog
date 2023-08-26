@@ -63,6 +63,8 @@ category: career, tech-lead
   />
 </p>
 
+> TODO: 把CLT/项目治理这块单独拎出来profile。需要更新part 1和本篇的图表。
+
 ## 其他疑问
 
 * 习惯性分配工作，那么TL究竟干哪些活？
