@@ -13,6 +13,7 @@ title: 程序员元技能（一）：Git
 * 如何修改两个提交前的提交信息？ `git rebase -i .r`
 * 在做一件主事的时候，突然要做另外一件不相干，但是随时想做的事？ `git commit --fixup <hash>` `git rebase -i --autosquash` / `git rebase - i` 也可以啦
 * merge 要卡号限制，无法正常提交？ `git merge --squash <branch>` / `git rebase -i` 也可以解决。看来 `git rebase -i` 真是 push 之前最最强大的工具
+* 主干上有3个提交，你只要提交2个，master上那个head暂不想提交，怎么弄？ `git push ...`
 
 复杂场景
 
