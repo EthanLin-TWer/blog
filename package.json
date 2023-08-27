@@ -20,6 +20,7 @@
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "sanity": "npm run lint && npm test -- --coverage --verbose",
+    "minify:images": "node scripts/minify-images.js",
     "start": "npm run start:server & npm run start:jekyll & wait",
     "start:server": "NODE_ENV=development webpack serve -c webpack.dev.config.js --progress --history-api-fallback",
     "start:jekyll": "rm -rf _site && bundle exec jekyll serve --watch --incremental --verbose",
@@ -75,6 +76,7 @@
     "style-loader": "^3.3.1",
     "stylus": "^0.59.0",
     "stylus-loader": "^7.1.0",
+    "tinify": "^1.7.1",
     "ts-jest": "^29.0.3",
     "ts-loader": "^9.4.1",
     "tslib": "^2.4.1",
@@ -151,7 +153,11 @@
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
-    "plugins": ["prettier", "jsx-control-statements", "import"],
+    "plugins": [
+      "prettier",
+      "jsx-control-statements",
+      "import"
+    ],
     "extends": [
       "prettier",
       "javascript-the-good-parts",
@@ -183,12 +189,22 @@
           "newlines-between": "always"
         }
       ],
-      "no-empty": ["error", { "allowEmptyCatch": true }],
+      "no-empty": [
+        "error",
+        {
+          "allowEmptyCatch": true
+        }
+      ],
       "react/no-unescaped-entities": "off",
       "react/no-deprecated": "off",
       "react/no-string-refs": "off",
       "react/display-name": "off",
-      "react/jsx-no-undef": [2, { "allowGlobals": true }]
+      "react/jsx-no-undef": [
+        2,
+        {
+          "allowGlobals": true
+        }
+      ]
     },
     "settings": {
       "react": {

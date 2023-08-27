@@ -20,3 +20,4 @@ coverage
 
 # Local files
 TODOLIST.md
+.env.local

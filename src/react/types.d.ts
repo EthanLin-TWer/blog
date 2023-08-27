@@ -95,5 +95,6 @@ declare let process: {
     SERVER_URL: string
     CDN_URL: string
     BLOG_DETAIL_API: string
+    TINIFY_API_URL: string
   }
 }

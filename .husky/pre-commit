@@ -19,6 +19,9 @@ findCommittingPosts() {
   findCommittingFiles '_posts/'
 }
 
+findCommittingImages() {
+  findCommittingFiles '_images/'
+}
 
 abortWhenTryingToCommitMoreThanOneDraft() {
   declare -a committingDrafts=($(findCommittingDrafts))
@@ -55,7 +58,7 @@ isTechnicalCommit() {
   for file in "${committingFiles[@]}"
   do
     ## exclude pure markdown file editing, e.g., TODOLIST.md, README.md
-    if [[ ! ${file} =~ "_posts/" ]] && [[ ! ${file} =~ "_drafts/" ]] && [[ ! ${file} =~ ".md" ]]; then
+    if [[ ! ${file} =~ "_posts/" ]] && [[ ! ${file} =~ "_drafts/" ]] && [[ ! ${file} =~ "_images/" ]] && [[ ! ${file} =~ ".md" ]]; then
       return 0
     fi
   done
@@ -69,6 +72,16 @@ abortWhenSanityCheckFailsForTechnicalCommits() {
   fi
 }
 
+minifyImagesIfAny() {
+  declare -a committingImages=($(findCommittingImages))
+  for imagePath in "${committingImages[@]}"
+  do
+    npm run minify:images -- $imagePath
+    git add $imagePath
+  done
+}
+
 abortWhenTryingToCommitMoreThanOneDraft
 abortWhenTryingToCommitMoreThanOnePost
 abortWhenSanityCheckFailsForTechnicalCommits
+minifyImagesIfAny
