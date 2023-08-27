@@ -7,9 +7,10 @@
     * [x] registerLanguage
     * [x] 把用到的语言配置到配置文件里头去
     * [x] 添加.env TS类型
-  * [x] react-syntax-highlighter -> 248.19K -> 228.52K (-8%)
+  * [x] react-syntax-highlighter 248.19K -> 228.52K (-8%)
+  * [x] esprima 228.52K -> 187.1K(-18%) - used by front-matter  -> js-yaml -> esprima
   * parse5 - used by retype-raw, which is used to preserve HTMLs in markdown
-  * esprima
+  * `pnpm list <dep@version> --depth Infinity` can be used to check dependencies using this library
 * 看看能不能缓存下vendor/main里头不常更改的部分
 * 然后再搞一个CI monitor，每次提交监控build size
 * !!low 看图片能不能压缩之后也放到gh-pages，然后通过CDN缓存压缩加速 —— 查看Github单个仓库的上限是多少，估算一下，好处是暂时不容易丢
@@ -20,3 +21,7 @@
     * tinify: https://blog.csdn.net/Danchaofan_23/article/details/125963131
     * 原理: https://www.php.cn/faq/502524.html
   * 这个应该可以写个precommit的task直接处理一下的
+
+# Todo:
+
+* https://stackoverflow.com/questions/39040108/import-class-in-definition-file-d-ts

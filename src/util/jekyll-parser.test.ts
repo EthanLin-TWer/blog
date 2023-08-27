@@ -1,7 +1,7 @@
 import { parse } from './jekyll-parser'
 
 describe('parseJekyllPost()', () => {
-  test('should return empty object when post is empty', () => {
+  it('should return empty object when post is empty', () => {
     const expected = {
       frontMatters: {},
       content: '',
@@ -12,7 +12,7 @@ describe('parseJekyllPost()', () => {
     expect(result).toEqual(expected)
   })
 
-  test('should return empty object when front matters is empty', () => {
+  it('should return empty object when front matters is empty', () => {
     const post = `
 ---
 ---
@@ -27,7 +27,7 @@ describe('parseJekyllPost()', () => {
     expect(result).toEqual(expected)
   })
 
-  test('should return object with title when front matters contains a title', () => {
+  it('should return object with title when front matters contains a title', () => {
     const post = `
 ---
 title: React 应用单元测试策略
@@ -45,7 +45,7 @@ title: React 应用单元测试策略
     expect(result).toEqual(expected)
   })
 
-  test('should return object with front matters key/values when front matters contains multiple values', () => {
+  it('should return object with front matters key/values when front matters contains multiple values', () => {
     const post = `
 ---
 title: React 应用单元测试策略
@@ -64,7 +64,7 @@ summary: 这是一份很好的单元测试策略
     expect(result).toEqual(expected)
   })
 
-  test('should return object with front matters key/values when front matters contains multiple values', () => {
+  it('should return object with front matters key/values when front matters contains multiple values', () => {
     const post = `
 ---
 title: React 应用单元测试策略

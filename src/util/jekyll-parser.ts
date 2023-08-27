@@ -1,5 +1,3 @@
-const formatter = require('front-matter')
-
 interface FrontMatter {
   [key: string]: string;
 }
@@ -7,6 +5,22 @@ interface FrontMatter {
 interface JekyllPost {
   frontMatters: FrontMatter;
   content: string;
+}
+
+const JEKYLL_SEPARATOR = '---\n'
+const formatter = (content: string) => {
+  const frontMatters = content.substring(
+    content.indexOf(JEKYLL_SEPARATOR) + JEKYLL_SEPARATOR.length,
+    content.lastIndexOf(JEKYLL_SEPARATOR)
+  )
+    .split('\n')
+    .filter(emptyLinesGetOut => emptyLinesGetOut)
+    .map(each => each.split(':'))
+    .map(([key, value]) => ({ [key]: value.trim() }))
+    .reduce((result, next) => ({ ...result, ... next }), {})
+  const finalContent = content.substring(content.lastIndexOf(JEKYLL_SEPARATOR) + JEKYLL_SEPARATOR.length).trim()
+
+  return { frontMatters, content: finalContent }
 }
 
 export const parse = (post: string | null = ''): JekyllPost => {
@@ -18,8 +32,6 @@ export const parse = (post: string | null = ''): JekyllPost => {
     throw new Error(`post should be a string, instead got: ${typeof post}`)
   }
 
-  // front-matter assumes '---' front matter separator on the first line, unnecessary empty lines will cause parse to fail
-  // https://github.com/jxson/front-matter
-  const { attributes: frontMatters, body: content } = formatter(post.trim())
+  const { frontMatters, content } = formatter(post)
   return { frontMatters, content }
 }
