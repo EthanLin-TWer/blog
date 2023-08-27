@@ -9,9 +9,9 @@
     * [x] 添加.env TS类型
   * [x] react-syntax-highlighter 248.19K -> 228.52K (-8%)
   * [x] esprima 228.52K -> 187.1K(-18%) - used by front-matter  -> js-yaml -> esprima
-  * parse5 - used by retype-raw, which is used to preserve HTMLs in markdown
+  * parse5 - used by rehype-raw, which is used to preserve HTMLs in markdown
   * `pnpm list <dep@version> --depth Infinity` can be used to check dependencies using this library
-* 看看能不能缓存下vendor/main里头不常更改的部分
+* [x] 看看能不能缓存下vendor/main里头不常更改的部分 - 可以，但是没啥意思，总体积还有所增加：187.1K -> 204.5K (+9%)
 * 然后再搞一个CI monitor，每次提交监控build size
 * !!low 看图片能不能压缩之后也放到gh-pages，然后通过CDN缓存压缩加速 —— 查看Github单个仓库的上限是多少，估算一下，好处是暂时不容易丢
   * 工具选用：images / imagemin+imagemin-pngquant / tinify - 对比下压缩效果
