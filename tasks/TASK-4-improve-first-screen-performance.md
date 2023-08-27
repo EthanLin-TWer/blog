@@ -21,6 +21,7 @@
       * 先用着，后面再优化
     * 原理: https://www.php.cn/faq/502524.html
   * [x] 这个应该可以写个pre-commit的task直接处理一下的
+* https://reeli.github.io 为何睿睿的博客加载速度那么快……
 
 # Todo:
 
