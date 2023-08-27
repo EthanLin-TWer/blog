@@ -7,8 +7,8 @@
     * [x] registerLanguage
     * [x] 把用到的语言配置到配置文件里头去
     * [x] 添加.env TS类型
-  * parse5
-  * react-syntax-highlighter
+  * [x] react-syntax-highlighter -> 248.19K -> 228.52K (-8%)
+  * parse5 - used by retype-raw, which is used to preserve HTMLs in markdown
   * esprima
 * 看看能不能缓存下vendor/main里头不常更改的部分
 * 然后再搞一个CI monitor，每次提交监控build size
