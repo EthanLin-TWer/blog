@@ -67,7 +67,7 @@ module Window (qunit.js, src/main/webapp/.../bower_components/underscore/test/ve
 
 好消息是，在`js/common/module.js`这个文件里，我们似乎找到了想要的答案：
 
-```js
+```javascript
 (function(global) {
 
   global.module = function registerModule(moduleName, moduleContent) {
