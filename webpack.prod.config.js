@@ -28,10 +28,20 @@ module.exports = merge(baseConfig, {
           test: /[\\/]node_modules[\\/]_?(react-syntax-highlighter|react-markdown|rehype-raw|remark-gfm|github-markdown-css)/,
           priority: 2,
         },
+        mermaid: {
+          name: 'mermaid-chunks.vendor',
+          test: /[\\/]node_modules[\\/]_?(mermaid|)/,
+          // mermaid is ~18x(~702K) larger than react (~40K) after gzipped,
+          //  and it also drastically increases the build time
+          // this is ridiculous and unacceptably not justified
+          // sooner or later this will be replaced with something better
+          maxSize: 30000, // to split the large bundle, more chunks are better
+          priority: 3,
+        },
         stable: {
           name: 'stable-chunks.vendor',
           test: /[\\/]node_modules[\\/]_?(lodash|axios)/,
-          priority: 3,
+          priority: 4,
         },
         default: {
           name: 'react-core.vendor',

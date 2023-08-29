@@ -52,12 +52,19 @@ registerLanguage('markdown', markdown)
 registerLanguage('java', java)
 registerLanguage('bash', bash)
 
-export const CodeBlockRenderer: FC<Props> = ({ language, value }) => (
-  <SyntaxHighlighter
-    language={language}
-    style={getRandomStyle()}
-    showLineNumbers
-  >
-    {value}
-  </SyntaxHighlighter>
-)
+export const CodeBlockRenderer: FC<Props> = (props: Props) => {
+  const { language, value } = props
+  if (!value) {
+    return null
+  }
+
+  return (
+    <SyntaxHighlighter
+      language={language}
+      style={getRandomStyle()}
+      showLineNumbers
+    >
+      {value}
+    </SyntaxHighlighter>
+  )
+}

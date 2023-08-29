@@ -92,6 +92,7 @@
     "axios": "^0.18.1",
     "github-markdown-css": "^2.10.0",
     "lodash": "^4.17.19",
+    "mermaid": "~10.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-markdown": "^8.0.4",
@@ -124,7 +125,8 @@
       "github-markdown-css": "identity-obj-proxy",
       "react-markdown": "identity-obj-proxy",
       "rehype-raw": "identity-obj-proxy",
-      "remark-gfm": "identity-obj-proxy"
+      "remark-gfm": "identity-obj-proxy",
+      "mermaid": "identity-obj-proxy"
     },
     "verbose": false,
     "collectCoverage": false,
