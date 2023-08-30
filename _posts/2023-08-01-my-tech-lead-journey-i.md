@@ -19,23 +19,45 @@ category: career, tech-lead
 
 最近一年，我有记录自己工作时间的习惯。我抓取了自己近三个月来的工作日记，分析了一下自己日常不同工作类型的时间占比。采样点跨度三个月，共12周、41个工作日，采样时长288个小时，刚好经历一个完整的三个月一次的SAFE大迭代计划会，以及TW内部每半年一次的绩效评估。
 
-<p>
-  <a href="https://mermaid.live/edit#pako:eNpNkU9LAkEYxr_KMLA3E9Ms8SzRwTCwP5e5TO6bO7g7I7PvprEsBJGHgspDIhSEUdClJDrl53EVv0X7R7Hb8Ly_55mX5_VpQ5lAy9QwfCEFlonPaFsAo8kLoYsHyhUolIylXLaYIYx6LpwIE61YKu3kglhDCxw45lrwUxvcpT9KqnkIuo5atdYeRgvtLqNBQALDYDKiiGupToUjJyjQBnJYJR2lW0I2iaU87ZINsieaFqnCOdhMkigifHpdDF-mk9vwZhSHbua2l4O3weLqIx2H49_Z3XuyZymbL6bALnD0NJBaR4Kef43mD72YKOSzS2B2czl7Hoe9n_nnIJ7k197pZBL2h-F9P_x-TH4trUxHYe_63zZbqU4z1AHtcGFGJfspmVSV9mDCGfdsZJTJIEK5h6p-IRu0jNqDDPXaJkeoCN7U3FmJYApUej-9W3K-4A--VqmR">
-    <img 
-      src="https://mermaid.ink/svg/pako:eNpNkU9LAkEYxr_KMLA3E9Ms8SzRwTCwP5e5TO6bO7g7I7PvprEsBJGHgspDIhSEUdClJDrl53EVv0X7R7Hb8Ly_55mX5_VpQ5lAy9QwfCEFlonPaFsAo8kLoYsHyhUolIylXLaYIYx6LpwIE61YKu3kglhDCxw45lrwUxvcpT9KqnkIuo5atdYeRgvtLqNBQALDYDKiiGupToUjJyjQBnJYJR2lW0I2iaU87ZINsieaFqnCOdhMkigifHpdDF-mk9vwZhSHbua2l4O3weLqIx2H49_Z3XuyZymbL6bALnD0NJBaR4Kef43mD72YKOSzS2B2czl7Hoe9n_nnIJ7k197pZBL2h-F9P_x-TH4trUxHYe_63zZbqU4z1AHtcGFGJfspmVSV9mDCGfdsZJTJIEK5h6p-IRu0jNqDDPXaJkeoCN7U3FmJYApUej-9W3K-4A--VqmR" 
-      alt="TL working hours - high level"
-    /> 
-  </a>
-</p>
+```mermaid
+%%{init: {"pie": {"textPosition": 0.5, "useWidth": 870}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
+pie showData title TL working hours - High Level
+  "团队事务": 106
+  "外部团队对接": 88.25
+  "Feature Owner管理": 32.5
+  "技术决策": 28.25
+  "人员发展": 18.5
+  "U内事务": 14.5
+```
 
-<p>
-  <a href="https://mermaid.live/edit#pako:eNqNVFtPE0EU_iubTfqGvXJR3opIYiLSUFEf9mWlA93Q7jbbWYtpmrRgCxQRUdugQLFaAz7QggjSbYUfY2d2-8RfcHZmoWik-rKZPXO-yzlncpL8pBIC_CDvcCQlWYKDXFLgYxIQeHqCYBYGlLgEJUW2Qm5nXw8n8FocPJJCMGyFPD6PO2UFYRhEwUNRlcQnERC3CQjVmAaBGoSqMtMBCbwvNivwqRSXcjgEmWRx8bCSGBahyEEJRgD34B6XUNQZSZ7mwoqmxrkb3JAKRBoYVhKyIHOEBVWK7fldtPGxvb6NanX88jPJw4VVvPLdDuaywVHXkN8VGHNNPKZ-B5x93cD5NN6sGfqZsfENHZRaJ3lD3wn6LeQt58B_IXHpGJeeo3wpEBHhlKJGqay7CxTVD4kKC1rJvV0ttk6WcLHeOt0yj4odjNfXBdLeKqH8tjn_A6d37o-M46Nls1Yw9paYM6e3uxxpwRlayKHKggutrJr78zZyoHtDUPa41SieNxeJulkto8XXZBpmJo8qXwjBedPmYBSMhhK09GWUL1vKzfdmtUoO_mkpAthYSfGoskNuaM1XHFwDZVPBXxvGq1wH2N8dhJpzaHM_OKlqUZS1ywpCUQ5pMdqxfuc_VIP-kTtc4C6r2tb0eK4za57ttRqfcCFrRVbKzLLdcPsnrRvVMimBVu3-uzidE35bwy8yVK-3M9ffMy8Hw5JRM01UjcYb8v2ZzuCtOZLWmRB79oxoBIhQUwE3lpCB2nHk8zovU2zDuUNjr2hp5d6R2owPGZclUKsbzaKxu0z9eS-6-AfkNtlI3Dh4KoGEizx0XF40q7tmVXcZh3n2jzZOKUPfFWstXUdr62h1DR0U6OXNC_oJ8uxY7XZbaJzv4aNAjYpSiGy_JMukK4ztpxCYErUIFHhBTpFUUYNK8Jk8yQ9CVQM9vBYLiRAMS-K0KkYvgiAkQUUdZQuV7tXUL5HJnRg">
-    <img 
-      src="https://mermaid.ink/svg/pako:eNqNVFtPE0EU_iubTfqGvXJR3opIYiLSUFEf9mWlA93Q7jbbWYtpmrRgCxQRUdugQLFaAz7QggjSbYUfY2d2-8RfcHZmoWik-rKZPXO-yzlncpL8pBIC_CDvcCQlWYKDXFLgYxIQeHqCYBYGlLgEJUW2Qm5nXw8n8FocPJJCMGyFPD6PO2UFYRhEwUNRlcQnERC3CQjVmAaBGoSqMtMBCbwvNivwqRSXcjgEmWRx8bCSGBahyEEJRgD34B6XUNQZSZ7mwoqmxrkb3JAKRBoYVhKyIHOEBVWK7fldtPGxvb6NanX88jPJw4VVvPLdDuaywVHXkN8VGHNNPKZ-B5x93cD5NN6sGfqZsfENHZRaJ3lD3wn6LeQt58B_IXHpGJeeo3wpEBHhlKJGqay7CxTVD4kKC1rJvV0ttk6WcLHeOt0yj4odjNfXBdLeKqH8tjn_A6d37o-M46Nls1Yw9paYM6e3uxxpwRlayKHKggutrJr78zZyoHtDUPa41SieNxeJulkto8XXZBpmJo8qXwjBedPmYBSMhhK09GWUL1vKzfdmtUoO_mkpAthYSfGoskNuaM1XHFwDZVPBXxvGq1wH2N8dhJpzaHM_OKlqUZS1ywpCUQ5pMdqxfuc_VIP-kTtc4C6r2tb0eK4za57ttRqfcCFrRVbKzLLdcPsnrRvVMimBVu3-uzidE35bwy8yVK-3M9ffMy8Hw5JRM01UjcYb8v2ZzuCtOZLWmRB79oxoBIhQUwE3lpCB2nHk8zovU2zDuUNjr2hp5d6R2owPGZclUKsbzaKxu0z9eS-6-AfkNtlI3Dh4KoGEizx0XF40q7tmVXcZh3n2jzZOKUPfFWstXUdr62h1DR0U6OXNC_oJ8uxY7XZbaJzv4aNAjYpSiGy_JMukK4ztpxCYErUIFHhBTpFUUYNK8Jk8yQ9CVQM9vBYLiRAMS-K0KkYvgiAkQUUdZQuV7tXUL5HJnRg" 
-      alt="TL working hours - breaking down"
-    /> 
-  </a>
-</p>
+```mermaid
+%%{init: {"pie": {"textPosition": 0.5, "useWidth": 1310}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
+pie showData title TL working hours - Breaking Down
+  "外部团队对接 - 敏捷团队内SM/BA/PO/UX": 17.5
+  "外部团队对接 - 技术线直属上级SA": 9.75
+  "外部团队对接 - 技术线架构办Platform": 10
+  "外部团队对接 - 平级团队": 4.5
+  "外部团队对接 - 三方依赖团队": 23
+  "外部团队对接 - 非功能性NFR测试等": 10.25
+  "外部团队对接 - 上线准备/协调等": 7.75
+  "外部团队对接 - 其他（非计划内聊天等）": 7.5
+  
+  "团队事务 - 会议 - Agile敏捷三大会": 27.75
+  "团队事务 - 会议 - 技术治理大会": 6
+  "团队事务 - 会议 - 异地Scrum全团队Standup": 16.5
+  "团队事务 - 会议 - SAFE PI计划会": 11.75
+  "团队事务 - 迭代故事卡技术准备/技术债管理": 20
+  "团队事务 - 上线支持": 14.25
+  "团队事务 - 其他（支持开卡结卡、杂务等）": 9.75
+
+  "Feature Owner管理": 32.5
+
+  "技术决策 - 写代码/结对编程": 12.5
+  "技术决策 - Code Review/方案讨论/糊方案图": 15.75
+
+  "人员发展": 18.5
+  "U内事务": 14.5
+```
 
 从这个拆解图，不难看出其实技术真的只占了TL项目工作时间的一小部分，更多的时间实质上就是花在了所谓的“管理”上：通过团队梯队管理迭代的功能交付(11%)、跟PO和其他角色协作处理团队事务（上线、测试、应询、流程等）(20%)、跟BA和其他角色协作确保团队拿到合格的需求和技术设计(18%)等，这些大头一算就要占据一半时间了。
 
@@ -88,14 +110,21 @@ category: career, tech-lead
 
 在敏捷团队运作上，**给团队和Grooming会议提前准备好2个迭代的需求**是一个很好的实践，有利于保持团队工作充盈、为优先级排序提供充足选择。如下图所示，对于每一个功能，这往往需要PO/BA/UX/TL首先全体从价值出发，低保真的业务方案和技术方案互相讨论、互相确定，然后各个角色着手细化工作，最后确认高保真产出。
 
-<p>
-  <a href="https://mermaid.live/edit#pako:eNqrVkrOT0lVslJKT8wrKYnJUwCClMSSVLf8otzEEoUIiEhiRWYxVES1GCJUnJpckpmfp_ByTsOzjU0BQS5P9ix42TAJIgkCAf76To76oRH6IT5P-5uedi2wUjDQUTBG1f1k1_Kn7bterp7xZP_c53PmI3QD9Tk5WikY6yhYYNPxbGrrk13dT3sXPp3U4-iM0Aa0McQHj7bp257u6n86e9_ztZ3PuhqezVn_Yt2-F-sWIgwI8dEPxmrvs44Jz-bNeb5w3Yt1S_B60kJHwVJJRyk3FRhcmSnAkK0GKY9RKslIzU2NUbICMlNS0xJLc0pilGLyaoFKE0tL8oMr85KVrEqKSlN1lEoLQDHgkpmYXpSYq2SVlphTDBRNTcksyS_yhcQWONJqAfhYqX8">
-    <img 
-      src="https://mermaid.ink/svg/pako:eNqrVkrOT0lVslJKT8wrKYnJUwCClMSSVLf8otzEEoUIiEhiRWYxVES1GCJUnJpckpmfp_ByTsOzjU0BQS5P9ix42TAJIgkCAf76To76oRH6IT5P-5uedi2wUjDQUTBG1f1k1_Kn7bterp7xZP_c53PmI3QD9Tk5WikY6yhYYNPxbGrrk13dT3sXPp3U4-iM0Aa0McQHj7bp257u6n86e9_ztZ3PuhqezVn_Yt2-F-sWIgwI8dEPxmrvs44Jz-bNeb5w3Yt1S_B60kJHwVJJRyk3FRhcmSnAkK0GKY9RKslIzU2NUbICMlNS0xJLc0pilGLyaoFKE0tL8oMr85KVrEqKSlN1lEoLQDHgkpmYXpSYq2SVlphTDBRNTcksyS_yhcQWONJqAfhYqX8" 
-      alt="PO/BA/UX/TL核心团队Way of Working"
-    /> 
-  </a>
-</p>
+```mermaid
+gantt
+  dateFormat X
+  axisFormat %s
+  section 需求PRD传递
+    PO/BA/UX/TL参加: 0, 3
+  section 产出高保真
+    UX/BA: 3, 8
+  section 产出故事卡和AC
+    BA/TL: 3, 8
+  section 产出时序图等技术设计
+    TL/SA: 3, 8
+  section 成果确认
+    PO/BA/UX/TL参加: 8, 9
+```
 
 团队的结构、组织形态都可能影响这个工作方式的一个或多个环节。在理想Scrum团队中，所有角色都在同一空间和时区下工作，沟通毫无阻碍和延迟，那么需求讨论和梳理的过程可能相当顺畅。然而，在某些大企业、尤其是跨国公司背景下，Scrum团队成员组成来自多个vendor、甚至团队成员分属不同的时区皆有可能，那么整个需求细化的时间线可能就会拉长。团队规模越大，往往暗示着团队构成和组织越复杂，也往往需要占据TL更多的精力给到需求管理。
 
