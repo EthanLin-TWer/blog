@@ -7,7 +7,8 @@
     * solution 1: ~~react-markdown only supports `runSync()` where `mermaid.render` runs async to output a svg tag~~
     * solution 2: ~~relying on mermaid to automatically process `pre.mermaid` - notable lagging~~
     * solution 3: generated hast is not being properly picked up and rendered as HTML by `ReactMarkdown.components` - after studying the internal it works: rehype-mermaid needs to update the parent node which contains mermaid, not only the child node
-* fuck, the solution stops working all of a sudden - maybe id generation, or delayed loading of mermaid causing this
+* [x] fuck, the solution stops working all of a sudden - maybe id generation, or delayed loading of mermaid causing this
+  * [x] seems loading of image blocks the rendering of mermaid - trigger `mermaid.run()` explicitly
 * [ ] solution refactor:
   * avoid the need for updating rehype-mermaid-plugin and `MermaidRenderer` in two places
   * introducing mermaid at runtime causes a much larger sized bundle 188K -> 688K gzipped, insanely crazy
