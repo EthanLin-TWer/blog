@@ -38,23 +38,44 @@ category: career, tech-lead
 
 > 数据采集的目的，一是为了寻找洞见，二是为接下来的改进指明方向。比如，在上面的饼图细分中，我就发现了我在feature owner管理、异地全团队Standup（主要是跟PO Sync）、需求准备、外部团队对接方面还可以通过更精细地利用好Feature Owner这个杠杆来将更多工作委派出去，以此为自己争取更多时间来编码、与团队结对等。同时，本文完成后我仍然打算继续采集未来三个月的数据，并在这里做不定期更新。Q2和Q3数据做对比，相信我们能从中发现颇为有趣的TL工作洞见。
 
-<p>
-  <a href="https://mermaid.live/edit#pako:eNpFkU9LQkEUxb_KMPB2ZqZo4VqihWFgfzazmXw336C-kXn3pfF4EIQuCioXiVQQRkGbkgiCrI_jKK76Cr0_Srvh_M45w73XoxVpAs1Tw_CELTBPPEabAhiNXght3JGOQCHtUEolswnCqOvAgTDRCqX1jZQfamhBA_a5EvywDs4iHzSVXARVRiVr_xlGM802o75PfMNgduAijiVbBY6coMA6kN0iaUlVE3aVWNJVDlkhW6JqkSIcQ53ZJKjQT_352Yu-e5wPHvToa3r5HFZnc8nsgkdkMr7Q58OIrC3J9Px0ej_S3Y_Zaz8k6VSsbwJHVwEptWxQs7fh7Lob4lwyvazsfE6--78_t3u624mbVyfjse4N9FVPv9-E7kz8C03QBqgGF2awXC-ORyuK5zfhiLt1ZJTZfmDlLsryiV2heVQuJKjbNDlCQfCq4o2lCKZAqbbje0Vn8_8AuNKsXQs">
-    <img 
-      src="https://mermaid.ink/svg/pako:eNpFkU9LQkEUxb_KMPB2ZqZo4VqihWFgfzazmXw336C-kXn3pfF4EIQuCioXiVQQRkGbkgiCrI_jKK76Cr0_Srvh_M45w73XoxVpAs1Tw_CELTBPPEabAhiNXght3JGOQCHtUEolswnCqOvAgTDRCqX1jZQfamhBA_a5EvywDs4iHzSVXARVRiVr_xlGM802o75PfMNgduAijiVbBY6coMA6kN0iaUlVE3aVWNJVDlkhW6JqkSIcQ53ZJKjQT_352Yu-e5wPHvToa3r5HFZnc8nsgkdkMr7Q58OIrC3J9Px0ej_S3Y_Zaz8k6VSsbwJHVwEptWxQs7fh7Lob4lwyvazsfE6--78_t3u624mbVyfjse4N9FVPv9-E7kz8C03QBqgGF2awXC-ORyuK5zfhiLt1ZJTZfmDlLsryiV2heVQuJKjbNDlCQfCq4o2lCKZAqbbje0Vn8_8AuNKsXQ" 
-      alt="TL working hours - high level - Q3"
-    /> 
-  </a>
-</p>
+```mermaid
+%%{init: {"pie": {"textPosition": 0.5, "useWidth": 780}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
+pie showData title TL working hours - High Level
+  "外部团队对接": 42.25
+  "团队事务": 42
+  "技术决策": 14
+  "Feature Owner管理": 3.5
+  "其他：U内事务/人员发展": 2
+```
 
-<p>
-  <a href="https://mermaid.live/edit#pako:eNqNVF1P2lAY_itNE-4cZTJ08w51Jkt0EtFtF72pcoRGaEk5HS6EBGSg4pxzG8SJ4thYdBcWndPJx_THrKctV_6FnfYU2cVgu2nOefo-z_N-tG-CXhADgB6hHY4EL_BwhEqwdJQHLG2dIFiGPjHGQ14UTMjl9AxQLC3HwFM-AEMmdNftciVNEIZABDzhJJ6bD4OYLYClpmUIJD-UxKUuiaXd0WWWTiappMPBCjiKioXE-DgHOQryMAyo2UkqLkpLvBCkQqIsxag71KgEOAsYF-MCK1BYBVWL7cwRKn1q7xygWl17_QXHaYUtbfOHDeay_ilm1Mv4ppm5Z6b1cD9mPqXt1fTGtV76jk7L6mVebxz6vSbN4_T8D1ErX2jllyhf9oU5uChKEZPrdg73I6P6GbYhoNXRvlbq5bpWrKtX-8Z5sctx9bdo75dR_sDI_NRSh48nZrTzDaNW0I_XLbt7zsH-hrgL12g1h6qrDNrcMk4yHaaLFRwOqrdrpa6XlLHJWbW1aygKQ-7at6b-JmdLuPt7o-yF2izetNZQqdxeUdTmBYPlGCOdR9WvWOKmRRK57TCRskTUxgbKV8wCLHd88Ab5MCBfB-4iqh7iN4Ten0emS_L-g3U7ph401FpBeyf-BUmOoKxdmR9yQkCOEv7wPwT83omHlO-RoVTQ2lvb1dPD1bg-VpuftULWRDYrJGV7aPYl1dCVCi6B9L2HtzVs7X1Ne5W2knzQI_B2MiQWtVLYVW--w89fqfSoHJznYqHuhIasYonSBOCgLAFqOi4AqZvSkPUpkBA749yZflw0zXIfcHH6xzRjOtTqequoH22YpMG_xo_hnUbNgOc8iDP4Z9Eqa4ZyZCgNRj_LkzsqXVnl3e84durZncMrg1TJqI0G2t5BW9votND9j-kBOgKkCMcH8NpMELa1-8hiC4BFTg5DlmaFJA7lZCj6XwgL9AiUZDBAy9EAB8E4zwUlLtIBQYCHojRFNrG1kJO_AXIBwo8">
-    <img
-      src="https://mermaid.ink/svg/pako:eNqNVF1P2lAY_itNE-4cZTJ08w51Jkt0EtFtF72pcoRGaEk5HS6EBGSg4pxzG8SJ4thYdBcWndPJx_THrKctV_6FnfYU2cVgu2nOefo-z_N-tG-CXhADgB6hHY4EL_BwhEqwdJQHLG2dIFiGPjHGQ14UTMjl9AxQLC3HwFM-AEMmdNftciVNEIZABDzhJJ6bD4OYLYClpmUIJD-UxKUuiaXd0WWWTiappMPBCjiKioXE-DgHOQryMAyo2UkqLkpLvBCkQqIsxag71KgEOAsYF-MCK1BYBVWL7cwRKn1q7xygWl17_QXHaYUtbfOHDeay_ilm1Mv4ppm5Z6b1cD9mPqXt1fTGtV76jk7L6mVebxz6vSbN4_T8D1ErX2jllyhf9oU5uChKEZPrdg73I6P6GbYhoNXRvlbq5bpWrKtX-8Z5sctx9bdo75dR_sDI_NRSh48nZrTzDaNW0I_XLbt7zsH-hrgL12g1h6qrDNrcMk4yHaaLFRwOqrdrpa6XlLHJWbW1aygKQ-7at6b-JmdLuPt7o-yF2izetNZQqdxeUdTmBYPlGCOdR9WvWOKmRRK57TCRskTUxgbKV8wCLHd88Ab5MCBfB-4iqh7iN4Ten0emS_L-g3U7ph401FpBeyf-BUmOoKxdmR9yQkCOEv7wPwT83omHlO-RoVTQ2lvb1dPD1bg-VpuftULWRDYrJGV7aPYl1dCVCi6B9L2HtzVs7X1Ne5W2knzQI_B2MiQWtVLYVW--w89fqfSoHJznYqHuhIasYonSBOCgLAFqOi4AqZvSkPUpkBA749yZflw0zXIfcHH6xzRjOtTqequoH22YpMG_xo_hnUbNgOc8iDP4Z9Eqa4ZyZCgNRj_LkzsqXVnl3e84durZncMrg1TJqI0G2t5BW9votND9j-kBOgKkCMcH8NpMELa1-8hiC4BFTg5DlmaFJA7lZCj6XwgL9AiUZDBAy9EAB8E4zwUlLtIBQYCHojRFNrG1kJO_AXIBwo8"
-      alt="TL working hours - breaking down - Q3"
-    /> 
-  </a>
-</p>
+```mermaid
+%%{init: {"pie": {"textPosition": 0.5, "useWidth": 1300}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
+pie showData title TL working hours - Breaking Down
+  "外部团队对接 - 敏捷团队内SM/BA/PO/UX": 7
+  "外部团队对接 - 技术线直属上级SA": 5.5
+  "外部团队对接 - 技术线架构办Platform": 3.75
+  "外部团队对接 - 平级团队": 1.5
+  "外部团队对接 - 三方依赖团队": 0.75
+  "外部团队对接 - 非功能性NFR测试等": 14.25
+  "外部团队对接 - 上线准备/协调等": 10
+%%   "外部团队对接 - 项目CLT会议/项目治理等": 3.25
+  "外部团队对接 - 其他（回邮件/CLT/聊天等）": 13.75
+  
+  "团队事务 - 会议 - Agile敏捷三大会": 13
+  "团队事务 - 会议 - 技术治理大会": 1.5
+  "团队事务 - 会议 - 异地Scrum全团队Standup": 1.75
+  "团队事务 - 会议 - SAFE PI计划会": 5.5
+  "团队事务 - 迭代故事卡技术准备/技术债管理": 3.5
+  "团队事务 - 上线支持": 19.5
+  "团队事务 - 其他（支持开卡结卡、Bugbash等）": 6.75
+
+  "Feature Owner管理": 6.25
+
+  "技术决策 - 写代码/结对编程": 2
+  "技术决策 - Code Review/方案讨论/糊方案图": 18
+
+  "其他：U内事务/人员发展": 3.75
+```
 
 <p align="center" >
   <img
