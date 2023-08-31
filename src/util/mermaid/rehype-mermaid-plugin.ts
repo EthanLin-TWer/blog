@@ -14,7 +14,7 @@ function traverseTreeAndReplaceNode(node, isNodeMatchingCondition, replacer) {
 
 function hash(content: string): string {
   // less serious but effective version, same hash will be generated for same content (indicates same length)
-  return (content.length * 4096 ^ 3).toFixed(12).toString()
+  return (content.length * 4096 ** 3).toFixed(12).toString()
 }
 
 export default function rehypeMermaid() {
