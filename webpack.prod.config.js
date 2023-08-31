@@ -35,7 +35,7 @@ module.exports = merge(baseConfig, {
           //  and it also drastically increases the build time
           // this is ridiculous and unacceptably not justified
           // sooner or later this will be replaced with something better
-          maxSize: 30000, // to split the large bundle, more chunks are better
+          maxSize: 150000, // to split the large bundle, more chunks are better
           priority: 3,
         },
         stable: {
