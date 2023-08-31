@@ -39,7 +39,7 @@ category: career, tech-lead
 > 数据采集的目的，一是为了寻找洞见，二是为接下来的改进指明方向。比如，在上面的饼图细分中，我就发现了我在feature owner管理、异地全团队Standup（主要是跟PO Sync）、需求准备、外部团队对接方面还可以通过更精细地利用好Feature Owner这个杠杆来将更多工作委派出去，以此为自己争取更多时间来编码、与团队结对等。同时，本文完成后我仍然打算继续采集未来三个月的数据，并在这里做不定期更新。Q2和Q3数据做对比，相信我们能从中发现颇为有趣的TL工作洞见。
 
 ```mermaid
-%%{init: {"pie": {"textPosition": 0.5, "useWidth": 780}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
+%%{init: {"pie": {"textPosition": 0.5, "useWidth": 960}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
 pie showData title TL working hours - High Level
   "外部团队对接": 61.75
   "团队事务": 61
@@ -49,7 +49,7 @@ pie showData title TL working hours - High Level
 ```
 
 ```mermaid
-%%{init: {"pie": {"textPosition": 0.5, "useWidth": 1300}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
+%%{init: {"pie": {"textPosition": 0.5, "useWidth": 1260}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
 pie showData title TL working hours - Breaking Down
   "外部团队对接 - 敏捷团队内SM/BA/PO/UX": 7.75
   "外部团队对接 - 技术线直属上级SA": 6.75
