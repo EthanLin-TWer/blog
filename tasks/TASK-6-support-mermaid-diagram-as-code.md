@@ -10,10 +10,16 @@
 * [x] fuck, the solution stops working all of a sudden - maybe id generation, or delayed loading of mermaid causing this
   * [x] seems loading of image blocks the rendering of mermaid - trigger `mermaid.run()` explicitly
 * [ ] solution refactor:
-  * avoid the need for updating rehype-mermaid-plugin and `MermaidRenderer` in two places
   * introducing mermaid at runtime causes a much larger sized bundle 188K -> 688K gzipped, insanely crazy
+    * do not include elk and crypto in webpack - try it 
+    * fork mermaid@8 and update code to disable auto sorting
+    * or fork mermaid@10 and fix the tree shaking
+  * [x] ~~downgrade to mermaid@8~~ - bundle size way smaller, but pie chart doesn't work properly
+  * [x] avoid the need for updating rehype-mermaid-plugin and `MermaidRenderer` in two places
+    * [x] done by replacing the whole `pre` block in `ReactMarkdownComponent` instead of just handling `code`
+    * [x] then the plugin becomes unnecessary
+  * [x] add tests to rehype-mermaid-plugin if this turns out to be the final solution - no, it's removed
 * [ ] get a light-weighted JavaScript version of hash() - as long as it outputs same result for same content instantly
-* [ ] add tests to rehype-mermaid-plugin if this turns out to be the final solution
 
 ## Others
 

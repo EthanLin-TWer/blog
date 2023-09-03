@@ -4,9 +4,6 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import rehypeRaw from 'rehype-raw'
 
-import rehypeMermaid from '../../../util/mermaid/rehype-mermaid-plugin'
-
-import { MermaidRenderer } from './MermaidRenderer'
 import { CodeBlockRenderer } from './CodeBlockRenderer'
 
 import 'github-markdown-css'
@@ -18,9 +15,9 @@ interface Props {
 }
 export const GithubFlavoredMarkdown: FC<Props> = ({ data, className }) => (
   <ReactMarkdown
-    components={{ mermaid: MermaidRenderer, code: CodeBlockRenderer }}
+    components={{ pre: CodeBlockRenderer }}
     remarkPlugins={[remarkGfm]}
-    rehypePlugins={[rehypeMermaid, rehypeRaw]}
+    rehypePlugins={[rehypeRaw]}
     className={`markdown-body ${className || ''}`}
   >
     {data}

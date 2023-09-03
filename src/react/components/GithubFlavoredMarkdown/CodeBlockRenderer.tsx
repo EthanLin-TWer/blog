@@ -24,7 +24,9 @@ import qtcreator_light from 'react-syntax-highlighter/styles/hljs/qtcreator_ligh
 import eighties from 'react-syntax-highlighter/styles/hljs/tomorrow-night-eighties'
 import vs2015 from 'react-syntax-highlighter/styles/hljs/vs2015'
 
-const getRandomStyle = () =>
+import { MermaidRenderer } from './MermaidRenderer'
+
+const getRandomTheme = () =>
   sample([
     coy,
     arduino,
@@ -41,9 +43,24 @@ const getRandomStyle = () =>
     vs2015,
   ])
 
-interface Props {
+interface LeafNode {
+  type: 'text'
   value: string
-  language: string
+}
+interface HastNode {
+  type: 'element'
+  tagName: string
+  children: HastNode[] | LeafNode[]
+  position: {
+    start: object
+    end: object
+  }
+  properties?: {
+    [key: string]: string
+  }
+}
+interface Props {
+  node: HastNode
 }
 
 registerLanguage('typescript', typescript)
@@ -52,19 +69,27 @@ registerLanguage('markdown', markdown)
 registerLanguage('java', java)
 registerLanguage('bash', bash)
 
-export const CodeBlockRenderer: FC<Props> = (props: Props) => {
-  const { language, value } = props
-  if (!value) {
-    return null
+const theme = getRandomTheme()
+const useLanguage = (properties: HastNode['properties']) => {
+  const [className = 'language-text'] = properties?.className!
+  const language = className.substring('language-'.length)
+
+  return { language, isMermaid: () => language === 'mermaid' }
+}
+const useCodeSnippet = (children: LeafNode[]) => children[0].value
+
+export const CodeBlockRenderer: FC<Props> = ({ node }: Props) => {
+  const { children, properties } = node.children[0] as HastNode
+  const { language, isMermaid } = useLanguage(properties)
+  const codeSnippet = useCodeSnippet(children as LeafNode[])
+
+  if (isMermaid()) {
+    return <MermaidRenderer>{codeSnippet}</MermaidRenderer>
   }
 
   return (
-    <SyntaxHighlighter
-      language={language}
-      style={getRandomStyle()}
-      showLineNumbers
-    >
-      {value}
+    <SyntaxHighlighter language={language} style={theme} showLineNumbers>
+      {codeSnippet}
     </SyntaxHighlighter>
   )
 }
