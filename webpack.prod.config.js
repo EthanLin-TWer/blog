@@ -21,12 +21,12 @@ module.exports = merge(baseConfig, {
           // See first warning of why we put [\\/] instead of \/
           // https://webpack.js.org/plugins/split-chunks-plugin/#optimizationsplitchunks
           test: /[\\/]node_modules[\\/]_?(react-redux|redux|redux-actions|redux-saga|reselect|seamless-immutable)/,
-          priority: 1,
+          priority: 5,
         },
         react_markdown: {
           name: 'react-markdown-chunks.vendor',
           test: /[\\/]node_modules[\\/]_?(react-syntax-highlighter|react-markdown|rehype-raw|remark-gfm|github-markdown-css)/,
-          priority: 2,
+          priority: 4,
         },
         mermaid: {
           name: 'mermaid-chunks.vendor',
@@ -41,14 +41,14 @@ module.exports = merge(baseConfig, {
         stable: {
           name: 'stable-chunks.vendor',
           test: /[\\/]node_modules[\\/]_?(lodash|axios)/,
-          priority: 4,
+          priority: 2,
         },
         default: {
           name: 'react-core.vendor',
           test: /[\\/]node_modules[\\/]_?(react|react-dom|react-router-dom)/,
           // react core is in particular big and warrants more chunks
           maxSize: 100000, // this will result in 4 chunks over 1
-          priority: 5,
+          priority: 1,
         }
       },
     },
