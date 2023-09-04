@@ -41,40 +41,40 @@ category: career, tech-lead
 ```mermaid
 %%{init: {"pie": {"textPosition": 0.5, "useWidth": 960}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
 pie showData title TL working hours - High Level
-  "外部团队对接": 61.75
-  "团队事务": 61
-  "技术决策": 21
-  "Feature Owner管理": 12
-  "其他：U内事务/人员发展": 3.75
+  "外部团队对接": 67
+  "团队事务": 63.5
+  "技术决策": 22.5
+  "Feature Owner管理": 15.25
+  "其他：U内事务/人员发展": 5.25
 ```
 
 ```mermaid
 %%{init: {"pie": {"textPosition": 0.5, "useWidth": 1260}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
 pie showData title TL working hours - Breaking Down
   "外部团队对接 - 敏捷团队内SM/BA/PO/UX": 7.75
-  "外部团队对接 - 技术线直属上级SA": 6.75
+  "外部团队对接 - 技术线直属上级SA": 7.5
   "外部团队对接 - 技术线架构办Platform": 4
-  "外部团队对接 - 平级团队": 1.5
-  "外部团队对接 - 三方依赖团队": 1.75
-  "外部团队对接 - 非功能性NFR测试等": 14.75
-  "外部团队对接 - 上线准备/协调等": 10
-%%   "外部团队对接 - 项目CLT会议/项目治理等": 3.75
-  "外部团队对接 - 其他（回邮件/CLT/聊天等）": 15.25
+  "外部团队对接 - 平级团队": 1.75
+  "外部团队对接 - 三方依赖团队": 2.25
+  "外部团队对接 - NFR：安全测试、性能测试等": 16.5
+  "外部团队对接 - 上线准备/协调等": 10.5
+%%   "外部团队对接 - 项目CLT会议/项目治理等": 4.5
+  "外部团队对接 - 其他（回邮件/CLT/聊天等）": 16.75
   
-  "团队事务 - 会议 - Agile敏捷三大会": 16.5
+  "团队事务 - 会议 - Agile敏捷三大会": 17
   "团队事务 - 会议 - 技术治理大会": 1.5
   "团队事务 - 会议 - 异地Scrum全团队Standup": 3.25
   "团队事务 - 会议 - SAFE PI计划会": 5.5
   "团队事务 - 迭代故事卡技术准备/技术债管理": 5.75
-  "团队事务 - 上线支持": 20
-  "团队事务 - 其他（支持开卡结卡、Bugbash等）": 8.5
+  "团队事务 - 上线支持": 20.75
+  "团队事务 - 其他（支持开卡结卡、Bugbash等）": 9.75
 
-  "Feature Owner管理": 12
+  "Feature Owner管理": 15.25
 
   "技术决策 - 写代码/结对编程": 2
-  "技术决策 - Code Review/方案讨论/糊方案图": 19
+  "技术决策 - Code Review/方案讨论/糊方案图": 20.5
 
-  "其他：U内事务/人员发展": 3.75
+  "其他：U内事务/人员发展": 5.25
 ```
 
 <p align="center" >
