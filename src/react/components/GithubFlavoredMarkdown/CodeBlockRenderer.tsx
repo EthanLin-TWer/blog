@@ -71,7 +71,7 @@ registerLanguage('bash', bash)
 
 const theme = getRandomTheme()
 const useLanguage = (properties: HastNode['properties']) => {
-  const [className = 'language-text'] = properties?.className!
+  const [className = 'language-text'] = properties?.className || []
   const language = className.substring('language-'.length)
 
   return { language, isMermaid: () => language === 'mermaid' }

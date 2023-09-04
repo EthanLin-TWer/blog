@@ -104,6 +104,4 @@ module Window (qunit.js, src/main/webapp/.../bower_components/underscore/test/ve
 
 欲知后事，请听[下文](#/posts/2016-03-21-javascript-package-compress-template-and-reuse)分解。
 
----
-
 [1]： [https://www.youtube.com/watch?v=vtKdNT7o858](https://www.youtube.com/watch?v=vtKdNT7o858)        "Russell Peters: Mind-Blasting Joke"
