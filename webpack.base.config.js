@@ -1,5 +1,5 @@
 const path = require('path')
-const { ProvidePlugin } = require('webpack')
+const { ProvidePlugin, IgnorePlugin } = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const DotenvPlugin = require('dotenv-webpack')
@@ -38,6 +38,9 @@ const plugins = [
   new ProvidePlugin({
     React: 'react',
     process: 'process/browser.js'
+  }),
+  new IgnorePlugin({
+    resourceRegExp: /(elkjs|cytoscape)/,
   }),
   new CopyPlugin({
     patterns: [
