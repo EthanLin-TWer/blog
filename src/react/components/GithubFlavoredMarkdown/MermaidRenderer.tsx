@@ -5,15 +5,22 @@ interface Props {
   children: string
 }
 
-// @ts-ignore
 const CONFIGURATION_HEADER = /%%\s*{\s*init:\s*(.*)}\s*%%/
 
-function hash(content: string): string {
-  // less serious but effective version, same hash will be generated for same content (indicates same length)
-  return (content.length * 4096 ** 3).toFixed().toString()
+const hash = (content: string): string => {
+  let result = 0
+  if (content.length === 0) {
+    return result.toString()
+  }
+  for (let i = 0; i < content.length; i += 1) {
+    const char = content.charCodeAt(i)
+    result = (result << 5) - result + char
+    result = result & result // Convert to 32bit integer
+  }
+  return result.toString()
 }
 
-export const MermaidRenderer: FC<Props> = ({ children }) => {
+export const MermaidRenderer: FC<Props> = ({ children }: Props) => {
   const [graphId, setGraphId] = useState<string>('')
   useEffect(() => {
     setGraphId(hash(children))
@@ -25,7 +32,7 @@ export const MermaidRenderer: FC<Props> = ({ children }) => {
 
       mermaid.initialize(initConfig ? JSON.parse(initConfig) : {})
       // without triggering this it will be blocked until all images are loaded in DOM, don't know why
-      mermaid.run().then(() => {})
+      mermaid.run()
     }
   }, [graphId, children])
 

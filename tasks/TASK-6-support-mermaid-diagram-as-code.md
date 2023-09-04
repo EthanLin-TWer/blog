@@ -19,7 +19,7 @@
     * [x] done by replacing the whole `pre` block in `ReactMarkdownComponent` instead of just handling `code`
     * [x] then the plugin becomes unnecessary
   * [x] add tests to rehype-mermaid-plugin if this turns out to be the final solution - no, it's removed
-* [ ] get a light-weighted JavaScript version of hash() - as long as it outputs same result for same content instantly
+* [x] get a light-weighted JavaScript version of hash() - copied one from StackOverflow
 
 ## Others
 
