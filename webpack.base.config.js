@@ -40,6 +40,7 @@ const plugins = [
     process: 'process/browser.js'
   }),
   new IgnorePlugin({
+    // this is large bundle introduced by mermaid, we don't want it in dev/prod
     resourceRegExp: /(elkjs|cytoscape)/,
   }),
   new CopyPlugin({

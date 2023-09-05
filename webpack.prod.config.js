@@ -2,6 +2,12 @@ const { merge } = require('webpack-merge')
 const ManifestPlugin = require('webpack-assets-manifest')
 const { baseConfig } = require('./webpack.base.config')
 
+const defaultChunksConfiguration = {
+  reuseExistingChunk: true,
+  // this yields chunks within ~[20K, 40K] sizes gzipped
+  minSize: 150 * 1000,
+  maxSize: 300 * 1000,
+}
 module.exports = merge(baseConfig, {
   mode: 'production',
   stats: {
@@ -28,27 +34,34 @@ module.exports = merge(baseConfig, {
           test: /[\\/]node_modules[\\/]_?(react-syntax-highlighter|react-markdown|rehype-raw|remark-gfm|github-markdown-css)/,
           priority: 4,
         },
+        react_core: {
+          name: 'react-core.vendor',
+          test: /[\\/]node_modules[\\/]_?(react|react-dom|react-router-dom)/,
+          // react core is in particular big and warrants more chunks
+          // maxSize: 100000, // this will result in 4 chunks over 1
+          priority: 3,
+        },
         mermaid: {
           name: 'mermaid-chunks.vendor',
-          test: /[\\/]node_modules[\\/]_?(mermaid|)/,
-          // mermaid is ~18x(~702K) larger than react (~40K) after gzipped,
-          //  and it also drastically increases the build time
-          // this is ridiculous and unacceptably not justified
-          // sooner or later this will be replaced with something better
-          maxSize: 150000, // to split the large bundle, more chunks are better
-          priority: 3,
+          test: /[\\/]node_modules[\\/]_?(mermaid)/,
+          // this yields 6 19-40K sized chunks and in total 196.04K gzipped,
+          // still 5x larger than react (~40K) but way better original (~702K)
+          //  where elkjs+cytospace is added to the bundle.
+          // this is still insane but the problem lays in mermaid core, which is
+          // barely acceptable, but we should look into optimizing this.
+          ...defaultChunksConfiguration,
+          priority: 2,
         },
         stable: {
           name: 'stable-chunks.vendor',
           test: /[\\/]node_modules[\\/]_?(lodash|axios)/,
-          priority: 2,
+          priority: 1,
         },
         default: {
-          name: 'react-core.vendor',
-          test: /[\\/]node_modules[\\/]_?(react|react-dom|react-router-dom)/,
-          // react core is in particular big and warrants more chunks
-          maxSize: 100000, // this will result in 4 chunks over 1
-          priority: 1,
+          name: 'default.vendor',
+          test: /[\\/]node_modules[\\/]/,
+          ...defaultChunksConfiguration,
+          priority: 0,
         }
       },
     },
