@@ -9,9 +9,9 @@
     * solution 3: generated hast is not being properly picked up and rendered as HTML by `ReactMarkdown.components` - after studying the internal it works: rehype-mermaid needs to update the parent node which contains mermaid, not only the child node
 * [x] fuck, the solution stops working all of a sudden - maybe id generation, or delayed loading of mermaid causing this
   * [x] seems loading of image blocks the rendering of mermaid - trigger `mermaid.run()` explicitly
-* [ ] solution refactor:
-  * introducing mermaid at runtime causes a much larger sized bundle 188K -> 688K gzipped, insanely crazy
-    * [x] do not include elk and crypto in webpack - it works!
+* [x] solution refactor:
+  * [x] introducing mermaid at runtime causes a much larger sized bundle 188K -> 688K gzipped, insanely crazy
+    * [x] do not include elk and crypto in webpack - it works
     * fork mermaid@8 and update code to disable auto sorting
     * or fork mermaid@10 and fix the tree shaking
   * [x] ~~downgrade to mermaid@8~~ - bundle size way smaller, but pie chart doesn't work properly
