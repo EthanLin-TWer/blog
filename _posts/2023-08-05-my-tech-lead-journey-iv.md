@@ -41,8 +41,8 @@ category: career, tech-lead
 ```mermaid
 %%{init: {"pie": {"textPosition": 0.5, "useWidth": 960}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
 pie showData title TL working hours - High Level
-  "外部团队对接": 62
   "团队事务": 71
+  "外部团队对接": 62
   "技术决策": 25.75
   "Feature Owner管理": 17
   "其他：U内事务/人员发展": 6.25
