@@ -41,10 +41,10 @@ category: career, tech-lead
 ```mermaid
 %%{init: {"pie": {"textPosition": 0.5, "useWidth": 960}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
 pie showData title TL working hours - High Level
-  "团队事务": 71
-  "外部团队对接": 62
-  "技术决策": 25.75
-  "Feature Owner管理": 17
+  "团队事务": 74.25
+  "外部团队对接": 62.5
+  "技术决策": 27
+  "Feature Owner管理": 18
   "其他：U内事务/人员发展": 6.25
 ```
 
@@ -59,20 +59,20 @@ pie showData title TL working hours - Breaking Down
   "外部团队对接 - NFR：安全测试、性能测试等": 17.25
   "外部团队对接 - 上线准备/协调等": 12
 %%   "外部团队对接 - 项目CLT会议/项目治理等": 5.25
-  "外部团队对接 - 其他（回邮件/CLT/聊天等）": 18.5
-  
-  "团队事务 - 会议 - Agile敏捷三大会": 18.75
+  "外部团队对接 - 其他（回邮件/CLT/聊天等）": 19
+        
+  "团队事务 - 会议 - Agile敏捷三大会": 19.5
   "团队事务 - 会议 - 技术治理大会": 1.5
   "团队事务 - 会议 - 异地Scrum全团队Standup": 6
   "团队事务 - 会议 - SAFE PI计划会": 5.5
-  "团队事务 - 迭代故事卡技术准备/技术债管理": 7.25
+  "团队事务 - 迭代故事卡技术准备/技术债管理": 9.25
   "团队事务 - 上线支持": 21.5
-  "团队事务 - 其他（支持开卡结卡、Bugbash等）": 10.5
+  "团队事务 - 其他（支持开卡结卡、Bugbash等）": 11
 
-  "Feature Owner管理": 17
+  "Feature Owner管理": 18
 
-  "技术决策 - 写代码/结对编程": 2.5
-  "技术决策 - Code Review/方案讨论/糊方案图": 23.25
+  "技术决策 - 写代码/结对编程": 3
+  "技术决策 - Code Review/方案讨论/糊方案图": 24
 
   "其他：U内事务/人员发展": 6.25
 ```
@@ -84,7 +84,7 @@ pie showData title TL working hours - Breaking Down
   />
 </p>
 
-> TODO: 把CLT/项目治理这块单独拎出来profile。需要更新part 1和本篇的图表。
+> TODO: 把CLT/项目治理这块单独拎出来profile。需要更新part 1的图表。
 
 ## 其他疑问
 
