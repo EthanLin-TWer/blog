@@ -53,6 +53,10 @@ category: career, tech-lead
 
 那么，遵照这个时间管理的方向，我在Q3的进步如何呢？
 
+
+<detail>
+  <summary>点击展开Q3工时细节</summary>
+
 ```mermaid
 %%{init: {"pie": {"textPosition": 0.5, "useWidth": 960}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
 pie showData title TL working hours - High Level
@@ -91,6 +95,8 @@ pie showData title TL working hours - Breaking Down
 
   "其他：U内事务/人员发展": 6.25
 ```
+</detail>
+
 
 > WIP 有趣的事：
 >
@@ -113,7 +119,7 @@ pie showData title TL working hours - Breaking Down
   * 写什么样的代码？项目的架构代码、底层核心代码（少有这样的核心）（前两者一般在项目启动前期有机会写）、故事全流程代码、小巧无依赖的Story、想学习技术栈的Story等；
   * TL写代码时间减少，如何保持技术输出？掌握新技术直到足以使你保持技术判断力的程度（方案选择标准是什么、CR建议针对性、问题定位、能做工作量评估）、保持技术关注度（以能达到选用不同的技术栈完成不同的项目）以提升技术见识和品位，做出必要的技术创新
   * 如何挤出时间来？世纪难题。加班，使自己的学习方向与项目方向一致，则加班=学习精进；
-
+  
 #### 参考
 
 * [关于时间管理的一点建议](https://juejin.cn/post/7225941608225652773)
