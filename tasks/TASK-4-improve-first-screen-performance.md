@@ -12,16 +12,16 @@
   * [x] esprima 228.52K -> 187.1K(-18%) - used by front-matter  -> js-yaml -> esprima
   * parse5 - used by retype-raw, which is used to preserve HTMLs in markdown
   * `pnpm list <dep@version> --depth Infinity` can be used to check dependencies using this library
-* 看看能不能缓存下vendor/main里头不常更改的部分
-* 然后再搞一个CI monitor，每次提交监控build size
 * [x] 看图片能不能压缩之后也放到gh-pages，然后通过CDN缓存压缩加速 —— 查看Github单个仓库的上限是多少，估算一下，好处是暂时不容易丢
   * [x] 工具选用：images / imagemin+imagemin-pngquant (要装全局pnglib去你的) / tinify - 对比下压缩效果
     * [x] images: https://zhuanlan.zhihu.com/p/93882055 - png支持太差
-    * tinify: https://blog.csdn.net/Danchaofan_23/article/details/125963131
+    * [x] tinify: https://blog.csdn.net/Danchaofan_23/article/details/125963131
       * 要上传Tinify服务器处理。但是公开的图片么，不在意。唯一缺点就是放在pre-commit里的话没网的时候就不支持压缩图片/提交了…
       * 先用着，后面再优化
     * 原理: https://www.php.cn/faq/502524.html
   * [x] 这个应该可以写个pre-commit的task直接处理一下的
+* [x] 看看能不能缓存下vendor/main里头不常更改的部分 - 这个是可以的，分完组和块后就默认是这样了
+* 然后再搞一个CI monitor，每次提交监控build size
 * https://reeli.github.io 为何睿睿的博客加载速度那么快……
 
 # Todo:
