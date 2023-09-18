@@ -66,14 +66,16 @@ quadrantChart
 > 
 > 我不喜欢这个思路。首先，一个工作值不值得做，还是应该看重要程度。不重要的事情，哪怕是老板找，也可以直接提出建议；平级团队找，也可以糊弄。重要的事情，团队找也应该花时间。再者，如果纯粹都KPI驱动了，那我还认真寻思把这工作做好？那不就是反正不涨薪，直接划水开摆了呗？
 
-## 一些实用的建议
+## 会议管理
+
+作为管理角色，不可避免地有一部分时间要用于沟通：跟外部团队沟通以为团队排除依赖和风险，跟团队的其他角色沟通以统一认知、协调组内行动，跟其他干系人/管理者沟通以让组织内其他团队充分认知团队当前进展、需要解决的问题等……当你需要同时拉通的角色不止1-2个人时，你就需要通过组织会议来拉通所有人的认知。
+
+但会议很容易变成时间杀手。为了让会议高效地完成沟通的目标，你需要很多基本功，比如[开好会议的5个C（这其实是我编的文章标题，还没写出来呢）]()，比如[高效沟通的技巧（这个系列的下一篇）][[My Tech Lead journey V]]等。不过这里，我们暂且把目光收缩到时间管理相关的话题上来。
 
 
 
-> 此外，应该还有一些指导原则：
->
-> * Optional的会直接不去，会后看会议纪要输出的信息就行，除了少数情况你判断你必须去之外。
-> * 问了之后还是没有详细agenda、你不知道你要做啥输入的会议，直接提出建议并拒绝。—— 然而一般来说，你问了就会有回答，你的任务是要判断这个回答是否糊弄。糊弄的话，也用糊弄的方式给个正经的建议。
+* WIP Optional的会直接不去，会后看会议纪要输出的信息就行，除了少数情况你判断你必须去之外。
+* WIP 问了之后还是没有详细agenda、你不知道你要做啥输入的会议，直接提出建议并拒绝。—— 然而一般来说，你问了就会有回答，你的任务是要判断这个回答是否糊弄。糊弄的话，也用糊弄的方式给个正经的建议。
 
 ## 改进武器：PDCA
 
@@ -199,5 +201,6 @@ pie showData title TL working hours - Breaking Down
 [pdca]: https://zh.wikipedia.org/wiki/Special:Search/pdca
 [toggl]: https://toggl.com
 [My Tech Lead journey I]: https://ethan.thoughtworkers.me/#/post/2023-08-01-my-tech-lead-journey-i
+[My Tech Lead journey V]: https://ethan.thoughtworkers.me/#/post/2023-09-13-my-tech-lead-journey-v
 [关于时间管理的一点建议]: https://juejin.cn/post/7225941608225652773
 [Who's got the monkey]: https://hbr.org/1999/11/management-time-whos-got-the-monkey
