@@ -11,6 +11,7 @@ category: career, tech-lead
 
 外企背景，英文沟通为假设。先糊个大纲
 
+* 设计合适的沟通机制：频率、时间与角色。这块可以参考[上一篇的会议管理部分][My Tech Lead journey IV]
 * 避免重复沟通：如何找到找全对的人
   * 搞半天跟A聊清楚了结果B不在场，隔了几天才说有输入，然后又花时间跟B同步。同步完还不买账，最终才是AB一起聊定
   * 你以为邮件抄送就算信息同步完？不好意思，当面聊才知道人家没看，或者就说没看懂，就问你气不气
@@ -33,3 +34,5 @@ category: career, tech-lead
 * [毛泽东选集](https://book.douban.com/subject/1139360/)
 * [最简单的图形与最复杂的信息--The Wall Street Journal, Guide to Information Graphics](https://book.douban.com/subject/25755879/)
 * [金字塔原理](https://book.douban.com/subject/33391219/)
+
+[My Tech Lead journey IV]: https://ethan.thoughtworkers.me/#/post/2023-08-05-my-tech-lead-journey-iv
