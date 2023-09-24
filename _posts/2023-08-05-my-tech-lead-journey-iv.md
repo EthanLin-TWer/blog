@@ -156,6 +156,8 @@ quadrantChart
 <details>
   <summary>点击展开Q3工时细节</summary>
 
+采样点跨度同样历时接近三个月、35个工作日，采样时长约264个小时。在这三个月里，项目迎来了第一次正式上线，组织也刚好正在经历一些变革，因此从工时中不难发现，TW关于人员发展（绩效评估）的时间占比减少了，而上线相关的活动时间增加了。
+
 ```mermaid
 %%{init: {"pie": {"textPosition": 0.5, "useWidth": 960}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
 pie showData title TL working hours - High Level
