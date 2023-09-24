@@ -26,11 +26,11 @@ pie showData title TL working hours - High Level
   "外部团队对接": 88.25
   "Feature Owner管理": 32.5
   "技术决策": 28.25
-  "其他：U内事务/人员发展": 33
+  "U内事务、人员发展等": 33
 ```
 
 ```mermaid
-%%{init: {"pie": {"textPosition": 0.5, "useWidth": 1310}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
+%%{init: {"pie": {"textPosition": 0.5, "useMaxWidth": true}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
 pie showData title TL working hours - Breaking Down
   "外部团队对接-敏捷团队内SM/BA/PO/UX": 13
   "外部团队对接-技术线直属上级SA": 7.75
@@ -40,7 +40,7 @@ pie showData title TL working hours - Breaking Down
   "外部团队对接-NFR：安全测试、性能测试等": 7.5
   "外部团队对接-上线准备/协调等": 5.75
   "外部团队对接-项目CLT会议/项目治理等": 2.25
-  "外部团队对接-其他（非计划内聊天等）": 21
+  "外部团队对接-其他（回邮件、聊天等）": 21
   
   "团队事务-会议-Agile敏捷三大会": 27.75
   "团队事务-会议-技术治理大会": 6
@@ -55,8 +55,7 @@ pie showData title TL working hours - Breaking Down
   "技术决策-写代码/结对编程": 12.5
   "技术决策-Code Review/方案讨论/糊方案图": 15.75
 
-  "人员发展": 18.5
-  "U内事务": 14.5
+  "U内事务、人员发展等": 33
 ```
 
 从这个拆解图，不难看出其实技术真的只占了TL项目工作时间的一小部分，更多的时间实质上就是花在了所谓的“管理”上：通过团队梯队管理迭代的功能交付(11%)、跟PO和其他角色协作处理团队事务（上线、测试、应询、流程等）(20%)、跟BA和其他角色协作确保团队拿到合格的需求和技术设计(18%)等，这些大头一算就要占据一半时间了。
