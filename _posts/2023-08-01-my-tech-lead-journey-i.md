@@ -30,7 +30,7 @@ pie showData title TL working hours - High Level
 ```
 
 ```mermaid
-%%{init: {"pie": {"textPosition": 0.5, "useMaxWidth": true}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
+%%{init: {"pie": {"textPosition": 0.5, "useWidth": 1310}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
 pie showData title TL working hours - Breaking Down
   "外部团队对接-敏捷团队内SM/BA/PO/UX": 13
   "外部团队对接-技术线直属上级SA": 7.75
