@@ -42,3 +42,6 @@ category: JavaScript
 * [Appearance and Disappearance](https://testing-library.com/docs/guide-disappearance/)
 * [React Testing Library and the “not wrapped in act” Errors](https://davidwcai.medium.com/react-testing-library-and-the-not-wrapped-in-act-errors-491a5629193b)
 * [You Probably Don't Need act() in Your React Tests](https://plainenglish.io/blog/you-probably-dont-need-act-in-your-react-tests-2a0bcd2ad65c)
+* [](https://kentcdodds.com/blog/fix-the-not-wrapped-in-act-warning)
+* [](https://github.com/threepointone/react-act-examples/blob/master/sync.md)
+* [](https://nodejs.org/api/esm.html#esm_differences_between_es_modules_and_commonjs)
