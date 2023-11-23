@@ -203,6 +203,52 @@ pie showData title TL working hours - Breaking Down
 ~~然后记录用时太累了不想干了。分析出结果了就好，后面的工作从定量转到定性即可，还是抓大放小。~~
 
 <details>
+  <summary>Q4工时细节还是手贱记录了一下，整理中</summary>
+
+采样点跨度同样历时三个月左右、26<wip>个工作日，采样时长约181<wip>个小时。在这三个月里，团队完成了多次上线后的优化，新需求强度逐渐减小，TW内部在经历组织变革后，年末的人员发展（绩效评估）也重新启动了。
+
+```mermaid
+%%{init: {"pie": {"textPosition": 0.5, "useWidth": 960}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
+pie showData title TL working hours - High Level
+  "团队事务": 65.5
+  "外部团队对接": 63.5
+  "Feature Owner管理": 6.25
+  "技术决策": 39.5
+  "U内事务、人员发展等": 4.5
+```
+
+```mermaid
+%%{init: {"pie": {"textPosition": 0.5, "useWidth": 1310}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
+pie showData title TL working hours - Breaking Down
+  "外部团队对接-敏捷团队内SM/BA/PO/QA": 8.25
+  "外部团队对接-技术线直属上级SA": 9.5
+  "外部团队对接-技术线架构办Platform": 2
+  "外部团队对接-平级团队": 3.25
+  "外部团队对接-三方依赖团队": 1.75
+  "外部团队对接-Production Support(+)": 5.75
+  "外部团队对接-NFR：安全测试、性能测试等(-)": 0
+  "外部团队对接-上线准备/协调等": 17.5
+  "外部团队对接-项目CLT会议/项目治理等": 7.25
+  "外部团队对接-其他（回邮件、聊天等）": 8.25
+  
+  "团队事务-会议-Agile敏捷三大会": 16.75
+  "团队事务-会议-技术治理大会(-)": 0
+  "团队事务-会议-异地Scrum全团队Standup": 5.75
+  "团队事务-会议-SAFE PI计划会(-)": 0
+  "团队事务-迭代故事卡技术准备/技术债管理": 5.25
+  "团队事务-上线支持": 29.75
+  "团队事务-其他（支持开卡结卡、Bugbash等）": 8
+
+  "Feature Owner管理": 6.25
+
+  "技术决策-写代码/结对编程": 12.75
+  "技术决策-Code Review/方案讨论/糊方案图": 26.75
+
+  "U内事务、人员发展等": 4.5
+```
+</details>
+
+<details>
   <summary>Todolist: 其他疑问</summary>
 
 * 习惯性分配工作，那么TL究竟干哪些活？
