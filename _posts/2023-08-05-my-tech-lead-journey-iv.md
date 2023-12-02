@@ -210,41 +210,41 @@ pie showData title TL working hours - Breaking Down
 ```mermaid
 %%{init: {"pie": {"textPosition": 0.5, "useWidth": 960}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
 pie showData title TL working hours - High Level
-  "团队事务": 82
-  "外部团队对接": 67.75
-  "Feature Owner管理": 7.75
+  "团队事务": 82.5
+  "外部团队对接": 69.75
+  "Feature Owner管理": 8
   "技术决策": 55.25
-  "U内事务、人员发展等": 30.5
+  "U内事务、人员发展等": 38.25
 ```
 
 ```mermaid
 %%{init: {"pie": {"textPosition": 0.5, "useWidth": 1310}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
 pie showData title TL working hours - Breaking Down
-  "外部团队对接-敏捷团队内SM/BA/PO/QA": 9.25
+  "外部团队对接-敏捷团队内SM/BA/PO/QA": 10
   "外部团队对接-技术线直属上级SA": 10.25
   "外部团队对接-技术线架构办Platform": 2.25
   "外部团队对接-平级团队": 3.25
   "外部团队对接-三方依赖团队": 1.75
   "外部团队对接-Production Support(+)": 5.75
   "外部团队对接-NFR：安全测试、性能测试等(-)": 0
-  "外部团队对接-上线准备/协调等": 18.5
-  "外部团队对接-项目CLT会议/项目治理等": 7.25
+  "外部团队对接-上线准备/协调等": 19.75
+  "外部团队对接-项目CLT会议/项目治理等": 7.75
   "外部团队对接-其他（回邮件、聊天等）": 9
   
-  "团队事务-会议-Agile敏捷三大会": 21.25
+  "团队事务-会议-Agile敏捷三大会": 21.5
   "团队事务-会议-技术治理大会(-)": 0
   "团队事务-会议-异地Scrum全团队Standup": 6.75
   "团队事务-会议-SAFE PI计划会(-)": 0
   "团队事务-迭代故事卡技术准备/技术债管理": 5.75
-  "团队事务-上线支持": 34.25
+  "团队事务-上线支持": 34.5
   "团队事务-其他（支持开卡结卡、Bugbash等）": 14
 
-  "Feature Owner管理": 7.75
+  "Feature Owner管理": 8
 
   "技术决策-写代码/结对编程": 24.75
   "技术决策-Code Review/方案讨论/糊方案图": 30.5
 
-  "U内事务、人员发展等": 30.5
+  "U内事务、人员发展等": 38.25
 ```
 </details>
 
