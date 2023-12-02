@@ -205,7 +205,7 @@ pie showData title TL working hours - Breaking Down
 <details>
   <summary>Q4工时细节还是手贱记录了一下，整理中</summary>
 
-采样点跨度同样历时三个月左右、35<wip>个工作日，采样时长约243.25<wip>个小时。在这三个月里，团队完成了多次上线后的优化，新需求强度逐渐减小，TW内部在经历组织变革后，年末的人员发展（绩效评估）也重新启动了。
+采样点跨度同样历时三个月左右、37个工作日，采样时长约254个小时。在这三个月里，团队完成了多次上线后的优化，新需求强度逐渐减小，TW内部在经历组织变革后，年末的人员发展（绩效评估）也重新启动了。
 
 ```mermaid
 %%{init: {"pie": {"textPosition": 0.5, "useWidth": 960}, "themeVariables": {"pieOuterStrokeWidth": "3px"}} }%%
