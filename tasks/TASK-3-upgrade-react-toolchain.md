@@ -9,6 +9,7 @@
   * [x] commit-msg: validate commit message
   * [x] pre-commit: run lint & test
   * [x] pre-push: runs deployment - no need to change  
+* React Query，state managements won't be needed any more for a blog site
 * TypeScript
 * ES2023 while writing code
 * webpack
