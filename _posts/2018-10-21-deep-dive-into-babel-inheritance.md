@@ -542,6 +542,6 @@ var Button = (function() {
 
 在本文的第二个例子中，我们留意到 `Animal()` 构造函数被额外包了一层，当时不得其解。看到这里，我们也许可以理解它的意图：就是为了将你在类中编写的箭头函数做个闭包，将 `this` 引用存储下来，以做后用。
 
-[上一篇文章]: https://blog.linesh.tw/#/post/2018-10-18-javascript-prototypal-inheritance
+[上一篇文章]: https://ethan.thoughtworkers.me/#/post/2018-10-18-javascript-prototypal-inheritance
 [babel used]: https://babeljs.io/repl/#?babili=false&browsers=&build=&builtIns=false&spec=false&loose=false&code_lz=Q&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=true&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=es2015%2Ces2017%2Creact%2Cstage-0%2Cstage-3&prettier=false&targets=&version=6.26.0&envVersion=
 [ecmascript 2015(es6) specification]: https://www.ecma-international.org/ecma-262/6.0/#sec-property-attributes

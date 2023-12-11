@@ -17,7 +17,7 @@ title: TDD 周报（四）：「TDD 是一门艺术，不是科学」
 
 ## Unknown unknown 
 
-> Hi 仝健。最近写了 [一篇总结](https://blog.linesh.tw/#/post/2017-06-17-tdd-series-3-tdd-as-an-effective-tool)，里面辨识到围绕 TDD 有一些能力需要建设，比如 TDD 具体的练习方法、tasking 具体的方法等。在 [编程的精进之道](https://www.zybuluo.com/jtong/note/504192) 里，你提及了一种方法 PDCA。不过感觉在实践中不一定有人能随时看你做，给予你及时的反馈，告诉你什么是好，什么是不好这样。想问，精进里提到的已经是全部呢，还是思沃学院这边在相关话题上有更详细的方法论和体系化的训练方式呢？
+> Hi 仝健。最近写了 [一篇总结](https://ethan.thoughtworkers.me/#/post/2017-06-17-tdd-series-3-tdd-as-an-effective-tool)，里面辨识到围绕 TDD 有一些能力需要建设，比如 TDD 具体的练习方法、tasking 具体的方法等。在 [编程的精进之道](https://www.zybuluo.com/jtong/note/504192) 里，你提及了一种方法 PDCA。不过感觉在实践中不一定有人能随时看你做，给予你及时的反馈，告诉你什么是好，什么是不好这样。想问，精进里提到的已经是全部呢，还是思沃学院这边在相关话题上有更详细的方法论和体系化的训练方式呢？
 
 我觉得只能发现问题吧，总结下来也还是需要去请教的。因为出 action 这事会遭遇 unknown unknown。我最近在项目上尝试教练员-运动员模式的 pair，可以很好的提高，但是这个不太具备广泛推广意义。
 

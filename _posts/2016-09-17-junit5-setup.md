@@ -8,7 +8,7 @@ title: 「译」JUnit 5 系列：环境搭建
 
 > 原文地址：[http://blog.codefx.org/libraries/junit-5-setup/](http://blog.codefx.org/libraries/junit-5-setup/)  
 > 原文日期：15, Feb, 2016  
-> 译文首发：[ Linesh 的博客：「译」JUnit 5 系列：环境搭建](http://blog.linesh.tw/#/posts/2016-09-17-junit5-setup)  
+> 译文首发：[ Linesh 的博客：「译」JUnit 5 系列：环境搭建](http://ethan.thoughtworkers.me/#/posts/2016-09-17-junit5-setup)  
 > 我的 Github：[http://github.com/linesh-simplicity](http://github.com/linesh-simplicity)
 
 * [环境搭建][JUnit 5: Setup]
@@ -154,10 +154,10 @@ junit-platform-console
 
 [User guide: M2]: http://junit.org/junit5/docs/5.0.0-M2/user-guide/
 [User guide: Current]: http://junit.org/junit5/docs/current/user-guide/
-[JUnit 5: Setup]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-setup
-[JUnit 5: Basics]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-basics
-[JUnit 5: Architecture]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-architecture
-[JUnit 5: Extension Model]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-extension-model
-[JUnit 5: Conditions]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-conditions
-[JUnit 5: Injection]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-injection
-[JUnit 5: Dynamic Tests]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-dynamic-tests
+[JUnit 5: Setup]: http://ethan.thoughtworkers.me/#/posts/2016-09-17-junit5-setup
+[JUnit 5: Basics]: http://ethan.thoughtworkers.me/#/posts/2016-09-17-junit5-basics
+[JUnit 5: Architecture]: http://ethan.thoughtworkers.me/#/posts/2016-09-17-junit5-architecture
+[JUnit 5: Extension Model]: http://ethan.thoughtworkers.me/#/posts/2016-09-17-junit5-extension-model
+[JUnit 5: Conditions]: http://ethan.thoughtworkers.me/#/posts/2016-09-17-junit5-conditions
+[JUnit 5: Injection]: http://ethan.thoughtworkers.me/#/posts/2016-09-17-junit5-injection
+[JUnit 5: Dynamic Tests]: http://ethan.thoughtworkers.me/#/posts/2016-09-17-junit5-dynamic-tests

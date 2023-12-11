@@ -2,7 +2,7 @@
 title: TDD 周报（三）：「作为个人工具和团队实践的 TDD」
 ---
 
-上回我们总结了 TDD 的 [四个优点](https://blog.linesh.tw/#/post/2017-06-10-tdd-series-2-rethink)。和肖劲交流过许多问题以后，我们再把 TDD 的主要优点归结到两个：
+上回我们总结了 TDD 的 [四个优点](https://ethan.thoughtworkers.me/#/post/2017-06-10-tdd-series-2-rethink)。和肖劲交流过许多问题以后，我们再把 TDD 的主要优点归结到两个：
 
 * 效率
 * 重构

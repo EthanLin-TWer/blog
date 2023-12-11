@@ -47,4 +47,4 @@ tags: react unit-test tdd rtl react-testing-library jest design-system
 * testing pyramid 
 * series from Jimmy
 
-[react单元测试策略]: https://blog.linesh.tw/#/post/2018-07-13-react-unit-testing-strategy
+[react单元测试策略]: https://ethan.thoughtworkers.me/#/post/2018-07-13-react-unit-testing-strategy

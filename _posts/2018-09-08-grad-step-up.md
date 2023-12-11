@@ -187,4 +187,4 @@ title: 以学习者为中心 —— 毕业生之 Tasking 和 TDD 培训
 [郑大烨校]: http://weare.thoughtworkers.org/category/%E7%94%9F%E6%B4%BB/
 [dujuan.in]: https://dujuan.in/
 [熊节]: http://gigix.thoughtworkers.org/
-[design during tasking]: https://blog.linesh.tw/#/post/2017-06-18-tdd-series-4-tdd-is-an-art-not-scientific
+[design during tasking]: https://ethan.thoughtworkers.me/#/post/2017-06-18-tdd-series-4-tdd-is-an-art-not-scientific

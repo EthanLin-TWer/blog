@@ -4,7 +4,7 @@ categories: 翻译
 title: 我是如何进行Spring MVC文档翻译项目的环境搭建、项目管理及自动化构建工作的
 ---
 
-感兴趣的同学可以关注这个[翻译项目](https://github.com/linesh-simplicity/translation-spring-mvc-4-documentation) 、 [我的博客原文](http://blog.linesh.tw/#/posts/2016-06-26-auto-deploy-translation-to-production-using-jenkins-and-qiniu) 和 [我的Github](https://github.com/linesh-simplicity)。
+感兴趣的同学可以关注这个[翻译项目](https://github.com/linesh-simplicity/translation-spring-mvc-4-documentation) 、 [我的博客原文](http://ethan.thoughtworkers.me/#/posts/2016-06-26-auto-deploy-translation-to-production-using-jenkins-and-qiniu) 和 [我的Github](https://github.com/linesh-simplicity)。
 
 ![](http://7xqu8w.com1.z0.glb.clouddn.com/spring-mvc-translation-project-home-page-version-2.png "Final website of MVC translation project")
 
@@ -60,7 +60,7 @@ Markdown是一种近乎完美的写作标记语言，其最大的功劳便是将
 
 * **与终端（terminal）的集成**
 
-由于使用了版本管理，同时有时有拷贝文件、查看目录等需求，命令行肯定是必须随时在手的。终端方面我的选择是iTerm2+zsh，关于它们的配置和特性，可以查看这两篇文章 [Mac优雅的工具集——iTerm2篇](http://blog.linesh.tw/#/posts/2016-03-11-elegant-mac-iterm2) 和 [Mac优雅的工具集——oh-my-zsh篇](http://blog.linesh.tw/#/posts/2016-03-13-elegant-mac-oh-my-zsh)。对如何在Mac上构建一个优雅的工具集有兴趣的同学，也可以前往Gitbook看看我正在写的这个系列：[关于优雅地使用Mac OS的理念、想法、工具与实践集](https://linesh.gitbooks.io/gitbook-elegant-mac-tools-system-closure/content/index.html)。
+由于使用了版本管理，同时有时有拷贝文件、查看目录等需求，命令行肯定是必须随时在手的。终端方面我的选择是iTerm2+zsh，关于它们的配置和特性，可以查看这两篇文章 [Mac优雅的工具集——iTerm2篇](http://ethan.thoughtworkers.me/#/posts/2016-03-11-elegant-mac-iterm2) 和 [Mac优雅的工具集——oh-my-zsh篇](http://ethan.thoughtworkers.me/#/posts/2016-03-13-elegant-mac-oh-my-zsh)。对如何在Mac上构建一个优雅的工具集有兴趣的同学，也可以前往Gitbook看看我正在写的这个系列：[关于优雅地使用Mac OS的理念、想法、工具与实践集](https://linesh.gitbooks.io/gitbook-elegant-mac-tools-system-closure/content/index.html)。
 
 ### 版本管理 Git
 
@@ -70,7 +70,7 @@ Git作为版本管理的意义也不赘言，要做持续集成、版本回滚�
 
 ![](http://7xqu8w.com1.z0.glb.clouddn.com/word-as-version-manager.jpeg "Word As version control will suck")
 
-对于 Git 还不是很熟悉的同学可以参考下面我给出的链接了解。另外，zsh下的Git可以配一下自动补全，加上它自带的 git 插件，相当于一个全球通用的 alias。具体配置非常简单，可以来[这里](http://blog.linesh.tw/#/posts/2016-03-13-elegant-mac-oh-my-zsh)看一下最终的效果。
+对于 Git 还不是很熟悉的同学可以参考下面我给出的链接了解。另外，zsh下的Git可以配一下自动补全，加上它自带的 git 插件，相当于一个全球通用的 alias。具体配置非常简单，可以来[这里](http://ethan.thoughtworkers.me/#/posts/2016-03-13-elegant-mac-oh-my-zsh)看一下最终的效果。
 
 * [Git - 简易指南](http://www.bootcss.com/p/git-guide/)
 * [廖雪峰的官方网站：史上最浅显易懂的Git教程](http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/)
