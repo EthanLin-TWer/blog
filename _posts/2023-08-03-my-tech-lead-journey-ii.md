@@ -1,5 +1,5 @@
 ---
-title: Tech Lead从入门到放弃（二）：TL的KPI是什么？
+title: Tech Lead日记（二）：TL的KPI是什么？
 category: career, tech-lead
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Tech Lead从入门到放弃（一）：TL真有50%时间写代码？
+title: Tech Lead日记（一）：TL真有50%时间写代码？
 category: career, tech-lead
 ---
 

@@ -1,5 +1,5 @@
 ---
-title: Tech Lead从入门到放弃（三）：Feature Owner是反模式吗？
+title: Tech Lead日记（三）：Feature Owner是反模式吗？
 category: career, tech-lead
 ---
 

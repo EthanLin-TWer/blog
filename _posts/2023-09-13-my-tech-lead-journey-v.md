@@ -1,5 +1,5 @@
 ---
-title: Tech Lead从入门到放弃（五）：高效沟通
+title: Tech Lead日记（五）：高效沟通
 category: career, tech-lead
 ---
 
