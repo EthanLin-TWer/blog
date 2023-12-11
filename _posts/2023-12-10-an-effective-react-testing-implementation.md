@@ -27,8 +27,10 @@ tags: react unit-test tdd rtl react-testing-library jest design-system
 * 测试架构&例子
   * API mock
   * 组件层
+* 新的衍生问题
   * 以什么为“页面”单位？路由或页面组件（Page component）
-* 
+  * 测试文件过长：抽函数、放弃不必要的断言
+  * 测试文件如何组织：以功能组织，写的时候可能跨好几个`describe`/文件，难以发现、难以维护；以页面组织，容易很分散，看不出业务逻辑。
 * 有什么弊端？
   * 有一定的开发成本——相比纯函数而言。
   * 有一定的维护成本——需要保证测试间独立性（因为引入了API mock而不是组件级别的mock）、等
