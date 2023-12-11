@@ -7,7 +7,14 @@ tags: react unit-test tdd rtl react-testing-library jest design-system
 
 🚧正文内容正在施工中。
 
-正如我在5年前的[React单元测试策略及落地][react单元测试策略]中所说，自动化测试。在React和前端这个上下文中，单元测试不是最优解——集成式的单元测试才是。但我无意发明新的名词，因此，本文所需的只是一个用来指代本文这样一种测试方式的。
+正如我在5年前的[React单元测试策略及落地][react单元测试策略]中所说，**自动化测试**——而且是**有效的**自动化测试——对于任何一个企业级项目[^automated-tests-for-enterprise-only]来说都是必须的。这是由企业项目的两个特点决定的：**人员流动不可避免**、**应用演进不可避免**。应用演进，意味着新的、遗留的业务和代码会越来越多；人员流动，意味着物理上不可能会有一个人能长期、完全地掌握单个应用的所有上下文。因此，妄图
+
+从这个角度上讲，你可以认为企业的中层和高层管理者更应该关注本文的观点，因为你们正是一个企业技术部门的“上梁”。
+
+那么，什么是有效的自动化测试呢？
+
+在React和前端这个上下文中，单元测试不是最优解——集成式的单元测试才是。但我无意发明新的名词，因此，本文所需的只是一个用来指代本文这样一种测试方式的。
+
 
 为什么要有测试：人员流动、应用演进。
 挑战是什么：一个有效的测试策略，以及编写测试的能力。
@@ -27,8 +34,10 @@ tags: react unit-test tdd rtl react-testing-library jest design-system
 * 测试架构&例子
   * API mock
   * 组件层
+* 新的衍生问题
   * 以什么为“页面”单位？路由或页面组件（Page component）
-* 
+  * 测试文件过长：抽函数、放弃不必要的断言
+  * 测试文件如何组织：以功能组织，写的时候可能跨好几个`describe`/文件，难以发现、难以维护；以页面组织，容易很分散，看不出业务逻辑。
 * 有什么弊端？
   * 有一定的开发成本——相比纯函数而言。
   * 有一定的维护成本——需要保证测试间独立性（因为引入了API mock而不是组件级别的mock）、等
@@ -49,5 +58,7 @@ tags: react unit-test tdd rtl react-testing-library jest design-system
 
 * testing pyramid 
 * series from Jimmy
+
+[^automated-tests-for-enterprise-only]: 对于个人项目，自动化测试乃至TDD实践是否必须只跟维护有关，你自己开心就行。
 
 [react单元测试策略]: https://blog.linesh.tw/#/post/2018-07-13-react-unit-testing-strategy
