@@ -125,4 +125,4 @@ export const findDropdown = (testId: string): DropdownTester => {
 
 [^automated-tests-for-enterprise-only]: 对于个人项目，自动化测试乃至TDD实践是否必须只跟维护有关，你自己开心就行。
 
-[react单元测试策略]: https://blog.linesh.tw/#/post/2018-07-13-react-unit-testing-strategy
+[react单元测试策略]: https://ethan.thoughtworkers.me/#/post/2018-07-13-react-unit-testing-strategy

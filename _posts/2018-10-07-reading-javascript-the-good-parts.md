@@ -196,8 +196,8 @@ const curry = (func) => {
 
 就方案来讲，ES6 提供的 `class` 语法糖是目前最完美的 API 了。不过虽然它长得很像 Java 的类，但其实它根本就不是类，底下的实现还是完全用的原型继承。关于继承相关的东西，另起了两篇博客进行了详尽的探究：
 
-* https://blog.linesh.tw/#/post/2018-10-18-javascript-prototypal-inheritance
-* https://blog.linesh.tw/#/post/2018-10-21-deep-dive-into-babel-inheritance
+* https://ethan.thoughtworkers.me/#/post/2018-10-18-javascript-prototypal-inheritance
+* https://ethan.thoughtworkers.me/#/post/2018-10-21-deep-dive-into-babel-inheritance
 
 ## 糟粕
 

@@ -37,7 +37,7 @@ todo: 上面几句话有语病，重构一下。
 
 # 全家桶及前端工程篇
 
-[es6]: https://blog.linesh.tw/#/post/2018-10-25-readings-understand-ecmascript-6
+[es6]: https://ethan.thoughtworkers.me/#/post/2018-10-25-readings-understand-ecmascript-6
 [component-or-layers]: https://github.com/xufei/blog/issues/50
 [react-on-es6]: https://babeljs.io/blog/2015/07/07/react-on-es6-plus
 [jsx]: https://reactjs.org/docs/jsx-in-depth.html

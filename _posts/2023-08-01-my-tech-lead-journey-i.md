@@ -1,5 +1,5 @@
 ---
-title: Tech Lead从入门到放弃（一）：TL真有50%时间写代码？
+title: Tech Lead日记（一）：TL真有50%时间写代码？
 category: career, tech-lead
 ---
 
@@ -143,9 +143,9 @@ gantt
 
 同时，本篇只是作为一个引子，抛出了一些有趣的数据，但并未解决一些具体的问题。比如，若果如本文所说，对于大规模团队来说TL管理事务不可避免，那么TL做些什么能为自己挤出一些技术精进时间？时间管理如何做？TL实际“管理”的是什么？有没有实实在在的KPI？作为常用的管理/杠杆手段，Feature Owner究竟是最佳实践还是反模式？……许多的话题，敬请期待。
 
-* [Tech Lead从入门到放弃（二）：TL的KPI是什么？][My Tech Lead journey II]
-* [Tech Lead从入门到放弃（三）：Feature Owner是反模式吗？][My Tech Lead journey III]
-* [Tech Lead从入门到放弃（四）：浅谈时间管理][My Tech Lead journey IV]
+* [Tech Lead日记（二）：TL的KPI是什么？][My Tech Lead journey II]
+* [Tech Lead日记（三）：Feature Owner是反模式吗？][My Tech Lead journey III]
+* [Tech Lead日记（四）：浅谈时间管理][My Tech Lead journey IV]
 
 #### 参考
 

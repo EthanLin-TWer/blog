@@ -72,4 +72,4 @@ category: project-review
 * 将技术架构的目录抄到主目录
 
 [测试金字塔]: https://insights.thoughtworks.cn/practical-test-pyramid/
-[react 单元测试策略]: https://blog.linesh.tw/#/post/2018-07-13-react-unit-testing-strategy
+[react 单元测试策略]: https://ethan.thoughtworkers.me/#/post/2018-07-13-react-unit-testing-strategy

@@ -288,7 +288,7 @@ JS 对象世界的构造次序应该是：`Object.prototype` -> `Function.protot
 * [MDN: Details of the object model][]
 * [MDN: `__proto__`][]
 
-[下一篇文章]: https://blog.linesh.tw/#/post/2018-10-21-deep-dive-into-babel-inheritance
+[下一篇文章]: https://ethan.thoughtworkers.me/#/post/2018-10-21-deep-dive-into-babel-inheritance
 [javascript 语言精粹]: https://book.douban.com/subject/3590768/
 [mdn: inheritance in javascript]: https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Inheritance
 [mdn: inheritance and the prototype chain]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Inheritance_and_the_prototype_chain

@@ -1,5 +1,5 @@
 ---
-title: Tech Lead从入门到放弃（四）：浅谈时间管理
+title: Tech Lead日记（四）：浅谈时间管理
 category: career, tech-lead
 ---
 

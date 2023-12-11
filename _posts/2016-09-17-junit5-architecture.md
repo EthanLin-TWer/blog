@@ -159,10 +159,10 @@ JUnit 对外公开的类都带有一个 `@API(usage)` 注解，其中 `usage` �
 
 [User guide: M2]: http://junit.org/junit5/docs/5.0.0-M2/user-guide/
 [User guide: Current]: http://junit.org/junit5/docs/current/user-guide/
-[JUnit 5: Setup]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-setup
-[JUnit 5: Basics]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-basics
-[JUnit 5: Architecture]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-architecture
-[JUnit 5: Extension Model]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-extension-model
-[JUnit 5: Conditions]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-conditions
-[JUnit 5: Injection]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-injection
-[JUnit 5: Dynamic Tests]: http://blog.linesh.tw/#/posts/2016-09-17-junit5-dynamic-tests
+[JUnit 5: Setup]: http://ethan.thoughtworkers.me/#/posts/2016-09-17-junit5-setup
+[JUnit 5: Basics]: http://ethan.thoughtworkers.me/#/posts/2016-09-17-junit5-basics
+[JUnit 5: Architecture]: http://ethan.thoughtworkers.me/#/posts/2016-09-17-junit5-architecture
+[JUnit 5: Extension Model]: http://ethan.thoughtworkers.me/#/posts/2016-09-17-junit5-extension-model
+[JUnit 5: Conditions]: http://ethan.thoughtworkers.me/#/posts/2016-09-17-junit5-conditions
+[JUnit 5: Injection]: http://ethan.thoughtworkers.me/#/posts/2016-09-17-junit5-injection
+[JUnit 5: Dynamic Tests]: http://ethan.thoughtworkers.me/#/posts/2016-09-17-junit5-dynamic-tests
