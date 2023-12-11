@@ -1,8 +1,9 @@
 ---
 title: React测试策略最佳实践
+tags: react unit-test tdd rtl react-testing-library jest design-system
 ---
 
-5年前我写了[React单元测试策略及落地][react单元测试策略]，
+5年前我写了[React单元测试策略及落地][react单元测试策略]，这几年以来的持续实践，以及读者的反馈，让我有了这版新的最佳实践和总结。主要解决了之前的版本存在的两个难点：如何给，如何让测试能够真正地支持重构。
 
 ## 大纲
 
@@ -28,5 +29,10 @@ title: React测试策略最佳实践
   * 定位问题的能力相对“绝对的单元测试”有所降低。
 
 ## 内容
+
+## References 
+
+* testing pyramid 
+* series from Jimmy
 
 [react单元测试策略]: https://blog.linesh.tw/#/post/2018-07-13-react-unit-testing-strategy
