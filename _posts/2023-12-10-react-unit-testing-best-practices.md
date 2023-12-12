@@ -39,6 +39,9 @@ tags: react unit-test tdd rtl react-testing-library jest design-system
 
 如果你是上一版[React单元测试策略及落地][react单元测试策略]的读者——
 
+上一版的架构：
+* 
+
 * 可以后补测试——适用于遗留代码、中途学习TDD/测试的团队。
 * 支持重构，改动功能的时候测试不会大范围挂。
 * reducer/selector由于`useMemo`的存在挪到组件内部了，可以转而变为hooks/utils的单元测试；
@@ -53,6 +56,72 @@ tags: react unit-test tdd rtl react-testing-library jest design-system
 * 
 
 ## React应用的常见架构
+
+> 🚧糊个常见架构图。
+
+```mermaid
+flowchart TB
+  route([<b>Routes / Route Components</b><br>Next.js app/, React Router, ..])
+  ui_components([UI Components])
+  shared_hooks([<b>Other share hooks</b>])
+  api([<b>API Client</b><br/>React Query, axios,  ..])
+  dom_effects([<b>DOM APIs</b><br/>window events, etc.])
+  analytics([<b>Analytics</b><br/>Sentry, Adobe Analytics, ..])
+  global_store([<b>Global store</b><br/>React Context, redux, mobx, ..])
+    
+  utils([<b>Utils</b>])
+  constants([<b>Constants</b>])
+
+  component_index[index.tsx]
+  component_types[types.ts]
+  component_hooks[hooks.ts]
+  component_sub_components["components/<br/><br/>    index.tsx<br/>    types.ts<br/>    ..."]
+
+  subgraph page_components [Page Components]
+    direction TB
+    component_index
+    component_types
+    component_hooks
+    component_sub_components
+
+    component_index --> component_types
+    component_index --> component_hooks
+    component_index --> component_sub_components
+  end
+  
+  route --> components
+  subgraph components [React Components]; 
+    page_components
+    ui_components
+    page_components --> ui_components
+  end
+  
+  components --> hooks
+  route -.-> hooks
+  subgraph hooks [Hooks Layer];
+    direction TB
+    shared_hooks
+    api
+    dom_effects
+    analytics
+    global_store
+  end
+  
+  subgraph tools [Shared Layer]
+    direction TB
+    utils
+    constants
+
+    %% this can happen too
+    utils -.-> constants
+  end
+  
+  hooks --> tools
+  %%  this can happen, but just to make the layers more explicit
+  %%components --> tools
+  route -.-> tools
+```
+
 
 ## 测试策略
 
