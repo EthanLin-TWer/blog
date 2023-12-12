@@ -1,5 +1,5 @@
 ---
-title: 一种更加有效的React单元测试及最佳实践（二）
+title: React单元测试最佳实践（二）
 tags: react unit-test tdd rtl react-testing-library jest design-system
 ---
 
@@ -27,8 +27,8 @@ tags: react unit-test tdd rtl react-testing-library jest design-system
 
 * 与上一版的变化
 * 什么是无效的自动化测试？
-* 架构（黑马简介）
-* 测试架构&例子
+* React架构与测试策略
+* 测试架构、代码落地
 * 新的衍生问题
 * 总结：优势 & 挑战
 * Q & A
@@ -39,6 +39,9 @@ tags: react unit-test tdd rtl react-testing-library jest design-system
 
 如果你是上一版[React单元测试策略及落地][react单元测试策略]的读者——
 
+上一版的架构：
+* 
+
 * 可以后补测试——适用于遗留代码、中途学习TDD/测试的团队。
 * 支持重构，改动功能的时候测试不会大范围挂。
 * reducer/selector由于`useMemo`的存在挪到组件内部了，可以转而变为hooks/utils的单元测试；
@@ -48,18 +51,92 @@ tags: react unit-test tdd rtl react-testing-library jest design-system
 
 那么，什么是有效的自动化测试呢？
 
-在React和前端这个上下文中，单元测试不是最优解——集成式的单元测试才是。但我无意发明新的名词，因此，本文所需的只是一个用来指代本文这样一种测试方式的指称。
 
-## React应用的常见架构
+> 🚧
 
-## 测试策略
+## React应用的常见架构 与 测试策略
+
+> 🚧~~众所周知，~~测试策略是从应用架构中来的。对于一个React应用来说，除了UI组件之外，还会有全局状态管理（redux那套，action+reducer）、副作用管理（redux-thunk、saga、redux-observable那套）等东西，在新的React版本里，状态管理已经基本可以被更轻量级的React Context取代，副作用管理的大头、API请求也已经可以被React Query这样集成了全局状态管理功能的query库取代。新架构如下图：
+> 
+> 🚧架构图润色一下，Mermaid写着爽，看着丑。
+
+```mermaid
+flowchart TB
+  route([<b>Routes / Route Components</b><br>Next.js app/, React Router, ..])
+  ui_components([UI Components])
+  shared_hooks([<b>Other share hooks</b>])
+  api([<b>API Client</b><br/>React Query, axios,  ..])
+  dom_effects([<b>DOM APIs</b><br/>window events, etc.])
+  analytics([<b>Analytics</b><br/>Sentry, Adobe Analytics, ..])
+  global_store([<b>Global store</b><br/>React Context, redux, mobx, ..])
+    
+  utils([<b>Utils</b>])
+  constants([<b>Constants</b>])
+
+  component_index[index.tsx]
+  component_types[types.ts]
+  component_hooks[hooks.ts]
+  component_sub_components["components/<br/><br/>    index.tsx<br/>    types.ts<br/>    ..."]
+
+  subgraph page_components [Page Components]
+    direction TB
+    component_index
+    component_types
+    component_hooks
+    component_sub_components
+
+    component_index --> component_types
+    component_index --> component_hooks
+    component_index --> component_sub_components
+  end
+  
+  route --> components
+  subgraph components [React Components]; 
+    page_components
+    ui_components
+    page_components --> ui_components
+  end
+  
+  components --> hooks
+  route -.-> hooks
+  subgraph hooks [Hooks Layer];
+    direction TB
+    shared_hooks
+    api
+    dom_effects
+    analytics
+    global_store
+  end
+  
+  subgraph tools [Shared Layer]
+    direction TB
+    utils
+    constants
+
+    %% this can happen too
+    utils -.-> constants
+  end
+  
+  hooks --> tools
+  %%  this can happen, but just to make the layers more explicit
+  %%components --> tools
+  route -.-> tools
+```
+
+> 🚧整个应用间的测试策略、乃至于整个架构（进程间）的测试策略，我放到[下一部分：React测试策略与落地（三）][react-testing-strategy-best-practice]来阐述。本篇的后续部分，我们来谈谈UI组件这部分单元测试的最佳实践。
+> 
+> 在React和前端这个上下文中，单元测试不是最优解——这也是我上一版测试策略推荐对组件的测试方式——集成式的单元测试才是。它有一些缺点：🚧（什么缺点）。🚧（讲一下那什么才是最优解）。
+> 
+> 讲一下黑马里关于发现问题的测试和定位问题的测试。
+> 
+> 但我无意发明新的名词，因此，本文所需的只是一个用来指代本文这样一种测试方式的指称。
 
 * hook：hook的单元测试
 * 其他层的测试：契约测试
 * 使用React Query等global statement management的库
 * 其他hook的测试：副作用，如windows、埋点等。
 
-## 具体代码落地
+## 测试架构、代码落地
 
 * 测试代码架构：API DSL（方便的API mock语法）+Fixture（mock数据）+tester（选择器）+expectations（测试断言）
 * API mock & DSL
@@ -92,7 +169,10 @@ export const findDropdown = (testId: string): DropdownTester => {
 
 * 以什么为“页面”/单位？路由或页面组件（Page component）
 * 测试文件过长：抽函数、放弃不必要的断言
-* 测试文件如何组织：以功能组织，写的时候可能跨好几个`describe`/文件，难以发现、难以维护；以页面组织，容易很分散，看不出业务逻辑。
+* 测试文件如何组织：
+  * 以功能组织，写的时候可能跨好几个`describe`/文件，难以发现、难以维护；
+  * 以页面组织，容易很分散，看不出业务逻辑。
+* 如何debug？
 
 ## 总结：优势 & 挑战
 
@@ -126,3 +206,4 @@ export const findDropdown = (testId: string): DropdownTester => {
 [^automated-tests-for-enterprise-only]: 对于个人项目，自动化测试乃至TDD实践是否必须只跟维护有关，你自己开心就行。
 
 [react单元测试策略]: https://ethan.thoughtworkers.me/#/post/2018-07-13-react-unit-testing-strategy
+[react-testing-strategy-best-practice]: https://ethan.thoughtworkers.me
