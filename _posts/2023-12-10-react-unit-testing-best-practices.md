@@ -1,5 +1,5 @@
 ---
-title: 一种更加有效的React单元测试及最佳实践（二）
+title: React单元测试最佳实践（二）
 tags: react unit-test tdd rtl react-testing-library jest design-system
 ---
 
@@ -49,6 +49,8 @@ tags: react unit-test tdd rtl react-testing-library jest design-system
 那么，什么是有效的自动化测试呢？
 
 在React和前端这个上下文中，单元测试不是最优解——集成式的单元测试才是。但我无意发明新的名词，因此，本文所需的只是一个用来指代本文这样一种测试方式的指称。
+
+* 
 
 ## React应用的常见架构
 
