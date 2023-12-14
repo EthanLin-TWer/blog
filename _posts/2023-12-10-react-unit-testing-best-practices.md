@@ -224,12 +224,14 @@ export const findDropdown = (testId: string): DropdownTester => {
  
 回答：不实际。有了Hooks以后，现代React组件其实就是个组合所有逻辑的地方，所有协调都在这里。
 
-## References 
+## 参考 
 
-* testing pyramid 
-* series from Jimmy
+* [x] [Vue应用单元测试策略与实践][jimmy-vue-unit-testing-best-practice]
+* what's a typical/recommended React application structure?
+* testing pyramid
 
 [^automated-tests-for-enterprise-only]: 对于个人项目，自动化测试乃至TDD实践是否必须只跟维护有关，你自己开心就行。
 
 [react单元测试策略]: https://ethan.thoughtworkers.me/#/post/2018-07-13-react-unit-testing-strategy
 [react-testing-strategy-best-practice]: https://ethan.thoughtworkers.me
+[jimmy-vue-unit-testing-best-practice]: https://blog.jimmylv.info/2018-09-19-vue-application-unit-test-strategy-and-practice-01-introduction
