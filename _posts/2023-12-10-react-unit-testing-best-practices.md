@@ -3,7 +3,7 @@ title: React单元测试最佳实践（二）
 tags: react unit-test tdd rtl react-testing-library jest design-system
 ---
 
-有效的自动化测试是任何企业级项目的必选项和质量根基。而实践已经证明，在前端仅做组件式的单元测试不够有效。本文将介绍一种更为有效的单元测试方式，让测试能够更好地支撑重构和开发。这套经验曾支撑笔者经历的一个年十亿美元级、历时五年+的交易系统的成功运营和维护演进。
+有效的自动化测试是任何企业级项目的必选项和质量根基。而实践已经证明，在前端仅做组件式的单元测试不够有效。本文将介绍一种更为有效的单元测试方式，让测试能够更好地支撑重构和开发。这套经验曾支撑笔者经历的一个年交易流水十亿美元级、历时五年+的金融系统的成功运营和维护演进。
 
 ## 太长不读——本文中心观点
 
@@ -244,6 +244,7 @@ export const findDropdown = (testId: string): DropdownTester => {
 * [Modularizing React Applications with Established UI Patterns](https://martinfowler.com/articles/modularizing-react-apps.html)
 * [testing pyramid](https://testingjavascript.com/)
 * [An example of LLM prompting for programming](https://martinfowler.com/articles/2023-chatgpt-xu-hao.html)
+* [Kent's blog](https://kentcdodds.com)
 * what's a typical/recommended React application structure?
 
 [^automated-tests-for-enterprise-only]: 对于个人项目，自动化测试乃至TDD实践是否必须只跟维护有关，你自己开心就行。
