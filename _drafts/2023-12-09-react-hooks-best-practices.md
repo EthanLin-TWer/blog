@@ -1,5 +1,6 @@
 ---
 title: React Hooks最佳实践
+tags: react react-hooks object-oriented best-practice
 ---
 
 大纲先列一下。
@@ -12,3 +13,7 @@ title: React Hooks最佳实践
   * 暴露行为，而非属性。这是OO最基本的封装要求。一个浅显的要求是，在React组件中只允许出现直接取值或`map`操作。
   * 出现了更复杂的行为`reduce`、`filter`、检查、交叉操作时，封装custom hooks
   * 使用React Query作为全局状态管理，避免了长组件函数列表 React props drilling
+
+## React Hooks不是一个架构分层
+
+我见到很多文章，一搜React Architecture，出来的就是组件层-hooks层-…。这就是一个非常常见的误解了：React Hooks不是一个架构意义上的分层。一个架构意义上的“层”，它必须有它的职责，有它所专注隔离的一些因素，这样当这些因素变化的时候，修改只会局限在这个层中，而不会传播到其他的层。避免层间的变化传播，我理解是分层的一个很重要的考虑。因此，一个正经的层，必须有输入输出的接口，用以表达该层的职责、隔离变化传播。而这正是React Hooks所缺少的一个特征：React Hooks只是一个特殊的函数，它的函数输入与输出没有任何限制。这些特征导致它只是一个收容逻辑的地方，而远不是一个架构意义上的分层。如果用好React Hooks，是做好React软件架构的一个重要因素。
