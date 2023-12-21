@@ -92,6 +92,13 @@ tags: react unit-test tdd rtl react-testing-library jest design-system
 > 
 > 我们不仅要想，前端有哪些需要隔离的“变化”？这些东西就是可能作为“分层”的依据。API，在hooks里头；DOM API，也在hooks里头。
 
+* 展示型组件和容器组件是否区分。对于展示型组件（只接受props作为入参，本身不接入任何状态）本文的建议是，其实就是包含一个组件库（比如MUI、AntD这种开源或者自己封装的）。对于业务型组件，不强求一定也要拆到纯展示，可以接入`useState()`/`useHooks`这样的东西。理由是：
+  * 在测试策略中，我们并不会对这个组件进行单元测试——就算你单独拆出来——因为它可变，不稳定，props是它的API改动频率高
+  * 强求把状态交由其他组件来做，有可能会造成props drilling的问题。
+* fetcher应该是独立出来的一层，至于它是用axios、React Query这是我们不在意的。只要它有架构意义上的接口就行
+  * 但是问题是，这一层是直接返回API数据，还是包一层返回个领域对象？能不能在里头写`onSuccess`之类的UI代码？
+  * 这一层抽出来了有什么用？是测试的时候容易mock掉？还是将来API这一层的东西可以独立替换掉？
+
 > 🚧 ~~众所周知，~~测试策略是从应用架构中来的。对于一个React应用来说，除了UI组件之外，还会有全局状态管理（redux那套，action+reducer）、副作用管理（redux-thunk、saga、redux-observable那套）等东西，在新的React版本里，状态管理已经基本可以被更轻量级的React Context取代，副作用管理的大头、API请求也已经可以被React Query这样集成了全局状态管理功能的query库取代。新架构如下图：
 > 
 > 🚧架构图润色一下，Mermaid写着爽，看着丑。这里可以参考MF写文章以及邱大师那篇文章画架构图的经验：用颜色区分层 + 用颜色区分不同组件，这样可以把整个App架构中的各类组件用颜色画出来。
@@ -246,14 +253,10 @@ export const findDropdown = (testId: string): DropdownTester => {
 
 * [Modularizing React Applications with Established UI Patterns](https://martinfowler.com/articles/modularizing-react-apps.html)
   * MF说的view-model-data三层架构中，model和data有啥区别？model和view model有啥区别？
-  * 文章建议区分展示型组件和容器组件。这里的展示型组件是否只包含UI库？还是也包含业务组件？如果包含后者，那么实践下来就是它经常变动，加state是很可能的，加state又要往下传播，那么就会造成drill props的问题。这个问题的解决，目前也就只有共享状态（redux or context），然后这些东西的接入还是要state；如果不包含，那么这就是个通用的UI组件库。
   * UI层要做得薄一些，这样万一React要换，也只需要换掉React这个uI框架，领域逻辑都不用动
     * 那么Hooks怎么写才能不依赖于React？
     * 这个UI层框到哪里？整体架构是什么？
   * 我这篇文章的建议是，测试应该包到business component + hooks，甚至+fetcher层，mock的是API。那么自然有问题：我mock fetcher为什么不行？为什么要把这个层的包进来？因为我用了React Query，它里头有获取state、操作UI（比如notification）、`onSuccess`的部分，业务逻辑就写在里头，不包进来没地方测。
-  * fetcher应该是独立出来的一层，至于它是用axios、React Query这是我们不在意的。只要它有架构意义上的接口就行
-  * 观点：It's easy to forget that React, at its core, is a library (not a framework) that helps you build the user interface.
-  * 观点：
 * [testing pyramid](https://testingjavascript.com/)
 * [An example of LLM prompting for programming](https://martinfowler.com/articles/2023-chatgpt-xu-hao.html)
 * what's a typical/recommended React application structure?
