@@ -16,4 +16,67 @@ tags: react react-hooks object-oriented best-practice
 
 ## React Hooks不是一个架构分层
 
-我见到很多文章，一搜React Architecture，出来的就是组件层-hooks层-…。这就是一个非常常见的误解了：React Hooks不是一个架构意义上的分层。一个架构意义上的“层”，它必须有它的职责，有它所专注隔离的一些因素，这样当这些因素变化的时候，修改只会局限在这个层中，而不会传播到其他的层。避免层间的变化传播，我理解是分层的一个很重要的考虑。因此，一个正经的层，必须有输入输出的接口，用以表达该层的职责、隔离变化传播。而这正是React Hooks所缺少的一个特征：React Hooks只是一个特殊的函数，它的函数输入与输出没有任何限制。这些特征导致它只是一个收容逻辑的地方，而远不是一个架构意义上的分层。如果用好React Hooks，是做好React软件架构的一个重要因素。
+我见到很多文章，一搜React Architecture，出来的就是组件层-hooks层-…，然后介绍项目底下应该有什么目录（组件）、说包含数据管理和副作用管理等等，但并没有更加仔细地讨论各个层的职责和接口。这就是一个非常常见的误解了：React Hooks不是一个架构意义上的分层。一个架构意义上的“层”，它必须有它的职责，有它所专注隔离的一些因素，这样当这些因素变化的时候，修改只会局限在这个层中，而不会传播到其他的层。避免层间的变化传播，我理解是分层的一个很重要的考虑。因此，一个正经的层，必须有输入输出的接口，用以表达该层的职责、隔离变化传播。而这正是React Hooks所缺少的一个特征：React Hooks只是一个特殊的函数，它的函数输入与输出没有任何限制。这些特征导致它只是一个收容逻辑的地方，而远不是一个架构意义上的分层。如果用好React Hooks，是做好React软件架构的一个重要因素。
+
+# placeholder
+
+## Docs
+* https://overreacted.io/a-complete-guide-to-useeffect/
+* https://react.dev/reference/react/useEffect
+* https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useUnmount/index.ts
+* https://react.dev/learn#using-hooks
+* https://react.dev/learn/thinking-in-react
+
+
+## What is react hooks 
+* reusable code logics compared to class components 
+* difference with utils/tools: can only be used in React components, and the data will be initialized on each hook call in a component, which means: 
+* if you want different hook calls from different components to share states, then we need to rely on useContext() or a global store
+
+## 初级practice - baseline
+
+* 命名+lint rules（为啥React规定了要以use开头？）
+* 只能在functional components里用，只能在React组件里用
+* 只能静态声明，不能在条件或者循环里用（跟实现机制有关系）
+* dependency list
+  * 只调一次的你就不要指定依赖数组 []
+  * 有函数依赖的怎么指定？都写上去吗？函数还怎么可能改变呢？直接在组件里定义的函数咯。
+* 常用hook
+  * useState, useContext, useRef - difference? 
+  * cache: useMemo() useCallback()
+  * useEffect, useLayoutEffect?
+    * https://react-hooks-cheatsheet.com/uselayoutEffect
+    * https://blog.logrocket.com/react-useeffect-vs-uselayouteffect-hooks-examples/
+  * useDeferredValue? useId? useTransition? useReducer? 
+  * https://blog.logrocket.com/react-hooks-cheat-sheet-solutions-common-problems/
+* custom hooks
+  * 
+
+## 高级practice
+
+* 纯函数的操作，面向对象包一下，把行为弄出来
+  * Separate Concerns with Multiple Hooks: Split your logic into multiple custom hooks to separate concerns and make your code more modular and reusable. Each custom hook should have a single responsibility. - 单一职责了。那么什么是职责？
+* Large Components 
+* Long hooks: 
+  * separate hooks 
+  * 组件里有find filter是坏味道
+* Inline hooks 
+* single v.s. multiple values when using setState()
+* avoid props drilling with useContext()
+
+saveAndNext
+* 同一个hooks有不同行为，拆分开逻辑。
+
+useExtraPremium
+* 这个经验是，有针对数据操作的行为给它封装起来。函数+闭包+暴露行为方法(findXXX)一般就够用。
+
+### To-Read
+
+* https://tech.ipalfish.com/blog/2020/03/30/react-hooks/
+[React 最佳实践--如何写出更好的 React 代码（2022 年版）](https://www.freecodecamp.org/chinese/news/best-practices-for-react/)
+* https://github.com/ychow/Blog/issues/20
+* https://zhuanlan.zhihu.com/p/266566442
+* https://juejin.cn/post/7137655467697766436
+* https://www.infoq.cn/article/ry4icky5crb1pokvi0ql
+* https://react.dev/learn/reusing-logic-with-custom-hooks
+* https://www.google.com/search?q=%E9%87%8D%E6%9E%84%E5%A4%8D%E6%9D%82%E7%9A%84react+hooks
