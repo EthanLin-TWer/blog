@@ -282,6 +282,8 @@ export const findDropdown = (testId: string): DropdownTester => {
   * 我这篇文章的建议是，测试应该包到business component + hooks，甚至+fetcher层，mock的是API。那么自然有问题：我mock fetcher为什么不行？为什么要把这个层的包进来？因为我用了React Query，它里头有获取state、操作UI（比如notification）、`onSuccess`的部分，业务逻辑就写在里头，不包进来没地方测。
 * [testing pyramid](https://testingjavascript.com/)
 * [An example of LLM prompting for programming](https://martinfowler.com/articles/2023-chatgpt-xu-hao.html)
+* [React Testing Guide](https://components.guide/react+typescript/testing)
+* [Kent's blog](https://kentcdodds.com)
 * what's a typical/recommended React application structure?
 
 [^automated-tests-for-enterprise-only]: 对于个人项目，自动化测试乃至TDD实践是否必须只跟维护有关，你自己开心就行。
