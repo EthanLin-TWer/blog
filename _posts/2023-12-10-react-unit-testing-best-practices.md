@@ -96,16 +96,16 @@ Hooks严格来说不是一个“层”。一个架构意义上的分层，必须
 
 ```mermaid
 flowchart TB
-  route([<b>Routes / Route Components</b><br>Next.js app/, React Router, ..])
-  ui_components([UI Components])
-  shared_hooks([<b>Other share hooks</b>])
-  api([<b>API Client</b><br/>React Query, axios,  ..])
-  dom_effects([<b>DOM APIs</b><br/>window events, etc.])
-  analytics([<b>Analytics</b><br/>Sentry, Adobe Analytics, ..])
-  global_store([<b>Global store</b><br/>React Context, redux, mobx, ..])
+  route(<b>Routes / Route Components</b><br>Next.js app/, React Router, ..)
+  ui_components(UI Components)
+  shared_hooks(<b>Other share hooks</b>)
+  api(<b>API Client</b><br/>React Query, axios,  ..)
+  dom_effects(<b>DOM APIs</b><br/>window events, etc.)
+  analytics(<b>Analytics</b><br/>Sentry, Adobe Analytics, ..)
+  global_store(<b>Global store</b><br/>React Context, redux, mobx, ..)
     
-  utils([<b>Utils</b>])
-  constants([<b>Constants</b>])
+  utils(<b>Utils</b>)
+  constants(<b>Constants</b>)
 
   component_index[index.tsx]
   component_types[types.ts]
@@ -168,7 +168,7 @@ flowchart TB
 
 > 🚧 ~~众所周知，~~测试策略是从应用架构中来的。对于一个React应用来说，除了UI组件之外，还会有全局状态管理（redux那套，action+reducer）、副作用管理（redux-thunk、saga、redux-observable那套）等东西，在新的React版本里，状态管理已经基本可以被更轻量级的React Context取代，副作用管理的大头、API请求也已经可以被React Query这样集成了全局状态管理功能的query库取代。新架构如下图：
 > 
-> 🚧架构图润色一下，Mermaid写着爽，看着丑。这里可以参考MF写文章以及邱大师那篇文章画架构图的经验：用颜色区分层 + 用颜色区分不同组件，这样可以把整个App架构中的各类组件用颜色画出来。
+> 🚧架构图润色一下，Mermaid写着爽，看着丑。这里可以参考MF写文章以及邱大师那篇文章画架构图的经验：用颜色区分层 + 用颜色区分不同组件，这样可以把整个App架构中的各类组件用颜色画出来。然后Mermaid还font-awesome的icon，也可以一起搞搞
 
 > 🚧整个应用间的测试策略、乃至于整个架构（进程间）的测试策略，我放到[下一部分：React测试策略与落地（三）][react-testing-strategy-best-practice]来阐述。本篇的后续部分，我们来谈谈UI组件这部分单元测试的最佳实践。
 > 
