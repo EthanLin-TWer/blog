@@ -226,6 +226,7 @@ interface DropdownTester {
   getLabel(): string;
   getValue(): string;
   getDisplayText(): string;
+  getOptions(): string[];
 }
 
 export const findDropdown = (testId: string): DropdownTester => {
@@ -233,8 +234,21 @@ export const findDropdown = (testId: string): DropdownTester => {
   const getLabel = () => screen.getByTestId(`${testId}-dropdown-label`).textContent 
   const getValue = () => screen.getByTestId(`${testId}-dropdown-input`).getAttribute('value') 
   const getDisplayText = () => { return /* ... */ }
+  const getOptions = () => { return /* ... */ }
 
-  return { getLabel, getValue, getDisplayText }
+  return { getLabel, getValue, getDisplayText, getOptions }
+}
+```
+
+Page tester很简单，就是对tester的直接封装：
+
+```typescript
+export const getProductCategoryDropdown = (): DropdownTester => {
+  return findDropdown('product-category')
+}
+
+export const getProductSubCategoryDropdown = (): DropdownTester => {
+  return findDropdown('product-sub-category')
 }
 ```
 
