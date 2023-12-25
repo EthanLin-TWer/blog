@@ -197,34 +197,29 @@ flowchart TB
 
 > 🚧施工中。这里可以参考MF写文章以及邱大师那篇文章，用一个over simplified的例子来“驱动”出整个测试策略的推理过程。
 
+> 🚧看看这部分怎么展开来讲会好一些。
+> * 测试代码架构：API DSL（方便的API mock语法）+Fixture（mock数据）+tester（选择器）+expectations（测试断言）
+> * API mock & DSL
+> * 组件层tester沉淀和API设计
+> * 测试主体 
+>   * UI内容断言 
+>   * 用户行为交互 
+>   * API Mock
+
+>
+> 🚧这个图可以扩展一下，讲讲多个页面/业务组件的时候会怎么演变。
+
 ```mermaid
 flowchart TB
-  tests(<b>Components</b> layer)
-  testers(<b>Hooks</b> <i>layer</i>) 
-  api_adaptor(<b>API adaptor</b> layer)
-  api(<b>API</b> layer)
-
-  style api_adaptor stroke-dasharray: 6 6
-
-  components --> hooks
-  hooks --> api_adaptor
-  api_adaptor -. ResponseDTO .-> hooks
-
-  api_adaptor -- Request --> api
-  api -. Response .-> api_adaptor
+  page_tests("<b>Page Tests</b><br/>API mocks + fixture")
+  page_testers("<b>Page Testers</b>") 
+  testers("<b>Component Testers</b>")
+        
+  page_tests --> page_testers
+  page_testers --> testers
 ```
 
-```mermaid
-
-```
-
-* 测试代码架构：API DSL（方便的API mock语法）+Fixture（mock数据）+tester（选择器）+expectations（测试断言）
-* API mock & DSL
-* 组件层tester沉淀和API设计
-* 测试主体
-  * UI内容断言
-  * 用户行为交互
-  * API Mock
+Tester例子：
 
 ```typescript
 interface DropdownTester {
@@ -241,6 +236,85 @@ export const findDropdown = (testId: string): DropdownTester => {
 
   return { getLabel, getValue, getDisplayText }
 }
+```
+
+API Mock DSL例子：
+
+```typescript
+export class ProductPageDSL {
+  apiMock: ApiMocks
+
+  constructor() {
+    this.apiMock = new ApiMocks();
+  }
+
+  mockProductCategories = (categories: ProductCategory[]): this => {
+    const fixture = buildProductCategoryResponse(categories) as ProductCategoriesResponse
+    this.apiMock.onProductCategories(fixture)
+    return this;
+  }
+
+  mockAvailableProducts = (products: Products[]): this => {
+    return this;
+  }
+}
+
+export class ApiMocks implements ApiClient {
+  constructor() {
+    this.apiClient = createWhateverApiClientYourProjectUses()
+  }
+
+  onProductCategories(response: ProductCategoriesResponse): ApiMocks {
+    this.apiClient.onGet('/api/v1/product-categories').replyOnce(200, response);
+    return this;
+  }
+
+  onAvailableProducts(response: ProductsResponse): ApiMocks {};
+}
+```
+
+一个简单的测试例子：
+
+```tsx
+describe('product detail page', () => {
+  const productPageDsl: ProductPageDSL = new ProductPageDSL()
+  
+  describe('page rendering', () => {
+    beforeEach(() => {
+      // given
+      productPageDsl.mockProductCategories([
+        {
+          id: 'WWJD-23', category: ProductCategory.DIGITAL_PRODUCTS,
+          subCategories: [ProductSubCategory.I_PHONE, ProductSubCategory.LAPTOP],
+        },
+        {
+          id: 'WWJD-38', category: ProductCategory.CLOTHES,
+          subCategories: [ProductSubCategory.CASUAL, ProductSubCategory.SPORTS],
+        },
+      ])
+    })
+    
+    it('should render form with available product category options', () => {
+      // when
+      renderComponents(<ProductPage />) // ProductPage fetches data on its' own
+      
+      // then 
+      expect(getProductCategoryDropdown().getLabel()).toBe('Product Category')
+      expect(getProductCategoryDropdown().getOptions()).toEqual(['Digital Products', 'Clothes'])
+
+      expect(getProductSubCategoryDropdown().getLabel()).toBe('Product Sub-Category')
+      expect(getProductSubCategoryDropdown().getOptions()).toEqual([])
+    });
+    
+    it('sub category dropdown should be disabled when category is not selected first', () => {
+      renderComponents(<ProductPage />)
+      
+      expect(getProductCategoryDropdown().getValue()).toBe('')
+      expect(getProductCategoryDropdown().isEnabled()).toBeTruthy()
+      expect(getProductSubCategoryDropdown().isEnabled()).toBeFalsy()
+    });
+  });
+})
 ```
 
 ## 衍生问题
