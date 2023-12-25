@@ -1,5 +1,5 @@
 ---
-title: React单元测试最佳实践（二）
+title: React系列（二）：单元测试最佳实践
 tags: react unit-test tdd rtl react-testing-library jest design-system
 ---
 
@@ -96,34 +96,45 @@ Hooks严格来说不是一个“层”。一个架构意义上的分层，必须
 
 ```mermaid
 flowchart TB
-  %% components layer
-  route_components(<b>Route / Page Components</b><br/><br/>Next.js app/, React Router, ..)
-  business_components(<b>Business Components</b><br/><br/>components/<br/>index.tsx<br/>hooks.ts<br/>styles.ts<br/>types.ts<br/>...)
-  ui_components(<b>UI Components</b><br/><br/>MUI, Antd, Semantic UI, Tailwind, ...)
+  %% definition: components layer
+  route_components("<b>⑥ Route / Page Components</b><br/><br/>Next.js app/, React Router, ..")
+  business_components("<b>⑦ Business Components</b><br/><br/>components/<br/>index.tsx<br/>hooks.ts<br/>styles.ts<br/>types.ts<br/>...")
+  ui_components("<b>② UI Components</b><br/><br/>MUI, Antd, Semantic UI, Tailwind, ...")
         
-  %% hooks layer
-  shared_hooks(<b>Domain logics / shared effects</b>)
+  %% definition: hooks layer
+  shared_hooks("<b>⑧ Domain logics / shared effects</b>")
   dom_hooks(<b>DOM APIs</b>)
   analytics_hooks(<b>Analytics</b>)
-  global_store("<b>Global store</b><br/>(Accessible anyways in <b>Hooks</b> layer)<br/><br/>React Context, redux, mobx, ..")
-  api_hooks(<b>API Hooks</b><br/><br/>React Query, SWR, ..)
+  global_store("⑩ <b>Global store</b><br/>(Accessible anywheres in <b>Hooks</b> layer)<br/><br/>React Context, redux, mobx, ..")
+  api_hooks("⑨ <b>API Hooks</b><br/><br/>React Query, SWR, RTK Query, ..")
+  etc_hooks(<b>........</b>)
 
-  api_client(<b>API Client</b><br/><br/>axios, fetch, ..)
+  %% definition: api layer
+  api_client(<b>API Client</b><br/><br/>axios, fetch, superagent, ..)
   
-%%  utils(<b>Utils</b>)
-%%  constants(<b>Constants</b>)
+  %% definition: shared layer
+  utils(<b>Utils</b>)
+  constants(<b>Constants</b>)
   
-  %% outside of boundaries
-  bff(<b>Application Bff / Backend</b><br/><br/>Java, Kotlin, NodeJS, ..)
-  deps_dom_apis(<b>DOM APIs</b><br/><br/>window events, etc.)
-  deps_analytics(<b>Analytics Scripts</b><br/><br/>Sentry, Adobe Analytics, ..)
+  %% definition: outside of boundaries
+  bff("⑪ <b>Application Bff / Backend</b><br/><br/>Java, Kotlin, NodeJS, ..")
+  deps_dom_apis(<b>Dependency: DOM APIs</b><br/><br/>window events, etc.)
+  deps_analytics(<b>Dependency: Analytics Scripts</b><br/><br/>Sentry, Adobe Analytics, ..)
         
+  %% styles
   style route_components stroke-dasharray: 6 6
 
+  %% start: components & connections
   subgraph app ["React Application (Frontend)"];
     direction TB
-    subgraph stateful_components [<b>Stateful Components</b>]
-      direction RL
+
+    subgraph shared_layer ["⑤ <b>Shared</b> layer (Accessible by all layers)"];
+      direction TB
+      utils
+      constants
+    end
+
+    subgraph stateful_components ["① <b>Stateful Components</b>"]
       route_components
       business_components
     end
@@ -133,75 +144,72 @@ flowchart TB
     business_components --> ui_components
     route_components -.-> ui_components
     
-    subgraph hooks_layer [<b>Hooks</b> layer];
+    subgraph hooks_layer ["③ <b>Hooks</b> layer"];
       direction TB
-      global_store
+      api_hooks
       shared_hooks
       analytics_hooks
       dom_hooks
-      api_hooks
+      etc_hooks
+        global_store
 
+      shared_hooks --> api_hooks
       shared_hooks -.-> dom_hooks
       shared_hooks -.-> analytics_hooks
-      shared_hooks --> api_hooks
-%%      api_hooks -. ResponseDTO .-> shared_hooks
+      shared_hooks -.-> etc_hooks
+      %% mermaid will mess up the whole chart when uncommenting following, but it's required
+      %% api_hooks -. ResponseDTO .-> shared_hooks
     end
-    stateful_components ------> hooks_layer
-    
-    subgraph api_layer [<b>API</b> layer]
+    stateful_components ---> shared_hooks
+          
+    subgraph api_layer ["④ <b>API</b> layer"];
       api_client
-      
-      api_hooks --> api_client
-      api_client -. "Response" .-> api_hooks
     end
-          
-%%    subgraph shared_layer ["<b>Shared</b> layer<br/>(Accessible by all layers)"];
-%%      direction LR
-%%      utils
-%%      constants
-%%    end
-          
-%%    stateful_components -.-> shared_layer
-%%    ui_components -.-> shared_layer
-%%    hooks_layer --> shared_layer
-%%    api_layer --> shared_layer
-  end
+    api_hooks --> api_layer
+    %% api_client -. "Response" .-> api_hooks
 
-  api_layer -...-> bff
+  end
   
-  subgraph 3rd_party_deps ["Third-party Dependencies"]; 
+  subgraph boundaries ["Boundaries"];
+    bff
     deps_dom_apis
     deps_analytics
+    deps_others(........)
   end
-  dom_hooks -..-> deps_dom_apis
-  analytics_hooks -..-> deps_analytics 
+  
+  api_layer -. "HTTP" .-> bff
+  dom_hooks -.-> deps_dom_apis
+  analytics_hooks -.-> deps_analytics 
+  etc_hooks -.-> deps_others 
 ```
 
-可以看到，<评论一下与旧React写法的异同：没有了connect组件、没有了saga/redux那套>。除此之外，新的架构里
+> 🚧架构图润色一下，Mermaid写着爽，看着丑。这里可以参考MF写文章以及邱大师那篇文章画架构图的经验：
+> * 用颜色区分层
+> * 用颜色区分不同组件，这样可以把整个App架构中的各类组件用颜色画出来
+> * Mermaid还支持font-awesome的icon，也可以一起搞搞
 
-* 展示型组件和容器组件是否区分。对于展示型组件（只接受props作为入参，本身不接入任何状态）本文的建议是，其实就是包含一个组件库（比如MUI、AntD这种开源或者自己封装的）。对于业务型组件，不强求一定也要拆到纯展示，可以接入`useState()`/`useHooks`这样的东西。理由是：
-  * 在测试策略中，我们并不会对这个组件进行单元测试——就算你单独拆出来——因为它可变，不稳定，props是它的API改动频率高
-  * 强求把状态交由其他组件来做，有可能会造成props drilling的问题。
-* fetcher应该是独立出来的一层，至于它是用axios、React Query这是我们不在意的。只要它有架构意义上的接口就行
-  * 但是问题是，这一层是直接返回API数据，还是包一层返回个领域对象？能不能在里头写`onSuccess`之类的UI代码？
-  * 这一层抽出来了有什么用？是测试的时候容易mock掉？还是将来API这一层的东西可以独立替换掉？
+可以看到，与[上一版的React架构相比][react-unit-testing-best-practices]相比，原来的全局状态管理（redux action/reducer那一套）以及副作用管理（redux-thunk、saga那一套），已经基本被新的React Hooks所取代。除此之外，新的架构里有这样一些变化：
 
-> 🚧 ~~众所周知，~~测试策略是从应用架构中来的。对于一个React应用来说，除了UI组件之外，还会有全局状态管理（redux那套，action+reducer）、副作用管理（redux-thunk、saga、redux-observable那套）等东西，在新的React版本里，状态管理已经基本可以被更轻量级的React Context取代，副作用管理的大头、API请求也已经可以被React Query这样集成了全局状态管理功能的query库取代。新架构如下图：
-> 
-> 🚧架构图润色一下，Mermaid写着爽，看着丑。这里可以参考MF写文章以及邱大师那篇文章画架构图的经验：用颜色区分层 + 用颜色区分不同组件，这样可以把整个App架构中的各类组件用颜色画出来。然后Mermaid还font-awesome的icon，也可以一起搞搞
+* 不要求在业务组件中再细拆“容器组件”与“展示型组件”，统一归为①中的“有状态组件”；
+* 由于本文采用的例子应用了React Query，它本身是个hooks的形式，因此上面的“API适配层”在此图中体现为⑨的API Hooks组件，归并在③的“Hooks层”中，返回一个包装后的`ResponseDTO`（未在上图中体现出~~因为mermaid画图的限制…~~）。DTO中可能承载一些领域、对象逻辑。
 
-> 🚧整个应用间的测试策略、乃至于整个架构（进程间）的测试策略，我放到[下一部分：React测试策略与落地（三）][react-testing-strategy-best-practice]来阐述。本篇的后续部分，我们来谈谈UI组件这部分单元测试的最佳实践。
-> 
+整个应用间的测试策略、乃至于整个架构（进程间）的测试策略（上图中与Boundaries交互的部分），我放到这篇文章[React系列（三）：测试策略与落地][react-testing-strategy-best-practice]来阐述。本篇的后续部分，我们来谈谈UI组件这部分单元测试的最佳实践——这也是本篇的重点。
+
+### React UI组件测试最佳实践
+
 > 在React和前端这个上下文中，单元测试不是最优解——这也是我上一版测试策略推荐对组件的测试方式——集成式的单元测试才是。它有一些缺点：🚧（什么缺点）。🚧（讲一下那什么才是最优解）。
-> 
+
+在[上一版的React单元测试及策略中][react-unit-testing-best-practices]，对于React组件（上图中的⑦业务组件中）的测试，文章建议的是：拆分出展示型组件并对其进行简单的分支渲染测试、对于容器型（有状态）组件不做测试（因为过于麻烦）。这个思路实践下来，其实遇到不少问题和痛点：
+
+* **不太支撑更大范围的重构**。比如在进行提炼组件（Extract Component）、提炼Hooks（Extract Hooks）等常见的重构时，组件往往由于接口（props）变化而使得单元测试失败，哪怕实际业务功能并未变化；
+* **实际保护作用有限**。不测试有状态组件，导致接缝处没有测试，测试信心不足；
+* **对于遗留项目补测试不友好**。遗留项目往往意味着组件设计也不良好，会有很多的props和依赖，对单一的组件做单元测试难以入手、需要很多精力去mock不必要的内部依赖。
+
+我们在实践中发现，以上问题是确实存在的。为了解决这些痛点，在这版新的测试策略中，我们的新建议是：**不要对组件层中的单一组件做单元测试。应该从一个相对顶层的业务组件入手（可以是⑥的路由/页面组件），仅mock掉与HTTP/API部分的交互（④或⑪）而不mock内部实现（如③的Hooks层或⑦业务组件中的逻辑）。也即对组件的测试，从⑥或是⑦开始，然后基本覆盖整个应用进程内所有的层级和组件（x色框内的部分）**。使用RTL（React testing library）基于JSDom的测试，我们可以把这种测试的运行速度仍然限制在单元测试的范畴中。
+
 > 讲一下黑马里关于发现问题的测试和定位问题的测试。
 > 
 > 但我无意发明新的名词，因此，本文所需的只是一个用来指代本文这样一种测试方式的指称。
-
-* hook：hook的单元测试
-* 其他层的测试：契约测试
-* 使用React Query等global statement management的库
-* 其他hook的测试：副作用，如windows、埋点等。
 
 ## 测试架构、代码落地
 
@@ -303,8 +311,8 @@ export const findDropdown = (testId: string): DropdownTester => {
 [react-unit-testing-best-practices]: https://ethan.thoughtworkers.me/#/post/2018-07-13-react-unit-testing-strategy
 [react-hooks-best-practices]: https://ethan.thoughtworkers.me/#/post/2023-12-09-react-hooks-best-practices
 [what-makes-a-good-automation-test]: https://ethan.thoughtworkers.me/#/post/2023-12-24-what-makes-a-good-automation-test
+[react-testing-strategy-best-practice]: https://ethan.thoughtworkers.me/#/post/2023-12-25-react-testing-strategy-and-best-practices
 
-[react-testing-strategy-best-practice]: https://ethan.thoughtworkers.me
 [jimmy-vue-unit-testing-best-practice]: https://blog.jimmylv.info/2018-09-19-vue-application-unit-test-strategy-and-practice-01-introduction
 [Modularizing React Applications with Established UI Patterns]: https://martinfowler.com/articles/modularizing-react-apps.html
 
