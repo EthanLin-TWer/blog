@@ -96,34 +96,45 @@ Hooks严格来说不是一个“层”。一个架构意义上的分层，必须
 
 ```mermaid
 flowchart TB
-  %% components layer
-  route_components(<b>Route / Page Components</b><br/><br/>Next.js app/, React Router, ..)
-  business_components(<b>Business Components</b><br/><br/>components/<br/>index.tsx<br/>hooks.ts<br/>styles.ts<br/>types.ts<br/>...)
-  ui_components(<b>UI Components</b><br/><br/>MUI, Antd, Semantic UI, Tailwind, ...)
+  %% definition: components layer
+  route_components("<b>⑥ Route / Page Components</b><br/><br/>Next.js app/, React Router, ..")
+  business_components("<b>⑦ Business Components</b><br/><br/>components/<br/>index.tsx<br/>hooks.ts<br/>styles.ts<br/>types.ts<br/>...")
+  ui_components("<b>② UI Components</b><br/><br/>MUI, Antd, Semantic UI, Tailwind, ...")
         
-  %% hooks layer
-  shared_hooks(<b>Domain logics / shared effects</b>)
+  %% definition: hooks layer
+  shared_hooks("<b>⑧ Domain logics / shared effects</b>")
   dom_hooks(<b>DOM APIs</b>)
   analytics_hooks(<b>Analytics</b>)
-  global_store("<b>Global store</b><br/>(Accessible anyways in <b>Hooks</b> layer)<br/><br/>React Context, redux, mobx, ..")
-  api_hooks(<b>API Hooks</b><br/><br/>React Query, SWR, ..)
+  global_store("⑩ <b>Global store</b><br/>(Accessible anywheres in <b>Hooks</b> layer)<br/><br/>React Context, redux, mobx, ..")
+  api_hooks("⑨ <b>API Hooks</b><br/><br/>React Query, SWR, RTK Query, ..")
+  etc_hooks(<b>........</b>)
 
-  api_client(<b>API Client</b><br/><br/>axios, fetch, ..)
+  %% definition: api layer
+  api_client(<b>API Client</b><br/><br/>axios, fetch, superagent, ..)
   
-%%  utils(<b>Utils</b>)
-%%  constants(<b>Constants</b>)
+  %% definition: shared layer
+  utils(<b>Utils</b>)
+  constants(<b>Constants</b>)
   
-  %% outside of boundaries
+  %% definition: outside of boundaries
   bff(<b>Application Bff / Backend</b><br/><br/>Java, Kotlin, NodeJS, ..)
-  deps_dom_apis(<b>DOM APIs</b><br/><br/>window events, etc.)
-  deps_analytics(<b>Analytics Scripts</b><br/><br/>Sentry, Adobe Analytics, ..)
+  deps_dom_apis(<b>Dependency: DOM APIs</b><br/><br/>window events, etc.)
+  deps_analytics(<b>Dependency: Analytics Scripts</b><br/><br/>Sentry, Adobe Analytics, ..)
         
+  %% styles
   style route_components stroke-dasharray: 6 6
 
+  %% start: components & connections
   subgraph app ["React Application (Frontend)"];
     direction TB
-    subgraph stateful_components [<b>Stateful Components</b>]
-      direction RL
+
+    subgraph shared_layer ["⑤ <b>Shared</b> layer (Accessible by all layers)"];
+      direction TB
+      utils
+      constants
+    end
+
+    subgraph stateful_components ["① <b>Stateful Components</b>"]
       route_components
       business_components
     end
@@ -133,49 +144,51 @@ flowchart TB
     business_components --> ui_components
     route_components -.-> ui_components
     
-    subgraph hooks_layer [<b>Hooks</b> layer];
+    subgraph hooks_layer ["③ <b>Hooks</b> layer"];
       direction TB
-      global_store
+      api_hooks
       shared_hooks
       analytics_hooks
       dom_hooks
-      api_hooks
+      etc_hooks
+        global_store
 
+      shared_hooks --> api_hooks
       shared_hooks -.-> dom_hooks
       shared_hooks -.-> analytics_hooks
-      shared_hooks --> api_hooks
-%%      api_hooks -. ResponseDTO .-> shared_hooks
+      shared_hooks -.-> etc_hooks
+      %% mermaid will mess up the whole chart when uncommenting following, but it's required
+      %% api_hooks -. ResponseDTO .-> shared_hooks
     end
-    stateful_components ------> hooks_layer
-    
-    subgraph api_layer [<b>API</b> layer]
+    stateful_components ---> shared_hooks
+          
+    subgraph api_layer ["④ <b>API</b> layer"];
       api_client
-      
-      api_hooks --> api_client
-      api_client -. "Response" .-> api_hooks
     end
-          
-%%    subgraph shared_layer ["<b>Shared</b> layer<br/>(Accessible by all layers)"];
-%%      direction LR
-%%      utils
-%%      constants
-%%    end
-          
-%%    stateful_components -.-> shared_layer
-%%    ui_components -.-> shared_layer
-%%    hooks_layer --> shared_layer
-%%    api_layer --> shared_layer
-  end
+    api_hooks --> api_layer
+    %% api_client -. "Response" .-> api_hooks
 
-  api_layer -...-> bff
+  end
   
-  subgraph 3rd_party_deps ["Third-party Dependencies"]; 
+  subgraph boundaries ["Boundaries"];
+    bff
     deps_dom_apis
     deps_analytics
+    deps_others(........)
   end
-  dom_hooks -..-> deps_dom_apis
-  analytics_hooks -..-> deps_analytics 
+  
+  api_layer -. "HTTP" .-> bff
+  dom_hooks -.-> deps_dom_apis
+  analytics_hooks -.-> deps_analytics 
+  etc_hooks -.-> deps_others 
 ```
+
+> 🚧架构图润色一下，Mermaid写着爽，看着丑。这里可以参考MF写文章以及邱大师那篇文章画架构图的经验：
+> * 用颜色区分层
+> * 用颜色区分不同组件，这样可以把整个App架构中的各类组件用颜色画出来
+> * Mermaid还支持font-awesome的icon，也可以一起搞搞
+
+> 🚧 ~~众所周知，~~测试策略是从应用架构中来的。对于一个React应用来说，除了UI组件之外，还会有全局状态管理（redux那套，action+reducer）、副作用管理（redux-thunk、saga、redux-observable那套）等东西，在新的React版本里，状态管理已经基本可以被更轻量级的React Context取代，副作用管理的大头、API请求也已经可以被React Query这样集成了全局状态管理功能的query库取代。新架构如下图：
 
 可以看到，<评论一下与旧React写法的异同：没有了connect组件、没有了saga/redux那套>。除此之外，新的架构里
 
@@ -185,10 +198,6 @@ flowchart TB
 * fetcher应该是独立出来的一层，至于它是用axios、React Query这是我们不在意的。只要它有架构意义上的接口就行
   * 但是问题是，这一层是直接返回API数据，还是包一层返回个领域对象？能不能在里头写`onSuccess`之类的UI代码？
   * 这一层抽出来了有什么用？是测试的时候容易mock掉？还是将来API这一层的东西可以独立替换掉？
-
-> 🚧 ~~众所周知，~~测试策略是从应用架构中来的。对于一个React应用来说，除了UI组件之外，还会有全局状态管理（redux那套，action+reducer）、副作用管理（redux-thunk、saga、redux-observable那套）等东西，在新的React版本里，状态管理已经基本可以被更轻量级的React Context取代，副作用管理的大头、API请求也已经可以被React Query这样集成了全局状态管理功能的query库取代。新架构如下图：
-> 
-> 🚧架构图润色一下，Mermaid写着爽，看着丑。这里可以参考MF写文章以及邱大师那篇文章画架构图的经验：用颜色区分层 + 用颜色区分不同组件，这样可以把整个App架构中的各类组件用颜色画出来。然后Mermaid还font-awesome的icon，也可以一起搞搞
 
 > 🚧整个应用间的测试策略、乃至于整个架构（进程间）的测试策略，我放到[下一部分：React测试策略与落地（三）][react-testing-strategy-best-practice]来阐述。本篇的后续部分，我们来谈谈UI组件这部分单元测试的最佳实践。
 > 
