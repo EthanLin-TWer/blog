@@ -30,7 +30,6 @@ tags: react unit-test tdd rtl react-testing-library jest design-system
 
 ## 目录
 
-* 与上一版的变化 (Difference with earlier recommended practice)
 * 有效的自动化测试 v.s 无效的自动化测试 (Automated Tests Best Practice v.s Anti Practice)
 * React应用架构与测试策略 (React Architecture & Testing Strategies)
 * 测试架构、代码落地 (Test Architecture & Implementation)
@@ -39,23 +38,6 @@ tags: react unit-test tdd rtl react-testing-library jest design-system
 * Q & A
 
 > 🚧正文内容正在施工中。
-
-## 与上一版的变化 Difference with earlier recommended practice
-
-如果你之前未读过我的前作[《React单元测试策略及落地》][react-unit-testing-best-practices]，那么本节你自可跳过。
-
-如果你是上一篇[《React单元测试策略及落地》][react-unit-testing-best-practices]的读者，那么这里我为你快速总结了一下本篇相比于前篇的扬弃之处，以便你更快地理解本篇的架构和内容，并继续吸收上一篇中的精华部分。
-
-在上一版中：
-
-* “为什么要做(单元)测试”部分没有变化。有效的自动化测试仍然是**根本的质量保障**，这是因为人员流动和应用演进这两个因素对于企业级项目来说并没有改变。
-* “什么是好的(单元)测试”这部分，上一篇提到的“不包含逻辑”、“运行速度快”这两点在本篇即将介绍的测试策略下需要*相对妥协*，目的是为了更好地支撑这个更本质的要求：支撑重构。
-* “(单元)测试策略”这部分，给出了一个基于新React能力的架构，以及与之对应的新的测试策略。这个新策略，一方面是让测试更好地支撑重构，一方面也能在遗留系统/之前没有这类测试的项目更好地渐进式导入，比较适合历史包袱较重的项目。
-  * 负责全局状态管理的action/reducer有了更轻量级的React Hooks和React Context因而不再是必选项了；
-  * 负责派生数据计算的selector一部分可以挪到hooks里头，一部分可以合并到UI组件内部使用`useMemo`等，这层也没有了；
-  * 负责副作用管理/编排的saga/thunk这块，其主要部分的API管理及其他部分都可以合并到hooks里头，这层也可以没有了；
-  * 组件层，原来的策略是只测逻辑，新策略中建议是拉通hooks一起测，并且要测试页面内容。这是本篇最大的变化（和精华）。
-* “(单元)测试落地”这部分，本篇给出了大量基于新的单元测试策略的代码。
 
 ## 有效的自动化测试 v.s 无效的自动化测试 Automated Tests Best Practice v.s Anti Practice
 
@@ -215,22 +197,29 @@ flowchart TB
 
 > 🚧施工中。这里可以参考MF写文章以及邱大师那篇文章，用一个over simplified的例子来“驱动”出整个测试策略的推理过程。
 
+> 🚧看看这部分怎么展开来讲会好一些。
+> * 测试代码架构：API DSL（方便的API mock语法）+Fixture（mock数据）+tester（选择器）+expectations（测试断言）
+> * API mock & DSL
+> * 组件层tester沉淀和API设计
+> * 测试主体 
+>   * UI内容断言 
+>   * 用户行为交互 
+>   * API Mock
+
+>
+> 🚧这个图可以扩展一下，讲讲多个页面/业务组件的时候会怎么演变。
+
 ```mermaid
 flowchart TB
-    
+  page_tests("<b>Page Tests</b><br/>API mocks + fixture")
+  page_testers("<b>Page Testers</b>") 
+  testers("<b>Component Testers</b>")
+        
+  page_tests --> page_testers
+  page_testers --> testers
 ```
 
-```mermaid
-
-```
-
-* 测试代码架构：API DSL（方便的API mock语法）+Fixture（mock数据）+tester（选择器）+expectations（测试断言）
-* API mock & DSL
-* 组件层tester沉淀和API设计
-* 测试主体
-  * UI内容断言
-  * 用户行为交互
-  * API Mock
+Tester例子：
 
 ```typescript
 interface DropdownTester {
@@ -247,6 +236,85 @@ export const findDropdown = (testId: string): DropdownTester => {
 
   return { getLabel, getValue, getDisplayText }
 }
+```
+
+API Mock DSL例子：
+
+```typescript
+export class ProductPageDSL {
+  apiMock: ApiMocks
+
+  constructor() {
+    this.apiMock = new ApiMocks();
+  }
+
+  mockProductCategories = (categories: ProductCategory[]): this => {
+    const fixture = buildProductCategoryResponse(categories) as ProductCategoriesResponse
+    this.apiMock.onProductCategories(fixture)
+    return this;
+  }
+
+  mockAvailableProducts = (products: Products[]): this => {
+    return this;
+  }
+}
+
+export class ApiMocks implements ApiClient {
+  constructor() {
+    this.apiClient = createWhateverApiClientYourProjectUses()
+  }
+
+  onProductCategories(response: ProductCategoriesResponse): ApiMocks {
+    this.apiClient.onGet('/api/v1/product-categories').replyOnce(200, response);
+    return this;
+  }
+
+  onAvailableProducts(response: ProductsResponse): ApiMocks {};
+}
+```
+
+一个简单的测试例子：
+
+```tsx
+describe('product detail page', () => {
+  const productPageDsl: ProductPageDSL = new ProductPageDSL()
+  
+  describe('page rendering', () => {
+    beforeEach(() => {
+      // given
+      productPageDsl.mockProductCategories([
+        {
+          id: 'WWJD-23', category: ProductCategory.DIGITAL_PRODUCTS,
+          subCategories: [ProductSubCategory.I_PHONE, ProductSubCategory.LAPTOP],
+        },
+        {
+          id: 'WWJD-38', category: ProductCategory.CLOTHES,
+          subCategories: [ProductSubCategory.CASUAL, ProductSubCategory.SPORTS],
+        },
+      ])
+    })
+    
+    it('should render form with available product category options', () => {
+      // when
+      renderComponents(<ProductPage />) // ProductPage fetches data on its' own
+      
+      // then 
+      expect(getProductCategoryDropdown().getLabel()).toBe('Product Category')
+      expect(getProductCategoryDropdown().getOptions()).toEqual(['Digital Products', 'Clothes'])
+
+      expect(getProductSubCategoryDropdown().getLabel()).toBe('Product Sub-Category')
+      expect(getProductSubCategoryDropdown().getOptions()).toEqual([])
+    });
+    
+    it('sub category dropdown should be disabled when category is not selected first', () => {
+      renderComponents(<ProductPage />)
+      
+      expect(getProductCategoryDropdown().getValue()).toBe('')
+      expect(getProductCategoryDropdown().isEnabled()).toBeTruthy()
+      expect(getProductSubCategoryDropdown().isEnabled()).toBeFalsy()
+    });
+  });
+})
 ```
 
 ## 衍生问题
@@ -281,11 +349,28 @@ export const findDropdown = (testId: string): DropdownTester => {
 
 > 🚧Q & A也正在施工中。欢迎跟作者先期提出你的实践困惑：[linesh.simpcity@gmail.com](mailto:linesh.simpcity@gmail.com)。
 
+> 问题：这篇文章跟上一版的[《React单元测试策略及落地》][react-unit-testing-best-practices]相比有何变化？
+
+如果你是上一篇[《React单元测试策略及落地》][react-unit-testing-best-practices]的读者，那么这里我为你快速总结了一下本篇相比于前篇的扬弃之处，以便你更快地理解本篇的架构和内容，并继续吸收上一篇中的精华部分。简要说来，在上一版中：
+
+“为什么要做（单元）测试”部分没有变化。有效的自动化测试仍然是**根本的质量保障**，这是因为人员流动和应用演进这两个因素对于企业级项目来说并没有改变。
+
+“什么是好的（单元）测试”这部分，上一篇提到的“不包含逻辑”、“运行速度快”这两点在本篇即将介绍的测试策略下需要*相对妥协*，目的是为了更好地支撑这个更本质的要求：支撑重构。
+
+“（单元）测试策略”这部分，给出了一个基于新React能力的架构，以及与之对应的新的测试策略。**这个新策略，一方面是让测试更好地支撑重构，一方面也能在遗留系统/之前没有这类测试的项目更好地渐进式导入，比较适合历史包袱较重的项目。**
+* 负责全局状态管理的action/reducer有了更轻量级的React Hooks和React Context因而不再是必选项了；
+* 负责派生数据计算的selector一部分可以挪到hooks里头，一部分可以合并到UI组件内部使用`useMemo`等，这层也没有了；
+* 负责副作用管理/编排的saga/thunk这块，其主要部分的API管理及其他部分都可以合并到hooks里头，这层也可以没有了；
+* 组件层，**原来的策略是只测逻辑，新策略中建议是拉通hooks一起测，并且要测试页面内容**。这是本篇最大的变化（和精华）。
+
+“（单元）测试落地”这部分，本篇给出了大量基于新的单元测试策略的代码。
+
 > 问题：为什么采用集成式测试组件的策略？MVVM分离为什么不行？
 
-回答：
 * 不实际。有了Hooks以后，现代React组件其实就是个组合所有逻辑的地方，所有协调都在这里。
 * 有额外成本。抽专门的VM之后，意味着抽组件等常见重构很可能就会挂掉VM，这阻碍了做有效测试策略的初心；其次，VM和View单独（但愿）测试，并不能说明VM上的东西被正确地放到了View上，这里的集成点测试是遗失的。如果说过去五年我在前端测试上有什么收获和经验，那就是在组件层拆定义很细的层并做单元测试不符合前端View频繁改变的现状，会带来许多不必要的测试、削弱测试有效性。
+
+> 问题：为什么“组合逻辑”这部分不是放到Bff、而是让前端来自己处理这部分转换？
 
 ## 参考
 
