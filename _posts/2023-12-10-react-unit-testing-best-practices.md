@@ -219,6 +219,8 @@ flowchart TB
   page_testers --> testers
 ```
 
+### 页面/静态UI测试
+
 Tester例子：
 
 ```typescript
@@ -330,6 +332,10 @@ describe('product detail page', () => {
   });
 })
 ```
+
+### 纯前端交互
+
+### 前后端交互
 
 ## 衍生问题
 
