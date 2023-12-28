@@ -399,12 +399,12 @@ describe('product detail page', () => {
 
 ## 参考中
 
+* Maintainable React: Refactoring to Clean Code
 * Modularizing React Applications with Established UI Patterns
   * MF说的view-model-data三层架构中，model和data有啥区别？model和view model有啥区别？
   * UI层要做得薄一些，这样万一React要换，也只需要换掉React这个uI框架，领域逻辑都不用动
     * 那么Hooks怎么写才能不依赖于React？
     * 这个UI层框到哪里？整体架构是什么？
-  * 我这篇文章的建议是，测试应该包到business component + hooks，甚至+fetcher层，mock的是API。那么自然有问题：我mock fetcher为什么不行？为什么要把这个层的包进来？因为我用了React Query，它里头有获取state、操作UI（比如notification）、`onSuccess`的部分，业务逻辑就写在里头，不包进来没地方测。
 * [testing pyramid](https://testingjavascript.com/)
 * [An example of LLM prompting for programming](https://martinfowler.com/articles/2023-chatgpt-xu-hao.html)
 * [React Testing Guide](https://components.guide/react+typescript/testing)
