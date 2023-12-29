@@ -23,21 +23,6 @@ findCommittingImages() {
   findCommittingFiles '_images/'
 }
 
-abortWhenTryingToCommitMoreThanOneDraft() {
-  declare -a committingDrafts=($(findCommittingDrafts))
-  local committingDraftsCount=${#committingDrafts[@]}
-
-  if [[ ${committingDraftsCount} -gt 1 ]];
-  then
-    echo ""
-    echo "❗❗❗ 一次提交仅允许提交一篇草稿文章，而你竟想一次提交 ${committingDraftsCount} 篇 ❗❗❗"
-    echo "$(findCommittingDrafts)"
-    echo ""
-
-    exit 1
-  fi
-}
-
 abortWhenTryingToCommitMoreThanOnePost() {
   declare -a committingPosts=($(findCommittingPosts))
   local committingPostsCount=${#committingPosts[@]}
@@ -77,11 +62,10 @@ minifyImagesIfAny() {
   for imagePath in "${committingImages[@]}"
   do
     npm run minify:images -- $imagePath
-    git add $imagePath
+    git add $imagePath ## overrides original image
   done
 }
 
-abortWhenTryingToCommitMoreThanOneDraft
 abortWhenTryingToCommitMoreThanOnePost
 abortWhenSanityCheckFailsForTechnicalCommits
 minifyImagesIfAny
