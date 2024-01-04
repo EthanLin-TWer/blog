@@ -195,64 +195,250 @@ flowchart TB
 
 ## 测试架构、代码落地
 
-> 🚧施工中。这里可以参考MF写文章以及邱大师那篇文章，用一个over simplified的例子来“驱动”出整个测试策略的推理过程。
+接下来我们将用一个简化的例子来展示组件的单元测试怎么来写。假设以下是我们拿到的一个新的故事卡（Story，敏捷中常用的需求管理方式），它有如下的AC（验收条件，即要做的需求）需要开发。
 
-> 🚧看看这部分怎么展开来讲会好一些。
-> * 测试代码架构：API DSL（方便的API mock语法）+Fixture（mock数据）+tester（选择器）+expectations（测试断言）
-> * API mock & DSL
-> * 组件层tester沉淀和API设计
-> * 测试主体 
->   * UI内容断言 
->   * 用户行为交互 
->   * API Mock
-
+> LOTEL-1
+> 
+> **作为**用户，**我希望**能搜索城市所在地的酒店信息，**以便**我有效地根据旅游行程安排我的住宿。
 >
-> 🚧这个图可以扩展一下，讲讲多个页面/业务组件的时候会怎么演变。
+> **In Scope（需要做的需求）**
+> * 搜索主页：支持通过热门城市搜索酒店
+> * 显示酒店搜索列表及信息
+> 
+> **Out of Scope（不需要做的需求）**
+> * 酒店详情页 - 故事卡LOTEL-2会做
+> * 酒店预订下单 - 故事卡LOTEL-3做
+> * 根据热门景点/商圈快速搜索酒店 - 故事卡LOTEL-4做
+> * 高级筛选 - MVP之后做
+> 
+> **Acceptance Criteria（验收标准）**
+> 
+> AC1. **当**用户访问系统主页时，**应该**能看到一个搜索框，支持按照目的地城市、入住时间段和入住人数搜索可入住酒店
+> * **当**用户点击目的地城市时，**应该**能看到目前仅支持的可选城市为：北京、上海、广州、深圳、成都、重庆、杭州、武汉。
+>
+> AC2. **基于**AC1，**当**用户首次访问主页时，**应该**能看到搜索框各字段都有默认值（**以便**用户能更快地进入下一步查看搜索结果）。各字段默认值如下。
+> 
+> * 目的地城市：北京；
+> * 入住时间段：当天-明天；
+> * 入住人数：1。
+>
+> AC3. **基于**AC1，**当**用户编辑入住信息并点击“搜索”按钮时，**应该**能看到系统查询loading，并在查询成功后看到符合条件的可选酒店列表。
+> * 酒店列表应该包含如下信息：当日最低价、点评数、用户评分、图片、星级。
+> * 点评数小于100时统一显示“≤100条评论”。
 
-```mermaid
-flowchart TB
-  page_tests("<b>Page Tests</b><br/>API mocks + fixture")
-  page_testers("<b>Page Testers</b>") 
-  testers("<b>Component Testers</b>")
-        
-  page_tests --> page_testers
-  page_testers --> testers
+> 🚧补一个UI动图
+
+让我们一个一个AC来看看它们对应的实现以及最主要的测试代码。
+
+### AC1：静态页面
+
+AC1是最简单的，无非一个静态的表单。考虑到“目的地城市”信息在未来大概会扩展并从后端获取（以及本文展开需要😂），我们把它放到一个hooks中，将来接入API时可以只替换hook这部分的逻辑。最后的成品代码应该大致如下所示：
+
+> 🚧贴一下实现代码
+
+按照我们在“React UI组件测试最佳实践”一节中介绍的测试策略，我们的测试从作为路由入口的`SearchPage`开始。整个成品测试最后会长这个样子：
+
+```tsx
+describe('search hotels', () => {
+  const searchPageDSL : SearchPageDSL = new SearchPageDSL()
+
+  describe('search entry - home page', () => {
+    beforeEach(() => {
+      // given ①
+      searchPageDSL.mockRecommendationCities([
+        { id: 'BJ', name: '北京', }, { id: 'SH', name: '上海', },
+        { id: 'GZ', name: '广州', }, { id: 'SZ', name: '深圳', },
+        { id: 'CD', name: '成都', }, { id: 'CQ', name: '重庆', },
+        { id: 'HZ', name: '杭州', }, { id: 'WH', name: '武汉', },
+      ])
+    })
+
+    afterEach(() => {
+      searchPageDSL.reset()
+    })
+
+    it('should render a search box that supports searching available hotels by destination, check-in period and number of occupancy', () => {
+      // when ②
+      render(<SearchPage />) // SearchPage fetches data on its' own
+      const destinationField: SearchDropdownTester = getDestinationField()
+
+      // then ③
+      expect(destinationField.getLabel()).toBe('目的地/酒店名称')
+      expect(destinationField.getOptions()).toEqual([
+        '北京', '上海', '广州', '深圳', '成都', '重庆', '杭州', '武汉'
+      ])
+
+      expect(getCheckinDateField().getLabel()).toBe('入住时间')
+      expect(getCheckoutDateField().getLabel()).toBe('退房时间')
+
+      expect(getOccupancyField().getLabel()).toBe('住客人数')
+      
+      expect(getSearchButton().isPresent()).toBeTruthy()
+    });
+  });
+})
 ```
 
-### 页面/静态UI测试
+怎么样，第一感有没有觉得这个测试相当可读、基本就是需求（AC1）和UI的代码化表达？这是我想表达的好测试的重要一点：**表达力强**。这个强表达力，一方面在于充分利用好describe/it描述等文本工具，一方面也在于我们精心分层并封装的business tester / component tester极富表达力，使我们得以尽量按照需求和UI的描述方式来进行断言。
 
-Tester例子：
+下面让我们展开business tester和component tester这部分的代码细节，来看看在上面这个测试中被封装的部分。**Business tester**很简单（也就是when②的部分），其实就是对component tester的简单封装。
 
-```typescript
-interface DropdownTester {
+```ts
+import TestIds from '@src/constants/testIds'
+
+export const getDestinationField = (): SearchDropdownTester => {
+  return findSearchDropdown(TestIds.search.destination)
+}
+
+export const getCheckinDateField = (): DatePickerTester => {
+  return findDatePicker(TestIds.search.checkinDate)
+}
+
+export const getCheckoutDateField = (): DatePickerTester => {
+  return findDatePicker(TestIds.search.checkoutDate)
+}
+
+export const getOccupancyField = (): CounterTester => {
+  return findCounter(TestIds.search.occupancy)
+}
+```
+
+这一层的主要作用是为上层测试提供一个业务视角的API，并屏蔽test id、tester等细节，提升上层测试的抽象层次以及可读性。同时，这一层的存在也使得编写上层测试变得更加轻松了：你只需要将待测试的业务点“翻译”成英文，然后一路通过TypeScript的类型提示自动输入到底就行，极大提升了开发者体验。
+
+<贴一张开发者体验的动图。>
+
+**Component Tester**（也就是then③的部分），顾名思义封装的就是一个UI组件（component）。注意我们这里说的UI组件是指通用组件库或设计系统（比如MUI、AntD等）的UI组件，而不是业务上的“纯UI”组件，因为通用的UI组件库才可能提供足够通用的`Tester`接口。下面以上面business tester中用到的`SearchDropdownTester`为例子来看看这层的代码。
+
+```ts
+import screen from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { findFirstChildren } from './reusable-testing-utils'
+
+interface SearchDropdownTester {
   getLabel(): string;
   getValue(): string;
   getDisplayText(): string;
   getOptions(): string[];
+
+  isPresent(): boolean;
+  isEnabled(): boolean;
+
+  select(value: string): Promise<void>;
 }
 
-export const findDropdown = (testId: string): DropdownTester => {
+export const findSearchDropdown = (testId: string): SearchDropdownTester => {
+  // implementation details
   const getElement = () => screen.getByTestId(testId)
-  const getLabel = () => screen.getByTestId(`${testId}-dropdown-label`).textContent 
-  const getValue = () => screen.getByTestId(`${testId}-dropdown-input`).getAttribute('value') 
+  const getDropdownWrapperElement = () => findFirstChildren(getElement(), 'div')
+  const clickDropdown = async () => {
+    await userEvent.click(getDropdownWrapperElement())
+  }
+
+  // public interfaces
+  const getLabel = () => screen.getByTestId(`${testId}-dropdown-label`).textContent
+  const getValue = () => screen.getByTestId(`${testId}-dropdown-input`).getAttribute('value')
   const getDisplayText = () => { return /* ... */ }
-  const getOptions = () => { return /* ... */ }
+  const getOptions = () => {
+    await clickDropdown() // to open the dropdown so the options/dropdown would appear in DOM
+    const options = screen.getAllByRole('option').map(option => option.textContext)
+    await clickDropdown() // to close the dropdown and resume dropdown component to original state
+    return options
+  }
 
-  return { getLabel, getValue, getDisplayText, getOptions }
+  const isPresent = () => { return /* ... */ }
+  const isEnabled = () => screen.getByTestId(`${testId}-input`).getAttribute('disabled') === null
+
+  const select = async (value: string) => {
+    await clickDropdown()
+    await userEvent.click(screen.getByRole('option', { name: value }))
+  }
+
+  return { getLabel, getValue, getDisplayText, getOptions, isPresent, isEnabled, select }
 }
 ```
 
-Page tester很简单，就是对tester的直接封装：
+从上面的代码不难看出，这一层封装了许多操作UI的细节（比如上图的`getLabel()`/`getOption()`/`select()`方法、以及我们是通过RTL这样的库来操作DOM等），然后对外暴露一个非常通用的接口以查询组件的状态（比如获取该搜索下拉框的label值、展示文本值、禁用/启用状态等），而非暴露许多实现细节（比如读者可能留意到了`getElement()`这样的方法并没有被作为Tester接口暴露出去），这也是设计原则中“接口优于实现”的体现。这样做可以让上层的调用变得非常简单、且无需关注过多的无关的细节（对比一下“无效的自动化测试”一节中的样例），进而让编写测试的心智负担大大降低，并大幅度地提升开发体验。
 
-```typescript
-export const getProductCategoryDropdown = (): DropdownTester => {
-  return findDropdown('product-category')
-}
+这一层主要有两个作用。第一是，它同样地为上层提供一个UI视角的API。比如，相比于直接在测试中操作React testing library去找到下拉框的wrapper并点击、选中所有role是option的元素并抽取文本……等等操作，上层测试得以用`.getOptions()`这样简单的API就可以拿到测试需要的数据，既大大提升了测试可读性，也使得这些行为很容易可以在测试之间被复用（再次对比一下“无效的自动化测试”一节中的样例）。第二是，这一层还天然地隔离了UI库和selector库的变化：如果未来应用更换了设计系统或UI组件库，那么只有这一层的tester需要更新，测试的其他层次并不会受到影响。同样地，如果未来的某一天出现了RTL更好的selector工具，那么相关的变化也只会被限制在这一层，大大提升了测试架构的稳定性和扩展性。真实的事迹，就发生在笔者过去的金融项目上：当时我们封装的这一层component tester是2019年之前，RTL尚未面世，项目上这一层是使用jQuery实现的。而在2023年的今天，这一层的存在就能让我们以更小的代价迁移到更好的RTL上。
 
-export const getProductSubCategoryDropdown = (): DropdownTester => {
-  return findDropdown('product-sub-category')
-}
+至此，一个简单的组件测试雏形就出来了。麻雀虽小，但是五脏聚全，它遵循的是如下的分层架构：
+
+```mermaid
+flowchart TB
+  page_tests("<b>Page Tests</b><br/>API mocks + fixture")
+  business_testers("<b>Business Testers</b>") 
+  testers("<b>Component Testers</b>")
+        
+  page_tests --> business_testers
+  business_testers --> testers
 ```
+
+正如我们所提到的，最终component tester可以被不同的上层所用。当应用扩展（业务/页面增加）时，这个架构大概率会像这样去演进：
+
+```mermaid
+flowchart TB
+  page_1_tests("<b>Hotel Search Page Tests</b>")
+  page_2_tests("<b>Hotel Details Page Tests</b>")
+  page_3_tests("<b>Flight Search Page Tests</b>")
+  page_4_tests("<b>Flight Details Page Tests</b>")
+  page_5_tests("<b>... Page Tests</b>")
+  
+  business_1_testers("<b>Hotel Search Testers</b>") 
+  business_2_testers("<b>Hotel Details Testers</b>") 
+  business_3_testers("<b>Flight Search Testers</b>") 
+  business_4_testers("<b>Flight Details Testers</b>") 
+  business_5_testers("<b>... Testers</b>") 
+        
+  page_1_tests --> business_1_testers
+  page_2_tests --> business_2_testers
+  page_3_tests --> business_3_testers
+  page_4_tests --> business_4_testers
+  page_5_tests --> business_5_testers
+  business_1_testers --> testers
+  business_2_testers --> testers
+  business_3_testers --> testers
+  business_4_testers --> testers
+  business_5_testers --> testers
+  
+  subgraph testers ["<b>Component Testers</b>"]; 
+    text_input_tester("TextInput tester")
+    text_search_dropdown_tester("SearchDropdown tester")
+    text_date_picker_tester("DatePicker tester")
+    text_counter_tester("Counter tester")
+    text_button_tester("Button tester")
+    text_x_tester("... tester")
+  end
+```
+
+> 🚧有些读者可能会问，为什么不把组件拆分成状态组件和纯业务组件，然后对进行纯业务组件进行单元测试呢？
+
+---
+
+> 例子。需要脱敏。用一下携程的酒店预订作为例子就行。
+> * ✅ 纯UI场景：进来页面时默认表单都有选择。这个就可以测label正确性、button默认enable状态
+> * 交互场景：用户可以改选项，改了以后应该看到页面上显示的是新的值
+> * API场景：用户可以搜索，搜索完成将看到一个列表
+> * 其他场景：
+>   * 错误：button可以点，但报错。没有API会发出去。可以很简单地抄前面的测试（读者不妨自己写写）
+>   * 空列表：读者自己实现哦。 
+> 
+> 问问邱大师：
+> * 根据代码片段高亮的部分是怎么做到的？
+> 
+> 🚧看看这部分怎么展开来讲会好一些。
+> * 组件层tester沉淀和API设计
+> * 测试代码架构：API DSL（方便的API mock语法）+Fixture（mock数据）+tester（选择器）+expectations（测试断言）
+> * API mock & DSL
+> * 测试主体
+  > * UI内容断言
+  > * 用户行为交互
+  > * API Mock
+
+---
+
+### AC2：用户交互
+
+### AC3：Mock API返回
 
 API Mock DSL例子：
 
@@ -288,54 +474,6 @@ export class ApiMocks implements ApiClient {
   onAvailableProducts(response: ProductsResponse): ApiMocks {};
 }
 ```
-
-一个简单的测试例子：
-
-```tsx
-describe('product detail page', () => {
-  const productPageDsl: ProductPageDSL = new ProductPageDSL()
-  
-  describe('page rendering', () => {
-    beforeEach(() => {
-      // given
-      productPageDsl.mockProductCategories([
-        {
-          id: 'WWJD-23', category: ProductCategory.DIGITAL_PRODUCTS,
-          subCategories: [ProductSubCategory.I_PHONE, ProductSubCategory.LAPTOP],
-        },
-        {
-          id: 'WWJD-38', category: ProductCategory.CLOTHES,
-          subCategories: [ProductSubCategory.CASUAL, ProductSubCategory.SPORTS],
-        },
-      ])
-    })
-    
-    it('should render form with available product category options', () => {
-      // when
-      renderComponents(<ProductPage />) // ProductPage fetches data on its' own
-      
-      // then 
-      expect(getProductCategoryDropdown().getLabel()).toBe('Product Category')
-      expect(getProductCategoryDropdown().getOptions()).toEqual(['Digital Products', 'Clothes'])
-
-      expect(getProductSubCategoryDropdown().getLabel()).toBe('Product Sub-Category')
-      expect(getProductSubCategoryDropdown().getOptions()).toEqual([])
-    });
-    
-    it('sub category dropdown should be disabled when category is not selected first', () => {
-      renderComponents(<ProductPage />)
-      
-      expect(getProductCategoryDropdown().getValue()).toBe('')
-      expect(getProductCategoryDropdown().isEnabled()).toBeTruthy()
-      expect(getProductSubCategoryDropdown().isEnabled()).toBeFalsy()
-    });
-  });
-})
-```
-
-### 纯前端交互
-
-### 前后端交互
 
 ## 衍生问题
 
