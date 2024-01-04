@@ -215,14 +215,12 @@ flowchart TB
 > 
 > AC1. **当**用户访问系统主页时，**应该**能看到一个搜索框，支持按照目的地城市、入住时间段和入住人数搜索可入住酒店
 > * **当**用户点击目的地城市时，**应该**能看到目前仅支持的可选城市为：北京、上海、广州、深圳、成都、重庆、杭州、武汉。
+> * **当**用户首次访问主页时，**应该**能看到各字段的默认值（以便他们能快速进入AC3的搜索流程）：目的地城市：北京。入住时间段：当天-明天。入住人数：1。
 >
-> AC2. **基于**AC1，**当**用户首次访问主页时，**应该**能看到搜索框各字段都有默认值（**以便**用户能更快地进入下一步查看搜索结果）。各字段默认值如下。
-> 
-> * 目的地城市：北京；
-> * 入住时间段：当天-明天；
-> * 入住人数：1。
+> AC2. **当**用访问系统主页时，**应该**能修改入住信息
+> * **当**用户修改入住时间时，**应该**能看到系统帮用户自动提示入住天数。例子：2024-01-01 - 2024-01-03将显示“2晚”
 >
-> AC3. **基于**AC1，**当**用户编辑入住信息并点击“搜索”按钮时，**应该**能看到系统查询loading，并在查询成功后看到符合条件的可选酒店列表。
+> AC3. **基于**AC1或AC2，**当**用户点击“搜索”按钮时，**应该**能在查询成功后看到符合条件的可选酒店列表。
 > * 酒店列表应该包含如下信息：当日最低价、点评数、用户评分、图片、星级。
 > * 点评数小于100时统一显示“≤100条评论”。
 
@@ -230,7 +228,7 @@ flowchart TB
 
 让我们一个一个AC来看看它们对应的实现以及最主要的测试代码。
 
-### AC1：静态页面
+### 场景（一）：静态页面测试
 
 AC1是最简单的，无非一个静态的表单。考虑到“目的地城市”信息在未来大概会扩展并从后端获取（以及本文展开需要😂），我们把它放到一个hooks中，将来接入API时可以只替换hook这部分的逻辑。最后的成品代码应该大致如下所示：
 
@@ -322,8 +320,6 @@ interface SearchDropdownTester {
 
   isPresent(): boolean;
   isEnabled(): boolean;
-
-  select(value: string): Promise<void>;
 }
 
 export const findSearchDropdown = (testId: string): SearchDropdownTester => {
@@ -347,17 +343,12 @@ export const findSearchDropdown = (testId: string): SearchDropdownTester => {
 
   const isPresent = () => { return /* ... */ }
   const isEnabled = () => screen.getByTestId(`${testId}-input`).getAttribute('disabled') === null
-
-  const select = async (value: string) => {
-    await clickDropdown()
-    await userEvent.click(screen.getByRole('option', { name: value }))
-  }
-
-  return { getLabel, getValue, getDisplayText, getOptions, isPresent, isEnabled, select }
+  
+  return { getLabel, getValue, getDisplayText, getOptions, isPresent, isEnabled }
 }
 ```
 
-从上面的代码不难看出，这一层封装了许多操作UI的细节（比如上图的`getLabel()`/`getOption()`/`select()`方法、以及我们是通过RTL这样的库来操作DOM等），然后对外暴露一个非常通用的接口以查询组件的状态（比如获取该搜索下拉框的label值、展示文本值、禁用/启用状态等），而非暴露许多实现细节（比如读者可能留意到了`getElement()`这样的方法并没有被作为Tester接口暴露出去），这也是设计原则中“接口优于实现”的体现。这样做可以让上层的调用变得非常简单、且无需关注过多的无关的细节（对比一下“无效的自动化测试”一节中的样例），进而让编写测试的心智负担大大降低，并大幅度地提升开发体验。
+从上面的代码不难看出，这一层封装了许多操作UI的细节（比如上图的`getLabel()`/`getOption()`方法、以及我们是通过RTL这样的库来操作DOM等），然后对外暴露一个非常通用的接口以查询组件的状态（比如获取该搜索下拉框的label值、展示文本值、禁用/启用状态等），而非暴露许多实现细节（比如读者可能留意到了`getElement()`这样的方法并没有被作为Tester接口暴露出去），这也是设计原则中“接口优于实现”的体现。这样做可以让上层的调用变得非常简单、且无需关注过多的无关的细节（对比一下“无效的自动化测试”一节中的样例），进而让编写测试的心智负担大大降低，并大幅度地提升开发体验。
 
 这一层主要有两个作用。第一是，它同样地为上层提供一个UI视角的API。比如，相比于直接在测试中操作React testing library去找到下拉框的wrapper并点击、选中所有role是option的元素并抽取文本……等等操作，上层测试得以用`.getOptions()`这样简单的API就可以拿到测试需要的数据，既大大提升了测试可读性，也使得这些行为很容易可以在测试之间被复用（再次对比一下“无效的自动化测试”一节中的样例）。第二是，这一层还天然地隔离了UI库和selector库的变化：如果未来应用更换了设计系统或UI组件库，那么只有这一层的tester需要更新，测试的其他层次并不会受到影响。同样地，如果未来的某一天出现了RTL更好的selector工具，那么相关的变化也只会被限制在这一层，大大提升了测试架构的稳定性和扩展性。真实的事迹，就发生在笔者过去的金融项目上：当时我们封装的这一层component tester是2019年之前，RTL尚未面世，项目上这一层是使用jQuery实现的。而在2023年的今天，这一层的存在就能让我们以更小的代价迁移到更好的RTL上。
 
@@ -377,46 +368,139 @@ flowchart TB
 
 ```mermaid
 flowchart TB
-  page_1_tests("<b>Hotel Search Page Tests</b>")
-  page_2_tests("<b>Hotel Details Page Tests</b>")
-  page_3_tests("<b>Flight Search Page Tests</b>")
-  page_4_tests("<b>Flight Details Page Tests</b>")
-  page_5_tests("<b>... Page Tests</b>")
+  subgraph page_tests ["<b>Page Tests</b>"]; 
+    page_1_tests("Hotel Search Page Tests")
+    page_2_tests("Hotel Details Page Tests")
+    page_3_tests("Flight Search Page Tests")
+    page_4_tests("Flight Details Page Tests")
+    page_5_tests("...")
+  end
   
-  business_1_testers("<b>Hotel Search Testers</b>") 
-  business_2_testers("<b>Hotel Details Testers</b>") 
-  business_3_testers("<b>Flight Search Testers</b>") 
-  business_4_testers("<b>Flight Details Testers</b>") 
-  business_5_testers("<b>... Testers</b>") 
-        
-  page_1_tests --> business_1_testers
-  page_2_tests --> business_2_testers
-  page_3_tests --> business_3_testers
-  page_4_tests --> business_4_testers
-  page_5_tests --> business_5_testers
-  business_1_testers --> testers
-  business_2_testers --> testers
-  business_3_testers --> testers
-  business_4_testers --> testers
-  business_5_testers --> testers
+  subgraph business_testers ["<b>Business Testers</b>"]; 
+    business_1_testers("Hotel Search Testers")
+    business_2_testers("Hotel Details Testers")
+    business_3_testers("Flight Search Testers")
+    business_4_testers("Flight Details Testers")
+    business_5_testers("...")
+  end
   
-  subgraph testers ["<b>Component Testers</b>"]; 
+  subgraph testers ["<b>Component Testers</b>"];
+    direction TB
     text_input_tester("TextInput tester")
     text_search_dropdown_tester("SearchDropdown tester")
     text_date_picker_tester("DatePicker tester")
     text_counter_tester("Counter tester")
     text_button_tester("Button tester")
-    text_x_tester("... tester")
+    text_x_tester("...")
   end
+
+  page_1_tests --> business_1_testers --> testers
+  page_2_tests --> business_2_testers --> testers
+  page_3_tests --> business_3_testers --> testers
+  page_4_tests --> business_4_testers --> testers
+  page_5_tests --> business_5_testers --> testers
 ```
 
 > 🚧有些读者可能会问，为什么不把组件拆分成状态组件和纯业务组件，然后对进行纯业务组件进行单元测试呢？
 
-### AC2：用户交互
+#### 新增测试
+
+同样，表单字段默认值的功能也很容易添加测试。我们在原来的测试上新增一个`it()`块即可——business tester和component tester都无需改动。通过把测试的粒度拆小，我们既能让测试描述更好地描述业务场景、留存业务上下文，也能让单个测试的重点突出、避免过长的测试，从而提高可读性和可维护性。这样当测试失败时，你就能马上知道被影响的业务场景是什么
+
+*hotel-search.test.ts*
+```tsx
+describe('search hotels', () => {
+  describe('search entry - home page', () => {
+    ...
+    
+    it('should render a search box ...', () => { ... });
+    
+    it('searching fields should have default values so we give user an example, allowing them to navigate to the search result page asap', async () => {
+      render(<SearchPage />)
+
+      expect(getDestinationField().getDisplayText()).toBe('北京')
+      expect(getCheckinDateField().getSelectedDate()).toBe('2024-01-01')
+      expect(getCheckoutDateField().getLabel()).toBe('2024-01-02')
+      expect(getOccupancyField().getValue()).toBe(1)
+    });
+  });
+})
+```
+
+### 场景（二）：用户交互
 
 > * 交互场景：用户可以改选项，改了以后应该看到页面上显示的是新的值
 
-### AC3：Mock API返回
+AC1只是一个简单的静态页面，并不困难，接下来我们来看一个更常用的场景：用户与UI交互并产生一些修改。也就是AC2中，用户编辑入住信息的场景。
+
+在真实的业务场景中，我们往往需要存储一些中间状态——也就是这里的用户入住查询信息。在这个例子中，我们将暂时使用state来存储用户的修改。最后，我们的实现代码应该类似这样：
+
+```tsx
+WIP
+```
+
+测试代码也非常简单，基本就是抄抄抄：business tester已经有了，不用新增；component tester层，`SearchDropdownTester`的`select()`方法似乎还未实现，需要实现一下。除此之外，就是“翻译”一下AC，直接抄一个`it()`块稍微修改，得到最终的测试（你也可以让ChatGPT来帮忙）：
+
+*SearchDropdownTester.ts*
+```typescript
+interface SearchDropdownTester {
+  ...
+  select(value: string): Promise<void>;
+}
+
+export const findSearchDropdown = (testId: string): SearchDropdownTester => {
+  // implementation details
+  ...
+  const clickDropdown = async () => {
+    await userEvent.click(getDropdownWrapperElement())
+  }
+
+  // public interfaces
+  ...
+  const select = async (value: string) => {
+    await clickDropdown()
+    await userEvent.click(screen.getByRole('option', { name: value }))
+  }
+
+  return { ..., select }
+}
+```
+
+*hotel-search.test.ts*
+```tsx
+describe('search hotels', () => {
+  describe('search entry - home page', () => {
+    ...
+    
+    it('should render a search box ...', () => { ... });
+
+    it('searching fields should have default values ...', () => { ... });
+    
+    it('user should be able to edit searching destination - I am indeed planning a travel to Hangzhou', async () => {
+      render(<SearchPage />)
+      await getDestinationField().select('杭州')
+      
+      expect(getDestinationField().getDisplayText()).toBe('杭州')
+    });
+  });
+})
+```
+
+易如反掌！
+
+> 这里显然除了……WIP
+> 
+> 🚧同时提一下tester这层应该越写越简单，因为项目有沉淀了。
+> 
+> 🚧要么是使用仅组件可见的state、`useState()`，要么是使用可见性更广的context、`useContext`或全局状态存储redux/mobx/form表单等工具。重要的是，实现用了什么并不重要，因为它仅仅是一种实现手段，不会体现在最终的测试中。测试获得了保护业务功能的能力。
+> 
+> 🚧同时提一下tester这层应该越写越简单，因为项目有沉淀了。
+
+[//]: # (### 场景（三）：Mock系统时间)
+[//]: # ()
+[//]: # (> * 交互场景：涉及系统时间，是测试可能失败的另一个场景。场景一中的测试是需要重构的。)
+
+### 场景（三）：Mock API返回
 
 > * API场景：用户可以搜索，搜索完成将看到一个列表
 
