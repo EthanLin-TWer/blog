@@ -412,33 +412,15 @@ flowchart TB
 
 > 🚧有些读者可能会问，为什么不把组件拆分成状态组件和纯业务组件，然后对进行纯业务组件进行单元测试呢？
 
----
-
-> 例子。需要脱敏。用一下携程的酒店预订作为例子就行。
-> * ✅ 纯UI场景：进来页面时默认表单都有选择。这个就可以测label正确性、button默认enable状态
-> * 交互场景：用户可以改选项，改了以后应该看到页面上显示的是新的值
-> * API场景：用户可以搜索，搜索完成将看到一个列表
-> * 其他场景：
->   * 错误：button可以点，但报错。没有API会发出去。可以很简单地抄前面的测试（读者不妨自己写写）
->   * 空列表：读者自己实现哦。 
-> 
-> 问问邱大师：
-> * 根据代码片段高亮的部分是怎么做到的？
-> 
-> 🚧看看这部分怎么展开来讲会好一些。
-> * 组件层tester沉淀和API设计
-> * 测试代码架构：API DSL（方便的API mock语法）+Fixture（mock数据）+tester（选择器）+expectations（测试断言）
-> * API mock & DSL
-> * 测试主体
-  > * UI内容断言
-  > * 用户行为交互
-  > * API Mock
-
----
-
 ### AC2：用户交互
 
+> * 交互场景：用户可以改选项，改了以后应该看到页面上显示的是新的值
+
 ### AC3：Mock API返回
+
+> * API场景：用户可以搜索，搜索完成将看到一个列表
+
+> 🚧这一层讲一下API Mock DSL、fixture组织、测试边界的断言mock.toHaveBeenCalled()。
 
 API Mock DSL例子：
 
@@ -474,6 +456,12 @@ export class ApiMocks implements ApiClient {
   onAvailableProducts(response: ProductsResponse): ApiMocks {};
 }
 ```
+
+> * 其他场景：
+>   * 错误：button可以点，但报错。没有API会发出去。可以很简单地抄前面的测试（读者不妨自己写写）
+>   * 空列表：读者自己实现哦。
+
+> * 🚧问问邱大师：MF博客中代码片段高亮的部分是怎么做到的？
 
 ## 衍生问题
 
