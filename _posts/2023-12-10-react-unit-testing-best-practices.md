@@ -377,37 +377,37 @@ flowchart TB
 
 ```mermaid
 flowchart TB
-  page_1_tests("<b>Hotel Search Page Tests</b>")
-  page_2_tests("<b>Hotel Details Page Tests</b>")
-  page_3_tests("<b>Flight Search Page Tests</b>")
-  page_4_tests("<b>Flight Details Page Tests</b>")
-  page_5_tests("<b>... Page Tests</b>")
+  subgraph page_tests ["<b>Page Tests</b>"]; 
+    page_1_tests("Hotel Search Page Tests")
+    page_2_tests("Hotel Details Page Tests")
+    page_3_tests("Flight Search Page Tests")
+    page_4_tests("Flight Details Page Tests")
+    page_5_tests("...")
+  end
   
-  business_1_testers("<b>Hotel Search Testers</b>") 
-  business_2_testers("<b>Hotel Details Testers</b>") 
-  business_3_testers("<b>Flight Search Testers</b>") 
-  business_4_testers("<b>Flight Details Testers</b>") 
-  business_5_testers("<b>... Testers</b>") 
-        
-  page_1_tests --> business_1_testers
-  page_2_tests --> business_2_testers
-  page_3_tests --> business_3_testers
-  page_4_tests --> business_4_testers
-  page_5_tests --> business_5_testers
-  business_1_testers --> testers
-  business_2_testers --> testers
-  business_3_testers --> testers
-  business_4_testers --> testers
-  business_5_testers --> testers
+  subgraph business_testers ["<b>Business Testers</b>"]; 
+    business_1_testers("Hotel Search Testers")
+    business_2_testers("Hotel Details Testers")
+    business_3_testers("Flight Search Testers")
+    business_4_testers("Flight Details Testers")
+    business_5_testers("...")
+  end
   
-  subgraph testers ["<b>Component Testers</b>"]; 
+  subgraph testers ["<b>Component Testers</b>"];
+    direction TB
     text_input_tester("TextInput tester")
     text_search_dropdown_tester("SearchDropdown tester")
     text_date_picker_tester("DatePicker tester")
     text_counter_tester("Counter tester")
     text_button_tester("Button tester")
-    text_x_tester("... tester")
+    text_x_tester("...")
   end
+
+  page_1_tests --> business_1_testers --> testers
+  page_2_tests --> business_2_testers --> testers
+  page_3_tests --> business_3_testers --> testers
+  page_4_tests --> business_4_testers --> testers
+  page_5_tests --> business_5_testers --> testers
 ```
 
 > 🚧有些读者可能会问，为什么不把组件拆分成状态组件和纯业务组件，然后对进行纯业务组件进行单元测试呢？
