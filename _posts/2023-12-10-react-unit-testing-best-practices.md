@@ -502,9 +502,48 @@ describe('search hotels', () => {
 
 ### 场景（三）：Mock API返回
 
-> * API场景：用户可以搜索，搜索完成将看到一个列表
+接下来，让我们看看AC3的实现。这是个支撑用户进行搜索的功能，它需要依赖后端的API来完成结果渲染。API位于前端架构的边界点，对我们的测试策略也有影响。因此，处理好这部分的设施，也是使我们的测试策略更加通用的关键。
 
-> 🚧这一层讲一下API Mock DSL、fixture组织、测试边界的断言mock.toHaveBeenCalled()。
+> 🚧讲一下测试边界：mock到④API Layer或⑪Bff层都可以。
+
+功能实现部分，我们使用`useHotelSearch()`来完成API发送（例子里这一层使用了[React Query][react-query]），它封装了对API client（例子里这一层使用了[axios][]）的调用。拿到结果后，它隐藏了搜索框，转而展示一个结果列表。
+
+> 🚧糊一下关键部分代码并展示。
+
+在这一层的测试中，选择了mock架构图中的组件⑪，也即是Bff这一层，这是通过一些工具直接拦截HTTP请求实现的。进程外的Bff服务部分是不稳定的，我们不应该在单元测试中真实地调用它。正确的策略应该是，断言我们调用了正确的API（这可以以确保接口处的交互从前端这一侧是正确的），然后mock一个服务端的返回结果，并继续断言前端应该发生正确的行为（在这里指应该正确地渲染酒店搜索结果）。
+
+这个新的测试代码会是这样子：
+
+*hotel-search.test.ts*
+```tsx
+describe('search hotels', () => {
+  describe('search entry - home page', () => {
+    ...
+    
+    it('should render a search box ...', () => { ... });
+
+    it('searching fields should have default values ...', () => { ... });
+    
+    it('user should be able to edit searching destination ...', async () => { ... });
+    
+    it('should call search API with correct parameters and render searching results as a list', async () => {
+      render(<SearchPage />)
+      
+      await getDestinationField().select('杭州')
+      
+      expect(wip).toBeCalledWith(
+        '/api/v1/hotels?destination=HZ&checkin-date=2024-01-01&checkout-date=2024-01-02&noOfOccupancies=1'
+      )
+      expect(getHotelSearchResults().getHeaders()).toEqual([])
+      expect(getHotelSearchResults().getContent()).toEqual([
+        {},
+      ])
+    });
+  });
+})
+```
+
+> 🚧这一层讲一下API Mock DSL、fixture组织、测试断言mock.toHaveBeenCalled()。
 
 API Mock DSL例子：
 
@@ -635,6 +674,8 @@ export class ApiMocks implements ApiClient {
 [redux]: https://w.i.p.com
 [mobx]: https://w.i.p.com
 [react-hook-form]: https://w.i.p.com
+[react-query]: https://w.i.p.com
+[axios]: https://w.i.p.com
 
 [clear-architecture-is-a-prior-input-for-testing-strategy]: https://zhuanlan.zhihu.com/p/560276012
 [why-layering-is-important-method-of-architecting]: https://w.i.p.com
