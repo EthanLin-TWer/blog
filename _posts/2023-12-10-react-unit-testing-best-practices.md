@@ -18,22 +18,20 @@ tags: react unit-test tdd rtl react-testing-library jest design-system
 * 为了实现有效支撑重构这个根本目标，测试引入的分层会带来一些额外的（一次性及短期）成本。
 * 承担这个成本是值得的。一切都是为了让你的测试能够真正支撑重构、有效留存业务上下文，真正助力研发效能。
 
-> 🚧正文部分内容仍在施工中。
-
 ## 目录
 
 * 为什么**有效的自动化测试**很重要 (Why Effective Automated Tests Are So Important)
 * 有效的自动化测试 v.s 无效的自动化测试 (Automated Tests Best Practice v.s Anti Practice)
-* React应用架构与测试策略 (React Architecture & Testing Strategies)
-  * 
+* React应用典型架构 (A Typical React App Architecture)
 
+* React组件单元测试最佳实践 (Best Practice Unit Testing React Components)
 * 测试架构、代码落地 (Test Architecture & Implementation)
 * 总结：优势 & 挑战 (Summary: Advantages & Challenges)
 * Q & A
 
 > 🚧正文内容正在施工中。
 
-## 为什么**有效的自动化测试**很重要 (Why Effective Automated Tests Are So Important)
+## 为什么有效的自动化测试很重要 (Why Effective Automated Tests Are So Important)
 
 正如我在5年前的[React单元测试策略及落地][react-unit-testing-best-practices]中所说，自动化测试，而且是**有效的自动化测试**，**对于任何一个企业级项目来说都是必选项而不是可选项**。这是由企业项目的两个特点决定的：**人员流动不可避免**、**应用演进不可避免**。这两点不因人的主观意志为转移。应用演进，意味着新的、遗留的业务和代码会越来越多；人员流动，意味着物理上不可能会有一个人能长期、完全地掌握单个应用的所有上下文。因此，希望通过手工测试（开发者自测或者单独的QA团队手测）的方式来保障质量，首先既是低效的，长期来看也是不可能的。
 
@@ -65,9 +63,7 @@ WIP
 
 * 🚧
 
-## React应用架构与测试策略 React Architecture & Testing Strategies
-
-> 🚧 今天组里讨论，结论就是有了React Hooks加成之后，每个React组件自己都是一个View + View Model。React Hooks作为组装数据和逻辑的手段而存在，通常是多个hooks服务一个View Model（如果你要说有这个东西）的构建，而Hooks本身并没有一个规范的接口——即输入输出——想输入啥、返回啥都可以，因而缺乏设计的Hooks本身并不能被称为一个“层”。
+## React应用典型架构 A Typical React App Architecture
 
 [软件架构是测试策略的前提要件][clear-architecture-is-a-prior-input-for-testing-strategy]。没有清晰的软件架构和分层定义，就难以制定有效的测试策略并加以实施。因此，在谈论React应用的测试策略之前，有必要定义一个常见的React应用架构作为参考。
 
@@ -90,7 +86,7 @@ flowchart TB
   api -. Response .-> api_adaptor
 ```
 
-在这个架构里，组件层是确定的，它负责处理的是把从下层得到的数据渲染成View，隔离的是渲染目标HTML的变化（借助JSX和React的V-DOM技术）。同时，API层也是确定的，它负责处理与三方系统交互的API调用，隔离的是通信协议（HTTP、GraphQL等）的变化。
+在这个架构里，组件层（Component Layer）是确定的，它负责处理的是把从下层得到的数据渲染成View，隔离的是渲染目标HTML的变化（借助JSX和React的V-DOM技术）。同时，API层也是确定的，它负责处理与三方系统交互的API调用，隔离的是通信协议（HTTP、GraphQL等）的变化。
 
 API适配层的作用是，将API层得到的`Response`转换成前端应用可以使用的`ResponseDTO`结构，隔离的是后端数据结构变化对前端（Hooks、View等）的传播。这个隔离非常重要，但是这一层不一定是必须的：如果这一层非常薄、没有任何逻辑，那么直接让API层转换一层、返回`ResponseDTO`同样可达到隔离后端数据结构变化的目的；如果你使用了类似React Query之类的工具，那么这一层可以合并到Hooks的大“分层”里头。
 
@@ -185,19 +181,15 @@ flowchart TB
   etc_hooks -.-> deps_others 
 ```
 
-> 🚧架构图润色一下，Mermaid写着爽，看着丑。这里可以参考MF写文章以及邱大师那篇文章画架构图的经验：
-> * 用颜色区分层
-> * 用颜色区分不同组件，这样可以把整个App架构中的各类组件用颜色画出来
-> * Mermaid还支持font-awesome的icon，也可以一起搞搞
+与一些[更早版本的React架构][react-unit-testing-best-practices]相比，React 16之后的Hooks基本上接管了所有副作用以及逻辑处理的代码，包括原来的状态管理（[Redux action/reducer][redux]那一套）、副作用（[redux-thunk][]、[redux-saga][]等）等。除此之外，上面这版架构里有一些变化值得强调：
 
-可以看到，与[上一版的React架构相比][react-unit-testing-best-practices]相比，原来的全局状态管理（redux action/reducer那一套）以及副作用管理（redux-thunk、saga那一套），已经基本被新的React Hooks所取代。除此之外，新的架构里有这样一些变化：
+* 不强求对业务组件⑦中再细拆“容器组件”与“展示型组件”（[React Hooks的出现使得这种较早时期的人为划分变得不必要了][Presentational and Container Components]）。除了UI组件②之外的React组件（⑦以及可能有的⑥），统一归为①中的“有状态组件”。
+* UI组件②这里特指通用型的UI组件，如[MUI][]、[Ant Design][antd]等或者项目自己封装的UI组件库，而不包含有业务含义的“展示型组件”（指不调用React Hooks、纯纯接受props并渲染UI的组件）。
+* 由于本文采用的例子应用了React Query，它本身是个hooks的形式，因此上面的“API适配层”在此图中体现为⑨的API Hooks组件，归并在③的“Hooks层”中，返回一个包装后的`ResponseDTO`（未在上图中体现出~~因为mermaid画图的限制~~）。DTO中可能承载一些领域、对象逻辑。
 
-* 不要求在业务组件中再细拆“容器组件”与“展示型组件”，统一归为①中的“有状态组件”；
-* 由于本文采用的例子应用了React Query，它本身是个hooks的形式，因此上面的“API适配层”在此图中体现为⑨的API Hooks组件，归并在③的“Hooks层”中，返回一个包装后的`ResponseDTO`（未在上图中体现出~~因为mermaid画图的限制…~~）。DTO中可能承载一些领域、对象逻辑。
+整个应用间的测试策略、乃至于整个架构（进程间）的测试策略（上图中与Boundaries交互的部分），我放到这篇文章[React系列（三）：测试策略与落地][react-testing-strategy-best-practice]来阐述。本篇的后续部分，我们重点来谈谈“如何测试UI组件”这部分的最佳实践。
 
-整个应用间的测试策略、乃至于整个架构（进程间）的测试策略（上图中与Boundaries交互的部分），我放到这篇文章[React系列（三）：测试策略与落地][react-testing-strategy-best-practice]来阐述。本篇的后续部分，我们来谈谈UI组件这部分单元测试的最佳实践——这也是本篇的重点。
-
-### React UI组件测试最佳实践
+## React组件单元测试最佳实践 Best Practice Unit Testing React Components
 
 > 在React和前端这个上下文中，单元测试不是最优解——这也是我上一版测试策略推荐对组件的测试方式——集成式的单元测试才是。它有一些缺点：🚧（什么缺点）。🚧（讲一下那什么才是最优解）。
 
@@ -677,6 +669,7 @@ export class ApiMocks implements ApiClient {
 ## 参考
 
 * [Modularizing React Applications with Established UI Patterns][]
+* [Presentational and Container Components][]
 * [Vue应用单元测试策略与实践][jimmy-vue-unit-testing-best-practice]
 
 ## 参考中
@@ -695,25 +688,45 @@ export class ApiMocks implements ApiClient {
 
 ## TODOLIST
 
+* 🚧润色一下React应用架构图。一些建议：
+  * 用颜色来区分层、区分组件。这样有个好处是，代码片段可以同样上色来体现“这段代码属于这个组件”
+  * Mermaid有些font-awesome的icon，看看能不能用上
+
+* 🚧更新一下目录层级，有些三级标题一并弄进去
 * 🚧问问邱大师：MF博客中代码片段高亮的部分是怎么做到的？
-* 
+* 🚧
+
+
 
 [^automated-tests-for-enterprise-only]: 对于个人项目，自动化测试乃至TDD实践是否必须只跟维护有关，你自己开心就行。
+
+
 
 [react-unit-testing-best-practices]: https://ethan.thoughtworkers.me/#/post/2018-07-13-react-unit-testing-strategy
 [react-hooks-best-practices]: https://ethan.thoughtworkers.me/#/post/2023-12-09-react-hooks-best-practices
 [what-makes-a-good-automation-test]: https://ethan.thoughtworkers.me/#/post/2023-12-24-what-makes-a-good-automation-test
 [react-testing-strategy-best-practice]: https://ethan.thoughtworkers.me/#/post/2023-12-25-react-testing-strategy-and-best-practices
 
-[jimmy-vue-unit-testing-best-practice]: https://blog.jimmylv.info/2018-09-19-vue-application-unit-test-strategy-and-practice-01-introduction
-[Modularizing React Applications with Established UI Patterns]: https://martinfowler.com/articles/modularizing-react-apps.html
 
-[react-context]: https://w.i.p.com
-[redux]: https://w.i.p.com
-[mobx]: https://w.i.p.com
-[react-hook-form]: https://w.i.p.com
-[react-query]: https://w.i.p.com
-[axios]: https://w.i.p.com
+
+[Modularizing React Applications with Established UI Patterns]: https://martinfowler.com/articles/modularizing-react-apps.html
+[Presentational and Container Components]: https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
+[jimmy-vue-unit-testing-best-practice]: https://blog.jimmylv.info/2018-09-19-vue-application-unit-test-strategy-and-practice-01-introduction
+
+
+
+
+
+[react-context]: https://react.dev/learn/passing-data-deeply-with-context
+[redux]: https://redux.js.org/
+[redux-thunk]: https://github.com/reduxjs/redux-thunk
+[redux-saga]: https://redux-saga.js.org/
+[mobx]: https://mobx.js.org/README.html
+[react-hook-form]: https://react-hook-form.com/
+[react-query]: https://tanstack.com/query/v3/docs/react/overview
+[axios]: https://axios-http.com/docs/intro
+[mui]: https://mui.com/
+[antd]: https://ant.design/
 [pretty-dom]: https://testing-library.com/docs/dom-testing-library/api-debugging/#prettydom
 [rtl-debugging]: https://testing-library.com/docs/dom-testing-library/api-debugging/
 
