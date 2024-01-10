@@ -515,9 +515,12 @@ describe('search hotels', () => {
 
 当然，这里选择mock到架构图中的组件④、API layer也是完全没问题的，因为理论上讲API layer也应该是非常薄的一层，从测试可读性、有效性和所需工时等方面应该差别都不大。对于笔者所在项目来说，由于应用一开始的架构分层并不是很清晰，因此测试直接也测试到了④API layer层拉通覆盖，较为简单。但是测试中这一层的边界我认为是可以在④和⑪之间视情况移动的。
 
-这个新的测试代码会是这样子：
+这部分的测试代码会是这样子：
+
+> 🚧这一层讲一下API Mock DSL、fixture组织、测试断言mock.toHaveBeenCalled()。
 
 *hotel-search.test.ts*
+
 ```tsx
 describe('search hotels', () => {
   describe('search entry - home page', () => {
@@ -545,8 +548,6 @@ describe('search hotels', () => {
   });
 })
 ```
-
-> 🚧这一层讲一下API Mock DSL、fixture组织、测试断言mock.toHaveBeenCalled()。
 
 API Mock DSL例子：
 
@@ -583,11 +584,9 @@ export class ApiMocks implements ApiClient {
 }
 ```
 
-> * 其他场景：
->   * 错误：button可以点，但报错。没有API会发出去。可以很简单地抄前面的测试（读者不妨自己写写）
->   * 空列表：读者自己实现哦。
 
-> * 🚧问问邱大师：MF博客中代码片段高亮的部分是怎么做到的？
+
+至此，我们就用一个具体的需求为例，介绍了这个单元测试策略的所有组成部分了。在实际的开发中，这个故事卡还有许多边界场景需要覆盖，比如“没有符合条件的搜索结果”、“API出错”等等。有了这套测试架子，对这些场景进行完整测试并不困难，在有了基础测试例子的情况下，在前端实施TDD也是可行的。这也回到了我对企业级软件开发的提倡：**没有失败的测试不写代码/修bug。有需求则必有有效的自动化测试覆盖**。
 
 ## 衍生问题
 
@@ -662,6 +661,11 @@ export class ApiMocks implements ApiClient {
 * [React Testing Guide](https://components.guide/react+typescript/testing)
 * [Kent's blog](https://kentcdodds.com)
 * what's a typical/recommended React application structure?
+
+## TODOLIST
+
+* 🚧问问邱大师：MF博客中代码片段高亮的部分是怎么做到的？
+* 
 
 [^automated-tests-for-enterprise-only]: 对于个人项目，自动化测试乃至TDD实践是否必须只跟维护有关，你自己开心就行。
 
