@@ -55,6 +55,8 @@ tags: react unit-test tdd rtl react-testing-library jest design-system
 
 更具体的例子，因为篇幅可能过长，我打算放在另一篇[什么是好的自动化测试][what-makes-a-good-automation-test]里写。请将其作为本篇的补充读物，里面的一些观点跟接下来要阐述的React单元测试实践是互相交织、一脉相承的。在这里，我打算给出一个典型的、集“大成”于一体的无效自动化测试，读者不妨看看，它都有哪些“无效”的地方、你的项目又是否正在经历这些无效测试的折磨。
 
+> 🚧这部分草稿在另一台电脑上。
+
 ```tsx
 WIP
 ```
