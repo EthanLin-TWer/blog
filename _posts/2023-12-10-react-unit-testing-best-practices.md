@@ -420,7 +420,7 @@ describe('search hotels', () => {
 
       expect(getDestinationField().getDisplayText()).toBe('北京')
       expect(getCheckinDateField().getSelectedDate()).toBe('2024-01-01')
-      expect(getCheckoutDateField().getLabel()).toBe('2024-01-02')
+      expect(getCheckoutDateField().getSelectedDate()).toBe('2024-01-02')
       expect(getOccupancyField().getValue()).toBe(1)
     });
   });
@@ -440,6 +440,7 @@ WIP
 测试代码也非常简单，基本就是抄抄抄：business tester已经有了，不用新增；component tester层，`SearchDropdownTester`的`select()`方法似乎还未实现，需要实现一下。除此之外，就是“翻译”一下AC，直接抄一个`it()`块稍微修改，得到最终的测试（你也可以让ChatGPT来帮忙）：
 
 *SearchDropdownTester.ts*
+
 ```typescript
 interface SearchDropdownTester {
   ...
@@ -465,6 +466,7 @@ export const findSearchDropdown = (testId: string): SearchDropdownTester => {
 ```
 
 *hotel-search.test.ts*
+
 ```tsx
 describe('search hotels', () => {
   describe('search entry - home page', () => {
@@ -494,23 +496,24 @@ describe('search hotels', () => {
 
 编辑入住时间与入住人数的测试因篇幅故不再赘述，读者可以尝试自己实现一下哦。
 
-> 这里显然除了……WIP
-
 [//]: # (### 场景（三）：Mock系统时间)
-[//]: # ()
+[//]: #
 [//]: # (> * 交互场景：涉及系统时间，是测试可能失败的另一个场景。场景一中的测试是需要重构的。)
 
 ### 场景（三）：Mock API返回
 
 接下来，让我们看看AC3的实现。这是个支撑用户进行搜索的功能，它需要依赖后端的API来完成结果渲染。API位于前端架构的边界点，对我们的测试策略也有影响。因此，处理好这部分的设施，也是使我们的测试策略更加通用的关键。
 
-> 🚧讲一下测试边界：mock到④API Layer或⑪Bff层都可以。
-
-功能实现部分，我们使用`useHotelSearch()`来完成API发送（例子里这一层使用了[React Query][react-query]），它封装了对API client（例子里这一层使用了[axios][]）的调用。拿到结果后，它隐藏了搜索框，转而展示一个结果列表。
+功能实现部分，我们使用`useHotelSearch()`来完成API发送（例子里这一层使用了[React Query][react-query]），它封装了对API client（例子里这一层使用了[axios][]）的调用。拿到结果后，系统会展示一个结果列表。
 
 > 🚧糊一下关键部分代码并展示。
 
-在这一层的测试中，选择了mock架构图中的组件⑪，也即是Bff这一层，这是通过一些工具直接拦截HTTP请求实现的。进程外的Bff服务部分是不稳定的，我们不应该在单元测试中真实地调用它。正确的策略应该是，断言我们调用了正确的API（这可以以确保接口处的交互从前端这一侧是正确的），然后mock一个服务端的返回结果，并继续断言前端应该发生正确的行为（在这里指应该正确地渲染酒店搜索结果）。
+在这一层的测试中，我给出的例子中选择了mock架构图中的组件⑪、也即是Bff这一层，这是通过一些工具直接拦截HTTP请求实现的。原因是，进程外的Bff服务部分是不稳定的，我们不应该在单元测试中真实地调用它。正确的策略应该是：
+
+1. 断言我们调用了正确的API（这可以以确保接口处的交互从前端这一侧是正确的）；
+2. 断言在mock的服务端返回结果下，前端应该发生正确的行为（在这里指应该正确地渲染酒店搜索结果）。
+
+当然，这里选择mock到架构图中的组件④、API layer也是完全没问题的，因为理论上讲API layer也应该是非常薄的一层，从测试可读性、有效性和所需工时等方面应该差别都不大。对于笔者所在项目来说，由于应用一开始的架构分层并不是很清晰，因此测试直接也测试到了④API layer层拉通覆盖，较为简单。但是测试中这一层的边界我认为是可以在④和⑪之间视情况移动的。
 
 这个新的测试代码会是这样子：
 
