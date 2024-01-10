@@ -270,10 +270,6 @@ pie showData title TL working hours - Breaking Down
 * [Management Time: Who’s Got the Monkey?][Who's got the monkey]
 * [Tech Lead如何应对编码时间下降](https://zhuanlan.zhihu.com/p/518921041)
 
-#### 参考中
-
-* https://www.12371.cn/2020/01/14/ARTI1578986778457449.shtml
-
 [实践论]: https://www.mzfxw.com/e/action/ShowInfo.php?classid=6&id=92362
 [pdca]: https://zh.wikipedia.org/wiki/Special:Search/pdca
 [toggl]: https://toggl.com
