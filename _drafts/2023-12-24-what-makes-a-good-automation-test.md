@@ -7,11 +7,11 @@ tags: react frontend test jest unit-testing clean-code
 
 ## 大纲
 
-* 组件重命名
-* 拆分组件
-* 拆分hooks
-* 搬移state到context
-* 删除组件props
+* 表达力强
+* 支撑重构
+  * 测试系统时间
+
+
 
 ## 内容
 
@@ -21,8 +21,6 @@ tags: react frontend test jest unit-testing clean-code
 * 有效留存业务上下文：表达力强
 
 表达力强好理解：
-
-*
 
 > 🚧从上一篇抄一些过来。
 
