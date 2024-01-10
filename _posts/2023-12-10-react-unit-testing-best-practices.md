@@ -681,47 +681,33 @@ export class ApiMocks implements ApiClient {
 ## 参考中
 
 * Maintainable React: Refactoring to Clean Code
-* Modularizing React Applications with Established UI Patterns
-  * MF说的view-model-data三层架构中，model和data有啥区别？model和view model有啥区别？
-  * UI层要做得薄一些，这样万一React要换，也只需要换掉React这个uI框架，领域逻辑都不用动
-    * 那么Hooks怎么写才能不依赖于React？
-    * 这个UI层框到哪里？整体架构是什么？
 * [testing pyramid](https://testingjavascript.com/)
 * [An example of LLM prompting for programming](https://martinfowler.com/articles/2023-chatgpt-xu-hao.html)
 * [React Testing Guide](https://components.guide/react+typescript/testing)
 * [Kent's blog](https://kentcdodds.com)
 * what's a typical/recommended React application structure?
+* [前端单元测试实战：React + Redux Testing Library](https://blog.jimmylv.info/2021-01-13-react-redux-testing-library/)：这里的可视化看有没有得抄的。
 
 ## TODOLIST
 
 * 🚧润色一下React应用架构图。一些建议：
   * 用颜色来区分层、区分组件。这样有个好处是，代码片段可以同样上色来体现“这段代码属于这个组件”
   * Mermaid有些font-awesome的icon，看看能不能用上
-
 * 🚧更新一下目录层级，有些三级标题一并弄进去
 * 🚧问问邱大师：MF博客中代码片段高亮的部分是怎么做到的？
+* 🚧[Modularizing React Applications with Established UI Patterns][]说的view-model-data三层架构中，model和data有啥区别？model和view model有啥区别？
 * 🚧
 
-
-
 [^automated-tests-for-enterprise-only]: 对于个人项目，自动化测试乃至TDD实践是否必须只跟维护有关，你自己开心就行。
-
-
 
 [react-unit-testing-best-practices]: https://ethan.thoughtworkers.me/#/post/2018-07-13-react-unit-testing-strategy
 [react-hooks-best-practices]: https://ethan.thoughtworkers.me/#/post/2023-12-09-react-hooks-best-practices
 [what-makes-a-good-automation-test]: https://ethan.thoughtworkers.me/#/post/2023-12-24-what-makes-a-good-automation-test
 [react-testing-strategy-best-practice]: https://ethan.thoughtworkers.me/#/post/2023-12-25-react-testing-strategy-and-best-practices
 
-
-
 [Modularizing React Applications with Established UI Patterns]: https://martinfowler.com/articles/modularizing-react-apps.html
 [Presentational and Container Components]: https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
 [jimmy-vue-unit-testing-best-practice]: https://blog.jimmylv.info/2018-09-19-vue-application-unit-test-strategy-and-practice-01-introduction
-
-
-
-
 
 [react-context]: https://react.dev/learn/passing-data-deeply-with-context
 [redux]: https://redux.js.org/
@@ -735,8 +721,6 @@ export class ApiMocks implements ApiClient {
 [antd]: https://ant.design/
 [pretty-dom]: https://testing-library.com/docs/dom-testing-library/api-debugging/#prettydom
 [rtl-debugging]: https://testing-library.com/docs/dom-testing-library/api-debugging/
-
-
 
 [clear-architecture-is-a-prior-input-for-testing-strategy]: https://zhuanlan.zhihu.com/p/560276012
 [why-layering-is-important-method-of-architecting]: https://w.i.p.com
