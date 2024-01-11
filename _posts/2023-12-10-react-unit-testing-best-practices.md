@@ -694,10 +694,10 @@ export class ApiMocks implements ApiClient {
 * 🚧润色一下React应用架构图。一些建议：
   * 用颜色来区分层、区分组件。这样有个好处是，代码片段可以同样上色来体现“这段代码属于这个组件”
   * Mermaid有些font-awesome的icon，看看能不能用上
-* 🚧更新一下目录层级，有些三级标题一并弄进去
 * 🚧问问邱大师：MF博客中代码片段高亮的部分是怎么做到的？
 * 🚧[Modularizing React Applications with Established UI Patterns][]说的view-model-data三层架构中，model和data有啥区别？model和view model有啥区别？
 * 🚧
+* ✅更新一下目录层级，有些三级标题一并弄进去
 
 ¹：React Hooks的出现使得这种较早时期的人为划分变得不必要了。详见[Presentational and Container Components][]。
 ²：正如“Mock API返回”一节所述，也可以不包含API层④。
