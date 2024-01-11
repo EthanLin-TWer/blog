@@ -728,6 +728,7 @@ export class ApiMocks implements ApiClient {
 * 🚧medium 润色一下React应用架构图：Mermaid有些font-awesome的icon，看看能不能用上
 * 🚧medium 润色一下React应用架构图：这颜色还得再精心调配下……
 * 🚧medium 把参考文章读一遍
+* 🚧medium 搞个TW特供版（有些内部有共识的内容可以简化）然后投稿博客大赛
 * 🚧[Modularizing React Applications with Established UI Patterns][]说的view-model-data三层架构中，model和data有啥区别？model和view model有啥区别？
 * 🚧问问邱大师：MF博客中代码片段高亮的部分是怎么做到的？
 * 🚧
