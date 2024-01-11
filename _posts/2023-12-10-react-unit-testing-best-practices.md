@@ -142,12 +142,6 @@ flowchart TB
   subgraph app ["React Application (Frontend)"];
     direction TB
 
-    subgraph shared_layer ["⑤ <b>Shared</b> layer (Accessible by all layers)"];
-      direction TB
-      utils
-      constants
-    end
-
     subgraph stateful_components ["① <b>Stateful Components</b>"]
       route_components
       business_components
@@ -157,15 +151,15 @@ flowchart TB
     route_components --> business_components
     business_components --> ui_components
     route_components -.-> ui_components
-    
+ 
     subgraph hooks_layer ["③ <b>Hooks</b> layer"];
       direction TB
+      global_store
       api_hooks
       shared_hooks
       analytics_hooks
       dom_hooks
       etc_hooks
-        global_store
 
       shared_hooks --> api_hooks
       shared_hooks -.-> dom_hooks
@@ -174,8 +168,14 @@ flowchart TB
       %% mermaid will mess up the whole chart when uncommenting following, but it's required
       %% api_hooks -. ResponseDTO .-> shared_hooks
     end
-    stateful_components ---> shared_hooks
-          
+    stateful_components ----> shared_hooks
+
+    subgraph shared_layer ["⑤ <b>Shared</b> layer (Accessible by all layers)"];
+      direction TB
+      utils
+      constants
+    end
+
     subgraph api_layer ["④ <b>API</b> layer"];
       api_client
     end
