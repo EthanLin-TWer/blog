@@ -719,14 +719,15 @@ export class ApiMocks implements ApiClient {
   * 补充场景一的实现代码、更正测试代码
   * 补充场景二的实现代码、更正测试代码
   * 补充场景三的实现代码、更正测试代码
-* 🚧补一个例子的UI动图
-* 🚧补一个写page tests开发者体验爆表的动图
-* 🚧添加一下“无效测试”的例子。还可以从`FFF.test.tsx`里找找例子
-* 🚧把Q&A部分回答糊完
+* 🚧high 补一个例子的UI动图
+* 🚧high 补一个写page tests开发者体验爆表的动图
+* 🚧high 添加一下“无效测试”的例子。还可以从`FFF.test.tsx`里找找例子
+* 🚧high 把Q&A部分回答糊完
   * 简化下与上篇文章差异的那个回答
   * 部分（或全部）Q&A其实是可以变成ToC的一部分的，都是很典型的问题
-* 🚧润色一下React应用架构图：Mermaid有些font-awesome的icon，看看能不能用上
-* 🚧把参考文章读一遍
+* 🚧medium 润色一下React应用架构图：Mermaid有些font-awesome的icon，看看能不能用上
+* 🚧medium 润色一下React应用架构图：这颜色还得再精心调配下……
+* 🚧medium 把参考文章读一遍
 * 🚧[Modularizing React Applications with Established UI Patterns][]说的view-model-data三层架构中，model和data有啥区别？model和view model有啥区别？
 * 🚧问问邱大师：MF博客中代码片段高亮的部分是怎么做到的？
 * 🚧
