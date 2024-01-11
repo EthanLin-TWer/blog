@@ -121,9 +121,22 @@ flowchart TB
   bff("⑪ <b>Application Bff / Backend</b><br/><br/>Java, Kotlin, NodeJS, ..")
   deps_dom_apis(<b>Dependency: DOM APIs</b><br/><br/>window events, etc.)
   deps_analytics(<b>Dependency: Analytics Scripts</b><br/><br/>Sentry, Adobe Analytics, ..)
-        
-  %% styles
+
+  %% styles - #D8FAC8 #A5EA88 #F1CFFE #B3E5FA #FCD6B6
   style route_components stroke-dasharray: 6 6
+  style app fill:#B3E5FA
+  style business_components fill:#A5EA88
+  style route_components fill:#A5EA88
+  style ui_components fill:#D8FAC8
+  
+  style shared_hooks fill:#F1CFFE
+  style api_hooks fill:#F1CFFE
+  style dom_hooks fill:#F1CFFE
+  style analytics_hooks fill:#F1CFFE
+  style global_store fill:#F1CFFE
+  style etc_hooks fill:#F1CFFE
+  
+  style api_client fill:#FCD6B6
 
   %% start: components & connections
   subgraph app ["React Application (Frontend)"];
@@ -204,7 +217,7 @@ flowchart TB
 
 为了解决这些痛点，在这版新的测试策略中，我们的新建议是：**不要隔离Hooks层（③）对组件层（⑦或②）中的单一组件做单元测试。应该从一个相对顶层的业务组件入手（建议是⑥的路由/页面组件，如有），仅mock掉与HTTP/API交互的部分（④或⑪），将其他内部实现（③的Hooks层、⑤的共享层等）纳入测试范围**。这意味着，涉及领域逻辑的Hooks（③/⑧）、全局数据管理的Hooks⑩，甚至业务组件⑦中的逻辑都会被视为内部实现，不对其进行mock处理。
 
-**也即是说，对组件的单元测试，从顶层的业务组件⑥或⑦开始，然后覆盖整个应用进程内所有的层级和组件——也即是上图🚧x色框内的部分²**。
+**也即是说，对组件的单元测试，从顶层的业务组件⑥或⑦开始，然后覆盖整个应用进程内所有的层级和组件——也即是上图蓝色框中的部分²**。
 
 ## 测试架构、代码落地
 
@@ -599,7 +612,7 @@ export class ApiMocks implements ApiClient {
 
 最后，让我们来回顾一下本文推荐的测试策略及其内容。
 
-对于一个常见的React应用架构，我们提倡React组件应该通过贯穿整个应用的单元测试来进行测试（架构图中的🚧x色部分²），除了位于应用边界的后端或Bff（组件⑪或组件④）、DOM API等三方依赖之外，不应该mock其他内部实现细节。诸如Redux、单独的React Component、React Hooks这类技术实现，我们都视为实现细节，它们都不应该被mock。这样做，是为了服务**自动化测试应能有效支撑日常重构**的根本目的。
+对于一个常见的React应用架构，我们提倡React组件应该通过贯穿整个应用的单元测试来进行测试（架构图中的蓝色部分²），除了位于应用边界的后端或Bff（组件⑪或组件④）、DOM API等三方依赖之外，不应该mock其他内部实现细节。诸如Redux、单独的React Component、React Hooks这类技术实现，我们都视为实现细节，它们都不应该被mock。这样做，是为了服务**自动化测试应能有效支撑日常重构**的根本目的。
 
 这样做能带来如下的好处：
 
@@ -702,26 +715,24 @@ export class ApiMocks implements ApiClient {
 
 ## TODOLIST
 
-* 🚧润色一下React应用架构图。一些建议：
-  * 用颜色来区分层、区分组件。这样有个好处是，代码片段可以同样上色来体现“这段代码属于这个组件”
-    * high 确定一下用的色盘
-  * Mermaid有些font-awesome的icon，看看能不能用上
 * 🚧high 把demo代码糊完
   * 补充场景一的实现代码、更正测试代码
   * 补充场景二的实现代码、更正测试代码
   * 补充场景三的实现代码、更正测试代码
-* 🚧[Modularizing React Applications with Established UI Patterns][]说的view-model-data三层架构中，model和data有啥区别？model和view model有啥区别？
 * 🚧补一个例子的UI动图
 * 🚧补一个写page tests开发者体验爆表的动图
 * 🚧添加一下“无效测试”的例子。还可以从`FFF.test.tsx`里找找例子
 * 🚧把Q&A部分回答糊完
   * 简化下与上篇文章差异的那个回答
   * 部分（或全部）Q&A其实是可以变成ToC的一部分的，都是很典型的问题
+* 🚧润色一下React应用架构图：Mermaid有些font-awesome的icon，看看能不能用上
 * 🚧把参考文章读一遍
+* 🚧[Modularizing React Applications with Established UI Patterns][]说的view-model-data三层架构中，model和data有啥区别？model和view model有啥区别？
 * 🚧问问邱大师：MF博客中代码片段高亮的部分是怎么做到的？
 * 🚧
 * ✅更新一下目录层级，有些三级标题一并弄进去
 * ✅讲一下黑马里关于发现问题的测试和定位问题的测试。
+* ✅润色一下React应用架构图：用颜色来区分层、区分组件。这样有个好处是，代码片段可以同样上色来体现“这段代码属于这个组件”
 
 ¹：React Hooks的出现使得这种较早时期的人为划分变得不必要了。详见[Presentational and Container Components][]。
 ²：正如“Mock API返回”一节所述，也可以不包含API层④。
