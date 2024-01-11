@@ -736,6 +736,7 @@ export class ApiMocks implements ApiClient {
 * ✅润色一下React应用架构图：用颜色来区分层、区分组件。这样有个好处是，代码片段可以同样上色来体现“这段代码属于这个组件”
 
 ¹：React Hooks的出现使得这种较早时期的人为划分变得不必要了。详见[Presentational and Container Components][]。
+
 ²：正如“Mock API返回”一节所述，也可以不包含API层④。
 
 [react-unit-testing-best-practices]: https://ethan.thoughtworkers.me/#/post/2018-07-13-react-unit-testing-strategy
