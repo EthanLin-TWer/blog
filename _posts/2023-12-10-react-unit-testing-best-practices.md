@@ -719,14 +719,16 @@ export class ApiMocks implements ApiClient {
   * 补充场景一的实现代码、更正测试代码
   * 补充场景二的实现代码、更正测试代码
   * 补充场景三的实现代码、更正测试代码
+* 🚧high 最后补一个测试出错时的错误信息
+* 🚧high 补一个最后所有测试用例跑完全绿的图
 * 🚧high 补一个例子的UI动图
 * 🚧high 补一个写page tests开发者体验爆表的动图
 * 🚧high 添加一下“无效测试”的例子。还可以从`FFF.test.tsx`里找找例子
 * 🚧high 把Q&A部分回答糊完
   * 简化下与上篇文章差异的那个回答
   * 部分（或全部）Q&A其实是可以变成ToC的一部分的，都是很典型的问题
-* 🚧medium 润色一下React应用架构图：Mermaid有些font-awesome的icon，看看能不能用上
 * 🚧medium 润色一下React应用架构图：这颜色还得再精心调配下……
+* 🚧medium 润色一下React应用架构图：Mermaid有些font-awesome的icon，看看能不能用上
 * 🚧medium 把参考文章读一遍
 * 🚧medium 搞个TW特供版（有些内部有共识的内容可以简化）然后投稿博客大赛和洞见
 * 🚧[Modularizing React Applications with Established UI Patterns][]说的一些内容待讨论：
