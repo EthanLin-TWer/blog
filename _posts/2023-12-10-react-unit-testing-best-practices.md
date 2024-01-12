@@ -720,7 +720,7 @@ export class ApiMocks implements ApiClient {
   * 补充场景二的实现代码、更正测试代码
   * 补充场景三的实现代码、更正测试代码
 * 🚧high 最后补一个测试出错时的错误信息
-* 🚧high 补一个最后所有测试用例跑完全绿的图
+* 🚧high 补一个最后所有测试用例跑完全绿的图+覆盖率图！必须给它100%。
 * 🚧high 补一个例子的UI动图
 * 🚧high 补一个写page tests开发者体验爆表的动图
 * 🚧high 添加一下“无效测试”的例子。还可以从`FFF.test.tsx`里找找例子
