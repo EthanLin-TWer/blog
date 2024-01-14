@@ -1,11 +1,17 @@
 ---
 title: React系列（二）：单元测试最佳实践
-tags: react unit-test tdd rtl react-testing-library jest design-system
+tags: react unit-test tdd frontend-tdd rtl react-testing-library jest design-system
 ---
 
 实践证明，在前端以细粒度的UI组件为单元做测试不能很好地支撑重构和需求变化。本文将介绍一种更能支撑前端TDD、能更好地支撑重构和开发的单元测试方案。
 
 这套经验曾支撑笔者经历的一个年交易流水十亿美元级、历时五年+的金融系统的成功运营和维护演进。
+
+> 评论请暂时移步[Github Issues](https://github.com/EthanLin-TWer/ethanlin-twer.github.io/issues/230)。本博客留言功能还未糊。
+>
+> 包含**示例故事卡完整代码和测试实现**的代码仓库请见：https://github.com/EthanLin-TWer/testing-strategy-example
+> 
+> 仅含**架构和UT测试最佳实践**的代码仓库请见：https://github.com/EthanLin-TWer/react-starter
 
 ## 太长不读——本文中心观点及大纲
 
@@ -13,7 +19,7 @@ tags: react unit-test tdd rtl react-testing-library jest design-system
 * 在前端（React）领域，你所做的自动化测试不一定是有效的。
 * 有效的自动化测试就是能够有效支撑重构的测试。
 * 测试策略来源于软件架构。本文介绍了一种常见且有效的React应用架构。
-* 有效的测试策略，只应该mock API，而不应该mock组件常见内部实现，如React hooks、Redux、React组件等。
+* 有效的测试策略，只应该mock API（层），而不应该mock组件常见内部实现，如React hooks、Redux、React组件等。
 * 测试本身也有分层。本文介绍了一种推荐的分层实践：API DSL、business tester、component tester。
 * 为了实现有效支撑重构这个根本目标，测试引入的分层会带来一些额外的（一次性及短期）成本。
 * 承担这个成本是值得的。一切都是为了让你的测试能够真正支撑重构、有效留存业务上下文，真正助力研发效能。
