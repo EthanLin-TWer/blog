@@ -253,8 +253,9 @@ flowchart TB
 > * **当**用户修改入住时间时，**应该**能看到系统帮用户自动提示入住天数。例子：2024-01-01 - 2024-01-03将显示“2晚”
 >
 > AC3. **基于**AC1或AC2，**当**用户点击“搜索”按钮时，**应该**能在查询成功后看到符合条件的可选酒店列表。
-> * 酒店列表应该包含如下信息：当日最低价、点评数、用户评分、图片、星级。
+> * 酒店列表应该包含如下信息：酒店名、地址、图片、距离、所有房型最低价、点评数、用户评分、星级等。
 > * 点评数小于100时统一显示“≤100条评论”。
+> * 点评数大于1000时应显示千分位分隔符（逗号），如“1,478条评论”。
 
 > 🚧补一个UI动图
 
@@ -262,129 +263,151 @@ flowchart TB
 
 ### 场景（一）：静态页面测试
 
-AC1是最简单的，无非一个静态的表单。考虑到“目的地城市”信息在未来大概会扩展并从后端获取（以及本文展开需要😂），我们把它放到一个hooks中，将来接入API时可以只替换hook这部分的逻辑。最后的成品代码应该大致如下所示：
+AC1是最简单的，就是实现一个静态的表单。考虑到“目的地城市”信息在未来大概会扩展并从后端获取（以及本文展开需要😂），我们把它放到一个hooks中，将来接入API时可以只替换hook这部分的逻辑。最后的成品代码应该大致如下所示：
 
-> 🚧贴一下实现代码
+```text
+.
+├── business-components
+│   └── hotel-search/HotelSearchComponent.tsx
+├── ui-components
+│   ├── Counter/Counter.tsx
+│   ├── DateRangePicker/DateRangePicker.tsx
+│   └── SearchDropdown/SearchDropdown.tsx
+├── hooks
+│   └── api
+│       ├── dto
+│       │   └── city.dto.ts
+│       └── useHotels.ts
+├── api-client
+│   ├── hotels
+│   │   └── response.types.ts
+│   └── index.ts
+├── routes
+│   ├── __tests__
+│   └── HotelSearch.tsx
+└── app-routes.tsx
+```
 
-按照我们在“React UI组件测试最佳实践”一节中介绍的测试策略，我们的测试从作为路由入口的`SearchPage`开始。整个成品测试最后会长这个样子：
-
+*business-components/hotel-search/HotelSearchComponent.tsx*
 ```tsx
-describe('search hotels', () => {
-  const searchPageDSL : SearchPageDSL = new SearchPageDSL()
+export const HotelSearchComponent = () => {
+  const recommendationCities = useRecommendationCities()
 
-  describe('search entry - home page', () => {
-    beforeEach(() => {
-      // given ①
-      searchPageDSL.mockRecommendationCities([
-        { id: 'BJ', name: '北京', }, { id: 'SH', name: '上海', },
-        { id: 'GZ', name: '广州', }, { id: 'SZ', name: '深圳', },
-        { id: 'CD', name: '成都', }, { id: 'CQ', name: '重庆', },
-        { id: 'HZ', name: '杭州', }, { id: 'WH', name: '武汉', },
-      ])
-    })
+  return (
+    <div>
+      <SearchDropdown label="目的地/酒店名称" options={recommendationCities} testId="destination" />
 
-    afterEach(() => {
-      searchPageDSL.reset()
-    })
+      <DateRangePicker startLabel="入住时间" endLabel="退房时间" testId="checkin-period" />
+      <Counter label="入住人数" min={1} defaultValue={1} testId="occupancy" />
+      <Button variant="contained" data-testid="search">
+        Search
+      </Button>
+    </div>
+  )
+}
+```
 
-    it('should render a search box that supports searching available hotels by destination, check-in period and number of occupancy', () => {
-      // when ②
-      render(<SearchPage />) // SearchPage fetches data on its' own
-      const destinationField: SearchDropdownTester = getDestinationField()
+Hooks和DTO的转换，目前还没什么逻辑，我们暂时不深入细看。按照我们在“React UI组件测试最佳实践”一节中介绍的测试策略，我们的测试从作为路由入口的`HotelSearch`开始。整个成品测试最后会长这个样子：
 
-      // then ③
-      expect(destinationField.getLabel()).toBe('目的地/酒店名称')
-      expect(destinationField.getOptions()).toEqual([
-        '北京', '上海', '广州', '深圳', '成都', '重庆', '杭州', '武汉'
-      ])
+*routes/__tests__/HotelSearch.spec.tsx*
+```tsx
+...
+import { getDestinationField, ... } from './business-testers/hotel-search.tester'
+import { SearchDropdownTester } from './component-testers/search-dropdown.tester'
 
-      expect(getCheckinDateField().getLabel()).toBe('入住时间')
-      expect(getCheckoutDateField().getLabel()).toBe('退房时间')
+describe('search hotels - entry', () => {
+  it('should render a search box that supports searching available hotels by destination, check-in period and number of occupancy', async () => {
+    render(<HotelSearch />)
+    const destinationField: SearchDropdownTester = getDestinationField()
 
-      expect(getOccupancyField().getLabel()).toBe('住客人数')
-      
-      expect(getSearchButton().isPresent()).toBeTruthy()
-    });
-  });
+    expect(destinationField.getLabel()).toBe('目的地/酒店名称')
+    expect(await destinationField.getOptions()).toEqual([
+      '北京', '上海', '广州', '深圳', '成都', '重庆', '杭州', '武汉'
+    ])
+
+    expect(getCheckinPeriodField().getStartLabel()).toBe('入住时间')
+    expect(getCheckinPeriodField().getEndLabel()).toBe('退房时间')
+
+    expect(getOccupancyField().getLabel()).toBe('入住人数')
+    expect(getSearchButton().getValue()).toBe('Search')
+  })
 })
 ```
 
 怎么样，第一感有没有觉得这个测试相当可读、基本就是需求（AC1）和UI的代码化表达？这是我想表达的好测试的重要一点：**表达力强**。这个强表达力，一方面在于充分利用好describe/it描述等文本工具，一方面也在于我们精心分层并封装的business tester / component tester极富表达力，使我们得以尽量按照需求和UI的描述方式来进行断言。
 
-下面让我们展开business tester和component tester这部分的代码细节，来看看在上面这个测试中被封装的部分。**Business tester**很简单（也就是when②的部分），其实就是对component tester的简单封装。
+下面让我们展开business tester和component tester这部分的代码细节，来看看在上面这个测试中被封装的部分。**Business tester**很简单，其实就是对component tester的简单封装。
 
+*routes/__tests__/business-testers/hotel-search.tester.ts*
 ```ts
-import TestIds from '@src/constants/testIds'
+import { CounterTester, findCounter } from '../component-testers/counter.tester'
+...
 
 export const getDestinationField = (): SearchDropdownTester => {
-  return findSearchDropdown(TestIds.search.destination)
+  return findSearchDropdown('destination')
 }
 
-export const getCheckinDateField = (): DatePickerTester => {
-  return findDatePicker(TestIds.search.checkinDate)
-}
-
-export const getCheckoutDateField = (): DatePickerTester => {
-  return findDatePicker(TestIds.search.checkoutDate)
+export const getCheckinPeriodField = (): DateRangePickerTester => {
+  return findDateRangePicker('checkin-period')
 }
 
 export const getOccupancyField = (): CounterTester => {
-  return findCounter(TestIds.search.occupancy)
+  return findCounter('occupancy')
+}
+
+export const getSearchButton = () => {
+  return findButton('search')
 }
 ```
 
 这一层的主要作用是为上层测试提供一个业务视角的API，并屏蔽test id、tester等细节，提升上层测试的抽象层次以及可读性。同时，这一层的存在也使得编写上层测试变得更加轻松了：你只需要将待测试的业务点“翻译”成英文，然后一路通过TypeScript的类型提示自动输入到底就行，极大提升了开发者体验。
 
-<贴一张开发者体验的动图。>
+> 🚧贴一张开发者体验的动图。
 
-**Component Tester**（也就是then③的部分），顾名思义封装的就是一个UI组件（component）。注意我们这里说的UI组件是指通用组件库或设计系统（比如MUI、AntD等）的UI组件，而不是业务上的“纯UI”组件，因为通用的UI组件库才可能提供足够通用的`Tester`接口。下面以上面business tester中用到的`SearchDropdownTester`为例子来看看这层的代码。
+**Component Tester**，顾名思义封装的就是一个UI组件（component）。注意我们这里说的UI组件是指通用组件库或设计系统（比如MUI、AntD等）的UI组件，而不是业务上的“纯UI”组件，因为通用的UI组件库才可能提供足够通用的`Tester`接口。下面以上面business tester中用到的`SearchDropdownTester`为例子来看看这层的代码。
 
+*routes/__tests__/component-testers/search-dropdown.tester.ts*
 ```ts
-import screen from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
-import { findFirstChildren } from './reusable-testing-utils'
+...
+import { findFirstChildren } from './_base.tester'
 
-interface SearchDropdownTester {
-  getLabel(): string;
-  getValue(): string;
-  getDisplayText(): string;
-  getOptions(): string[];
-
-  isPresent(): boolean;
-  isEnabled(): boolean;
+export interface SearchDropdownTester {
+  getLabel(): string
+  getValue(): string
+  getOptions(): Promise<string[]>
 }
 
 export const findSearchDropdown = (testId: string): SearchDropdownTester => {
   // implementation details
   const getElement = () => screen.getByTestId(testId)
-  const getDropdownWrapperElement = () => findFirstChildren(getElement(), 'div')
+  const getDropdownWrapperElement = () => findFirstChildren(getElement(), 'div')!
   const clickDropdown = async () => {
     await userEvent.click(getDropdownWrapperElement())
   }
 
   // public interfaces
-  const getLabel = () => screen.getByTestId(`${testId}-dropdown-label`).textContent
-  const getValue = () => screen.getByTestId(`${testId}-dropdown-input`).getAttribute('value')
-  const getDisplayText = () => { return /* ... */ }
-  const getOptions = () => {
-    await clickDropdown() // to open the dropdown so the options/dropdown would appear in DOM
-    const options = screen.getAllByRole('option').map(option => option.textContext)
-    await clickDropdown() // to close the dropdown and resume dropdown component to original state
+  const getLabel = () => screen.getByTestId(`${testId}-label`).textContent!
+  const getValue = () => screen.getByTestId(`${testId}-input`).getAttribute('value')!
+  const getOptions = async (): Promise<string[]> => {
+    await clickDropdown() // to open the dropdown so the options would appear in DOM
+    const options = screen.getAllByRole('option').map(option => option.textContent || '')
+    await clickDropdown() // to close the dropdown and resume dropdown to original state
     return options
   }
-
-  const isPresent = () => { return /* ... */ }
-  const isEnabled = () => screen.getByTestId(`${testId}-input`).getAttribute('disabled') === null
   
-  return { getLabel, getValue, getDisplayText, getOptions, isPresent, isEnabled }
+  return { getLabel, getValue, getOptions }
 }
 ```
 
-从上面的代码不难看出，这一层封装了许多操作UI的细节（比如上图的`getLabel()`/`getOption()`方法、以及我们是通过RTL这样的库来操作DOM等），然后对外暴露一个非常通用的接口以查询组件的状态（比如获取该搜索下拉框的label值、展示文本值、禁用/启用状态等），而非暴露许多实现细节（比如读者可能留意到了`getElement()`这样的方法并没有被作为Tester接口暴露出去），这也是设计原则中“接口优于实现”的体现。这样做可以让上层的调用变得非常简单、且无需关注过多的无关的细节（对比一下“无效的自动化测试”一节中的样例），进而让编写测试的心智负担大大降低，并大幅度地提升开发体验。
+从上面的代码不难看出，这一层封装了许多操作UI的细节（比如上图的`getLabel()`方法实现、以及我们是通过RTL这样的库来操作DOM等），然后对外暴露一个非常通用的接口以查询组件的状态（比如获取该搜索下拉框的label值、所有可选值等），而非暴露许多实现细节（比如读者可能留意到了`getElement()`这样的方法并没有被作为Tester接口暴露出去），这也是设计原则中“接口优于实现”的体现。这样做可以让上层的调用变得非常简单、且无需关注过多的无关的细节（对比一下“无效的自动化测试”一节中的样例），进而让编写测试的心智负担大大降低，并大幅度地提升开发体验。
 
-这一层主要有两个作用。第一是，它同样地为上层提供一个UI视角的API。比如，相比于直接在测试中操作React testing library去找到下拉框的wrapper并点击、选中所有role是option的元素并抽取文本……等等操作，上层测试得以用`.getOptions()`这样简单的API就可以拿到测试需要的数据，既大大提升了测试可读性，也使得这些行为很容易可以在测试之间被复用（再次对比一下“无效的自动化测试”一节中的样例）。第二是，这一层还天然地隔离了UI库和selector库的变化：如果未来应用更换了设计系统或UI组件库，那么只有这一层的tester需要更新，测试的其他层次并不会受到影响。同样地，如果未来的某一天出现了RTL更好的selector工具，那么相关的变化也只会被限制在这一层，大大提升了测试架构的稳定性和扩展性。真实的事迹，就发生在笔者过去的金融项目上：当时我们封装的这一层component tester是2019年之前，RTL尚未面世，项目上这一层是使用jQuery实现的。而在2023年的今天，这一层的存在就能让我们以更小的代价迁移到更好的RTL上。
+这一层主要有两个作用。
 
-至此，一个简单的组件测试雏形就出来了。麻雀虽小，但是五脏聚全，它遵循的是如下的分层架构：
+首先，它同样地为上层提供一个UI视角的API。比如，相比于直接在测试中操作React testing library去找到下拉框的wrapper并点击、选中所有role是option的元素并抽取文本……等等操作，上层测试得以用`.getOptions()`这样简单的API就可以拿到测试需要的数据，既大大提升了测试可读性，也使得这些行为很容易可以在测试之间被复用（再次对比一下“无效的自动化测试”一节中的样例）。
+
+其次，这一层还天然地隔离了UI库和selector库的变化：如果未来应用更换了设计系统或UI组件库，那么只有这一层的tester需要更新，测试的其他层次并不会受到影响。同样地，如果未来的某一天出现了RTL更好的selector工具，那么相关的变化也只会被限制在这一层，大大提升了测试架构的稳定性和扩展性。真实的事迹，就发生在笔者过去的金融项目上：当时我们封装的这一层component tester是2019年之前，RTL尚未面世，项目上这一层是使用jQuery实现的。而在2023年的今天，这一层的存在就能让我们以更小的代价迁移到更好的RTL上。
+
+至此，一个简单的组件测试雏形就出来了。麻雀虽小，但是五脏聚全，我们能看到它遵循的分层架构符合下图：
 
 ```mermaid
 flowchart TB
@@ -394,43 +417,6 @@ flowchart TB
         
   page_tests --> business_testers
   business_testers --> testers
-```
-
-正如我们所提到的，最终component tester可以被不同的上层所用。当应用扩展（业务/页面增加）时，这个架构大概率会像这样去演进：
-
-```mermaid
-flowchart TB
-  subgraph page_tests ["<b>Page Tests</b>"]; 
-    page_1_tests("Hotel Search Page Tests")
-    page_2_tests("Hotel Details Page Tests")
-    page_3_tests("Flight Search Page Tests")
-    page_4_tests("Flight Details Page Tests")
-    page_5_tests("...")
-  end
-  
-  subgraph business_testers ["<b>Business Testers</b>"]; 
-    business_1_testers("Hotel Search Testers")
-    business_2_testers("Hotel Details Testers")
-    business_3_testers("Flight Search Testers")
-    business_4_testers("Flight Details Testers")
-    business_5_testers("...")
-  end
-  
-  subgraph testers ["<b>Component Testers</b>"];
-    direction TB
-    text_input_tester("TextInput tester")
-    text_search_dropdown_tester("SearchDropdown tester")
-    text_date_picker_tester("DatePicker tester")
-    text_counter_tester("Counter tester")
-    text_button_tester("Button tester")
-    text_x_tester("...")
-  end
-
-  page_1_tests --> business_1_testers --> testers
-  page_2_tests --> business_2_testers --> testers
-  page_3_tests --> business_3_testers --> testers
-  page_4_tests --> business_4_testers --> testers
-  page_5_tests --> business_5_testers --> testers
 ```
 
 #### 新增测试
@@ -614,6 +600,47 @@ export class ApiMocks implements ApiClient {
 
 **没有失败的测试不写代码/修bug。有需求则必有有效的自动化测试覆盖**。
 
+<details>
+  <summary>🚧演进的测试架构图。图未画完</summary>
+正如我们所提到的，最终component tester可以被不同的上层所用。当应用扩展（业务/页面增加）时，这个架构大概率会像这样去演进：
+
+```mermaid
+flowchart TB
+  subgraph page_tests ["<b>Page Tests</b>"]; 
+    page_1_tests("Hotel Search Page Tests")
+    page_2_tests("Hotel Details Page Tests")
+    page_3_tests("Flight Search Page Tests")
+    page_4_tests("Flight Details Page Tests")
+    page_5_tests("...")
+  end
+  
+  subgraph business_testers ["<b>Business Testers</b>"]; 
+    business_1_testers("Hotel Search Testers")
+    business_2_testers("Hotel Details Testers")
+    business_3_testers("Flight Search Testers")
+    business_4_testers("Flight Details Testers")
+    business_5_testers("...")
+  end
+  
+  subgraph testers ["<b>Component Testers</b>"];
+    direction TB
+    text_input_tester("TextInput tester")
+    text_search_dropdown_tester("SearchDropdown tester")
+    text_date_picker_tester("DatePicker tester")
+    text_counter_tester("Counter tester")
+    text_button_tester("Button tester")
+    text_x_tester("...")
+  end
+
+  page_1_tests --> business_1_testers --> testers
+  page_2_tests --> business_2_testers --> testers
+  page_3_tests --> business_3_testers --> testers
+  page_4_tests --> business_4_testers --> testers
+  page_5_tests --> business_5_testers --> testers
+```
+
+</details>
+
 ## 总结：好处与挑战
 
 最后，让我们来回顾一下本文推荐的测试策略及其内容。
@@ -722,7 +749,6 @@ export class ApiMocks implements ApiClient {
 ## TODOLIST
 
 * 🚧high 把demo代码糊完
-  * ✅补充场景一的实现代码、🚧更正测试代码
   * ✅补充场景二的实现代码、🚧更正测试代码
   * 🚧补充场景三的实现代码、🚧更正测试代码
   * 🚧场景三拆出来路由跳转和API调用两部分
@@ -748,6 +774,7 @@ export class ApiMocks implements ApiClient {
 * ✅更新一下目录层级，有些三级标题一并弄进去
 * ✅讲一下黑马里关于发现问题的测试和定位问题的测试。
 * ✅润色一下React应用架构图：用颜色来区分层、区分组件。这样有个好处是，代码片段可以同样上色来体现“这段代码属于这个组件”
+* ✅把demo代码糊完：补充场景一的实现代码、更正测试代码
 
 ¹：React Hooks的出现使得这种较早时期的人为划分变得不必要了。详见[Presentational and Container Components][]。
 
