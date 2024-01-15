@@ -7,7 +7,7 @@ tags: react unit-test tdd frontend-tdd rtl react-testing-library jest design-sys
 
 这套经验曾支撑笔者经历的一个年交易流水十亿美元级、历时五年+的金融系统的成功运营和维护演进。
 
-> 评论请暂时移步[Github Issues](https://github.com/EthanLin-TWer/ethanlin-twer.github.io/issues/230)。本博客留言功能还未糊。
+> 评论请暂时移步[Github Issues#230](https://github.com/EthanLin-TWer/ethanlin-twer.github.io/issues/230)。本博客留言功能还未糊。
 >
 > 包含**示例故事卡完整代码和测试实现**的代码仓库请见：https://github.com/EthanLin-TWer/testing-strategy-example
 > 
@@ -720,7 +720,6 @@ export class ApiMocks implements ApiClient {
 * [前端单元测试实战：React + Redux Testing Library](https://blog.jimmylv.info/2021-01-13-react-redux-testing-library/)：这里的可视化看有没有得抄的。
 
 ## TODOLIST
-
 
 * 🚧high 把demo代码糊完
   * ✅补充场景一的实现代码、🚧更正测试代码
