@@ -716,52 +716,197 @@ describe('search hotels', () => {
 
 ### 场景（四）：Mock API返回
 
-API位于前端架构的边界点，对我们的测试策略也有影响。因此，处理好这部分的设施，也是使我们的测试策略更加通用的关键。
+根据AC3的需求，用户通过query params跳转到酒店列表页后，我们应该首先发起一个API请求去加载满足条件的酒店列表，然后展示一些关键信息在页面上。这其中API是比较重要的部分，它位于前端架构的边界点，是测试策略需要处理的内容。
 
-功能实现部分，我们使用`useHotelSearch()`来完成API发送（例子里这一层使用了[React Query][react-query]），它封装了对API client（例子里这一层使用了[axios][]）的调用。拿到结果后，系统会展示一个结果列表。
+先来看一下功能实现部分：按照架构设计，我们使用`useSearchHotels()` hooks来完成API发送（例子里这一层使用了[React Query][react-query]），它封装了对API层（例子里这一层使用了[axios][]）的调用，并将API层返回的`Response`转换成为`DTO`。拿到结果后，系统会展示一个结果列表。
 
-> 🚧糊一下关键部分代码并展示。
+```text
+.
+├── __mocks__/axios.ts
+├── api-client
+│   ├── hotels
+│   │   ├── hotels.ts
+│   │   ├── request.types.ts
+│   │   └── response.types.ts
+│   └── index.ts
+├── business-components
+│   └── hotel-list/HotelListComponent.tsx
+├── hooks
+│   └── api
+│       ├── dto/hotel.dto.ts
+│       └── useHotels.ts
+├── routes
+│   ├── HotelList.tsx
+│   └── __tests__
+│       ├── HotelList.spec.tsx
+│       ├── api-mocks/
+│       ├── business-testers/
+│       └── fixtures/
+├── app-routes.tsx
+└── index.tsx
+```
 
-在这一层的测试中，我给出的例子中选择了mock架构图中的组件⑪、也即是Bff这一层，这是通过一些工具直接拦截HTTP请求实现的。原因是，进程外的Bff服务部分是不稳定的，我们不应该在单元测试中真实地调用它。正确的策略应该是：
+> 🚧这里的<h3>需要更新下最终版。
 
-1. 断言我们调用了正确的API（这可以以确保接口处的交互从前端这一侧是正确的）；
+*business-components/hotel-list/HotelListComponent.tsx*
+```tsx
+...
+export const HotelListComponent: FC = () => {
+  const [params] = useSearchParams()
+  
+  const { hotels, isLoading } = useSearchHotels({
+    city: params.get('city')!,
+    checkinDate: params.get('checkinDate')!,
+    checkoutDate: params.get('checkoutDate')!,
+    noOfOccupancies: Number(params.get('noOfOccupancies')!),
+  })
+  
+  return (
+    <div>
+      <h3>Hotel List</h3>
+      {hotels.map((hotel: HotelDTO) => (
+        <HotelItem key={hotel.id} hotel={hotel} />
+      ))}
+    </div>
+  )
+}
+```
+
+*hooks/api/useHotels.ts*
+```ts
+...
+export const useSearchHotels = (criteria: SearchCriteria) => {
+  const query = useQuery<HotelResponse>({
+    queryKey: ['hotels'],
+    queryFn: () => getHotels(criteria),
+  })
+  const { data, isLoading } = query
+  
+  const hotels = data?.data?.map(toHotelDto) || []
+  return { hotels, isLoading }
+}
+...
+```
+
+API层里头则是直接的转调API client。它的存在是为了将Http请求隔离出来，让这一层容易被替换、被mock。具体代码没啥特别的。
+
+*api-client/hotels/hotels.ts*
+```ts
+import ApiClient from '../index'
+import { SearchCriteria } from './request.types'
+import { HotelResponse } from './response.types'
+
+const apiClient = new ApiClient()
+export const getHotels = (hotelSearchCriteria: SearchCriteria): Promise<HotelResponse> => {
+  return apiClient.get('/hotels', hotelSearchCriteria)
+}
+```
+
+实现代码的主体就是以上这些。而在我们进入具体的测试代码之前，先让我们来想一想涉及API的测试应该怎么编写：是否应该真实地发起Http请求调用API？如果不是，单元测试的边界应该mock到哪里？测试应该测一些什么内容？
+
+首先来看第一个问题。回答很显然，我们不应该在单元测试中真实地发起Http请求调用。原因是进程外的Bff服务部分是不稳定的，它的响应response可能会变、影响测试结果和稳定性，而真实的网络请求也会拖慢测试的速度。对于API请求我们应该将其mock掉。
+
+第二个问题是关于mock的边界。在笔者的两个真实项目上（以及这个例子中），我们选择mock掉的是架构图中的组件⑪、也即是Bff这一层。这既可以像本例子那样通过mock Http Client——这里是[axios][]——实现，也可以通过一些工具（如[nock]、[msw]等）直接拦截HTTP请求实现。
+
+当然，这里选择mock到架构图中的组件④、也即是API层，我认为也是没问题的。因为理论上讲API layer也应该是非常薄的一层，从测试可读性、有效性和所需工时等方面应该差别都不大。对于笔者所在项目来说，由于应用一开始的架构分层并不是很清晰，因此测试直接也把④的API层拉通覆盖了，较为简单，利于遗留项目起步。但是在实践中，mock的边界我认为是可以在④和⑪之间视情况移动的。
+
+最后的一个问题是关于测试应该断言一些什么内容。当我们把Http请求作为一个边界的时候，我们就只关于我们与边界的交互，而不关心边界外（Bff服务）自身的行为。因此，正确的测试策略应该是：
+
+1. 断言我们调用了正确的API（这可以以确保接口处的交互从前端这一侧是正确的），并且：
 2. 断言在mock的服务端返回结果下，前端应该发生正确的行为（在这里指应该正确地渲染酒店搜索结果）。
 
-当然，这里选择mock到架构图中的组件④、API layer也是完全没问题的，因为理论上讲API layer也应该是非常薄的一层，从测试可读性、有效性和所需工时等方面应该差别都不大。对于笔者所在项目来说，由于应用一开始的架构分层并不是很清晰，因此测试直接也测试到了④API layer层拉通覆盖，较为简单。但是测试中这一层的边界我认为是可以在④和⑪之间视情况移动的。
+我们先来看第一个场景：API应该被正确的参数调用。这部分的测试是这样的：
 
-这部分的测试代码会是这样子：
-
-> 🚧这一层讲一下API Mock DSL、fixture组织、测试断言mock.toHaveBeenCalled()。
-
-*hotel-search.test.ts*
-
+*routes/\_\_tests\_\_/HotelList.spec.tsx*
 ```tsx
-describe('search hotels', () => {
-  describe('search entry - home page', () => {
-    ...
-    
-    it('should render a search box ...', () => { ... });
+import axios from 'axios'
+...
+import { hotelMocks } from '../../mocks/responses/hotel.mock'
+import { getHotelList } from './business-testers/hotel-list.tester'
+import { HotelListPageDSL } from './api-mocks/hotel-list.dsl'
+import { exampleTwoHotels, createHotel } from './fixtures/hotel.fixtures'
 
-    it('searching fields should have default values ...', () => { ... });
-    
-    it('user should be able to edit searching destination ...', async () => { ... });
-    
-    it('should call search API with correct parameters and render searching results as a list', async () => {
-      render(<SearchPage />)
-      
-      await getDestinationField().select('杭州')
-      
-      expect(wip).toBeCalledWith(
-        '/api/v1/hotels?destination=HZ&checkin-date=2024-01-01&checkout-date=2024-01-02&noOfOccupancies=1'
+describe('hotels list', () => {
+  let hotelListPageDSL: HotelListPageDSL
+  describe('search result', () => {
+    beforeEach(() => {
+      // given
+      hotelListPageDSL = new HotelListPageDSL()
+      hotelListPageDSL.mockGetHotelListOnce(exampleTwoHotels)
+    })
+
+    afterEach(() => {
+      hotelListPageDSL.reset()
+    })
+
+    it('should call search endpoint with correct parameters: city id, check dates in yyyy-MM-dd, and no. of occupancies', () => {
+      // when
+      renderHotelList(
+        <HotelList />,
+        '/hotels/list?city=HZ&checkinDate=2024-01-20&checkoutDate=2024-01-28&noOfOccupancies=2'
       )
-      expect(getHotelSearchResults().getHeaders()).toEqual([])
-      expect(getHotelSearchResults().getContent()).toEqual([
-        {},
-      ])
-    });
-  });
+
+      // then
+      expect(axios.get).toHaveBeenCalledWith('/hotels', {
+        params: {
+          checkinDate: '2024-01-20',
+          checkoutDate: '2024-01-28',
+          city: 'HZ',
+          noOfOccupancies: 2,
+        },
+      })
+    })
+  })
 })
 ```
+
+这个测试遵循的是given-when-then的结构，比较直观。在断言的部分，大家可以看到，测试的就是axios有没有按照我们的期望，拿正确的参数去调用`GET /hotels`API。[具体的mock方法可以在这个提交里看到]()，不过这些细节不是测试的重点，我们就先隐去了。
+
+同时，相比前面的测试，这里引入了几个新的元素，一个是`HotelListPageDSL`，一个是用于组织测试数据的fixture。fixture我们会在下一个场景里看到它的用处，这里读者暂时理解它就是把mock用的API数据从测试文件中抽走即可。我们来看一下`HotelListPageDSL`：
+
+*routes/\_\_tests\_\_/api-mocks/hotel-list.dsl.ts*
+```tsx
+import axios from 'axios'
+
+import { HotelResponse } from '../../../api-client/hotels/response.types'
+import { JestBasedDSL } from './base.dsl'
+
+export class HotelListPageDSL extends JestBasedDSL {
+  mockGetHotelListOnce(hotels: HotelResponse[]) {
+    axios.get = this.mockSuccessPagedResponseOnce(hotels, { itemsPerPage: 15 })
+  }
+}
+```
+
+*routes/\_\_tests\_\_/api-mocks/base.dsl.ts*
+```ts
+interface BaseDSL {
+  mockSuccessPagedResponseOnce<T>(pagedData: T[], config: { itemsPerPage: number }): any
+  reset(): void
+}
+
+export class JestBasedDSL implements BaseDSL {
+  reset() {
+    jest.clearAllMocks()
+  }
+
+  mockSuccessPagedResponseOnce<T>(arrayOfData: T[], config: { itemsPerPage: number }) {
+    return jest.fn().mockImplementationOnce(async () => ({
+      data: {
+        data: arrayOfData,
+        totalPages: Math.ceil(arrayOfData.length / config.itemsPerPage),
+        totalCounts: arrayOfData.length,
+      },
+    }))
+  }
+}
+```
+
+这套DSL的本质目的是封装，尤其在页面API调用较多的情况下，这样的写法能大大提升测试的清晰度。
+
+当然，这套DSL的写法还是有点瑕疵的，这里我就不细展开了，如果读者有所发现请私信我。
+
+> 🚧这一层讲一下API Mock DSL、fixture组织。
 
 API Mock DSL例子：
 
@@ -1005,6 +1150,8 @@ flowchart TB
 [react-hook-form]: https://react-hook-form.com/
 [react-query]: https://tanstack.com/query/v3/docs/react/overview
 [axios]: https://axios-http.com/docs/intro
+[nock]: https://github.com/nock/nock
+[msw]: https://mswjs.io
 [mui]: https://mui.com/
 [antd]: https://ant.design/
 [pretty-dom]: https://testing-library.com/docs/dom-testing-library/api-debugging/#prettydom
