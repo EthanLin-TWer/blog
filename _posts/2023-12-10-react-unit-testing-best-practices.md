@@ -9,7 +9,7 @@ tags: react unit-test tdd frontend-tdd rtl react-testing-library jest design-sys
 
 > 评论请暂时移步[Github Issues#230](https://github.com/EthanLin-TWer/ethanlin-twer.github.io/issues/230)。本博客留言功能还未糊。
 >
-> 包含**示例故事卡完整代码和测试实现**的代码仓库请见：https://github.com/EthanLin-TWer/testing-strategy-example
+> 包含**示例故事卡完整代码和测试实现**的代码仓库请见：https://github.com/EthanLin-TWer/react-testing-strategy
 > 
 > 仅含**架构和UT测试最佳实践**的代码仓库请见：https://github.com/EthanLin-TWer/react-starter
 
@@ -309,7 +309,7 @@ export const HotelSearchComponent = () => {
 
 Hooks和DTO的转换，目前还没什么逻辑，我们暂时不深入细看。按照我们在“React UI组件测试最佳实践”一节中介绍的测试策略，我们的测试从作为路由入口的`HotelSearch`开始。整个成品测试最后会长这个样子：
 
-*routes/__tests__/HotelSearch.spec.tsx*
+*routes/\_\_tests\_\_/HotelSearch.spec.tsx*
 ```tsx
 ...
 import { getDestinationField, ... } from './business-testers/hotel-search.tester'
@@ -317,7 +317,7 @@ import { SearchDropdownTester } from './component-testers/search-dropdown.tester
 
 describe('search hotels - entry', () => {
   it('should render a search box that supports searching available hotels by destination, check-in period and number of occupancy', async () => {
-    render(<HotelSearch />)
+    renderRouteComponent(<HotelSearch />)
     const destinationField: SearchDropdownTester = getDestinationField()
 
     expect(destinationField.getLabel()).toBe('目的地/酒店名称')
@@ -336,9 +336,11 @@ describe('search hotels - entry', () => {
 
 怎么样，第一感有没有觉得这个测试相当可读、基本就是需求（AC1）和UI的代码化表达？这是我想表达的好测试的重要一点：**表达力强**。这个强表达力，一方面在于充分利用好describe/it描述等文本工具，一方面也在于我们精心分层并封装的business tester / component tester极富表达力，使我们得以尽量按照需求和UI的描述方式来进行断言。
 
+`renderRouteComponent()`方法中封装了一些Provider，负责把react-router、React Hooks以及redux等设施，没啥重要的逻辑，这里就不细展开了。感兴趣的读者可以前往[代码仓库][github-code-examples]一睹源码。
+
 下面让我们展开business tester和component tester这部分的代码细节，来看看在上面这个测试中被封装的部分。**Business tester**很简单，其实就是对component tester的简单封装。
 
-*routes/__tests__/business-testers/hotel-search.tester.ts*
+*routes/\_\_tests\_\_/business-testers/hotel-search.tester.ts*
 ```ts
 import { CounterTester, findCounter } from '../component-testers/counter.tester'
 ...
@@ -366,14 +368,13 @@ export const getSearchButton = () => {
 
 **Component Tester**，顾名思义封装的就是一个UI组件（component）。注意我们这里说的UI组件是指通用组件库或设计系统（比如MUI、AntD等）的UI组件，而不是业务上的“纯UI”组件，因为通用的UI组件库才可能提供足够通用的`Tester`接口。下面以上面business tester中用到的`SearchDropdownTester`为例子来看看这层的代码。
 
-*routes/__tests__/component-testers/search-dropdown.tester.ts*
+*routes/\_\_tests\_\_/component-testers/search-dropdown.tester.ts*
 ```ts
 ...
 import { findFirstChildren } from './_base.tester'
 
 export interface SearchDropdownTester {
   getLabel(): string
-  getValue(): string
   getOptions(): Promise<string[]>
 }
 
@@ -387,7 +388,6 @@ export const findSearchDropdown = (testId: string): SearchDropdownTester => {
 
   // public interfaces
   const getLabel = () => screen.getByTestId(`${testId}-label`).textContent!
-  const getValue = () => screen.getByTestId(`${testId}-input`).getAttribute('value')!
   const getOptions = async (): Promise<string[]> => {
     await clickDropdown() // to open the dropdown so the options would appear in DOM
     const options = screen.getAllByRole('option').map(option => option.textContent || '')
@@ -395,7 +395,7 @@ export const findSearchDropdown = (testId: string): SearchDropdownTester => {
     return options
   }
   
-  return { getLabel, getValue, getOptions }
+  return { getLabel, getOptions }
 }
 ```
 
@@ -419,61 +419,165 @@ flowchart TB
   business_testers --> testers
 ```
 
+[完整的代码变更可以参考Github这几个提交](https://github.com/EthanLin-TWer/react-testing-strategy/compare/fd5ce087...7cb3d327)
+
 #### 新增测试
 
-同样，表单字段默认值的功能也很容易添加测试。我们在原来的测试上新增一个`it()`块即可——business tester和component tester都无需改动。通过把测试的粒度拆小，我们既能让测试描述更好地描述业务场景、留存业务上下文，也能让单个测试的重点突出、避免过长的测试，从而提高可读性和可维护性。这样当测试失败时，你就能马上知道被影响的业务场景是什么
+同样，表单字段默认值的功能也很容易添加测试。我们在原来的测试上新增一个`it()`块即可——business tester无需改动、component tester需要新增几个拿组件值的方法。
 
-*hotel-search.test.ts*
+*routes/\_\_tests\_\_/HotelSearch.spec.tsx*
 ```tsx
-describe('search hotels', () => {
-  describe('search entry - home page', () => {
-    ...
-    
-    it('should render a search box ...', () => { ... });
-    
-    it('searching fields should have default values so we give user an example, allowing them to navigate to the search result page asap', async () => {
-      render(<SearchPage />)
+describe('search hotels - entry', () => {
+  it('should render a search box ...', async () => { ... });
+  
+  it('searching fields should have default values (so we give user an example, allowing them to navigate to the search result page asap)', async () => {
+    renderRouteComponent(<HotelSearch />)
 
-      expect(getDestinationField().getDisplayText()).toBe('北京')
-      expect(getCheckinDateField().getSelectedDate()).toBe('2024-01-01')
-      expect(getCheckoutDateField().getSelectedDate()).toBe('2024-01-02')
-      expect(getOccupancyField().getValue()).toBe(1)
-    });
-  });
+    expect(getDestinationField().getValue()).toBe('北京')
+    expect(getCheckinPeriodField().getDisplayText()).toBe('2024/01/15 -- 1晚 -- 2024/01/16')
+    expect(getOccupancyField().getValue()).toBe(1)
+  })
 })
 ```
+
+*routes/\_\_tests\_\_/component-testers/search-dropdown.tester.ts*
+```ts
+...
+
+export interface SearchDropdownTester {
+  ...
+  getValue(): string
+}
+
+export const findSearchDropdown = (testId: string): SearchDropdownTester => {
+  ...
+  // public interfaces
+  ...
+  const getValue = () => screen.getByTestId(`${testId}-input`).getAttribute('value')!
+  
+  return { ..., getValue }
+}
+```
+
+这里，也希望读者留意一下测试的粒度。上面两个场景，我们把它们放到一个测试里面也不是不行，但是通过把测试的粒度拆小，我们既能让测试描述更好地描述业务场景、留存业务上下文，也能让单个测试的重点突出、避免过长的测试，从而提高可读性和可维护性。这样当测试失败时，你就能马上知道被影响的业务场景是什么。
 
 ### 场景（二）：用户交互
 
 AC1只是一个简单的静态页面，并不困难，接下来我们来看一个更常用的场景：用户与UI交互并产生一些修改。也就是AC2中，用户编辑入住信息的场景。
 
-在真实的业务场景中，我们往往需要存储一些中间状态——也就是这里的用户入住查询信息。在这个例子中，我们将暂时使用state来存储用户的修改。最终，我们的实现代码应该类似这样：
+在真实的业务场景中，我们往往需要存储一些中间状态——也就是这里的用户入住查询信息。在这个例子中，我们将暂时使用state来存储用户的修改。先从“用户可以编辑目的地”开始，最终，我们会改动到的主要实现将如下所示（[完整的代码变更可以参考Github这个提交](https://github.com/EthanLin-TWer/react-testing-strategy/commit/3c303f7be7edd46af12f651f703421363410039e)）：
 
+```text
+.
+├── business-components
+│   └── hotel-search/HotelSearchComponent.tsx
+├── ui-components
+│   └── SearchDropdown/SearchDropdown.tsx
+├── hooks
+│   └── api
+│       ├── dto
+│       │   └── city.dto.ts
+│       └── useHotels.ts
+├── routes
+│   └── __tests__/HotelSearch.spec.tsx
+└── app-routes.tsx
+```
+
+*business-components/hotel-search/HotelSearchComponent.tsx*
 ```tsx
-WIP
+export const HotelSearchComponent = () => {
+  const recommendationCities = useRecommendationCities()
+  
+  const defaultedAsChinaCapital = recommendationCities.findByName('北京')!
+  const [city, setCity] = useState(defaultedAsChinaCapital)
+  const onDestinationChanged = (cityName: string) => {
+    const cityFound = recommendationCities.findByName(cityName)
+    if (cityFound) {
+      setCity(cityFound!)
+    }
+  }
+
+  return (
+    ...
+      <SearchDropdown
+        label="目的地/酒店名称"
+        options={recommendationCities.getNames()}
+        defaultValue={defaultedAsChinaCapital.name}
+        onChange={onDestinationChanged}
+        testId="destination"
+      />
+    ...
+  )
+}
+```
+
+DTO这层做的事情，一是将API层返回的`Response`包装一下成为前端可用的`DTO`对象，二是可以将一些逻辑（这也得益于前面做的这层转换）。这些逻辑难以说是不是“领域逻辑”，有时候就是一些“普通”的逻辑（比如下面的从列表中根据名字找到`city`），但反正从面向对象的角度看非常适合放到这里。这一层我理解其实也是[Modularizing React Applications with Established UI Patterns这篇文章][Modularizing React Applications with Established UI Patterns]中提到的Domain层。
+
+这层其实也挺有意思的，但是限于篇幅及不是重点，这里暂且不进一步展开了。直接看代码：
+
+*hooks/api/dto/city.dto.ts*
+```ts
+import { CityResponse } from '../response/hotels.response'
+
+export interface CityDTO {
+  id: string
+  name: string
+}
+
+export interface CitiesDTO {
+  data: CityDTO[]
+  getNames(): string[]
+  findByName(name: string): CityDTO | undefined
+}
+
+// for entity DTO, spread the data (to support direct access) and add behaviors here
+const toCityDTO = (city: CityResponse): CityDTO => {
+  return { ...city }
+}
+
+// for collections DTO, expose `data` props for the collection DTO, and add behaviors here
+export const toCitiesDTO = (cities: CityResponse[]): CitiesDTO => {
+  const data: CityDTO[] = cities.map(toCityDTO)
+  const getNames = () => cities.map((city) => city.name)
+  const findByName = (name: string) => data.find((city) => city.name === name)
+
+  return { data, getNames, findByName }
+}
+```
+
+*hooks/api/useHotel.ts*
+```ts
+export const useRecommendationCities = (): CitiesDTO => {
+  const hardcodedCityForNow: CityResponse[] = [{ id: 'BJ', name: '北京' }, ...]
+  return toCitiesDTO(hardcodedCityForNow)
+}
 ```
 
 测试代码也非常简单，基本就是抄抄抄：business tester已经有了，不用新增；component tester层，`SearchDropdownTester`的`select()`方法似乎还未实现，需要实现一下。除此之外，就是“翻译”一下AC，直接抄一个`it()`块稍微修改，得到最终的测试（你也可以让ChatGPT来帮忙）：
 
-*SearchDropdownTester.ts*
-
+*routes/\_\_tests\_\_/component-testers/search-dropdown.tester.ts*
 ```typescript
-interface SearchDropdownTester {
+...
+import { findFirstChildren, parseText, parseValue } from './_base.tester'
+
+export interface SearchDropdownTester {
   ...
-  select(value: string): Promise<void>;
+  select(value: string): Promise<void>
 }
 
 export const findSearchDropdown = (testId: string): SearchDropdownTester => {
-  // implementation details
   ...
-  const clickDropdown = async () => {
-    await userEvent.click(getDropdownWrapperElement())
+  // public interfaces
+  const getLabel = () => parseText(findFirstChildren(getElement(), 'label')!)
+  const getValue = () => parseValue(getDropdownWrapperElement())
+  const getOptions = async (): Promise<string[]> => {
+    ...
+    const options = optionElements.map(parseText)
+    ...
   }
 
-  // public interfaces
-  ...
   const select = async (value: string) => {
-    await clickDropdown()
+    await userEvent.click(getDropdownWrapperElement())
     await userEvent.click(screen.getByRole('option', { name: value }))
   }
 
@@ -481,24 +585,27 @@ export const findSearchDropdown = (testId: string): SearchDropdownTester => {
 }
 ```
 
-*hotel-search.test.ts*
+细心的读者也许可以注意到，在这次修改里我们发现了一些重复的代码和模式，因此我们抽取了一些`parseText()`/`parseValue()`的方法来简化一下代码和操作。
 
+同时，相比前两个测试，我们新增第三个测试的时候并不需要重新编写许多的代码。通常来说，business tester这层只要编写过一遍就可以一直复用，而component tester这一层随着项目的沉淀也应该越来越完善，为不同的组件编写测试的时候应该会发现组件基本的API和操作都已经可以直接复用了。
+
+最后是最终的测试：
+
+*routes/\_\_tests\_\_/HotelSearch.spec.tsx*
 ```tsx
 describe('search hotels', () => {
-  describe('search entry - home page', () => {
-    ...
-    
-    it('should render a search box ...', () => { ... });
+  it('should render a search box ...', async () => { ... });
 
-    it('searching fields should have default values ...', () => { ... });
-    
-    it('user should be able to edit searching destination - I am indeed planning a travel to Hangzhou', async () => {
-      render(<SearchPage />)
+  it('searching fields should have default values ...', async () => { ... });
+
+  describe('editing', () => {
+    it('user should be able to edit searching destination', async () => {
+      renderRouteComponent(<HotelSearch />)
       await getDestinationField().select('杭州')
-      
-      expect(getDestinationField().getDisplayText()).toBe('杭州')
-    });
-  });
+
+      expect(getDestinationField().getValue()).toBe('杭州')
+    })
+  })
 })
 ```
 
@@ -506,11 +613,48 @@ describe('search hotels', () => {
 
 在实际项目中，状态存储往往更加复杂、更加精密。组件内部的状态往往用state就可以解决，随着项目的发展，某些数据往往因为需要更广的可见性而需要搬移到[Context][react-context]、全局状态管理（如[Redux][redux]、[Mobx][mobx]等解决方案）上，某些数据也可能需要通过表单方案（如[React Hook Form][react-hook-form]等）来管理。重要的是，使用了什么数据方案对测试来说并不重要——读者可以看见React `useState`的实现并没有体现在以上的测试中——因为它仅仅是对应功能/业务的一种*实现手段*。实现手段是可以随时间变化的，而它的变化不应该成为测试失败的理由，或者至少其影响应该被局限在一个非常小的层内。
 
-以上就是笔者在本文想提倡的，真正能够**支撑重构**的测试。读者可以尝试用其他的数据方案来实现、重构“用户编辑”的功能，看看测试是不是能很好地支撑重构，有效保护核心的功能点。
+以上就是笔者在本文想提倡的，真正能够**支撑重构**的测试。我故意把所有的状态逻辑都堆积在`HomeSearchComponent`里，让它看起来很混乱——感兴趣的读者可以尝试用其他更接近于实际项目的数据方案（比如引入表单、提炼custom hooks）来重构这块“用户编辑”的功能，看看这种测试是不是能很好地支撑重构，有效保护核心的功能点。
 
-此外，读者应该也可以注意到，相比前两个测试，我们新增第三个测试的时候并不需要重新编写许多的代码。通常来说，business tester这层只要编写过一遍就可以一直复用，而component tester这一层随着项目的沉淀也应该越来越完善，越写越简单。
+编辑入住时间与入住人数的实现与测试大同小异，此处不再赘述，读者可以尝试自己实现一下哦。不管底下封装的许多分层和细节，最后出来的测试用例是非常赏心悦目的，基本就是AC的代码化描述，简明且有效。我还是不得不贴一下。
 
-编辑入住时间与入住人数的测试因篇幅故不再赘述，读者可以尝试自己实现一下哦。
+*routes/\_\_tests\_\_/HotelSearch.spec.tsx*
+```tsx
+describe('search hotels', () => {
+  it('should render a search box ...', async () => { ... });
+
+  it('searching fields should have default values ...', async () => { ... });
+
+  describe('editing', () => {
+    it('user should be able to edit searching destination', async () => { ... })
+
+    it('user should be able to extend reservation time and see how many days of money they need to pay', async () => {
+      renderRouteComponent(<HotelSearch />)
+
+      await getCheckinPeriodField().selectStartDate('2024-01-18')
+      await getCheckinPeriodField().selectEndDate('2024-01-23')
+
+      expect(getCheckinPeriodField().getDisplayText()).toBe('2024/01/18 -- 5晚 -- 2024/01/23')
+    })
+
+    it('user should be able to increase no. of occupancies', async () => {
+      renderRouteComponent(<HotelSearch />)
+
+      await getOccupancyField().clickToIncrement()
+      expect(getOccupancyField().getValue()).toBe(2)
+    })
+
+    it('user should be able to decrease no. of occupancies', async () => {
+      renderRouteComponent(<HotelSearch />)
+      
+      await getOccupancyField().clickToIncrement()
+      await getOccupancyField().clickToIncrement()
+      await getOccupancyField().clickToDecrement()
+      
+      expect(getOccupancyField().getValue()).toBe(2)
+    })
+  })
+})
+```
 
 ### 场景（三）：Mock API返回
 
@@ -749,7 +893,6 @@ flowchart TB
 ## TODOLIST
 
 * 🚧high 把demo代码糊完
-  * ✅补充场景二的实现代码、🚧更正测试代码
   * 🚧补充场景三的实现代码、🚧更正测试代码
   * 🚧场景三拆出来路由跳转和API调用两部分
   * ✅要不要加一部分mock系统时间？不要了，没啥技术含量，不是重点
@@ -775,6 +918,7 @@ flowchart TB
 * ✅讲一下黑马里关于发现问题的测试和定位问题的测试。
 * ✅润色一下React应用架构图：用颜色来区分层、区分组件。这样有个好处是，代码片段可以同样上色来体现“这段代码属于这个组件”
 * ✅把demo代码糊完：补充场景一的实现代码、更正测试代码
+* ✅把demo代码糊完：补充场景二的实现代码、更正测试代码
 
 ¹：React Hooks的出现使得这种较早时期的人为划分变得不必要了。详见[Presentational and Container Components][]。
 
@@ -784,6 +928,8 @@ flowchart TB
 [react-hooks-best-practices]: https://ethan.thoughtworkers.me/#/post/2023-12-09-react-hooks-best-practices
 [what-makes-a-good-automation-test]: https://ethan.thoughtworkers.me/#/post/2023-12-24-what-makes-a-good-automation-test
 [react-testing-strategy-best-practice]: https://ethan.thoughtworkers.me/#/post/2023-12-25-react-testing-strategy-and-best-practices
+
+[github-code-examples]: https://github.com/EthanLin-TWer/react-testing-strategy
 
 [Modularizing React Applications with Established UI Patterns]: https://martinfowler.com/articles/modularizing-react-apps.html
 [Presentational and Container Components]: https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
