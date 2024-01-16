@@ -12,6 +12,8 @@ tags: react unit-test tdd frontend-tdd rtl react-testing-library jest design-sys
 > 包含**示例故事卡完整代码和测试实现**的代码仓库请见：https://github.com/EthanLin-TWer/react-testing-strategy
 > 
 > 仅含**架构和UT测试最佳实践**的代码仓库请见：https://github.com/EthanLin-TWer/react-starter
+> 
+> 本文尝试覆盖的东西有点多，阅读体验可能较为艰涩。欢迎向作者提出反馈意见！
 
 ## 太长不读——本文中心观点及大纲
 
@@ -802,7 +804,7 @@ export const getHotels = (hotelSearchCriteria: SearchCriteria): Promise<HotelRes
 }
 ```
 
-实现代码的主体就是以上这些。而在我们进入具体的测试代码之前，先让我们来想一想涉及API的测试应该怎么编写：是否应该真实地发起Http请求调用API？如果不是，单元测试的边界应该mock到哪里？测试应该测一些什么内容？
+实现代码的主体就是以上这些。而在我们进入具体的测试代码之前，先让我们来想一想涉及API的测试应该怎么编写：**是否应该真实地发起Http请求调用API**？如果不是，**单元测试的边界应该mock到哪里**？**测试应该测一些什么内容**？
 
 首先来看第一个问题。回答很显然，我们不应该在单元测试中真实地发起Http请求调用。原因是进程外的Bff服务部分是不稳定的，它的响应response可能会变、影响测试结果和稳定性，而真实的网络请求也会拖慢测试的速度。对于API请求我们应该将其mock掉。
 
@@ -820,33 +822,15 @@ export const getHotels = (hotelSearchCriteria: SearchCriteria): Promise<HotelRes
 *routes/\_\_tests\_\_/HotelList.spec.tsx*
 ```tsx
 import axios from 'axios'
-...
-import { hotelMocks } from '../../mocks/responses/hotel.mock'
-import { getHotelList } from './business-testers/hotel-list.tester'
-import { HotelListPageDSL } from './api-mocks/hotel-list.dsl'
-import { exampleTwoHotels, createHotel } from './fixtures/hotel.fixtures'
 
 describe('hotels list', () => {
-  let hotelListPageDSL: HotelListPageDSL
   describe('search result', () => {
-    beforeEach(() => {
-      // given
-      hotelListPageDSL = new HotelListPageDSL()
-      hotelListPageDSL.mockGetHotelListOnce(exampleTwoHotels)
-    })
-
-    afterEach(() => {
-      hotelListPageDSL.reset()
-    })
-
     it('should call search endpoint with correct parameters: city id, check dates in yyyy-MM-dd, and no. of occupancies', () => {
-      // when
       renderHotelList(
         <HotelList />,
         '/hotels/list?city=HZ&checkinDate=2024-01-20&checkoutDate=2024-01-28&noOfOccupancies=2'
       )
 
-      // then
       expect(axios.get).toHaveBeenCalledWith('/hotels', {
         params: {
           checkinDate: '2024-01-20',
@@ -860,9 +844,55 @@ describe('hotels list', () => {
 })
 ```
 
-这个测试遵循的是given-when-then的结构，比较直观。在断言的部分，大家可以看到，测试的就是axios有没有按照我们的期望，拿正确的参数去调用`GET /hotels`API。[具体的mock方法可以在这个提交里看到]()，不过这些细节不是测试的重点，我们就先隐去了。
+这个测试的结构相当直观。值得注意的是断言的部分：大家可以看到，测试的就是axios有没有按照我们的期望，拿正确的参数去调用`GET /hotels`API。[具体的mock方法可以在这个提交里看到]()，不过这些细节不是测试的重点，我们就先隐去了。
 
-同时，相比前面的测试，这里引入了几个新的元素，一个是`HotelListPageDSL`，一个是用于组织测试数据的fixture。fixture我们会在下一个场景里看到它的用处，这里读者暂时理解它就是把mock用的API数据从测试文件中抽走即可。我们来看一下`HotelListPageDSL`：
+#### API Mock DSL
+
+接下来看看第二个场景：mock服务器返回，并断言前端应该正确地渲染酒店搜索结果。
+
+*routes/\_\_tests\_\_/HotelList.spec.tsx*
+```tsx
+...
+import { hotelMocks } from '../../mocks/responses/hotel.mock'
+import { getHotelList } from './business-testers/hotel-list.tester'
+import { HotelListPageDSL } from './api-mocks/hotel-list.dsl'
+import { exampleTwoHotels, createHotel } from './fixtures/hotel.fixtures'
+
+describe('hotels list', () => {
+  let hotelListPageDSL: HotelListPageDSL
+  
+  describe('search result', () => {
+    beforeEach(() => {
+      // given
+      hotelListPageDSL = new HotelListPageDSL()
+      hotelListPageDSL.mockGetHotelListOnce(exampleTwoHotels)
+    })
+
+    afterEach(() => {
+      hotelListPageDSL.reset()
+    })
+
+    it('should call search endpoint with correct parameters ...', () => { ... })
+
+    it('should render available hotels once loaded with correct information:' +
+      'hotel name, address, stars, user rating, number of user ratings and lowest price', () => {
+      renderHotelList(
+        <HotelList />,
+        '/hotels/list?city=HZ&checkinDate=2024-01-20&checkoutDate=2024-01-28&noOfOccupancies=2'
+      )
+
+      expect(getHotelList()).toEqual([
+        ['杭州栖湖轻奢酒店', '西湖湖滨商圈', '4星级', '用户评分：4.2', '930条点评', '￥198起'],
+        ['杭州中山西子湖酒店', '西湖湖滨商圈', '5星级', '用户评分：4.7', '317条点评', '￥498起'],
+      ])
+    })
+  })
+})
+```
+
+断言部分是不是赏心悦目！仍然是遵循需求和AC的测试描述，并且准确地测试到了“API数据能够被正确地渲染到页面上”这个业务结果，没有令人费解的各种HTML、RTL、testid细节。正如我在这篇文章前后一直强调的，这种不关心实现细节的测试正是我们想要的能够支撑重构的测试。
+
+同时，相比前面的测试，这个测试用例引入了几个新的元素，一个是`HotelListPageDSL`，一个是用于组织测试数据的fixture。fixture我们会在下一个场景里看到它的用处，这里读者暂时理解它就是把mock用的API数据从测试文件中抽走即可。我们先来看一下`HotelListPageDSL`：
 
 *routes/\_\_tests\_\_/api-mocks/hotel-list.dsl.ts*
 ```tsx
@@ -872,8 +902,9 @@ import { HotelResponse } from '../../../api-client/hotels/response.types'
 import { JestBasedDSL } from './base.dsl'
 
 export class HotelListPageDSL extends JestBasedDSL {
-  mockGetHotelListOnce(hotels: HotelResponse[]) {
+  mockGetHotelListOnce(hotels: HotelResponse[]): HotelListPageDSL {
     axios.get = this.mockSuccessPagedResponseOnce(hotels, { itemsPerPage: 15 })
+    return this;
   }
 }
 ```
@@ -902,50 +933,66 @@ export class JestBasedDSL implements BaseDSL {
 }
 ```
 
-这套DSL的本质目的是封装，尤其在页面API调用较多的情况下，这样的写法能大大提升测试的清晰度。
+这套DSL的本质目的仍然是封装一些细节，让上层仍然能通过“翻译+点点点”的方式简单地编写（和抄）测试。在这个例子里可能感受不是特别明显，但在页面API调用较多的情况下，这样的写法能大大提升测试的清晰度。
 
 当然，这套DSL的写法还是有点瑕疵的，这里我就不细展开了，如果读者有所发现请私信我。
 
-> 🚧这一层讲一下API Mock DSL、fixture组织。
+#### 组织测试数据：fixture
 
-API Mock DSL例子：
+让我们来看看最后的一两个需求点：“点评数小于100时统一显示“≤100条评论”。实现代码过于简单，我们就直奔测试了：
 
-```typescript
-export class ProductPageDSL {
-  apiMock: ApiMocks
+*routes/\_\_tests\_\_/HotelList.spec.tsx*
+```tsx
+...
+import { hotelMocks } from '../../mocks/responses/hotel.mock'
+import { ..., createHotel } from './fixtures/hotel.fixtures'
 
-  constructor() {
-    this.apiMock = new ApiMocks();
-  }
+describe('hotels list', () => {
+  let hotelListPageDSL: HotelListPageDSL
+  
+  describe('search result', () => {
+    beforeEach(() => {
+      hotelListPageDSL = new HotelListPageDSL()
+      ...
+    })
 
-  mockProductCategories = (categories: ProductCategory[]): this => {
-    const fixture = buildProductCategoryResponse(categories) as ProductCategoriesResponse
-    this.apiMock.onProductCategories(fixture)
-    return this;
-  }
+    afterEach(() => { ... })
 
-  mockAvailableProducts = (products: Products[]): this => {
-    return this;
-  }
-}
+    it('should call search endpoint with correct parameters ...', () => { ... })
 
-export class ApiMocks implements ApiClient {
-  constructor() {
-    this.apiClient = createWhateverApiClientYourProjectUses()
-  }
+    it('should render available hotels once loaded with correct information ...', () => { ... })
 
-  onProductCategories(response: ProductCategoriesResponse): ApiMocks {
-    this.apiClient.onGet('/api/v1/product-categories').replyOnce(200, response);
-    return this;
-  }
+    it('should show "≤100 comments" when no. of user ratings are less than 100', async () => {
+      hotelListPageDSL.mockGetHotelListOnce([
+        createHotel(hotelMocks[9], { name: '杭州华辰国际饭店', noOfUserRatings: 96 }),
+      ])
 
-  onAvailableProducts(response: ProductsResponse): ApiMocks {};
-}
+      renderHotelList(
+        <HotelList />,
+        '/hotels/list?city=HZ&checkinDate=2024-01-20&checkoutDate=2024-01-28&noOfOccupancies=2'
+      )
+
+      await waitFor(() => {
+        expect(getHotelList()).toEqual([
+          ['杭州华辰国际饭店', '西湖湖滨商圈', '4星级', '用户评分：4.5', '≤100条点评', '￥357起'],
+        ])
+      })
+    })
+  })
+})
 ```
+
+断言一如既往地优美。不过更重要的是，在这个测试中，我们就能看到fixture的作用了：那就是能让我们在测试中方便地定制测试数据——比如这里的`noOfUserRatings`。有朋友可能会好奇了：为什么要多此一举，而不是直接把`noOfUserRatings=96`直接改到`hotelsMocks[9]`里头呢？
+
+原因主要是两个：
+* 可以更好地突出对这个测试用例有关键影响的测试数据，有利于增强可读性，服务于留存业务上下文这个大目标
+* 测试中借用的`.mock.ts`文件是服务于本地开发，而测试中的fixture需要对测试数据进行更灵活的修改。本质上它们是服务于不同的目的，变化频率不同，从架构上分开更加清晰。这也是我们要独立维护`mocks/**/*.mock.ts`和`fixtures/*.fixture.ts`的目的
 
 至此，我们就用一个具体的需求为例，介绍了这个单元测试策略的所有组成部分了。在实际的开发中，这个故事卡还有许多边界场景需要覆盖，比如“没有符合条件的搜索结果”、“API出错”等等。有了这套测试架子，对这些场景进行完整测试并不困难，在有了基础测试例子的情况下，在前端实施TDD也是可行的。这也回到了我对企业级软件开发的提倡：
 
 **没有失败的测试不写代码/修bug。有需求则必有有效的自动化测试覆盖**。
+
+结束！撒花💐🌼🌸🌺🌹🌻🌷！
 
 <details>
   <summary>🚧演进的测试架构图。图未画完</summary>
@@ -1097,8 +1144,6 @@ flowchart TB
 
 ## TODOLIST
 
-* 🚧high 把demo代码糊完
-  * 🚧补充场景三的实现代码、🚧更正测试代码
 * 🚧high 最后补一个测试出错时的错误信息
 * 🚧high 补一个最后所有测试用例跑完全绿的图+覆盖率图！必须给它100%。
 * 🚧high 补一个例子的UI动图
@@ -1117,14 +1162,6 @@ flowchart TB
   * 实践中真能贯彻View Model的架构方式吗？
 * 🚧问问邱大师：MF博客中代码片段高亮的部分是怎么做到的？
 * 🚧
-* ✅更新一下目录层级，有些三级标题一并弄进去
-* ✅讲一下黑马里关于发现问题的测试和定位问题的测试。
-* ✅润色一下React应用架构图：用颜色来区分层、区分组件。这样有个好处是，代码片段可以同样上色来体现“这段代码属于这个组件”
-* ✅把demo代码糊完：补充场景一的实现代码、更正测试代码
-* ✅把demo代码糊完：补充场景二的实现代码、更正测试代码
-* ✅把demo代码糊完：场景三拆出来路由跳转和API调用两部分，糊完路由跳转部分的代码
-* ✅把demo代码糊完：要不要加一部分mock系统时间？不要了，没啥技术含量，不是重点
-* ✅把demo代码糊完：
 
 ¹：React Hooks的出现使得这种较早时期的人为划分变得不必要了。详见[Presentational and Container Components][]。
 
