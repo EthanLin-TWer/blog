@@ -309,7 +309,7 @@ export const HotelSearchComponent = () => {
 
 Hooks和DTO的转换，目前还没什么逻辑，我们暂时不深入细看。按照我们在“React UI组件测试最佳实践”一节中介绍的测试策略，我们的测试从作为路由入口的`HotelSearch`开始。整个成品测试最后会长这个样子：
 
-*routes/__tests__/HotelSearch.spec.tsx*
+*routes/\_\_tests\_\_/HotelSearch.spec.tsx*
 ```tsx
 ...
 import { getDestinationField, ... } from './business-testers/hotel-search.tester'
@@ -317,7 +317,7 @@ import { SearchDropdownTester } from './component-testers/search-dropdown.tester
 
 describe('search hotels - entry', () => {
   it('should render a search box that supports searching available hotels by destination, check-in period and number of occupancy', async () => {
-    render(<HotelSearch />)
+    renderRouteComponent(<HotelSearch />)
     const destinationField: SearchDropdownTester = getDestinationField()
 
     expect(destinationField.getLabel()).toBe('目的地/酒店名称')
@@ -336,9 +336,11 @@ describe('search hotels - entry', () => {
 
 怎么样，第一感有没有觉得这个测试相当可读、基本就是需求（AC1）和UI的代码化表达？这是我想表达的好测试的重要一点：**表达力强**。这个强表达力，一方面在于充分利用好describe/it描述等文本工具，一方面也在于我们精心分层并封装的business tester / component tester极富表达力，使我们得以尽量按照需求和UI的描述方式来进行断言。
 
+`renderRouteComponent()`方法中封装了一些Provider，负责把react-router、React Hooks以及redux等设施，没啥重要的逻辑，这里就不细展开了。感兴趣的读者可以前往[代码仓库][github-code-examples]一睹源码。
+
 下面让我们展开business tester和component tester这部分的代码细节，来看看在上面这个测试中被封装的部分。**Business tester**很简单，其实就是对component tester的简单封装。
 
-*routes/__tests__/business-testers/hotel-search.tester.ts*
+*routes/\_\_tests\_\_/business-testers/hotel-search.tester.ts*
 ```ts
 import { CounterTester, findCounter } from '../component-testers/counter.tester'
 ...
@@ -366,14 +368,13 @@ export const getSearchButton = () => {
 
 **Component Tester**，顾名思义封装的就是一个UI组件（component）。注意我们这里说的UI组件是指通用组件库或设计系统（比如MUI、AntD等）的UI组件，而不是业务上的“纯UI”组件，因为通用的UI组件库才可能提供足够通用的`Tester`接口。下面以上面business tester中用到的`SearchDropdownTester`为例子来看看这层的代码。
 
-*routes/__tests__/component-testers/search-dropdown.tester.ts*
+*routes/\_\_tests\_\_/component-testers/search-dropdown.tester.ts*
 ```ts
 ...
 import { findFirstChildren } from './_base.tester'
 
 export interface SearchDropdownTester {
   getLabel(): string
-  getValue(): string
   getOptions(): Promise<string[]>
 }
 
@@ -387,7 +388,6 @@ export const findSearchDropdown = (testId: string): SearchDropdownTester => {
 
   // public interfaces
   const getLabel = () => screen.getByTestId(`${testId}-label`).textContent!
-  const getValue = () => screen.getByTestId(`${testId}-input`).getAttribute('value')!
   const getOptions = async (): Promise<string[]> => {
     await clickDropdown() // to open the dropdown so the options would appear in DOM
     const options = screen.getAllByRole('option').map(option => option.textContent || '')
@@ -395,7 +395,7 @@ export const findSearchDropdown = (testId: string): SearchDropdownTester => {
     return options
   }
   
-  return { getLabel, getValue, getOptions }
+  return { getLabel, getOptions }
 }
 ```
 
@@ -421,27 +421,43 @@ flowchart TB
 
 #### 新增测试
 
-同样，表单字段默认值的功能也很容易添加测试。我们在原来的测试上新增一个`it()`块即可——business tester和component tester都无需改动。通过把测试的粒度拆小，我们既能让测试描述更好地描述业务场景、留存业务上下文，也能让单个测试的重点突出、避免过长的测试，从而提高可读性和可维护性。这样当测试失败时，你就能马上知道被影响的业务场景是什么
+同样，表单字段默认值的功能也很容易添加测试。我们在原来的测试上新增一个`it()`块即可——business tester无需改动、component tester需要新增几个拿组件值的方法。
 
-*hotel-search.test.ts*
+*routes/\_\_tests\_\_/HotelSearch.spec.tsx*
 ```tsx
-describe('search hotels', () => {
-  describe('search entry - home page', () => {
-    ...
-    
-    it('should render a search box ...', () => { ... });
-    
-    it('searching fields should have default values so we give user an example, allowing them to navigate to the search result page asap', async () => {
-      render(<SearchPage />)
+describe('search hotels - entry', () => {
+  it('should render a search box ...', async () => { ... });
+  
+  it('searching fields should have default values (so we give user an example, allowing them to navigate to the search result page asap)', async () => {
+    renderRouteComponent(<HotelSearch />)
 
-      expect(getDestinationField().getDisplayText()).toBe('北京')
-      expect(getCheckinDateField().getSelectedDate()).toBe('2024-01-01')
-      expect(getCheckoutDateField().getSelectedDate()).toBe('2024-01-02')
-      expect(getOccupancyField().getValue()).toBe(1)
-    });
-  });
+    expect(getDestinationField().getValue()).toBe('北京')
+    expect(getCheckinPeriodField().getDisplayText()).toBe('2024/01/15 -- 1晚 -- 2024/01/16')
+    expect(getOccupancyField().getValue()).toBe(1)
+  })
 })
 ```
+
+*routes/\_\_tests\_\_/component-testers/search-dropdown.tester.ts*
+```ts
+...
+
+export interface SearchDropdownTester {
+  ...
+  getValue(): string
+}
+
+export const findSearchDropdown = (testId: string): SearchDropdownTester => {
+  ...
+  // public interfaces
+  ...
+  const getValue = () => screen.getByTestId(`${testId}-input`).getAttribute('value')!
+  
+  return { ..., getValue }
+}
+```
+
+这里，也希望读者留意一下测试的粒度。上面两个场景，我们把它们放到一个测试里面也不是不行，但是通过把测试的粒度拆小，我们既能让测试描述更好地描述业务场景、留存业务上下文，也能让单个测试的重点突出、避免过长的测试，从而提高可读性和可维护性。这样当测试失败时，你就能马上知道被影响的业务场景是什么。
 
 ### 场景（二）：用户交互
 
@@ -784,6 +800,8 @@ flowchart TB
 [react-hooks-best-practices]: https://ethan.thoughtworkers.me/#/post/2023-12-09-react-hooks-best-practices
 [what-makes-a-good-automation-test]: https://ethan.thoughtworkers.me/#/post/2023-12-24-what-makes-a-good-automation-test
 [react-testing-strategy-best-practice]: https://ethan.thoughtworkers.me/#/post/2023-12-25-react-testing-strategy-and-best-practices
+
+[github-code-examples]: https://github.com/EthanLin-TWer/testing-strategy-example
 
 [Modularizing React Applications with Established UI Patterns]: https://martinfowler.com/articles/modularizing-react-apps.html
 [Presentational and Container Components]: https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
