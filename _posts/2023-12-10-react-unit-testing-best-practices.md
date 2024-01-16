@@ -132,21 +132,32 @@ flowchart TB
   deps_analytics(<b>Dependency: Analytics Scripts</b><br/><br/>Sentry, Adobe Analytics, ..)
 
   %% styles - #D8FAC8 #A5EA88 #F1CFFE #B3E5FA #FCD6B6
-  style route_components stroke-dasharray: 6 6
-  style app fill:#B3E5FA
-  style business_components fill:#A5EA88
-  style route_components fill:#A5EA88
-  style ui_components fill:#D8FAC8
+  style route_components stroke-dasharray: 6 6,stroke: #000
+  style app fill:#FFF,stroke: #000,stroke-dasharray: 20 20,stroke-width:4
+  style business_components fill:#A5EA88,stroke: #000
+  style route_components fill:#A5EA88,stroke: #000
+  style ui_components fill:#D8FAC8,stroke: #000
   
-  style shared_hooks fill:#F1CFFE
-  style api_hooks fill:#F1CFFE
-  style dom_hooks fill:#F1CFFE
-  style analytics_hooks fill:#F1CFFE
-  style global_store fill:#F1CFFE
-  style etc_hooks fill:#F1CFFE
-  
-  style api_client fill:#FCD6B6
+  style shared_hooks fill:#F1CFFE,stroke: #000
+  style api_hooks fill:#F1CFFE,stroke: #000
+  style dom_hooks fill:#F1CFFE,stroke: #000
+  style analytics_hooks fill:#F1CFFE,stroke: #000
+  style global_store fill:#F1CFFE,stroke: #000
+  style etc_hooks fill:#F1CFFE,stroke: #000
+  style api_client fill:#FCD6B6,stroke: #000
+  style utils fill:#B3E5FA,stroke: #000
+  style constants fill:#B3E5FA,stroke: #000
 
+  style stateful_components fill:#FFF,stroke: #000
+  style hooks_layer fill:#FFF,stroke: #000
+  style shared_layer fill:#FFF,stroke: #000
+  style api_layer fill:#FFF,stroke: #000
+  style boundaries fill:#FFF,stroke: #000,stroke-width:2
+  style bff fill:#FFF,stroke: #000
+  style deps_dom_apis fill:#FFF,stroke: #000
+  style deps_analytics fill:#FFF,stroke: #000
+  style deps_others fill:#FFF,stroke: #000
+  
   %% start: components & connections
   subgraph app ["React Application (Frontend)"];
     direction TB
@@ -203,7 +214,7 @@ flowchart TB
   api_layer -. "HTTP" .-> bff
   dom_hooks -.-> deps_dom_apis
   analytics_hooks -.-> deps_analytics 
-  etc_hooks -.-> deps_others 
+  etc_hooks -.-> deps_others
 ```
 
 与一些[更早版本的React架构][react-unit-testing-best-practices]相比，React 16之后的Hooks基本上接管了所有副作用以及逻辑处理的代码，包括原来的状态管理（[Redux action/reducer][redux]那一套）、副作用（[redux-thunk][]、[redux-saga][]等）等。除此之外，上面这版架构里有一些变化值得强调：
@@ -226,7 +237,7 @@ flowchart TB
 
 为了解决这些痛点，在这版新的测试策略中，我们的新建议是：**不要隔离Hooks层（③）对组件层（⑦或②）中的单一组件做单元测试。应该从一个相对顶层的业务组件入手（建议是⑥的路由/页面组件，如有），仅mock掉与HTTP/API交互的部分（④或⑪），将其他内部实现（③的Hooks层、⑤的共享层等）纳入测试范围**。这意味着，涉及领域逻辑的Hooks（③/⑧）、全局数据管理的Hooks⑩，甚至业务组件⑦中的逻辑都会被视为内部实现，不对其进行mock处理。
 
-**也即是说，对组件的单元测试，从顶层的业务组件⑥或⑦开始，然后覆盖整个应用进程内所有的层级和组件——也即是上图蓝色框中的部分²**。
+**也即是说，对组件的单元测试，从顶层的业务组件⑥或⑦开始，然后覆盖整个应用进程内所有的层级和组件——也即是上图虚线框中的部分²**。
 
 ## 测试架构、代码落地
 
@@ -1039,7 +1050,7 @@ flowchart TB
 
 最后，让我们来回顾一下本文推荐的测试策略及其内容。
 
-对于一个常见的React应用架构，我们提倡React组件应该通过贯穿整个应用的单元测试来进行测试（架构图中的蓝色部分²），除了位于应用边界的后端或Bff（组件⑪或组件④）、DOM API等三方依赖之外，不应该mock其他内部实现细节。诸如Redux、单独的React Component、React Hooks这类技术实现，我们都视为实现细节，它们都不应该被mock。这样做，是为了服务**自动化测试应能有效支撑日常重构**的根本目的。
+对于一个常见的React应用架构，我们提倡React组件应该通过贯穿整个应用的单元测试来进行测试（架构图中的虚线框部分²），除了位于应用边界的后端或Bff（组件⑪或组件④）、DOM API等三方依赖之外，不应该mock其他内部实现细节。诸如Redux、单独的React Component、React Hooks这类技术实现，我们都视为实现细节，它们都不应该被mock。这样做，是为了服务**自动化测试应能有效支撑日常重构**的根本目的。
 
 这样做能带来如下的好处：
 
@@ -1144,15 +1155,15 @@ flowchart TB
 
 ## TODOLIST
 
+* 🚧high 补一个写page tests开发者体验爆表的动图
+* 🚧medium 润色一下React应用架构图：这颜色还得再精心调配下…… -- 征集下意见
 * 🚧high 最后补一个测试出错时的错误信息
 * 🚧high 补一个最后所有测试用例跑完全绿的图+覆盖率图！必须给它100%。
 * 🚧high 补一个例子的UI动图
-* 🚧high 补一个写page tests开发者体验爆表的动图
 * 🚧high 添加一下“无效测试”的例子。还可以从`FFF.test.tsx`里找找例子
 * 🚧high 把Q&A部分回答糊完
   * 简化下与上篇文章差异的那个回答
   * 部分（或全部）Q&A其实是可以变成ToC的一部分的，都是很典型的问题
-* 🚧medium 润色一下React应用架构图：这颜色还得再精心调配下……
 * 🚧medium 润色一下React应用架构图：Mermaid有些font-awesome的icon，看看能不能用上
 * 🚧medium 把参考文章读一遍
 * 🚧medium 搞个TW特供版（有些内部有共识的内容可以简化）然后投稿博客大赛和洞见
