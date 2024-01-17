@@ -378,7 +378,12 @@ export const getSearchButton = () => {
 
 这一层的主要作用是为上层测试提供一个业务视角的API，并屏蔽test id、tester等细节，提升上层测试的抽象层次以及可读性。同时，这一层的存在也使得编写上层测试变得更加轻松了：你只需要将待测试的业务点“翻译”成英文，然后一路通过TypeScript的类型提示自动输入到底就行，极大提升了开发者体验。
 
-> 🚧贴一张开发者体验的动图。
+<p align="center" >
+  <img 
+    src="https://cdn.jsdelivr.net/gh/EthanLin-TWer/blog@gh-pages/_images/2023-12-10-dx.gif" 
+    width="928"
+  />
+</p>
 
 **Component Tester**，顾名思义封装的就是一个UI组件（component）。注意我们这里说的UI组件是指通用组件库或设计系统（比如MUI、AntD等）的UI组件，而不是业务上的“纯UI”组件，因为通用的UI组件库才可能提供足够通用的`Tester`接口。下面以上面business tester中用到的`SearchDropdownTester`为例子来看看这层的代码。
 
@@ -1155,24 +1160,23 @@ flowchart TB
 
 ## TODOLIST
 
-* 🚧high 补一个写page tests开发者体验爆表的动图
-* 🚧medium 润色一下React应用架构图：这颜色还得再精心调配下…… -- 征集下意见
-* 🚧high 最后补一个测试出错时的错误信息
-* 🚧high 补一个最后所有测试用例跑完全绿的图+覆盖率图！必须给它100%。
-* 🚧high 补一个例子的UI动图
+* 🚧high 最后补一个测试出错时的错误信息，还得找个地方放一下+解释一下
+* 🚧high 补一个例子的UI动图：要重新写一下代码
+* 🚧high 补一个最后所有测试用例跑完全绿的图+覆盖率图！必须给它100% —— 依赖于最终代码定版
 * 🚧high 添加一下“无效测试”的例子。还可以从`FFF.test.tsx`里找找例子
 * 🚧high 把Q&A部分回答糊完
   * 简化下与上篇文章差异的那个回答
   * 部分（或全部）Q&A其实是可以变成ToC的一部分的，都是很典型的问题
+* 🚧medium 最后润色一下文章总体，通读一遍
 * 🚧medium 润色一下React应用架构图：Mermaid有些font-awesome的icon，看看能不能用上
-* 🚧medium 把参考文章读一遍
+* 🚧medium 润色一下React应用架构图：这颜色还得再精心调配下…… -- 征集下意见
 * 🚧medium 搞个TW特供版（有些内部有共识的内容可以简化）然后投稿博客大赛和洞见
+* 🚧medium 把参考文章读一遍
 * 🚧[Modularizing React Applications with Established UI Patterns][]说的一些内容待讨论：
   * view-model-data三层架构中，model和data有啥区别？model和view model有啥区别？
   * Domain是怎么抽出来的？怎么辨别domain逻辑？往DTO上放逻辑？
   * 实践中真能贯彻View Model的架构方式吗？
 * 🚧问问邱大师：MF博客中代码片段高亮的部分是怎么做到的？
-* 🚧
 
 ¹：React Hooks的出现使得这种较早时期的人为划分变得不必要了。详见[Presentational and Container Components][]。
 
