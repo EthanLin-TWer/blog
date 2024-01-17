@@ -84,7 +84,7 @@ WIP
 
 [软件架构是测试策略的前提要件][clear-architecture-is-a-prior-input-for-testing-strategy]。没有清晰的软件架构和分层定义，就难以制定有效的测试策略并加以实施。因此，在谈论React应用的测试策略之前，有必要定义一个常见的React应用架构作为参考。
 
-[分层是应用架构的常见手段][why-layering-is-important-method-of-architecting]。分层的目的在于隔离变化传播，为上层调用提供透明且简便的功能接入和封装。在React 16引入React Hooks之后，一个常见但不严谨的分层架构往往是这样的：
+[分层是应用架构的常见手段]()。分层的目的在于隔离变化传播，为上层调用提供透明且简便的功能接入和封装。在React 16引入React Hooks之后，一个常见但不严谨的分层架构往往是这样的：
 
 ```mermaid
 flowchart TB
@@ -1216,13 +1216,10 @@ flowchart TB
   <summary>🚧最后的最后还有些todolist，暂时干不动了……</summary>
 
 * 🚧 添加一下“无效测试”的例子。还可以从`FFF.test.tsx`里找找例子
-* 🚧 最后润色一下文章总体
-  * 通读一遍
-  * 缩小一下几个gif的大小不？一个动图5M有点夸张
-  * 确保所有link都能访问
 * 🚧 搞个TW特供版（有些内部有共识的内容可以简化）然后投稿博客大赛和洞见
-* 🚧 润色一下React应用架构图：这颜色还得再精心调配下…… -- 征集下意见
-* 🚧 把以下参考文章读一遍
+* 🚧 缩小一下几个gif的大小。一个开发者体验的动图5M有点夸张
+* 🚧 润色一下React应用架构图：边界border-radius要不要再调下，显得柔和好看一些
+* 🚧 把以下参考文章再读一遍
   * Maintainable React: Refactoring to Clean Code
   * [testing pyramid](https://testingjavascript.com/)
   * [React Testing Guide](https://components.guide/react+typescript/testing)
