@@ -781,28 +781,33 @@ describe('search hotels', () => {
 └── index.tsx
 ```
 
-> 🚧这里的<h3>需要更新下最终版。
-
 *business-components/hotel-list/HotelListComponent.tsx*
 ```tsx
 ...
 export const HotelListComponent: FC = () => {
   const [params] = useSearchParams()
-  
+
+  const {city, ... ,checkoutDate} = params.get(...)
+  const noOfOccupancies = Number(params.get('noOfOccupancies')!)
+  const recommendationCities = useRecommendationCities()
   const { hotels, isLoading } = useSearchHotels({
-    city: params.get('city')!,
-    checkinDate: params.get('checkinDate')!,
-    checkoutDate: params.get('checkoutDate')!,
-    noOfOccupancies: Number(params.get('noOfOccupancies')!),
+    city,
+    checkinDate,
+    checkoutDate,
+    noOfOccupancies,
   })
-  
+
   return (
-    <div>
-      <h3>Hotel List</h3>
-      {hotels.map((hotel: HotelDTO) => (
-        <HotelItem key={hotel.id} hotel={hotel} />
-      ))}
-    </div>
+    <>
+      <SearchBarOnTop
+        city={recommendationCities.findById(city)!.name}
+        checkoutDate={checkoutDate}
+        checkinDate={checkinDate}
+        noOfOccupancies={noOfOccupancies}
+      />
+
+      <Hotels hotels={hotels} isLoading={isLoading} />
+    </>
   )
 }
 ```
