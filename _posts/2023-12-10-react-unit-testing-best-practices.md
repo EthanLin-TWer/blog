@@ -70,15 +70,43 @@ tags: react unit-test tdd frontend-tdd rtl react-testing-library jest design-sys
 
 更具体的例子，因为篇幅可能过长，我打算放在另一篇[React系列（三）：什么是好的自动化测试][series-3-what-makes-a-good-automation-test]里写。请将其作为本篇的补充读物，里面的一些观点跟接下来要阐述的React单元测试实践是互相交织、一脉相承的。在这里，我打算给出一个典型的、集“大成”于一体的无效自动化测试，读者不妨看看，它都有哪些“无效”的地方、你的项目又是否正在经历这些无效测试的折磨。
 
-> 🚧这部分草稿在另一台电脑上。
-
 ```tsx
-WIP
+it('should can ', async () => {
+  render(<Component />, { wrapper })
+
+  // check disabled status
+  expect(screen.getByLabelText(/occupancy/i)).toHaveAttribute('aria-disabled',  'true')
+  expect(screen.getByRole('textbox', { name: /occupancy/i })).toBeDisabled()
+
+  // select dropdown
+  await userEvent.click(screen.getByLabelText(/目的地/i))
+  const optionFirstName = City[0].name
+  await userEvent.click(screen.getByRole('option', { name: optionFirstName }))
+  expect(screen.getByDisplayValue(City[0].id)).toBeInTheDocument()
+  expect(screen.getByLabelText(/destination/i)).not.toHaveAttribute('arai-disabled', 'true')
+
+  // select dropdown
+  await userEvent.click(screen.getByLabelText(/时间/i))
+  await userEvent.click(screen.getByRole('option', { name: '2024-01-20' }))
+  
+  expect(screen.getByDisplayValue('2024')).toBeInTheDocument()
+  expect(screen.getByLabelText(/checkin-period/i)).not.toHaveAttribute('arai-disabled', 'true')
+
+  expect(screen.getByRole('textbox', { name: /occupancy/i })).not.toBeDisabled()
+})
 ```
 
 简而言之，无效的自动化测试可能包含以上的一个或多个特征：
 
-* WIP
+* 测试描述形同虚设（给强行搞一个）、似是而非、遗漏关键信息
+* 太长，测试重点不清晰
+* 测试数据准备太长，直接把API数据贴进来了，杂音太多，不利于看清楚测试结构
+* 太多各种层次的细节：test id、RTL API、注释，不利于看清楚测试结构
+* 可读性差，比如好几行代码用于在选择一个dropdown，类似的代码在诸多测试文件中重复、仅有微妙不同，不容易一眼看出行为
+* 关键断言隐藏于细节之中，难以发现
+* 关键断言方式曲折，不易发现真正测试内容，阅读维护的心智负担极大
+* 测试了这么多内容，有无数个失败的理由
+* 测试了组件props
 
 ## React应用典型架构
 
@@ -1223,20 +1251,20 @@ flowchart TB
 <details>
   <summary>🚧最后的最后还有些todolist，暂时干不动了……</summary>
 
-* 🚧 添加一下“无效测试”的例子。还可以从`FFF.test.tsx`里找找例子
-* 🚧 搞个TW特供版（有些内部有共识的内容可以简化）然后投稿博客大赛和洞见
-* 🚧 缩小一下几个gif的大小。一个开发者体验的动图5M有点夸张
-* 🚧 润色一下React应用架构图：边界border-radius要不要再调下，显得柔和好看一些
-* 🚧 把以下参考文章再读一遍
+* [ ] “无效测试”的例子可以从`FFF.test.tsx`里找找例子
+* [ ] 搞个TW特供版（有些内部有共识的内容可以简化）然后投稿博客大赛和洞见
+* [ ] 缩小一下几个gif的大小。一个开发者体验的动图5M有点夸张
+* [ ] 润色一下React应用架构图：边界border-radius要不要再调下，显得柔和好看一些
+* [ ] 把以下参考文章再读一遍
   * Maintainable React: Refactoring to Clean Code
   * [testing pyramid](https://testingjavascript.com/)
   * [React Testing Guide](https://components.guide/react+typescript/testing)
   * [Kent's blog](https://kentcdodds.com)
-* 🚧[Modularizing React Applications with Established UI Patterns][]说的一些内容待讨论：
+* [ ] [Modularizing React Applications with Established UI Patterns][]说的一些内容待讨论：
   * view-model-data三层架构中，model和data有啥区别？model和view model有啥区别？
   * Domain是怎么抽出来的？怎么辨别domain逻辑？往DTO上放逻辑？
   * 实践中真能贯彻View Model的架构方式吗？
-* 🚧问问邱大师：MF博客中代码片段高亮的部分是怎么做到的？
+* [ ] 问问邱大师：MF博客中代码片段高亮的部分是怎么做到的？
 </details>
 
 ¹：React Hooks的出现使得这种较早时期的人为划分变得不必要了。详见[Presentational and Container Components][]。
