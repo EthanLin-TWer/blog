@@ -1,6 +1,6 @@
 ---
-title: React系列（三）：测试策略与落地
-tags: react testing-strategy tdd rtl react-testing-library jest
+title: React系列（六）：React整体测试策略
+tags: tbd
 ---
 
 ## 大纲

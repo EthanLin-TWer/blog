@@ -1,11 +1,9 @@
 ---
-title: React Hooks最佳实践
-tags: react react-hooks object-oriented best-practice
+title: React系列（四）：Hooks最佳实践与面向对象
+tags: tbd
 ---
 
 大纲先列一下。
-
-本质上就是把面向对象那套东西搬到前端来治理复杂度，只不过在前端对象的形式不是类，而可以是更简单的函数而已（用类也是可以的，本质就是个原型继承的语法糖，但是函数作为JS一等公民还是更方便一些，可以闭包）。
 
 * 最基本规则：`use`开头、不能动态调用（条件或循环下使用等）、依赖列表决定触发时机（为了配合React浅对比机制，麻烦）
 * 复杂度治理：
@@ -80,7 +78,7 @@ fetcher应该是独立出来的一层，至于它是用axios、React Query这是
 saveAndNext
 * 同一个hooks有不同行为，拆分开逻辑。
 
-useExtraPremium
+useEP
 * 这个经验是，有针对数据操作的行为给它封装起来。函数+闭包+暴露行为方法(findXXX)一般就够用。
 
 ### To-Read

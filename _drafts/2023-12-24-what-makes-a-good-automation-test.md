@@ -1,6 +1,6 @@
 ---
-title: 什么是好的自动化测试
-tags: react frontend test jest unit-testing clean-code
+title: React系列（三）：什么是好的自动化测试
+tags: tbd
 ---
 
 什么是好的测试，是我讲测试策略的基本功。这个东西好像要掰开了、揉碎了讲一讲。
