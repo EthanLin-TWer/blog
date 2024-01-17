@@ -3,7 +3,7 @@ title: React系列（二）：单元测试最佳实践
 tags: react unit-test tdd frontend-tdd rtl react-testing-library jest design-system
 ---
 
-实践证明，在前端以细粒度的UI组件为单元做测试不能很好地支撑重构和需求变化。本文将介绍一种更能支撑前端TDD、能更好地支撑重构和开发的单元测试方案。
+实践证明，在前端以细粒度的UI组件为单元做测试不能很好地支撑重构和需求变化。本文将介绍一种更能支撑前端TDD、能更好地支撑重构和开发的单元测试方案。 
 
 这套经验曾支撑笔者经历的一个年交易流水十亿美元级、历时五年+的金融系统的成功运营和维护演进。
 
@@ -277,7 +277,12 @@ flowchart TB
 > * 点评数小于100时统一显示“≤100条评论”。
 > * 点评数大于1000时应显示千分位分隔符（逗号），如“1,478条评论”。
 
-> 🚧补一个UI动图
+<p align="center" >
+  <img 
+    src="https://cdn.jsdelivr.net/gh/EthanLin-TWer/blog@gh-pages/_images/2023-12-10-demo.gif" 
+    width="940"
+  />
+</p>
 
 让我们一个一个AC来看看它们对应的实现以及最主要的测试代码。
 
@@ -1166,12 +1171,13 @@ flowchart TB
 
 ## TODOLIST
 
-* 🚧high 补一个例子的UI动图：要重新写一下代码
 * 🚧high 补一个最后所有测试用例跑完全绿的图+覆盖率图！必须给它100% —— 依赖于最终代码定版
 * 🚧high 添加一下“无效测试”的例子。还可以从`FFF.test.tsx`里找找例子
 * 🚧high 最后补一个测试出错时的错误信息，还得找个地方放一下+解释一下
+* 🚧high 最后完善一下带上了DSL和fixture的测试总体架构
 * 🚧medium 最后润色一下文章总体
   * 通读一遍
+  * 缩小一下几个gif的大小不？一个动图5M有点夸张
   * 确保所有link都能访问
 * 🚧medium 润色一下React应用架构图：这颜色还得再精心调配下…… -- 征集下意见
 * 🚧medium 润色一下React应用架构图：Mermaid有些font-awesome的icon，看看能不能用上
