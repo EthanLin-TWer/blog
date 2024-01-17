@@ -22,6 +22,7 @@ tags: react unit-test tdd frontend-tdd rtl react-testing-library jest design-sys
 * 有效的自动化测试就是能够有效支撑重构的测试。
 * 测试策略来源于软件架构。本文介绍了一种常见且有效的React应用架构。
 * 有效的测试策略，只应该mock API（层），而不应该mock组件常见内部实现，如React hooks、Redux、React组件等。
+* 介绍了在静态页面渲染、用户交互、API交互等场景下如何进行有效的自动化测试
 * 测试本身也有分层。本文介绍了一种推荐的分层实践：API DSL、business tester、component tester。
 * 为了实现有效支撑重构这个根本目标，测试引入的分层会带来一些额外的（一次性及短期）成本。
 * 承担这个成本是值得的。一切都是为了让你的测试能够真正支撑重构、有效留存业务上下文，真正助力研发效能。
