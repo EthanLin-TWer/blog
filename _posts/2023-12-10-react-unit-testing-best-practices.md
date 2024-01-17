@@ -115,7 +115,7 @@ flowchart TB
   %% definition: components layer
   route_components("<b>⑥ Route / Page Components</b><br/><br/>Next.js app/, React Router, ..")
   business_components("<b>⑦ Business Components</b><br/><br/>components/<br/>index.tsx<br/>hooks.ts<br/>styles.ts<br/>types.ts<br/>...")
-  ui_components("<b>② UI Components</b><br/><br/>MUI, Antd, Semantic UI, Tailwind, ...")
+  ui_components("<b>② fa:fa-palatte UI Components</b><br/><br/>MUI, Antd, Semantic UI, Tailwind, ...")
         
   %% definition: hooks layer
   shared_hooks("<b>⑧ Domain logics / shared effects</b>")
@@ -133,7 +133,7 @@ flowchart TB
   constants(<b>Constants</b>)
   
   %% definition: outside of boundaries
-  bff("⑪ <b>Application Bff / Backend</b><br/><br/>Java, Kotlin, NodeJS, ..")
+  bff("⑪ fa:fa-server <b>Application Bff / Backend</b><br/><br/>Java, Kotlin, NodeJS, ..")
   deps_dom_apis(<b>Dependency: DOM APIs</b><br/><br/>window events, etc.)
   deps_analytics(<b>Dependency: Analytics Scripts</b><br/><br/>Sentry, Adobe Analytics, ..)
 
@@ -168,7 +168,7 @@ flowchart TB
   subgraph app ["React Application (Frontend)"];
     direction TB
 
-    subgraph stateful_components ["① <b>Stateful Components</b>"]
+    subgraph stateful_components ["① fa:fa-building <b>Stateful Components</b>"]
       route_components
       business_components
     end
@@ -178,7 +178,7 @@ flowchart TB
     business_components --> ui_components
     route_components -.-> ui_components
  
-    subgraph hooks_layer ["③ <b>Hooks</b> layer"];
+    subgraph hooks_layer ["③ fa:fa-network-wired <b>Hooks</b> layer"];
       direction TB
       global_store
       api_hooks
@@ -196,13 +196,13 @@ flowchart TB
     end
     stateful_components ----> shared_hooks
 
-    subgraph shared_layer ["⑤ <b>Shared</b> layer (Accessible by all layers)"];
+    subgraph shared_layer ["⑤ fa:fa-wrench <b>Shared</b> layer (Accessible by all layers)"];
       direction TB
       utils
       constants
     end
 
-    subgraph api_layer ["④ <b>API</b> layer"];
+    subgraph api_layer ["④ fa:fa-wifi <b>API</b> layer"];
       api_client
     end
     api_hooks --> api_layer
@@ -441,12 +441,15 @@ export const findSearchDropdown = (testId: string): SearchDropdownTester => {
 
 ```mermaid
 flowchart TB
-  page_tests("<b>Page Tests</b><br/>API mocks + fixture")
-  business_testers("<b>Business Testers</b>") 
-  testers("<b>Component Testers</b>")
+  page_tests("<b>fa:fa-file-alt Page Tests</b><br/>API mocks + fixture")
+  business_testers("<b>fa:fa-cogs Business Testers</b>") 
+  component_testers("<b>fa:fa-cog Component Testers</b>")
         
-  page_tests --> business_testers
-  business_testers --> testers
+  page_tests --> business_testers --> component_testers
+  
+  style page_tests fill:#B3E5FA
+  style business_testers fill:#F1CFFE
+  style component_testers fill:#FCD6B6
 ```
 
 [完整的代码变更可以参考Github这几个提交](https://github.com/EthanLin-TWer/react-testing-strategy/compare/fd5ce087...7cb3d327)
@@ -1020,39 +1023,39 @@ describe('hotels list', () => {
 ```mermaid
 flowchart TB
   %% definitions
-  subgraph page_tests ["<b>Page Tests</b>"];
-      hotel_search_page_test("hotel-search.spec.tsx")
-      other_page_tests("[future-feature].spec.tsx")
-      hotel_list_page_test("hotel-list.spec.tsx")
+  subgraph page_tests ["<b>fa:fa-file-alt Page Tests</b>"];
+    hotel_search_page_test("hotel-search.spec.tsx")
+    other_page_tests("[future-feature].spec.tsx")
+    hotel_list_page_test("hotel-list.spec.tsx")
   end
 
-  subgraph mocks_and_fixtures ["<b>DSL & Fixture</b>"];
-      subgraph hotel_list_mocks_and_fixture ["hotel-list"]
-          direction TB
-          hotel_list_dsl_mock("hotel-list.dsl.ts")
-          hotel_list_dsl_fixture("hotel-list.fixture.ts")
-      end
-
-      subgraph other_mocks_and_fixture ["[future-feature]"]
-          direction TB
-          other_dsl_mock("[future-feature].dsl.ts")
-          other_fixture("[future-feature].fixture.ts")
-      end
-  end
-
-  subgraph business_testers ["<b>Business Testers</b>"];
-      hotel_search_business_testers("hotel-search.tester.ts")
-      hotel_list_business_testers("hotel-list.tester.ts")
-      other_business_testers("[future-feature].tester.ts")
-  end
-
-  subgraph component_testers ["<b>Component Testers</b>"];
+  subgraph mocks_and_fixtures ["<b>fa:fa-tools DSL & Fixture</b>"];
+    subgraph hotel_list_mocks_and_fixture ["hotel-list"]
       direction TB
-      text_input_tester("text-input.tester.ts")
-      text_search_dropdown_tester("search-dropdown.tester.ts")
-      text_date_picker_tester("date-range-picker.tester.ts")
-      text_button_tester("button.tester.ts")
-      text_x_tester("[future-component].tester.ts")
+      hotel_list_dsl_mock("hotel-list.dsl.ts")
+      hotel_list_dsl_fixture("hotel-list.fixture.ts")
+    end
+  
+    subgraph other_mocks_and_fixture ["[future-feature]"]
+      direction TB
+      other_dsl_mock("[future-feature].dsl.ts")
+      other_fixture("[future-feature].fixture.ts")
+    end
+  end
+
+  subgraph business_testers ["<b>fa:fa-cogs Business Testers</b>"];
+    hotel_search_business_testers("hotel-search.tester.ts")
+    hotel_list_business_testers("hotel-list.tester.ts")
+    other_business_testers("[future-feature].tester.ts")
+  end
+        
+  subgraph component_testers ["<b>fa:fa-cog Component Testers</b>"];
+    direction TB
+    text_input_tester("text-input.tester.ts")
+    text_search_dropdown_tester("search-dropdown.tester.ts")
+    text_date_picker_tester("date-range-picker.tester.ts")
+    text_button_tester("button.tester.ts")
+    text_x_tester("[future-component].tester.ts")
   end
 
   %% start: components & connections
@@ -1216,20 +1219,23 @@ flowchart TB
 
 ## TODOLIST
 
+<details>
+  <summary>最后的最后还有些todolist，暂时干不动了……</summary>
+
 * 🚧high 添加一下“无效测试”的例子。还可以从`FFF.test.tsx`里找找例子
 * 🚧medium 最后润色一下文章总体
   * 通读一遍
   * 缩小一下几个gif的大小不？一个动图5M有点夸张
   * 确保所有link都能访问
-* 🚧medium 润色一下React应用架构图：这颜色还得再精心调配下…… -- 征集下意见
-* 🚧medium 润色一下React应用架构图：Mermaid有些font-awesome的icon，看看能不能用上
 * 🚧medium 搞个TW特供版（有些内部有共识的内容可以简化）然后投稿博客大赛和洞见
 * 🚧medium 把参考文章读一遍
 * 🚧[Modularizing React Applications with Established UI Patterns][]说的一些内容待讨论：
   * view-model-data三层架构中，model和data有啥区别？model和view model有啥区别？
   * Domain是怎么抽出来的？怎么辨别domain逻辑？往DTO上放逻辑？
   * 实践中真能贯彻View Model的架构方式吗？
+* 🚧medium 润色一下React应用架构图：这颜色还得再精心调配下…… -- 征集下意见
 * 🚧问问邱大师：MF博客中代码片段高亮的部分是怎么做到的？
+</details>
 
 ¹：React Hooks的出现使得这种较早时期的人为划分变得不必要了。详见[Presentational and Container Components][]。
 
