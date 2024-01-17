@@ -70,15 +70,43 @@ tags: react unit-test tdd frontend-tdd rtl react-testing-library jest design-sys
 
 更具体的例子，因为篇幅可能过长，我打算放在另一篇[React系列（三）：什么是好的自动化测试][series-3-what-makes-a-good-automation-test]里写。请将其作为本篇的补充读物，里面的一些观点跟接下来要阐述的React单元测试实践是互相交织、一脉相承的。在这里，我打算给出一个典型的、集“大成”于一体的无效自动化测试，读者不妨看看，它都有哪些“无效”的地方、你的项目又是否正在经历这些无效测试的折磨。
 
-> 🚧这部分草稿在另一台电脑上。
-
 ```tsx
-WIP
+it('should can ', async () => {
+  render(<Component />, { wrapper })
+
+  // check disabled status
+  expect(screen.getByLabelText(/occupancy/i)).toHaveAttribute('aria-disabled',  'true')
+  expect(screen.getByRole('textbox', { name: /occupancy/i })).toBeDisabled()
+
+  // select dropdown
+  await userEvent.click(screen.getByLabelText(/目的地/i))
+  const optionFirstName = City[0].name
+  await userEvent.click(screen.getByRole('option', { name: optionFirstName }))
+  expect(screen.getByDisplayValue(City[0].id)).toBeInTheDocument()
+  expect(screen.getByLabelText(/destination/i)).not.toHaveAttribute('arai-disabled', 'true')
+
+  // select dropdown
+  await userEvent.click(screen.getByLabelText(/时间/i))
+  await userEvent.click(screen.getByRole('option', { name: '2024-01-20' }))
+  
+  expect(screen.getByDisplayValue('2024')).toBeInTheDocument()
+  expect(screen.getByLabelText(/checkin-period/i)).not.toHaveAttribute('arai-disabled', 'true')
+
+  expect(screen.getByRole('textbox', { name: /occupancy/i })).not.toBeDisabled()
+})
 ```
 
 简而言之，无效的自动化测试可能包含以上的一个或多个特征：
 
-* WIP
+* 测试描述形同虚设（给强行搞一个）、似是而非、遗漏关键信息
+* 太长，测试重点不清晰
+* 测试数据准备太长，直接把API数据贴进来了，杂音太多，不利于看清楚测试结构
+* 太多各种层次的细节：test id、RTL API、注释，不利于看清楚测试结构
+* 可读性差，比如好几行代码用于在选择一个dropdown，类似的代码在诸多测试文件中重复、仅有微妙不同，不容易一眼看出行为
+* 关键断言隐藏于细节之中，难以发现
+* 关键断言方式曲折，不易发现真正测试内容，阅读维护的心智负担极大
+* 测试了这么多内容，有无数个失败的理由
+* 测试了组件props
 
 ## React应用典型架构
 
@@ -745,7 +773,7 @@ describe('search hotels', () => {
 })
 ```
 
-对于`HotelSearch`这个页面来说，它的边界就是处理好用户输入（比如根据城市找到城市id、转化日期格式等）并交给另一个页面去处理。因此上面的测试里，断言的是用户输入被正确地处理然后触发了路由跳转，这个测试就到此为止了。[完整的代码变更可以参考Github这个提交](https://github.com/EthanLin-TWer/react-testing-strategy/commit/d542305750d055596b359d9e2056b3c4d2c6b6f8)
+对于`HotelSearch`这个页面来说，它的边界就是处理好用户输入（比如根据城市找到城市id、转化日期格式等）并交给另一个页面去处理。因此上面的测试里，断言的是用户输入被正确地处理然后触发了路由跳转，这个测试就到此为止了。[完整的代码变更可以参考Github这个提交](https://github.com/EthanLin-TWer/react-testing-strategy/commit/d542305750d055596b359d9e2056b3c4d2c6b6f8)。
 
 下面，让我们来看看下一个页面——酒店列表`HotelList`——发生的事情。
 
@@ -781,28 +809,33 @@ describe('search hotels', () => {
 └── index.tsx
 ```
 
-> 🚧这里的<h3>需要更新下最终版。
-
 *business-components/hotel-list/HotelListComponent.tsx*
 ```tsx
 ...
 export const HotelListComponent: FC = () => {
   const [params] = useSearchParams()
-  
+
+  const {city, ... ,checkoutDate} = params.get(...)
+  const noOfOccupancies = Number(params.get('noOfOccupancies')!)
+  const recommendationCities = useRecommendationCities()
   const { hotels, isLoading } = useSearchHotels({
-    city: params.get('city')!,
-    checkinDate: params.get('checkinDate')!,
-    checkoutDate: params.get('checkoutDate')!,
-    noOfOccupancies: Number(params.get('noOfOccupancies')!),
+    city,
+    checkinDate,
+    checkoutDate,
+    noOfOccupancies,
   })
-  
+
   return (
-    <div>
-      <h3>Hotel List</h3>
-      {hotels.map((hotel: HotelDTO) => (
-        <HotelItem key={hotel.id} hotel={hotel} />
-      ))}
-    </div>
+    <>
+      <SearchBarOnTop
+        city={recommendationCities.findById(city)!.name}
+        checkoutDate={checkoutDate}
+        checkinDate={checkinDate}
+        noOfOccupancies={noOfOccupancies}
+      />
+
+      <Hotels hotels={hotels} isLoading={isLoading} />
+    </>
   )
 }
 ```
@@ -1106,9 +1139,9 @@ flowchart TB
 
 最后的最后，让我们看一下应用了这套测试策略的demo项目最终的100%测试覆盖率报告和测试描述，印证一下我们搭建这套测试架子的目标：支撑重构、留存业务上下文。
 
-![](https://cdn.jsdelivr.net/gh/EthanLin-TWer/blog@gh-pages/_images/2023-12-20-100-percent-coverage.gif)
+![](https://cdn.jsdelivr.net/gh/EthanLin-TWer/blog@gh-pages/_images/2023-12-10-100-percent-coverage.png)
 
-![](https://cdn.jsdelivr.net/gh/EthanLin-TWer/blog@gh-pages/_images/2023-12-20-test-suites.gif)
+![](https://cdn.jsdelivr.net/gh/EthanLin-TWer/blog@gh-pages/_images/2023-12-10-test-suites.png)
 
 赏心悦目！**100%有效的测试覆盖率**！
 
@@ -1135,6 +1168,8 @@ flowchart TB
 
 即便有这些挑战，我们仍然提倡通过这种方式来编写单元测试，是因为看重它**能有效支撑重构**的重要价值，而这一点在我经历过的前端项目和测试中尤其重要。这一点在本文中已经强调过很多次，希望读者在取用时能理解这个出发点及其取舍。
 
+好了！这下真的结束了！撒花💐🌼🌸🌺🌹🌻🌷！感谢各位耐心阅读！
+
 ## Q & A
 
 #### 本文与上一版的[《React单元测试策略及落地》][react-unit-testing-best-practices]相比有何变化？
@@ -1149,7 +1184,7 @@ flowchart TB
 
 #### 这个组件测试策略覆盖的层如此之多，是否还能叫“单元测试”？
 
-正如Thoughtworks的CTO徐昊在内部的开发者培训项目中所提及的，测试主要有两个用途，一个是负责发现问题，一个是负责定位问题。
+正如黑马所提及的，测试主要有两个用途，一个是负责发现问题，一个是负责定位问题。
 
 发现问题的测试更多是从业务的角度出发，比如用户能不能将商品添加到购物车等，从形式上讲可能更多地体现为端到端测试、UI测试等。它的失败可以明确地反映某个业务场景不工作了，但往往不能很精确地汇报可能出问题的技术组件/分层所在。
 
@@ -1165,9 +1200,9 @@ flowchart TB
 
 #### 为什么不用类似MVVM的架构、然后只测是VM不测View(UI)呢？
 
-这也涉及到软件架构的问题。我将在[React系列（五）：React应用软件架构][series-5-react-application-architecture]这篇文章里进行更深入的讨论。但这里简答一下，
+这也涉及到软件架构的问题。我将在[React系列（五）：React应用软件架构][series-5-react-application-architecture]这篇文章里进行更深入的讨论。
 
-简答一下就是，
+这里简答一下就是，只测VM无法完成支撑重构的根本任务，这是因为View在前端的高变化频率注定它会频繁引起VM的接口变化。另外，只测VM要求把所有逻辑放到View Model里，实践中没有可靠的架构约束。最后，VM和View的接缝本身不被测试到也存在测试信心不足的问题。
 
 #### 推荐以什么组件作为入口编写单元测试？
 
@@ -1191,12 +1226,13 @@ flowchart TB
 
 <details>
   <summary>另外还有一些不打算回答的问题……</summary>
-  > 问题：为什么“组合逻辑”这部分不是放到Bff、而是让前端来自己处理这部分转换？<br/>（简答就是，似乎没有例子可以进行更深入讨论。另外前端完全没有逻辑也不符合经验。）
-  >
-  > 问题：从投入成本的角度考虑，[测试金字塔][testing-pyramid]建议我们是通过少量的端到端测试（发现问题的测试）搭配大量的单元和集成测试（定位问题的测试），来构建一个性价比最高的自动化测试体系。本篇推荐的测试策略是不是反其道而行之？<br/>（简答就是，有效优于成本。）
-</details>
 
-好了！这下真的结束了！撒花💐🌼🌸🌺🌹🌻🌷！感谢各位耐心阅读！
+问题：为什么“组合逻辑”这部分不是放到Bff、而是让前端来自己处理这部分转换？
+<br/>（简答就是，似乎没有例子可以进行更深入讨论。另外前端完全没有逻辑也不符合经验。）
+
+问题：从投入成本的角度考虑，[测试金字塔][testing-pyramid]建议我们是通过少量的端到端测试（发现问题的测试）搭配大量的单元和集成测试（定位问题的测试），来构建一个性价比最高的自动化测试体系。本篇推荐的测试策略是不是反其道而行之？
+<br/>（简答就是，有效优于成本。）
+</details>
 
 ## 参考
 
@@ -1215,25 +1251,25 @@ flowchart TB
 <details>
   <summary>🚧最后的最后还有些todolist，暂时干不动了……</summary>
 
-* 🚧 添加一下“无效测试”的例子。还可以从`FFF.test.tsx`里找找例子
-* 🚧 搞个TW特供版（有些内部有共识的内容可以简化）然后投稿博客大赛和洞见
-* 🚧 缩小一下几个gif的大小。一个开发者体验的动图5M有点夸张
-* 🚧 润色一下React应用架构图：边界border-radius要不要再调下，显得柔和好看一些
-* 🚧 把以下参考文章再读一遍
+* [ ] “无效测试”的例子可以从`FFF.test.tsx`里找找例子
+* [ ] 搞个TW特供版（有些内部有共识的内容可以简化）然后投稿博客大赛和洞见
+* [ ] 缩小一下几个gif的大小。一个开发者体验的动图5M有点夸张
+* [ ] 润色一下React应用架构图：边界border-radius要不要再调下，显得柔和好看一些
+* [ ] 把以下参考文章再读一遍
   * Maintainable React: Refactoring to Clean Code
   * [testing pyramid](https://testingjavascript.com/)
   * [React Testing Guide](https://components.guide/react+typescript/testing)
   * [Kent's blog](https://kentcdodds.com)
-* 🚧[Modularizing React Applications with Established UI Patterns][]说的一些内容待讨论：
+* [ ] [Modularizing React Applications with Established UI Patterns][]说的一些内容待讨论：
   * view-model-data三层架构中，model和data有啥区别？model和view model有啥区别？
   * Domain是怎么抽出来的？怎么辨别domain逻辑？往DTO上放逻辑？
   * 实践中真能贯彻View Model的架构方式吗？
-* 🚧问问邱大师：MF博客中代码片段高亮的部分是怎么做到的？
+* [ ] 问问邱大师：MF博客中代码片段高亮的部分是怎么做到的？
 </details>
 
 ¹：React Hooks的出现使得这种较早时期的人为划分变得不必要了。详见[Presentational and Container Components][]。
 
-²：正如“Mock API返回”一节所述，也可以不包含API层④。
+<br/>²：正如“Mock API返回”一节所述，也可以不包含API层④。
 
 [react-unit-testing-best-practices]: https://ethan.thoughtworkers.me/#/post/2018-07-13-react-unit-testing-strategy
 [series-3-what-makes-a-good-automation-test]: https://ethan.thoughtworkers.me/#/post/2023-12-24-what-makes-a-good-automation-test
@@ -1246,7 +1282,7 @@ flowchart TB
 [Modularizing React Applications with Established UI Patterns]: https://martinfowler.com/articles/modularizing-react-apps.html
 [An example of LLM prompting for programming]: https://martinfowler.com/articles/2023-chatgpt-xu-hao.html
 [Presentational and Container Components]: https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
-[testing-pyramid]: https://martinfowler.com/bliki/TestPyramid.html 
+[testing-pyramid]: https://martinfowler.com/bliki/TestPyramid.html
 [jimmy-vue-unit-testing-best-practice]: https://blog.jimmylv.info/2018-09-19-vue-application-unit-test-strategy-and-practice-01-introduction
 
 [react-context]: https://react.dev/learn/passing-data-deeply-with-context
