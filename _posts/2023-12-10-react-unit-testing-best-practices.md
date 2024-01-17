@@ -1199,6 +1199,7 @@ flowchart TB
 * [Modularizing React Applications with Established UI Patterns][]
 * [Presentational and Container Components][]
 * [Vue应用单元测试策略与实践][jimmy-vue-unit-testing-best-practice]
+* [An example of LLM prompting for programming][]
 
 延伸阅读（全是现挖的坑还没填）：
 
@@ -1207,32 +1208,25 @@ flowchart TB
 * [React系列（五）：React应用软件架构][series-5-react-application-architecture]
 * [React系列（六）：React整体测试策略][series-6-react-testing-strategy-best-practice]
 
-## 参考中
-
-* Maintainable React: Refactoring to Clean Code
-* [testing pyramid](https://testingjavascript.com/)
-* [An example of LLM prompting for programming](https://martinfowler.com/articles/2023-chatgpt-xu-hao.html)
-* [React Testing Guide](https://components.guide/react+typescript/testing)
-* [Kent's blog](https://kentcdodds.com)
-* [前端单元测试实战：React + Redux Testing Library](https://blog.jimmylv.info/2021-01-13-react-redux-testing-library/)：这里的可视化看有没有得抄的。
-
-## TODOLIST
-
 <details>
-  <summary>最后的最后还有些todolist，暂时干不动了……</summary>
+  <summary>🚧最后的最后还有些todolist，暂时干不动了……</summary>
 
-* 🚧high 添加一下“无效测试”的例子。还可以从`FFF.test.tsx`里找找例子
-* 🚧medium 最后润色一下文章总体
+* 🚧 添加一下“无效测试”的例子。还可以从`FFF.test.tsx`里找找例子
+* 🚧 最后润色一下文章总体
   * 通读一遍
   * 缩小一下几个gif的大小不？一个动图5M有点夸张
   * 确保所有link都能访问
-* 🚧medium 搞个TW特供版（有些内部有共识的内容可以简化）然后投稿博客大赛和洞见
-* 🚧medium 把参考文章读一遍
+* 🚧 搞个TW特供版（有些内部有共识的内容可以简化）然后投稿博客大赛和洞见
+* 🚧 润色一下React应用架构图：这颜色还得再精心调配下…… -- 征集下意见
+* 🚧 把以下参考文章读一遍
+  * Maintainable React: Refactoring to Clean Code
+  * [testing pyramid](https://testingjavascript.com/)
+  * [React Testing Guide](https://components.guide/react+typescript/testing)
+  * [Kent's blog](https://kentcdodds.com)
 * 🚧[Modularizing React Applications with Established UI Patterns][]说的一些内容待讨论：
   * view-model-data三层架构中，model和data有啥区别？model和view model有啥区别？
   * Domain是怎么抽出来的？怎么辨别domain逻辑？往DTO上放逻辑？
   * 实践中真能贯彻View Model的架构方式吗？
-* 🚧medium 润色一下React应用架构图：这颜色还得再精心调配下…… -- 征集下意见
 * 🚧问问邱大师：MF博客中代码片段高亮的部分是怎么做到的？
 </details>
 
@@ -1249,6 +1243,7 @@ flowchart TB
 [github-code-examples]: https://github.com/EthanLin-TWer/react-testing-strategy
 
 [Modularizing React Applications with Established UI Patterns]: https://martinfowler.com/articles/modularizing-react-apps.html
+[An example of LLM prompting for programming]: https://martinfowler.com/articles/2023-chatgpt-xu-hao.html
 [Presentational and Container Components]: https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
 [testing-pyramid]: https://martinfowler.com/bliki/TestPyramid.html 
 [jimmy-vue-unit-testing-best-practice]: https://blog.jimmylv.info/2018-09-19-vue-application-unit-test-strategy-and-practice-01-introduction
