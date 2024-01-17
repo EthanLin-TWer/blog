@@ -29,16 +29,16 @@ tags: react unit-test tdd frontend-tdd rtl react-testing-library jest design-sys
 
 ## 目录
 
-* 为什么有效的自动化测试很重要 (Why Effective Automated Tests Are So Important)
-* 有效的自动化测试 v.s 无效的自动化测试 (Automated Tests Best Practice v.s Anti Practice)
-* React应用典型架构 (A Typical React App Architecture)
-* React组件单元测试最佳实践 (Best Practice Unit Testing React Components)
+* 为什么有效的自动化测试很重要
+* 有效的自动化测试 v.s 无效的自动化测试
+* React应用典型架构
+* React组件单元测试最佳实践
 * 测试架构与代码落地
   * 场景（一）：静态页面测试
   * 场景（二）：用户交互
   * 场景（三）：路由跳转
   * 场景（四）：Mock API返回
-* 总结：好处与挑战 (Summary: Advantages & Challenges)
+* 总结：好处与挑战
 * Q & A
   * 本文与上一版的[《React单元测试策略及落地》][react-unit-testing-best-practices]相比有何变化？
   * 这个组件测试策略覆盖的层如此之多，是否还能叫“单元测试”？
