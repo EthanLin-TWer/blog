@@ -745,7 +745,7 @@ describe('search hotels', () => {
 })
 ```
 
-对于`HotelSearch`这个页面来说，它的边界就是处理好用户输入（比如根据城市找到城市id、转化日期格式等）并交给另一个页面去处理。因此上面的测试里，断言的是用户输入被正确地处理然后触发了路由跳转，这个测试就到此为止了。[完整的代码变更可以参考Github这个提交](https://github.com/EthanLin-TWer/react-testing-strategy/commit/d542305750d055596b359d9e2056b3c4d2c6b6f8)
+对于`HotelSearch`这个页面来说，它的边界就是处理好用户输入（比如根据城市找到城市id、转化日期格式等）并交给另一个页面去处理。因此上面的测试里，断言的是用户输入被正确地处理然后触发了路由跳转，这个测试就到此为止了。[完整的代码变更可以参考Github这个提交](https://github.com/EthanLin-TWer/react-testing-strategy/commit/d542305750d055596b359d9e2056b3c4d2c6b6f8)。
 
 下面，让我们来看看下一个页面——酒店列表`HotelList`——发生的事情。
 
@@ -781,28 +781,33 @@ describe('search hotels', () => {
 └── index.tsx
 ```
 
-> 🚧这里的<h3>需要更新下最终版。
-
 *business-components/hotel-list/HotelListComponent.tsx*
 ```tsx
 ...
 export const HotelListComponent: FC = () => {
   const [params] = useSearchParams()
-  
+
+  const {city, ... ,checkoutDate} = params.get(...)
+  const noOfOccupancies = Number(params.get('noOfOccupancies')!)
+  const recommendationCities = useRecommendationCities()
   const { hotels, isLoading } = useSearchHotels({
-    city: params.get('city')!,
-    checkinDate: params.get('checkinDate')!,
-    checkoutDate: params.get('checkoutDate')!,
-    noOfOccupancies: Number(params.get('noOfOccupancies')!),
+    city,
+    checkinDate,
+    checkoutDate,
+    noOfOccupancies,
   })
-  
+
   return (
-    <div>
-      <h3>Hotel List</h3>
-      {hotels.map((hotel: HotelDTO) => (
-        <HotelItem key={hotel.id} hotel={hotel} />
-      ))}
-    </div>
+    <>
+      <SearchBarOnTop
+        city={recommendationCities.findById(city)!.name}
+        checkoutDate={checkoutDate}
+        checkinDate={checkinDate}
+        noOfOccupancies={noOfOccupancies}
+      />
+
+      <Hotels hotels={hotels} isLoading={isLoading} />
+    </>
   )
 }
 ```
@@ -1106,9 +1111,9 @@ flowchart TB
 
 最后的最后，让我们看一下应用了这套测试策略的demo项目最终的100%测试覆盖率报告和测试描述，印证一下我们搭建这套测试架子的目标：支撑重构、留存业务上下文。
 
-![](https://cdn.jsdelivr.net/gh/EthanLin-TWer/blog@gh-pages/_images/2023-12-20-100-percent-coverage.gif)
+![](https://cdn.jsdelivr.net/gh/EthanLin-TWer/blog@gh-pages/_images/2023-12-10-100-percent-coverage.png)
 
-![](https://cdn.jsdelivr.net/gh/EthanLin-TWer/blog@gh-pages/_images/2023-12-20-test-suites.gif)
+![](https://cdn.jsdelivr.net/gh/EthanLin-TWer/blog@gh-pages/_images/2023-12-10-test-suites.png)
 
 赏心悦目！**100%有效的测试覆盖率**！
 
@@ -1135,6 +1140,8 @@ flowchart TB
 
 即便有这些挑战，我们仍然提倡通过这种方式来编写单元测试，是因为看重它**能有效支撑重构**的重要价值，而这一点在我经历过的前端项目和测试中尤其重要。这一点在本文中已经强调过很多次，希望读者在取用时能理解这个出发点及其取舍。
 
+好了！这下真的结束了！撒花💐🌼🌸🌺🌹🌻🌷！感谢各位耐心阅读！
+
 ## Q & A
 
 #### 本文与上一版的[《React单元测试策略及落地》][react-unit-testing-best-practices]相比有何变化？
@@ -1149,7 +1156,7 @@ flowchart TB
 
 #### 这个组件测试策略覆盖的层如此之多，是否还能叫“单元测试”？
 
-正如Thoughtworks的CTO徐昊在内部的开发者培训项目中所提及的，测试主要有两个用途，一个是负责发现问题，一个是负责定位问题。
+正如黑马所提及的，测试主要有两个用途，一个是负责发现问题，一个是负责定位问题。
 
 发现问题的测试更多是从业务的角度出发，比如用户能不能将商品添加到购物车等，从形式上讲可能更多地体现为端到端测试、UI测试等。它的失败可以明确地反映某个业务场景不工作了，但往往不能很精确地汇报可能出问题的技术组件/分层所在。
 
@@ -1165,9 +1172,9 @@ flowchart TB
 
 #### 为什么不用类似MVVM的架构、然后只测是VM不测View(UI)呢？
 
-这也涉及到软件架构的问题。我将在[React系列（五）：React应用软件架构][series-5-react-application-architecture]这篇文章里进行更深入的讨论。但这里简答一下，
+这也涉及到软件架构的问题。我将在[React系列（五）：React应用软件架构][series-5-react-application-architecture]这篇文章里进行更深入的讨论。
 
-简答一下就是，
+这里简答一下就是，只测VM无法完成支撑重构的根本任务，这是因为View在前端的高变化频率注定它会频繁引起VM的接口变化。另外，只测VM要求把所有逻辑放到View Model里，实践中没有可靠的架构约束。最后，VM和View的接缝本身不被测试到也存在测试信心不足的问题。
 
 #### 推荐以什么组件作为入口编写单元测试？
 
@@ -1191,12 +1198,13 @@ flowchart TB
 
 <details>
   <summary>另外还有一些不打算回答的问题……</summary>
-  > 问题：为什么“组合逻辑”这部分不是放到Bff、而是让前端来自己处理这部分转换？<br/>（简答就是，似乎没有例子可以进行更深入讨论。另外前端完全没有逻辑也不符合经验。）
-  >
-  > 问题：从投入成本的角度考虑，[测试金字塔][testing-pyramid]建议我们是通过少量的端到端测试（发现问题的测试）搭配大量的单元和集成测试（定位问题的测试），来构建一个性价比最高的自动化测试体系。本篇推荐的测试策略是不是反其道而行之？<br/>（简答就是，有效优于成本。）
-</details>
 
-好了！这下真的结束了！撒花💐🌼🌸🌺🌹🌻🌷！感谢各位耐心阅读！
+问题：为什么“组合逻辑”这部分不是放到Bff、而是让前端来自己处理这部分转换？
+<br/>（简答就是，似乎没有例子可以进行更深入讨论。另外前端完全没有逻辑也不符合经验。）
+
+问题：从投入成本的角度考虑，[测试金字塔][testing-pyramid]建议我们是通过少量的端到端测试（发现问题的测试）搭配大量的单元和集成测试（定位问题的测试），来构建一个性价比最高的自动化测试体系。本篇推荐的测试策略是不是反其道而行之？
+<br/>（简答就是，有效优于成本。）
+</details>
 
 ## 参考
 
@@ -1233,7 +1241,7 @@ flowchart TB
 
 ¹：React Hooks的出现使得这种较早时期的人为划分变得不必要了。详见[Presentational and Container Components][]。
 
-²：正如“Mock API返回”一节所述，也可以不包含API层④。
+<br/>²：正如“Mock API返回”一节所述，也可以不包含API层④。
 
 [react-unit-testing-best-practices]: https://ethan.thoughtworkers.me/#/post/2018-07-13-react-unit-testing-strategy
 [series-3-what-makes-a-good-automation-test]: https://ethan.thoughtworkers.me/#/post/2023-12-24-what-makes-a-good-automation-test
@@ -1246,7 +1254,7 @@ flowchart TB
 [Modularizing React Applications with Established UI Patterns]: https://martinfowler.com/articles/modularizing-react-apps.html
 [An example of LLM prompting for programming]: https://martinfowler.com/articles/2023-chatgpt-xu-hao.html
 [Presentational and Container Components]: https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
-[testing-pyramid]: https://martinfowler.com/bliki/TestPyramid.html 
+[testing-pyramid]: https://martinfowler.com/bliki/TestPyramid.html
 [jimmy-vue-unit-testing-best-practice]: https://blog.jimmylv.info/2018-09-19-vue-application-unit-test-strategy-and-practice-01-introduction
 
 [react-context]: https://react.dev/learn/passing-data-deeply-with-context
