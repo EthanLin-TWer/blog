@@ -138,31 +138,31 @@ flowchart TB
   deps_analytics(<b>Dependency: Analytics Scripts</b><br/><br/>Sentry, Adobe Analytics, ..)
 
   %% styles - #D8FAC8 #A5EA88 #F1CFFE #B3E5FA #FCD6B6
-  style route_components stroke-dasharray: 6 6,stroke: #000
-  style app fill:#FFF,stroke: #000,stroke-dasharray: 20 20,stroke-width:4
-  style business_components fill:#A5EA88,stroke: #000
-  style route_components fill:#A5EA88,stroke: #000
-  style ui_components fill:#D8FAC8,stroke: #000
+  style route_components stroke-dasharray: 6 6,stroke: #333
+  style app fill:#FFF,stroke: #333,stroke-dasharray: 20 20,stroke-width:4
+  style business_components fill:#A5EA88,stroke: #333
+  style route_components fill:#A5EA88,stroke: #333
+  style ui_components fill:#D8FAC8,stroke: #333
   
-  style shared_hooks fill:#F1CFFE,stroke: #000
-  style api_hooks fill:#F1CFFE,stroke: #000
-  style dom_hooks fill:#F1CFFE,stroke: #000
-  style analytics_hooks fill:#F1CFFE,stroke: #000
-  style global_store fill:#F1CFFE,stroke: #000
-  style etc_hooks fill:#F1CFFE,stroke: #000
-  style api_client fill:#FCD6B6,stroke: #000
-  style utils fill:#B3E5FA,stroke: #000
-  style constants fill:#B3E5FA,stroke: #000
+  style shared_hooks fill:#F1CFFE,stroke: #333
+  style api_hooks fill:#F1CFFE,stroke: #333
+  style dom_hooks fill:#F1CFFE,stroke: #333
+  style analytics_hooks fill:#F1CFFE,stroke: #333
+  style global_store fill:#F1CFFE,stroke: #333
+  style etc_hooks fill:#F1CFFE,stroke: #333
+  style api_client fill:#FCD6B6,stroke: #333
+  style utils fill:#B3E5FA,stroke: #333
+  style constants fill:#B3E5FA,stroke: #333
 
-  style stateful_components fill:#FFF,stroke: #000
-  style hooks_layer fill:#FFF,stroke: #000
-  style shared_layer fill:#FFF,stroke: #000
-  style api_layer fill:#FFF,stroke: #000
-  style boundaries fill:#FFF,stroke: #000,stroke-width:2
-  style bff fill:#FFF,stroke: #000
-  style deps_dom_apis fill:#FFF,stroke: #000
-  style deps_analytics fill:#FFF,stroke: #000
-  style deps_others fill:#FFF,stroke: #000
+  style stateful_components fill:#FFF,stroke: #333
+  style hooks_layer fill:#FFF,stroke: #333
+  style shared_layer fill:#FFF,stroke: #333
+  style api_layer fill:#FFF,stroke: #333
+  style boundaries fill:#FFF,stroke: #333,stroke-width:2
+  style bff fill:#FFF,stroke: #333
+  style deps_dom_apis fill:#FFF,stroke: #333
+  style deps_analytics fill:#FFF,stroke: #333
+  style deps_others fill:#FFF,stroke: #333
   
   %% start: components & connections
   subgraph app ["React Application (Frontend)"];
@@ -1015,9 +1015,88 @@ describe('hotels list', () => {
 * 可以更好地突出对这个测试用例有关键影响的测试数据，有利于增强可读性，服务于留存业务上下文这个大目标
 * 测试中借用的`.mock.ts`文件是服务于本地开发，而测试中的fixture需要对测试数据进行更灵活的修改。本质上它们是服务于不同的目的，变化频率不同，从架构上分开更加清晰。这也是我们要独立维护`mocks/**/*.mock.ts`和`fixtures/*.fixture.ts`的目的
 
+随着测试的增加和演进，我们前面提到的测试架构可能会演进、细化成下图的样子：
+
+```mermaid
+flowchart TB
+  %% definitions
+  subgraph page_tests ["<b>Page Tests</b>"];
+      hotel_search_page_test("hotel-search.spec.tsx")
+      other_page_tests("[future-feature].spec.tsx")
+      hotel_list_page_test("hotel-list.spec.tsx")
+  end
+
+  subgraph mocks_and_fixtures ["<b>DSL & Fixture</b>"];
+      subgraph hotel_list_mocks_and_fixture ["hotel-list"]
+          direction TB
+          hotel_list_dsl_mock("hotel-list.dsl.ts")
+          hotel_list_dsl_fixture("hotel-list.fixture.ts")
+      end
+
+      subgraph other_mocks_and_fixture ["[future-feature]"]
+          direction TB
+          other_dsl_mock("[future-feature].dsl.ts")
+          other_fixture("[future-feature].fixture.ts")
+      end
+  end
+
+  subgraph business_testers ["<b>Business Testers</b>"];
+      hotel_search_business_testers("hotel-search.tester.ts")
+      hotel_list_business_testers("hotel-list.tester.ts")
+      other_business_testers("[future-feature].tester.ts")
+  end
+
+  subgraph component_testers ["<b>Component Testers</b>"];
+      direction TB
+      text_input_tester("text-input.tester.ts")
+      text_search_dropdown_tester("search-dropdown.tester.ts")
+      text_date_picker_tester("date-range-picker.tester.ts")
+      text_button_tester("button.tester.ts")
+      text_x_tester("[future-component].tester.ts")
+  end
+
+  %% start: components & connections
+  hotel_search_page_test ---> hotel_search_business_testers --> component_testers
+  hotel_list_page_test --> hotel_list_business_testers --> component_testers
+  hotel_list_page_test --> hotel_list_mocks_and_fixture
+  other_page_tests -.-> other_business_testers --> component_testers
+  other_page_tests -.-> hotel_list_mocks_and_fixture
+  other_page_tests -.-> other_mocks_and_fixture
+  hotel_list_dsl_mock --> hotel_list_dsl_fixture
+  other_dsl_mock --> other_fixture
+
+  %% styles - #D8FAC8 #A5EA88 #F1CFFE #B3E5FA #FCD6B6
+  style page_tests fill:#FFF,stroke:#333
+  style mocks_and_fixtures fill:#FFF,stroke:#333
+  style hotel_list_mocks_and_fixture fill:#FFF,stroke:#333
+  style other_mocks_and_fixture fill:#FFF,stroke:#333
+  style business_testers fill:#FFF,stroke:#333
+  style component_testers fill:#FFF,stroke:#333
+
+  style hotel_search_page_test fill:#B3E5FA
+  style hotel_list_page_test fill:#B3E5FA
+  style other_page_tests fill:#B3E5FA
+
+  style hotel_list_dsl_mock fill:#A5EA88
+  style other_dsl_mock fill:#A5EA88
+
+  style hotel_list_dsl_fixture fill:#D8FAC8
+  style other_fixture fill:#D8FAC8
+
+  style hotel_search_business_testers fill:#F1CFFE
+  style hotel_list_business_testers fill:#F1CFFE
+  style other_business_testers fill:#F1CFFE
+
+  style text_input_tester fill:#FCD6B6
+  style text_search_dropdown_tester fill:#FCD6B6
+  style text_date_picker_tester fill:#FCD6B6
+  style text_button_tester fill:#FCD6B6
+  style text_x_tester fill:#FCD6B6
+```
+
 至此，我们就用一个具体的需求为例，介绍了这个单元测试策略的所有组成部分了。在实际的开发中，这个故事卡还有许多边界场景需要覆盖，比如“没有符合条件的搜索结果”、“API出错”等等。有了这套测试架子，对这些场景进行完整测试并不困难。随着项目测试架子沉淀和团队成员熟悉程度提升，在前端多数领域实施TDD也是完全可行的。这也回到了我对企业级软件开发的提倡：
 
-**没有失败的测试不写代码/修bug。有需求则必有有效的自动化测试覆盖**。
+**没有失败的测试不写代码。有需求则必有有效的自动化测试覆盖**。
 
 最后的最后，让我们看一下应用了这套测试策略的demo项目最终的100%测试覆盖率报告和测试描述，印证一下我们搭建这套测试架子的目标：支撑重构、留存业务上下文。
 
@@ -1026,46 +1105,6 @@ describe('hotels list', () => {
 ![](https://cdn.jsdelivr.net/gh/EthanLin-TWer/blog@gh-pages/_images/2023-12-20-test-suites.gif)
 
 赏心悦目！**100%有效的测试覆盖率**！
-
-<details>
-  <summary>🚧演进的测试架构图。图未画完</summary>
-正如我们所提到的，最终component tester可以被不同的上层所用。当应用扩展（业务/页面增加）时，这个架构大概率会像这样去演进：
-
-```mermaid
-flowchart TB
-  subgraph page_tests ["<b>Page Tests</b>"]; 
-    page_1_tests("Hotel Search Page Tests")
-    page_2_tests("Hotel Details Page Tests")
-    page_3_tests("Flight Search Page Tests")
-    page_4_tests("Flight Details Page Tests")
-    page_5_tests("...")
-  end
-  
-  subgraph business_testers ["<b>Business Testers</b>"]; 
-    business_1_testers("Hotel Search Testers")
-    business_2_testers("Hotel Details Testers")
-    business_3_testers("Flight Search Testers")
-    business_4_testers("Flight Details Testers")
-    business_5_testers("...")
-  end
-  
-  subgraph testers ["<b>Component Testers</b>"];
-    direction TB
-    text_input_tester("TextInput tester")
-    text_search_dropdown_tester("SearchDropdown tester")
-    text_date_picker_tester("DatePicker tester")
-    text_counter_tester("Counter tester")
-    text_button_tester("Button tester")
-    text_x_tester("...")
-  end
-
-  page_1_tests --> business_1_testers --> testers
-  page_2_tests --> business_2_testers --> testers
-  page_3_tests --> business_3_testers --> testers
-  page_4_tests --> business_4_testers --> testers
-  page_5_tests --> business_5_testers --> testers
-```
-</details>
 
 ## 总结：好处与挑战
 
@@ -1178,8 +1217,6 @@ flowchart TB
 ## TODOLIST
 
 * 🚧high 添加一下“无效测试”的例子。还可以从`FFF.test.tsx`里找找例子
-* 🚧high 最后补一个测试出错时的错误信息，还得找个地方放一下+解释一下
-* 🚧high 最后完善一下带上了DSL和fixture的测试总体架构
 * 🚧medium 最后润色一下文章总体
   * 通读一遍
   * 缩小一下几个gif的大小不？一个动图5M有点夸张
