@@ -1106,9 +1106,9 @@ flowchart TB
 
 最后的最后，让我们看一下应用了这套测试策略的demo项目最终的100%测试覆盖率报告和测试描述，印证一下我们搭建这套测试架子的目标：支撑重构、留存业务上下文。
 
-![](https://cdn.jsdelivr.net/gh/EthanLin-TWer/blog@gh-pages/_images/2023-12-20-100-percent-coverage.gif)
+![](https://cdn.jsdelivr.net/gh/EthanLin-TWer/blog@gh-pages/_images/2023-12-10-100-percent-coverage.png)
 
-![](https://cdn.jsdelivr.net/gh/EthanLin-TWer/blog@gh-pages/_images/2023-12-20-test-suites.gif)
+![](https://cdn.jsdelivr.net/gh/EthanLin-TWer/blog@gh-pages/_images/2023-12-10-test-suites.png)
 
 赏心悦目！**100%有效的测试覆盖率**！
 
@@ -1246,7 +1246,7 @@ flowchart TB
 [Modularizing React Applications with Established UI Patterns]: https://martinfowler.com/articles/modularizing-react-apps.html
 [An example of LLM prompting for programming]: https://martinfowler.com/articles/2023-chatgpt-xu-hao.html
 [Presentational and Container Components]: https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
-[testing-pyramid]: https://martinfowler.com/bliki/TestPyramid.html 
+[testing-pyramid]: https://martinfowler.com/bliki/TestPyramid.html
 [jimmy-vue-unit-testing-best-practice]: https://blog.jimmylv.info/2018-09-19-vue-application-unit-test-strategy-and-practice-01-introduction
 
 [react-context]: https://react.dev/learn/passing-data-deeply-with-context
