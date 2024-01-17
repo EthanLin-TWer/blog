@@ -88,12 +88,15 @@ WIP
 
 ```mermaid
 flowchart TB
-  components(<b>Components</b> layer)
-  hooks(<b>Hooks</b> <i>layer</i>)
+  components(fa:fa-building <b>Components</b> layer)
+  hooks(fa:fa-network-wired <b>Hooks</b> <i>layer</i>)
   api_adaptor(<b>API adaptor</b> layer)
-  api(<b>API</b> layer)
+  api(fa:fa-wifi <b>API</b> layer)
   
   style api_adaptor stroke-dasharray: 6 6
+  style components fill:#A5EA88
+  style hooks fill:#F1CFFE
+  style api fill:#FCD6B6
   
   components --> hooks
   hooks --> api_adaptor
@@ -101,6 +104,7 @@ flowchart TB
   
   api_adaptor -- Request --> api
   api -. Response .-> api_adaptor
+
 ```
 
 在这个架构里，组件层（Component Layer）是确定的，它负责处理的是把从下层得到的数据渲染成View，隔离的是渲染目标HTML的变化（借助JSX和React的V-DOM技术）。同时，API层也是确定的，它负责处理与三方系统交互的API调用，隔离的是通信协议（HTTP、GraphQL等）的变化。
