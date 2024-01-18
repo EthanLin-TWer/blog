@@ -258,7 +258,7 @@ flowchart TB
   etc_hooks -.-> deps_others
 ```
 
-与一些[更早版本的React架构][react-unit-testing-best-practices]相比，React 16之后的Hooks基本上接管了所有副作用以及逻辑处理的代码，包括原来的状态管理（[Redux action/reducer][redux]那一套）、副作用（[redux-thunk][]、[redux-saga][]等）等。除此之外，上面这版架构里有一些变化值得强调：
+[以往][react-unit-testing-best-practices]的状态管理（[Redux][redux]那一套）和副作用管理（[redux-saga][]等）如今都由Hooks层包办了。此外，这版架构中有些小变化值得强调：
 
 * 不强求对业务组件⑦再细拆“容器组件”与“展示型组件”¹。除了UI组件②之外的React组件，统一归为①中的“有状态组件”。
 * UI组件②这里特指通用型的UI组件，如[MUI][]、[AntD][antd]或者项目自己封装的UI组件库。业务组件⑦中自行拆出的展示型组件不属此列。
@@ -1289,7 +1289,6 @@ flowchart TB
 
 [react-context]: https://react.dev/learn/passing-data-deeply-with-context
 [redux]: https://redux.js.org/
-[redux-thunk]: https://github.com/reduxjs/redux-thunk
 [redux-saga]: https://redux-saga.js.org/
 [mobx]: https://mobx.js.org/README.html
 [react-hook-form]: https://react-hook-form.com/
