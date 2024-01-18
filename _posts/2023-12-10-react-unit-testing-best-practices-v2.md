@@ -1276,6 +1276,8 @@ flowchart TB
 * [ ] 问问邱大师：MF博客中代码片段高亮的部分是怎么做到的？
 </details>
 
+---
+
 ¹：React Hooks的出现使得这种较早时期的人为划分变得不必要了。详见[Presentational and Container Components][]。<br/>
 ²：正如“Mock API返回”一节所述，也可以不包含API层④。
 
