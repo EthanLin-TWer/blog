@@ -1260,19 +1260,17 @@ flowchart TB
 <details>
   <summary>🚧最后的最后还有些todolist，暂时干不动了……</summary>
 
-* [ ] “无效测试”的例子可以从`FFF.test.tsx`里找找例子
+* [ ] 把“无效测试”的例子修改更新一下，可以从`FFF.test.tsx`里找找例子
+* [ ] 整理一下几个群大家提的问题，作为意见输入
+* [ ] 回头拿这个架构把项目代码深度重构一下
+* [ ] 要不要顺便投稿下掘金、蚂蚁等各大平台
 * [ ] 缩小一下几个gif的大小。一个开发者体验的动图5M有点夸张
-* [ ] 润色一下React应用架构图：边界border-radius要不要再调下，显得柔和好看一些
 * [ ] 把以下参考文章再读一遍
   * Maintainable React: Refactoring to Clean Code
   * [testing pyramid](https://testingjavascript.com/)
   * [React Testing Guide](https://components.guide/react+typescript/testing)
   * [Kent's blog](https://kentcdodds.com)
-* [ ] [Modularizing React Applications with Established UI Patterns][]说的一些内容待讨论：
-  * view-model-data三层架构中，model和data有啥区别？model和view model有啥区别？
-  * Domain是怎么抽出来的？怎么辨别domain逻辑？往DTO上放逻辑？
-  * 实践中真能贯彻View Model的架构方式吗？
-* [ ] 问问邱大师：MF博客中代码片段高亮的部分是怎么做到的？
+* [ ] 润色一下React应用架构图：边界border-radius要不要再调下，显得柔和好看一些
 </details>
 
 ---
