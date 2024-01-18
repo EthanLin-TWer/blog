@@ -488,7 +488,7 @@ flowchart TB
   style component_testers fill:#FCD6B6
 ```
 
-[完整的代码变更可以参考Github这几个提交](https://github.com/EthanLin-TWer/react-testing-strategy/compare/fd5ce087...7cb3d327)
+[完整的代码变更可以参考Github这几个提交](https://github.com/EthanLin-TWer/react-testing-strategy/compare/fd5ce087...7cb3d327)。
 
 #### 新增测试
 
@@ -534,7 +534,7 @@ export const findSearchDropdown = (testId: string): SearchDropdownTester => {
 
 AC1只是一个简单的静态页面，并不困难，接下来我们来看一个更常用的场景：用户与UI交互并产生一些修改。也就是AC2中，用户编辑入住信息的场景。
 
-在真实的业务场景中，我们往往需要存储一些中间状态——也就是这里的用户入住查询信息。在这个例子中，我们将暂时使用state来存储用户的修改。先从“用户可以编辑目的地”开始，最终，我们会改动到的主要实现将如下所示（[完整的代码变更可以参考Github这个提交](https://github.com/EthanLin-TWer/react-testing-strategy/commit/3c303f7be7edd46af12f651f703421363410039e)）：
+在真实的业务场景中，我们往往需要存储一些中间状态——也就是这里的用户入住查询信息。在这个例子中，我们将暂时使用state来存储用户的修改。先从“用户可以编辑目的地”开始，最终，我们会改动到的主要实现将如下所示：
 
 ```text
 .
@@ -725,6 +725,8 @@ describe('search hotels', () => {
 })
 ```
 
+[完整的代码变更可以参考Github这个提交](https://github.com/EthanLin-TWer/react-testing-strategy/commit/3c303f7be7edd46af12f651f703421363410039e)。
+
 ### 场景（三）：路由跳转
 
 接下来，让我们看看AC3的实现。这是个支撑用户进行搜索的功能：用户点击搜索时，系统将立即修改url参数并跳转到搜索页，同时发起后端的API请求并在完成后渲染结果。这其中，我们先来看看路由跳转的部分。实现和测试代码都相对直观：
@@ -773,12 +775,16 @@ describe('search hotels', () => {
     await getSearchButton().click()
 
     expect(window.location.pathname).toBe('/hotels/list')
-    expect(window.location.search).toBe('?city=HZ&checkinDate=2024-01-20&checkoutDate=2024-01-28&noOfOccupancies=2')
+    expect(window.location.search).toBe(
+      '?city=HZ&checkinDate=2024-01-20&checkoutDate=2024-01-28&noOfOccupancies=2'
+    )
   })
 })
 ```
 
-对于`HotelSearch`这个页面来说，它的边界就是处理好用户输入（比如根据城市找到城市id、转化日期格式等）并交给另一个页面去处理。因此上面的测试里，断言的是用户输入被正确地处理然后触发了路由跳转，这个测试就到此为止了。[完整的代码变更可以参考Github这个提交](https://github.com/EthanLin-TWer/react-testing-strategy/commit/d542305750d055596b359d9e2056b3c4d2c6b6f8)。
+对于`HotelSearch`这个页面来说，它的边界就是处理好用户输入（比如根据城市找到城市id、转化日期格式等）并交给另一个页面去处理。因此上面的测试里，断言的是用户输入被正确地处理然后触发了路由跳转，这个测试就到此为止了。
+
+[完整的代码变更可以参考Github这个提交](https://github.com/EthanLin-TWer/react-testing-strategy/commit/d542305750d055596b359d9e2056b3c4d2c6b6f8)。
 
 下面，让我们来看看下一个页面——酒店列表`HotelList`——发生的事情。
 
