@@ -22,8 +22,8 @@ tags: react unit-test tdd frontend-tdd rtl react-testing-library jest design-sys
 * 有效的自动化测试就是能够有效支撑重构的测试。
 * 测试策略来源于软件架构。本文介绍了一种常见且有效的React应用架构。
 * 有效的测试策略，只应该mock API（层），而不应该mock组件常见内部实现，如React hooks、Redux、React组件等。
-* 介绍了在静态页面渲染、用户交互、路由跳转、API交互等场景下如何进行有效的自动化测试
-* 测试本身也有分层。本文介绍了一种推荐的分层实践：API DSL、business tester、component tester。
+* 介绍了在静态页面渲染、用户交互、路由跳转、API交互等场景下如何进行有效的自动化测试。
+* 测试本身也有分层。本文介绍了一种推荐的分层实践：API DSL、fixture、business tester、component tester。
 * 为了实现有效支撑重构这个根本目标，测试引入的分层会带来一些额外的（一次性及短期）成本。
 * 承担这个成本是值得的。一切都是为了让你的测试能够真正支撑重构、有效留存业务上下文，真正助力研发效能。
 
@@ -42,7 +42,7 @@ tags: react unit-test tdd frontend-tdd rtl react-testing-library jest design-sys
 * Q & A
   * 本文与上一版的[《React单元测试策略及落地》][react-unit-testing-best-practices]相比有何变化？
   * 这个组件测试策略覆盖的层如此之多，是否还能叫“单元测试”？
-  * 为什么不用类似MVVM的架构、然后只测是VM不测View(UI)呢？
+  * 为什么不用类似MVVM的架构、然后只测VM而不测View/UI呢？
   * 推荐以什么组件作为入口编写单元测试？
   * 跨页面或路由的功能应该如何测试？
   * 单个测试文件内按业务功能组织还是按技术模块组织？
@@ -139,9 +139,9 @@ flowchart TB
 
 ```
 
-在这个架构里，组件层（Component Layer）是确定的，它负责处理的是把从下层得到的数据渲染成View，隔离的是渲染目标HTML的变化（借助JSX和React的V-DOM技术）。同时，API层也是确定的，它负责处理与三方系统交互的API调用，隔离的是通信协议（HTTP、GraphQL等）的变化。
+在这个架构里，组件层（Components layer）是确定的，它负责处理的是把从下层得到的数据渲染成View，隔离的是渲染目标HTML的变化（借助JSX和React的V-DOM技术）。同时，API层（API layer）也是确定的，它负责处理与三方系统交互的API调用，隔离的是通信协议（HTTP、GraphQL等）的变化。
 
-API适配层的作用是，将API层得到的`Response`转换成前端应用可以使用的`ResponseDTO`结构，隔离的是后端数据结构变化对前端（Hooks、View等）的传播。这个隔离非常重要，但是这一层不一定是必须的：如果这一层非常薄、没有任何逻辑，那么直接让API层转换一层、返回`ResponseDTO`同样可达到隔离后端数据结构变化的目的；如果你使用了类似React Query之类的工具，那么这一层可以合并到Hooks的大“分层”里头。
+API适配层（API adaptor layer）的作用是，将API层得到的`Response`转换成前端应用可以使用的`ResponseDTO`结构，隔离的是后端数据结构变化对前端（Hooks、View等）的传播。这个隔离非常重要，但是这一层不一定是必须的：如果这一层非常薄、没有任何逻辑，那么直接让API层转换一层、返回`ResponseDTO`同样可达到隔离后端数据结构变化的目的；如果你使用了类似React Query之类的工具，那么这一层可以合并到Hooks的大“分层”里头。
 
 Hooks严格来说不是一个“层”。一个架构意义上的分层，必须有明确的职责、明确的输入接口与输出接口。这些限制React Hooks本身是不提供的，有赖于开发者去定义它。关于什么是React Hooks的最佳实践和架构，我会放在这篇文章[React系列（四）：Hooks最佳实践与面向对象][series-4-react-hooks-best-practices]中去讨论。这里，我直接把一个我推荐的结果拿过来用，再细化一下，这样我们就得到了一个分层合适的React应用架构：
 
@@ -153,19 +153,19 @@ flowchart TB
   ui_components("<b>② fa:fa-palatte UI Components</b><br/><br/>MUI, Antd, Semantic UI, Tailwind, ...")
         
   %% definition: hooks layer
-  shared_hooks("<b>⑧ Domain logics / shared effects</b>")
-  dom_hooks(<b>DOM APIs</b>)
-  analytics_hooks(<b>Analytics</b>)
+  shared_hooks("<br/><b>⑧ Domain logics / shared effects</b><br/>")
+  dom_hooks(<br/><b>DOM APIs</b><br/>)
+  analytics_hooks(<br/><b>Analytics</b><br/>)
   global_store("⑩ <b>Global store</b><br/>(Accessible anywheres in <b>Hooks</b> layer)<br/><br/>React Context, redux, mobx, ..")
   api_hooks("⑨ <b>API Hooks</b><br/><br/>React Query, SWR, RTK Query, ..")
-  etc_hooks(<b>........</b>)
+  etc_hooks(<br/><b>........</b><br/>)
 
   %% definition: api layer
   api_client(<b>API Client</b><br/><br/>axios, fetch, superagent, ..)
   
   %% definition: shared layer
-  utils(<b>Utils</b>)
-  constants(<b>Constants</b>)
+  utils(<br/><b>Utils</b><br/>)
+  constants(<br/><b>Constants</b><br/>)
   
   %% definition: outside of boundaries
   bff("⑪ fa:fa-server <b>Application Bff / Backend</b><br/><br/>Java, Kotlin, NodeJS, ..")
@@ -249,7 +249,7 @@ flowchart TB
     bff
     deps_dom_apis
     deps_analytics
-    deps_others(........)
+    deps_others(<br/>........<br/>)
   end
   
   api_layer -. "HTTP" .-> bff
@@ -258,11 +258,11 @@ flowchart TB
   etc_hooks -.-> deps_others
 ```
 
-与一些[更早版本的React架构][react-unit-testing-best-practices]相比，React 16之后的Hooks基本上接管了所有副作用以及逻辑处理的代码，包括原来的状态管理（[Redux action/reducer][redux]那一套）、副作用（[redux-thunk][]、[redux-saga][]等）等。除此之外，上面这版架构里有一些变化值得强调：
+[以往][react-unit-testing-best-practices]的状态管理（[Redux][redux]那一套）和副作用管理（[redux-saga][]等）如今都由Hooks层包办了。此外，这版架构中有些小变化值得强调：
 
-* 不强求对业务组件⑦中再细拆“容器组件”与“展示型组件”¹。除了UI组件②之外的React组件（⑦以及可能有的⑥），统一归为①中的“有状态组件”。
-* UI组件②这里特指通用型的UI组件，如[MUI][]、[Ant Design][antd]等或者项目自己封装的UI组件库，而不包含有业务含义的“展示型组件”（指不调用React Hooks、纯纯接受props并渲染UI的组件）。
-* 由于本文采用的例子应用了React Query，它本身是个hooks的形式，因此上面的“API适配层”在此图中体现为⑨的API Hooks组件，归并在③的“Hooks层”中，返回一个包装后的`ResponseDTO`（未在上图中体现出~~因为mermaid画图的限制~~）。DTO中可能承载一些领域、对象逻辑。
+* 不强求对业务组件⑦再细拆“容器组件”与“展示型组件”¹。除了UI组件②之外的React组件，统一归为①中的“有状态组件”。
+* UI组件②这里特指通用型的UI组件，如[MUI][]、[AntD][antd]或者项目自己封装的UI组件库。业务组件⑦中自行拆出的展示型组件不属此列。
+* 上述“API适配层”体现为上图的API Hooks组件⑨，归并在“Hooks层”③中。该层返回包装后的`ResponseDTO`，可承载一些对象逻辑。
 
 ## React组件单元测试最佳实践
 
@@ -1202,7 +1202,7 @@ flowchart TB
 
 总结来说，从形式上来讲，这种测试在依赖隔离和运行速度上讲仍然属于单元测试的范畴内，而从因为测试范围扩大而导致的定位问题有所减弱这方面讲，它又不那么像一个单元测试。但有趣的是，以往过于注重以组件为“单元”的测试，反而没有起到有效的支撑重构的效果。因此，笔者认为这种测试是不是称为单元测试并不是重点。重点是，我们以少量的运行速度为代价，收获了一个原本应该由少量（缓慢的）端到端测试才能提供的效果：支撑大范围的重构、更好地留存业务上下文、提升测试表达力。
 
-#### 为什么不用类似MVVM的架构、然后只测是VM不测View(UI)呢？
+#### 为什么不用类似MVVM的架构、然后只测VM而不测View/UI呢？
 
 这也涉及到软件架构的问题。我将在[React系列（五）：React应用软件架构][series-5-react-application-architecture]这篇文章里进行更深入的讨论。
 
@@ -1289,7 +1289,6 @@ flowchart TB
 
 [react-context]: https://react.dev/learn/passing-data-deeply-with-context
 [redux]: https://redux.js.org/
-[redux-thunk]: https://github.com/reduxjs/redux-thunk
 [redux-saga]: https://redux-saga.js.org/
 [mobx]: https://mobx.js.org/README.html
 [react-hook-form]: https://react-hook-form.com/
