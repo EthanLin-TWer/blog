@@ -368,7 +368,7 @@ export const HotelSearchComponent = () => {
 }
 ```
 
-Hooks和DTO的转换，目前还没什么逻辑，我们暂时不深入细看。按照我们在“React UI组件测试最佳实践”一节中介绍的测试策略，我们的测试从作为路由入口的`HotelSearch`开始。整个成品测试最后会长这个样子：
+Hooks和DTO的转换，目前还没什么逻辑，我们暂时不深入细看。按照我们在“React组件单元测试最佳实践”一节中介绍的测试策略，我们的测试从作为路由入口的`HotelSearch`开始。整个成品测试最后会长这个样子：
 
 *routes/\_\_tests\_\_/HotelSearch.spec.tsx*
 ```tsx
@@ -397,7 +397,7 @@ describe('search hotels - entry', () => {
 
 怎么样，第一感有没有觉得这个测试相当可读、基本就是需求（AC1）和UI的代码化表达？这是我想表达的好测试的重要一点：**表达力强**。这个强表达力，一方面在于充分利用好describe/it描述等文本工具，一方面也在于我们精心分层并封装的business tester / component tester极富表达力，使我们得以尽量按照需求和UI的描述方式来进行断言。
 
-`renderRouteComponent()`方法中封装了一些Provider，负责把react-router、React Hooks以及redux等设施，没啥重要的逻辑，这里就不细展开了。感兴趣的读者可以前往[代码仓库][github-code-examples]一睹源码。
+`renderRouteComponent()`方法中封装了一些Provider，负责把react-router、React Hooks以及redux等设施按照测试条件运行下来，没啥重要的逻辑，这里就不细展开了。感兴趣的读者可以前往[代码仓库](https://github.com/EthanLin-TWer/react-testing-strategy/blob/master/test-setup/render.tsx)一睹源码。
 
 下面让我们展开business tester和component tester这部分的代码细节，来看看在上面这个测试中被封装的部分。**Business tester**很简单，其实就是对component tester的简单封装。
 
@@ -1274,20 +1274,22 @@ flowchart TB
 ¹：React Hooks的出现使得这种较早时期的人为划分变得不必要了。详见[Presentational and Container Components][]。<br/>
 ²：正如“Mock API返回”一节所述，也可以不包含API层④。
 
+[//]: # (references to external articles)
+[Modularizing React Applications with Established UI Patterns]: https://martinfowler.com/articles/modularizing-react-apps.html
+[An example of LLM prompting for programming]: https://martinfowler.com/articles/2023-chatgpt-xu-hao.html
+[Presentational and Container Components]: https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
+[testing-pyramid]: https://martinfowler.com/bliki/TestPyramid.html
+[jimmy-vue-unit-testing-best-practice]: https://blog.jimmylv.info/2018-09-19-vue-application-unit-test-strategy-and-practice-01-introduction
+[clear-architecture-is-a-prior-input-for-testing-strategy]: https://zhuanlan.zhihu.com/p/560276012
+
+[//]: # (references to my blog)
 [react-unit-testing-best-practices]: https://ethan.thoughtworkers.me/#/post/2018-07-13-react-unit-testing-strategy
 [series-3-what-makes-a-good-automation-test]: https://ethan.thoughtworkers.me/#/post/2023-12-24-what-makes-a-good-automation-test
 [series-4-react-hooks-best-practices]: https://ethan.thoughtworkers.me/#/post/2023-12-09-react-hooks-best-practices
 [series-5-react-application-architecture]: https://ethan.thoughtworkers.me/#/post/2024-01-17-react-application-architecture
 [series-6-react-testing-strategy-best-practice]: https://ethan.thoughtworkers.me/#/post/2023-12-25-react-testing-strategy-and-best-practices
 
-[github-code-examples]: https://github.com/EthanLin-TWer/react-testing-strategy
-
-[Modularizing React Applications with Established UI Patterns]: https://martinfowler.com/articles/modularizing-react-apps.html
-[An example of LLM prompting for programming]: https://martinfowler.com/articles/2023-chatgpt-xu-hao.html
-[Presentational and Container Components]: https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
-[testing-pyramid]: https://martinfowler.com/bliki/TestPyramid.html
-[jimmy-vue-unit-testing-best-practice]: https://blog.jimmylv.info/2018-09-19-vue-application-unit-test-strategy-and-practice-01-introduction
-
+[//]: # (references to mentioned tech stacks / documentations)
 [react-context]: https://react.dev/learn/passing-data-deeply-with-context
 [redux]: https://redux.js.org/
 [redux-saga]: https://redux-saga.js.org/
@@ -1302,5 +1304,5 @@ flowchart TB
 [pretty-dom]: https://testing-library.com/docs/dom-testing-library/api-debugging/#prettydom
 [rtl-debugging]: https://testing-library.com/docs/dom-testing-library/api-debugging/
 
-[clear-architecture-is-a-prior-input-for-testing-strategy]: https://zhuanlan.zhihu.com/p/560276012
+[//]: # (misc)
 [why-layering-is-important-method-of-architecting]: https://w.i.p.com
