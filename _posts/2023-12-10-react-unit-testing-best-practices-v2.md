@@ -1,5 +1,5 @@
 ---
-title: #万字长文# React系列（二）：单元测试最佳实践与前端TDD
+title: React系列（二）：单元测试最佳实践与前端TDD
 tags: react unit-test tdd frontend-tdd rtl react-testing-library jest design-system
 ---
 
@@ -7,14 +7,12 @@ tags: react unit-test tdd frontend-tdd rtl react-testing-library jest design-sys
 
 这套经验曾支撑笔者经历的一个年交易流水十亿美元级、历时五年+的金融系统的成功运营和维护演进。
 
-> 本文经验来自P项目和笔者经历过的Q项目。欢迎咨询项目上的小伙伴。
->
 > 评论请暂时移步[Github Issues#230](https://github.com/EthanLin-TWer/ethanlin-twer.github.io/issues/230)。本博客留言功能还未糊。
 >
 > 包含**示例故事卡完整代码和测试实现**的代码仓库请见：https://github.com/EthanLin-TWer/react-testing-strategy
->
+> 
 > 仅含**架构和UT测试最佳实践**的代码仓库请见：https://github.com/EthanLin-TWer/react-starter
->
+> 
 > 本文尝试覆盖的东西有点多，阅读体验可能较为艰涩。欢迎向作者提出反馈意见！
 
 ## 太长不读——本文中心观点及大纲
@@ -24,8 +22,8 @@ tags: react unit-test tdd frontend-tdd rtl react-testing-library jest design-sys
 * 有效的自动化测试就是能够有效支撑重构的测试。
 * 测试策略来源于软件架构。本文介绍了一种常见且有效的React应用架构。
 * 有效的测试策略，只应该mock API（层），而不应该mock组件常见内部实现，如React hooks、Redux、React组件等。
-* 介绍了在静态页面渲染、用户交互、路由跳转、API交互等场景下如何进行有效的自动化测试
-* 测试本身也有分层。本文介绍了一种推荐的分层实践：API DSL、business tester、component tester。
+* 介绍了在静态页面渲染、用户交互、路由跳转、API交互等场景下如何进行有效的自动化测试。
+* 测试本身也有分层。本文介绍了一种推荐的分层实践：API DSL、fixture、business tester、component tester。
 * 为了实现有效支撑重构这个根本目标，测试引入的分层会带来一些额外的（一次性及短期）成本。
 * 承担这个成本是值得的。一切都是为了让你的测试能够真正支撑重构、有效留存业务上下文，真正助力研发效能。
 
@@ -44,7 +42,7 @@ tags: react unit-test tdd frontend-tdd rtl react-testing-library jest design-sys
 * Q & A
   * 本文与上一版的[《React单元测试策略及落地》][react-unit-testing-best-practices]相比有何变化？
   * 这个组件测试策略覆盖的层如此之多，是否还能叫“单元测试”？
-  * 为什么不用类似MVVM的架构、然后只测是VM不测View(UI)呢？
+  * 为什么不用类似MVVM的架构、然后只测VM而不测View/UI呢？
   * 推荐以什么组件作为入口编写单元测试？
   * 跨页面或路由的功能应该如何测试？
   * 单个测试文件内按业务功能组织还是按技术模块组织？
@@ -52,13 +50,23 @@ tags: react unit-test tdd frontend-tdd rtl react-testing-library jest design-sys
 
 ## 为什么有效的自动化测试很重要
 
-大家都是~~体面人~~TWer，相信这个问题不用多说了。感兴趣的同学可以前往博客看完整版。这部分不是重点。
+正如我在5年前的[React单元测试策略及落地][react-unit-testing-best-practices]中所说，自动化测试，而且是**有效的自动化测试**，**对于任何一个企业级项目来说都是必选项而不是可选项**。这是由企业项目的两个特点决定的：**人员流动不可避免**、**应用演进不可避免**。这两点不因人的主观意志为转移。应用演进，意味着新的、遗留的业务和代码会越来越多；人员流动，意味着物理上不可能会有一个人能长期、完全地掌握单个应用的所有上下文。因此，希望通过手工测试（开发者自测或者单独的QA团队手测）的方式来保障质量，首先既是低效的，长期来看也是不可能的。
+
+那么，有了自动化测试就可以了吗？答案也不是。我见过许多无效的自动化测试，最痛的莫过于花费许多精力写了测试，却发现测试无法支撑重构：许多简单的重构——比如React组件重命名、将数据从State搬移到Context等——都会导致许多测试失败，直接对开发效能起负作用。其次，测试缺乏有表达力、有意义的断言，或者测试的描述与断言与真实业务场景脱节——比如测试断言的是页面上有没有“￥400”，关联的业务场景却是报价能否成功——等等，也都是常见的无效测试模式。这样的无效测试，都不能帮助你留存业务知识、支撑随时随地进行的技术重构，也无法真正助力软件质量和研发效能的提升，久而久之只会让测试变成一场表演，变成不得不应付而又弃之可惜的鸡肋。
+
+你需要的是真正**有效的自动化测试**。
+
+如果你是企业的中层技术管理者（Tech Lead或者Technical Principle等），那么这是你应该关注的问题；如果你是正在努力成为技术骨干的开发者，这篇文章也正是为你准备的。
+
+接下来，我会介绍什么是有效的自动化测试，然后以一个React应用为背景，介绍一个常见且有效的测试策略是什么、作为关键部分的单元测试应该怎么架构、怎么编写，我会给出十分充足的代码样例帮助你和你的团队去落地。最后，我还会介绍这部分关键的单元测试方式有什么挑战，帮助你对这项技术知己知彼。
+
+这套经验是我在过去三年、两个项目上的实践和总结。它成功地帮助我们能够在一个支撑行内年十亿美元级交易数额的应用上，历时5年+、还没上TS的情况下仍能自信地修改和重构代码；它也成功地帮助了我们当前的项目从0到1搭建起有效的测试策略，如今一个具有复杂逻辑的页面已经有4000行测试代码的有效覆盖。这篇文章是实践中诞生的经验和总结。
 
 ## 有效的自动化测试 v.s 无效的自动化测试
 
-当然，有趣的是，很多时候我们写的自动化测试其实是不够**有效**的。
+正如上节所讲，写了自动化测试不意味着团队有效应对业务演进和技术重构的效能提升了。只有**有效的**自动化测试才能真正让测试成为团队和开发者的助力。有趣的是，很多时候我们写的自动化测试其实是不够**有效**的。
 
-那么什么是有效的自动化测试呢？我觉得无非两点：**支撑重构**、**表达力强**。支撑重构，持续改进才不是一句空话；表达力强，才能有效地在测试里留存业务上下文，方便每一个现在、将来需要维护代码库的成员。通常来说，能够支撑重构的测试，表达力强也是其不可或缺的一部分，因此我认为**能够支撑重构的测试，就是有效的自动化测试**。这个重要性怎么强调都不为过，是实施自动化测试关键中的关键。
+那么，什么是有效的自动化测试呢？我觉得无非两点：**支撑重构**、**表达力强**。支撑重构，持续改进才不是一句空话；表达力强，才能有效地在测试里留存业务上下文，方便每一个现在、将来需要维护代码库的成员。通常来说，能够支撑重构的测试，表达力强也是其不可或缺的一部分，因此我认为**能够支撑重构的测试，就是有效的自动化测试**。这个重要性怎么强调都不为过，是实施自动化测试关键中的关键。
 
 更具体的例子，因为篇幅可能过长，我打算放在另一篇[React系列（三）：什么是好的自动化测试][series-3-what-makes-a-good-automation-test]里写。请将其作为本篇的补充读物，里面的一些观点跟接下来要阐述的React单元测试实践是互相交织、一脉相承的。在这里，我打算给出一个典型的、集“大成”于一体的无效自动化测试，读者不妨看看，它都有哪些“无效”的地方、你的项目又是否正在经历这些无效测试的折磨。
 
@@ -90,7 +98,7 @@ it('should can search', async () => {
 
 简而言之，无效的自动化测试可能包含以上的一个或多个特征：
 
-* 测试描述形同虚设（给强行搞一个）、似是而非、遗漏关键信息
+* 测试描述形同虚设、似是而非、遗漏关键信息
 * 太长，测试重点不清晰
 * 测试数据准备太长，直接把API数据贴进来了，杂音太多，不利于看清楚测试结构
 * 太多各种层次的细节：test id、RTL API、注释，不利于看清楚测试结构
@@ -100,13 +108,15 @@ it('should can search', async () => {
 * 测试了这么多内容，有无数个失败的理由
 * 测试了组件props
 
-那么，如何写出有效、能够真正支撑重构的测试呢？这个正是本文希望讲清楚的地方，相信看完之后你就能够得到自己的答案。下面几节本质上还是按照黑马的思路展开：要有测试用例，就得先有测试策略；而要有测试策略，则必须先有软件架构。因此，我们先按照这个顺序，先来看看一个典型的React应用软件架构是怎么样的。
+那么，如何才能写出有效而又能够真正支撑重构的测试呢？这个正是本文希望讲清楚的地方。为了讲清楚组件单元测试的落地，我们又必须先讲讲一个React常见应用的软件架构和测试策略。因为，在真实项目中，测试是根据测试策略来落地，而测试策略离不开真实的软件架构中组件与组件的交互。
+
+因此，按照这个顺序，我们先来看看一个典型的React应用的软件架构是怎么样的。
 
 ## React应用典型架构
 
-[软件架构是测试策略的前提要件][clear-architecture-is-a-prior-input-for-testing-strategy]。没有清晰的软件架构和分层定义，就难以制定有效的测试策略并加以实施。因此，在谈论React应用的测试策略之前，有必要定义一个常见的React应用架构作为参考。
+[软件架构是测试策略的前提要件][clear-architecture-is-a-prior-input-for-testing-strategy]。没有清晰的软件架构和分层定义，就难以制定有效的测试策略并加以实施。
 
-[分层是应用架构的常见手段]()。分层的目的在于隔离变化传播，为上层调用提供透明且简便的功能接入和封装。在React 16引入React Hooks之后，一个常见但不严谨的分层架构往往是这样的：
+[而分层是应用架构的常见手段]()。分层的目的在于隔离变化传播，为上层调用提供透明且简便的功能接入和封装。在React 16引入React Hooks之后，一个常见但不严谨的分层架构往往是这样的：
 
 ```mermaid
 flowchart TB
@@ -129,9 +139,9 @@ flowchart TB
 
 ```
 
-在这个架构里，组件层（Component Layer）是确定的，它负责处理的是把从下层得到的数据渲染成View，隔离的是渲染目标HTML的变化（借助JSX和React的V-DOM技术）。同时，API层也是确定的，它负责处理与三方系统交互的API调用，隔离的是通信协议（HTTP、GraphQL等）的变化。
+在这个架构里，组件层（Components layer）是确定的，它负责处理的是把从下层得到的数据渲染成View，隔离的是渲染目标HTML的变化（借助JSX和React的V-DOM技术）。同时，API层（API layer）也是确定的，它负责处理与三方系统交互的API调用，隔离的是通信协议（HTTP、GraphQL等）的变化。
 
-API适配层的作用是，将API层得到的`Response`转换成前端应用可以使用的`ResponseDTO`结构，隔离的是后端数据结构变化对前端（Hooks、View等）的传播。这个隔离非常重要，但是这一层不一定是必须的：如果这一层非常薄、没有任何逻辑，那么直接让API层转换一层、返回`ResponseDTO`同样可达到隔离后端数据结构变化的目的；如果你使用了类似React Query之类的工具，那么这一层可以合并到Hooks的大“分层”里头。
+API适配层（API adaptor layer）的作用是，将API层得到的`Response`转换成前端应用可以使用的`ResponseDTO`结构，隔离的是后端数据结构变化对前端（Hooks、View等）的传播。这个隔离非常重要，但是这一层不一定是必须的：如果这一层非常薄、没有任何逻辑，那么直接让API层转换一层、返回`ResponseDTO`同样可达到隔离后端数据结构变化的目的；如果你使用了类似React Query之类的工具，那么这一层可以合并到Hooks的大“分层”里头。
 
 Hooks严格来说不是一个“层”。一个架构意义上的分层，必须有明确的职责、明确的输入接口与输出接口。这些限制React Hooks本身是不提供的，有赖于开发者去定义它。关于什么是React Hooks的最佳实践和架构，我会放在这篇文章[React系列（四）：Hooks最佳实践与面向对象][series-4-react-hooks-best-practices]中去讨论。这里，我直接把一个我推荐的结果拿过来用，再细化一下，这样我们就得到了一个分层合适的React应用架构：
 
@@ -143,19 +153,19 @@ flowchart TB
   ui_components("<b>② fa:fa-palatte UI Components</b><br/><br/>MUI, Antd, Semantic UI, Tailwind, ...")
         
   %% definition: hooks layer
-  shared_hooks("<b>⑧ Domain logics / shared effects</b>")
-  dom_hooks(<b>DOM APIs</b>)
-  analytics_hooks(<b>Analytics</b>)
+  shared_hooks("<br/><b>⑧ Domain logics / shared effects</b><br/>")
+  dom_hooks(<br/><b>DOM APIs</b><br/>)
+  analytics_hooks(<br/><b>Analytics</b><br/>)
   global_store("⑩ <b>Global store</b><br/>(Accessible anywheres in <b>Hooks</b> layer)<br/><br/>React Context, redux, mobx, ..")
   api_hooks("⑨ <b>API Hooks</b><br/><br/>React Query, SWR, RTK Query, ..")
-  etc_hooks(<b>........</b>)
+  etc_hooks(<br/><b>........</b><br/>)
 
   %% definition: api layer
   api_client(<b>API Client</b><br/><br/>axios, fetch, superagent, ..)
   
   %% definition: shared layer
-  utils(<b>Utils</b>)
-  constants(<b>Constants</b>)
+  utils(<br/><b>Utils</b><br/>)
+  constants(<br/><b>Constants</b><br/>)
   
   %% definition: outside of boundaries
   bff("⑪ fa:fa-server <b>Application Bff / Backend</b><br/><br/>Java, Kotlin, NodeJS, ..")
@@ -239,7 +249,7 @@ flowchart TB
     bff
     deps_dom_apis
     deps_analytics
-    deps_others(........)
+    deps_others(<br/>........<br/>)
   end
   
   api_layer -. "HTTP" .-> bff
@@ -248,19 +258,19 @@ flowchart TB
   etc_hooks -.-> deps_others
 ```
 
-与一些[更早版本的React架构][react-unit-testing-best-practices]相比，React 16之后的Hooks基本上接管了所有副作用以及逻辑处理的代码，包括原来的状态管理（[Redux action/reducer][redux]那一套）、副作用（[redux-thunk][]、[redux-saga][]等）等。除此之外，上面这版架构里有一些变化值得强调：
+[以往][react-unit-testing-best-practices]的状态管理（[Redux][redux]那一套）和副作用管理（[redux-saga][]等）如今都由Hooks层包办了。此外，这版架构中有些小变化值得强调：
 
-* 不强求对业务组件⑦中再细拆“容器组件”与“展示型组件”¹。除了UI组件②之外的React组件（⑦以及可能有的⑥），统一归为①中的“有状态组件”。
-* UI组件②这里特指通用型的UI组件，如[MUI][]、[Ant Design][antd]等或者项目自己封装的UI组件库，而不包含有业务含义的“展示型组件”（指不调用React Hooks、纯纯接受props并渲染UI的组件）。
-* 由于本文采用的例子应用了React Query，它本身是个hooks的形式，因此上面的“API适配层”在此图中体现为⑨的API Hooks组件，归并在③的“Hooks层”中，返回一个包装后的`ResponseDTO`（未在上图中体现出~~因为mermaid画图的限制~~）。DTO中可能承载一些领域、对象逻辑。
+* 不强求对业务组件⑦再细拆“容器组件”与“展示型组件”¹。除了UI组件②之外的React组件，统一归为①中的“有状态组件”。
+* UI组件②这里特指通用型的UI组件，如[MUI][]、[AntD][antd]或者项目自己封装的UI组件库。业务组件⑦中自行拆出的展示型组件不属此列。
+* 上述“API适配层”体现为上图的API Hooks组件⑨，归并在“Hooks层”③中。该层返回包装后的`ResponseDTO`，可承载一些对象逻辑。
 
 ## React组件单元测试最佳实践
 
-有了软件架构，谈论测试策略就顺理成章了。这里，整个应用（进程内）的测试策略、乃至于整个架构（进程间）的测试策略（上图中与Boundaries交互的部分），我放到这篇文章[React系列（五）：React整体测试策略][series-6-react-testing-strategy-best-practice]来阐述。本篇的后续部分，我们重点来谈谈“如何测试UI组件”这部分的最佳实践。这里我对React组件单元测试的建议是：
+有了软件架构，谈论测试策略就顺理成章了。这里，整个应用（进程内）的测试策略、乃至于整个架构（进程间）的测试策略（上图中与Boundaries交互的部分），我放到这篇文章[React系列（六）：React整体测试策略][series-6-react-testing-strategy-best-practice]来阐述。本篇的后续部分，我们重点来谈谈“如何测试UI组件”这部分的最佳实践。这里我对React组件单元测试的建议是：
 
-**应该从一个相对顶层的业务组件入手（如⑥的路由/页面组件），仅mock掉与HTTP/API交互的部分（④或⑪），将其他内部实现（包括③的Hooks层、⑤的共享层等）纳入测试覆盖范围——也即是上图虚线框中的部分²**。需要特别强调的是，这也意味着我们**不推荐mock或隔离可能涉及领域或UI逻辑的Hooks层（③/⑧）或者全局数据管理的Hooks（⑩）对组件层（⑦或②）中的单一组件做单元测试**。
+**应该从一个相对顶层的业务组件入手（如⑥的路由/页面组件），仅mock掉与HTTP/API交互的部分（④或⑪），将其他内部实现（包括③的Hooks层、⑤的共享层等）纳入测试覆盖范围——也即是上图虚线框中的部分²**。需要特别强调的是，这也意味着我们**不推荐mock或隔离可能涉及领域或UI逻辑的Hooks层（③/⑧）或全局数据管理的Hooks（⑩），单独将组件层（⑦或②）中的单一组件视为“单元”进行单元测试**。
 
-[有些观点][react-unit-testing-best-practices]（没错，就是我上一版推荐的React测试策略）认为对于React组件（也就是上图中的⑦业务组件和②UI组件）的测试，应该是尽可能拆分出有状态组件（容器组件）和无状态组件（展示型组件），保持接缝简单，然后分而治之：对于无状态组件可以测测它的分支渲染逻辑、甚至断言一些DOM文本等；对于有状态组件则建议不做测试，因为较为麻烦。
+[有些观点][react-unit-testing-best-practices]~~自刀🔪一下~~~~咳咳时代局限~~认为对于React组件（也就是上图中的⑦业务组件和②UI组件）的测试，应该是尽可能拆分出有状态组件（容器组件）和无状态组件（展示型组件），保持接缝简单，然后分而治之：对于无状态组件可以测测它的分支渲染逻辑、甚至断言一些DOM文本等；对于有状态组件则建议不做测试，因为较为麻烦。
 
 这个思路不能说是毫无道理，但是实践下来会遇到一些问题和痛点：
 
@@ -268,40 +278,40 @@ flowchart TB
 * **实际保护作用有限**。实践中的接缝很难如设想的“尽量保持简单”，很多逻辑会溜进去——尤其是React Hooks面世之后——不测试这部分逻辑常常导致测试带来的信心不足、不敢重构。
 * **对于遗留项目补测试不友好**。遗留项目往往意味着组件设计也不良好，会有很多的props和依赖，对单一的组件做单元测试难以入手、需要很多精力去mock不必要的内部依赖。
 
-而这些痛点，在我们要推荐的这版测试策略中都能够得到完美的解决。
+这些痛点，在我们要推荐的这版测试策略中都能够得到很好的解决。
 
 ## 测试架构、代码落地
 
 接下来我们将用一个简化的例子来展示组件的单元测试怎么来写。假设以下是我们拿到的一个新的故事卡（Story，敏捷中常用的需求管理方式），它有如下的AC（验收条件，即要做的需求）需要开发。
 
 > LOTEL-1
->
+> 
 > **作为**用户，**我希望**能搜索城市所在地的酒店信息，**以便**我有效地根据旅游行程安排我的住宿。
 >
 > **In Scope（需要做的需求）**
->
 > * 搜索主页：支持通过热门城市搜索酒店
 > * 显示酒店搜索列表及信息
->
+> 
 > **Out of Scope（不需要做的需求）**
 > * 酒店详情页 - 故事卡LOTEL-2会做
 > * 酒店预订下单 - 故事卡LOTEL-3做
 > * 根据热门景点/商圈快速搜索酒店 - 故事卡LOTEL-4做
 > * 高级筛选 - MVP之后做
->
+> 
 > **Acceptance Criteria（验收标准）**
->
+> 
 > AC1. **当**用户访问系统主页时，**应该**能看到一个搜索框，支持按照目的地城市、入住时间段和入住人数搜索可入住酒店
 > * **当**用户点击目的地城市时，**应该**能看到目前仅支持的可选城市为：北京、上海、广州、深圳、成都、重庆、杭州、武汉。
 > * **当**用户首次访问主页时，**应该**能看到各字段的默认值（以便他们能快速进入AC3的搜索流程）：目的地城市：北京。入住时间段：当天-明天。入住人数：1。
 >
-> AC2. **当**用访问系统主页时，**应该**能修改入住信息
+> AC2. **当**用户访问系统主页时，**应该**能修改查询条件
 > * **当**用户修改入住时间时，**应该**能看到系统帮用户自动提示入住天数。例子：2024-01-01 - 2024-01-03将显示“2晚”
+> * **当**用户修改入住人数时，**应该**最少选择1位入住人
 >
-> AC3. **基于**AC1或AC2，**当**用户点击“搜索”按钮时，**应该**能在查询成功后看到符合条件的可选酒店列表。
-> * 酒店列表应该包含如下信息：酒店名、地址、图片、距离、所有房型最低价、点评数、用户评分、星级等。
-> * 点评数小于100时统一显示“≤100条评论”。
-> * 点评数大于1000时应显示千分位分隔符（逗号），如“1,478条评论”。
+> AC3. **基于**AC1或AC2，**当**用户点击“Search”按钮时，**应该**能在查询成功后看到符合条件的可选酒店列表。
+> * 酒店列表应该包含如下信息：酒店名、地址、图片、所有房型最低价、星级、用户评分、点评数量等。
+> * 点评数小于100时，应统一显示“≤100条评论”。
+> * 点评数大于1000时，应显示千分位分隔符（逗号），如“1,478条评论”。
 
 <p align="center" >
   <img 
@@ -358,7 +368,7 @@ export const HotelSearchComponent = () => {
 }
 ```
 
-Hooks和DTO的转换，目前还没什么逻辑，我们暂时不深入细看。按照我们在“React UI组件测试最佳实践”一节中介绍的测试策略，我们的测试从作为路由入口的`HotelSearch`开始。整个成品测试最后会长这个样子：
+Hooks和DTO的转换，目前还没什么逻辑，我们暂时不深入细看。按照我们在“React组件单元测试最佳实践”一节中介绍的测试策略，我们的测试从作为路由入口的`HotelSearch`开始。整个成品测试最后会长这个样子：
 
 *routes/\_\_tests\_\_/HotelSearch.spec.tsx*
 ```tsx
@@ -387,7 +397,7 @@ describe('search hotels - entry', () => {
 
 怎么样，第一感有没有觉得这个测试相当可读、基本就是需求（AC1）和UI的代码化表达？这是我想表达的好测试的重要一点：**表达力强**。这个强表达力，一方面在于充分利用好describe/it描述等文本工具，一方面也在于我们精心分层并封装的business tester / component tester极富表达力，使我们得以尽量按照需求和UI的描述方式来进行断言。
 
-`renderRouteComponent()`方法中封装了一些Provider，负责把react-router、React Hooks以及redux等设施，没啥重要的逻辑，这里就不细展开了。感兴趣的读者可以前往[代码仓库][github-code-examples]一睹源码。
+`renderRouteComponent()`方法中封装了一些Provider，负责把react-router、React Hooks以及redux等设施按照测试条件运行下来，没啥重要的逻辑，这里就不细展开了。感兴趣的读者可以前往[代码仓库](https://github.com/EthanLin-TWer/react-testing-strategy/blob/master/test-setup/render.tsx)一睹源码。
 
 下面让我们展开business tester和component tester这部分的代码细节，来看看在上面这个测试中被封装的部分。**Business tester**很简单，其实就是对component tester的简单封装。
 
@@ -478,7 +488,7 @@ flowchart TB
   style component_testers fill:#FCD6B6
 ```
 
-[完整的代码变更可以参考Github这几个提交](https://github.com/EthanLin-TWer/react-testing-strategy/compare/fd5ce087...7cb3d327)
+[完整的代码变更可以参考Github这几个提交](https://github.com/EthanLin-TWer/react-testing-strategy/compare/fd5ce087...7cb3d327)。
 
 #### 新增测试
 
@@ -524,7 +534,7 @@ export const findSearchDropdown = (testId: string): SearchDropdownTester => {
 
 AC1只是一个简单的静态页面，并不困难，接下来我们来看一个更常用的场景：用户与UI交互并产生一些修改。也就是AC2中，用户编辑入住信息的场景。
 
-在真实的业务场景中，我们往往需要存储一些中间状态——也就是这里的用户入住查询信息。在这个例子中，我们将暂时使用state来存储用户的修改。先从“用户可以编辑目的地”开始，最终，我们会改动到的主要实现将如下所示（[完整的代码变更可以参考Github这个提交](https://github.com/EthanLin-TWer/react-testing-strategy/commit/3c303f7be7edd46af12f651f703421363410039e)）：
+在真实的业务场景中，我们往往需要存储一些中间状态——也就是这里的用户入住查询信息。在这个例子中，我们将暂时使用state来存储用户的修改。先从“用户可以编辑目的地”开始，最终，我们会改动到的主要实现将如下所示：
 
 ```text
 .
@@ -644,7 +654,7 @@ export const findSearchDropdown = (testId: string): SearchDropdownTester => {
 }
 ```
 
-细心的读者也许可以注意到，在这次修改里我们发现了一些重复的代码和模式，因此我们抽取了一些`parseText()`/`parseValue()`的方法来简化一下代码和操作。
+细心的读者也许可以注意到，在这次修改里我们发现了一些重复的代码和模式，因此我们提炼了一些`parseText()`/`parseValue()`的方法来简化重复代码——测试代码与产品代码一样，都需要时刻整理重构。
 
 同时，相比前两个测试，我们新增第三个测试的时候并不需要重新编写许多的代码。通常来说，business tester这层只要编写过一遍就可以一直复用，而component tester这一层随着项目的沉淀也应该越来越完善，为不同的组件编写测试的时候应该会发现组件基本的API和操作都已经可以直接复用了。
 
@@ -672,9 +682,9 @@ describe('search hotels', () => {
 
 在实际项目中，状态存储往往更加复杂、更加精密。组件内部的状态往往用state就可以解决，随着项目的发展，某些数据往往因为需要更广的可见性而需要搬移到[Context][react-context]、全局状态管理（如[Redux][redux]、[Mobx][mobx]等解决方案）上，某些数据也可能需要通过表单方案（如[React Hook Form][react-hook-form]等）来管理。重要的是，使用了什么数据方案对测试来说并不重要——读者可以看见React `useState`的实现并没有体现在以上的测试中——因为它仅仅是对应功能/业务的一种*实现手段*。实现手段是可以随时间变化的，而它的变化不应该成为测试失败的理由，或者至少其影响应该被局限在一个非常小的层内。
 
-以上就是笔者在本文想提倡的，真正能够**支撑重构**的测试。我故意把所有的状态逻辑都堆积在`HomeSearchComponent`里，让它看起来很混乱——感兴趣的读者可以尝试用其他更接近于实际项目的数据方案（比如引入表单、提炼custom hooks）来重构这块“用户编辑”的功能，看看这种测试是不是能很好地支撑重构，有效保护核心的功能点。
+以上就是笔者在本文想提倡的，真正能够**支撑重构**的测试。我故意把所有的状态逻辑都堆积在`HomeSearchComponent`里，让它看起来很混乱——感兴趣的读者可以尝试用其他更接近于实际项目的数据方案（比如引入表单、提炼custom hooks）来重构这块“用户编辑”的功能，看看这个测试是不是能很好地支撑重构，在功能不变的情况下支撑重构、降低修改成本。
 
-编辑入住时间与入住人数的实现与测试大同小异，此处不再赘述，读者可以尝试自己实现一下哦。不管底下封装的许多分层和细节，最后出来的测试用例是非常赏心悦目的，基本就是AC的代码化描述，简明且有效。我还是不得不贴一下。
+编辑入住时间与入住人数的实现与测试大同小异，此处不再赘述，读者可以尝试自己实现一下。最后出来的测试用例将一些细节通过分层有效地封装起来，看起来非常赏心悦目，基本上就是AC的代码化描述，简明且有效：
 
 *routes/\_\_tests\_\_/HotelSearch.spec.tsx*
 ```tsx
@@ -714,6 +724,8 @@ describe('search hotels', () => {
   })
 })
 ```
+
+[完整的代码变更可以参考Github这个提交](https://github.com/EthanLin-TWer/react-testing-strategy/commit/3c303f7be7edd46af12f651f703421363410039e)。
 
 ### 场景（三）：路由跳转
 
@@ -763,12 +775,16 @@ describe('search hotels', () => {
     await getSearchButton().click()
 
     expect(window.location.pathname).toBe('/hotels/list')
-    expect(window.location.search).toBe('?city=HZ&checkinDate=2024-01-20&checkoutDate=2024-01-28&noOfOccupancies=2')
+    expect(window.location.search).toBe(
+      '?city=HZ&checkinDate=2024-01-20&checkoutDate=2024-01-28&noOfOccupancies=2'
+    )
   })
 })
 ```
 
-对于`HotelSearch`这个页面来说，它的边界就是处理好用户输入（比如根据城市找到城市id、转化日期格式等）并交给另一个页面去处理。因此上面的测试里，断言的是用户输入被正确地处理然后触发了路由跳转，这个测试就到此为止了。[完整的代码变更可以参考Github这个提交](https://github.com/EthanLin-TWer/react-testing-strategy/commit/d542305750d055596b359d9e2056b3c4d2c6b6f8)。
+对于`HotelSearch`这个页面来说，它的边界就是处理好用户输入（比如根据城市找到城市id、转化日期格式等）并交给另一个页面去处理。因此上面的测试里，断言的是用户输入被正确地处理然后触发了路由跳转，这个测试就到此为止了。
+
+[完整的代码变更可以参考Github这个提交](https://github.com/EthanLin-TWer/react-testing-strategy/commit/d542305750d055596b359d9e2056b3c4d2c6b6f8)。
 
 下面，让我们来看看下一个页面——酒店列表`HotelList`——发生的事情。
 
@@ -924,7 +940,6 @@ describe('hotels list', () => {
   
   describe('search result', () => {
     beforeEach(() => {
-      // given
       hotelListPageDSL = new HotelListPageDSL()
       hotelListPageDSL.mockGetHotelListOnce(exampleTwoHotels)
     })
@@ -943,8 +958,8 @@ describe('hotels list', () => {
       )
 
       expect(getHotelList()).toEqual([
-        ['杭州栖湖轻奢酒店', '西湖湖滨商圈', '4星级', '用户评分：4.2', '930条点评', '￥198起'],
-        ['杭州中山西子湖酒店', '西湖湖滨商圈', '5星级', '用户评分：4.7', '317条点评', '￥498起'],
+        ['杭州栖湖轻奢酒店', '西湖湖滨商圈', '★★★★', '用户评分：4.2', '930条点评', '￥198起'],
+        ['杭州中山西子湖酒店', '西湖湖滨商圈', '★★★★★', '用户评分：4.7', '317条点评', '￥498起'],
       ])
     })
   })
@@ -996,7 +1011,7 @@ export class JestBasedDSL implements BaseDSL {
 
 这套DSL的本质目的仍然是封装一些细节，让上层仍然能通过“翻译+点点点”的方式简单地编写（和抄）测试。在这个例子里可能感受不是特别明显，但在页面API调用较多的情况下，这样的写法能大大提升测试的清晰度。
 
-当然，这套DSL的写法还是有点瑕疵的，这里我就不细展开了，如果读者有所发现请私信我。
+当然，这套DSL目前这个的写法还是有点小瑕疵，这里我就不细展开了，欢迎私信我问题所在/修改意见。
 
 #### 组织测试数据：fixture
 
@@ -1035,7 +1050,7 @@ describe('hotels list', () => {
 
       await waitFor(() => {
         expect(getHotelList()).toEqual([
-          ['杭州华辰国际饭店', '西湖湖滨商圈', '4星级', '用户评分：4.5', '≤100条点评', '￥357起'],
+          ['杭州华辰国际饭店', '西湖湖滨商圈', '★★★★', '用户评分：4.5', '≤100条点评', '￥357起'],
         ])
       })
     })
@@ -1144,24 +1159,24 @@ flowchart TB
 
 最后，让我们来回顾一下本文推荐的测试策略及其内容。
 
-对于一个常见的React应用架构，我们提倡React组件应该通过贯穿整个应用的单元测试来进行测试（架构图中的虚线框部分²），除了位于应用边界的后端或Bff（组件⑪或组件④）、DOM API等三方依赖之外，不应该mock其他内部实现细节。诸如Redux、单独的React Component、React Hooks这类技术实现，我们都视为实现细节，它们都不应该被mock。这样做，是为了服务**自动化测试应能有效支撑日常重构**的根本目的。
+对于一个常见的React应用架构，我们提倡React组件应该通过贯穿整个应用的单元测试来进行测试（架构图中的虚线框部分²），除了位于应用边界的后端或Bff（组件⑪或组件④）、DOM API等三方依赖之外，不应该mock其他诸如React Hooks、Redux以及单独的React组件之类的内部实现细节。这样做，是为了服务**自动化测试应能有效支撑日常重构**这个根本目的。
 
 这样做能带来如下的好处：
 
 * **有效支撑重构**。这也是我们整这套测试策略的根本目的：让日常的代码清理和重构成为可能。当我们重构内部实现时，测试能有效保障行为一致，不需要额外的改动和维护成本。搬移组件时再也不需要同时改动测试的props了，将组件内部数据和行为重构到React Hooks时也不需要再改变测试的mock了。
-* **留存业务上下文**。在每个可能的细节里——比如测试描述、business tester API、声明式断言等——我们都在留存业务攸关的Why，而不仅仅是How和What。
+* **留存业务上下文**。在每个可能的细节里——比如测试描述、business tester API、声明式断言等——我们都在留存业务攸关的Why，而不仅仅是How和What。在测试失败时，这些信息以及出错信息都能帮助你更好地了解原因。
 * **维护成本低**。随着项目沉淀积累，后续的测试编写应该越来越顺手，有效降低了测试代码的开发成本。
 * **开发体验好**。有了business层和TypeScript的加持，基于已有的测试新增测试或修改非常直观，可以最大限度地依赖IDE的类型提示和自动补全。
 * **对遗留项目友好**。这套测试策略只关注mock外部依赖的部分，而不关注内部实现——不管是架构、分层、遗留代码实现等等——这使得它在遗留项目上的导入成为可能。
 
 同时，为了达到支撑重构的根本目标，我们也不可避免地在一般的“单元测试”上引入了许多元素和分层，这些要素也带来了新的挑战：
 
-* **（一次性投入的）开发成本**。从零开始落地这套测试策略需要编写不少的代码（mock API、编写component tester等等），需要进行一些选型，还可能需要踩一些坑（未在本文体现😈欢迎电询作者），以让这套工具更加稳定可用。这是选型时需要考虑的因素。
-* **调试难度增加**。尽管RTL已经有许多工具（如[`prettyDOM`][pretty-dom] [等][rtl-debugging]）来帮助调试Virtual DOM，但因为本策略覆盖了更多的组件，测试失败时需要排查的范围不一定仅限于组件层，因此这也从客观上增加了调试的成本。这对于项目新人来说可能尤其不那么友好，需要项目老人带一段时间。
-* **定位问题的速度和能力有所降低**。这其实是上一点的引申结果，因为测试覆盖到的组件多了，因此相比mock掉React hooks、仅测UI层结果的测试而言定位问题的能力有所减弱。
+* **（一次性投入的）开发成本**。从零开始落地这套测试策略需要一次性编写不少代码（mock API、编写component tester等等），还可能要踩一些坑（未在本文体现😈欢迎电询作者），以让这套工具更加稳定可用。这是选型时需要考虑的因素。
+* **调试难度增加**。尽管RTL已经有许多工具（如[`prettyDOM`][pretty-dom] [等][rtl-debugging]）来帮助调试Virtual DOM，但因为本策略覆盖了更多的组件，测试失败时需要排查的范围不一定仅限于组件层，这也从客观上增加了调试成本。对于项目新人来说可能不那么友好，需要老人带一段时间。
+* **定位问题的速度和能力有所降低**。这其实是上一点的引申结果，因为测试覆盖到的组件多了，因此相比mock掉React hooks、仅测UI层结果的测试而言定位问题的能力有所减弱。这一点可以通过搭配其他对Hooks等的单元测试来解决（详见[React系列（六）：React整体测试策略][series-6-react-testing-strategy-best-practice]）。
 * 其他。请见Q&A部分。
 
-即便有这些挑战，我们仍然提倡通过这种方式来编写单元测试，是因为看重它**能有效支撑重构**的重要价值，而这一点在我经历过的前端项目和测试中尤其重要。这一点在本文中已经强调过很多次，希望读者在取用时能理解这个出发点及其取舍。
+最后，即便有这些挑战，我们仍然提倡通过这种方式来编写单元测试，是因为看重它**能有效支撑重构**的重要价值，而这一点在我经历过的前端项目和测试中尤其重要。这一点在本文中已经强调多次，希望读者在取用时能理解这个出发点的价值及其取舍。
 
 好了！这下真的结束了！撒花💐🌼🌸🌺🌹🌻🌷！感谢各位耐心阅读！
 
@@ -1171,7 +1186,7 @@ flowchart TB
 
 [《React单元测试策略及落地》][react-unit-testing-best-practices]是我2018年在React Native项目上总结的测试策略，彼时React Hooks、RTL等都还未面世，软件架构和副作用管理仍在百家争鸣。以今天观点来看，本篇相比上一篇中的扬弃和修改如下：
 
-首先上一篇讲的是整个React应用的测试策略，而这一篇笔墨着重在React前端的单元测试（组件测试）。限于本篇篇幅，完整的新测试策略会放到另外一篇文章[React系列（五）：React整体测试策略][series-6-react-testing-strategy-best-practice]里详述。
+首先上一篇讲的是整个React应用的测试策略，而这一篇笔墨着重在React前端的单元测试（组件测试）。限于本篇篇幅，完整的新测试策略会放到另外一篇文章[React系列（六）：React整体测试策略][series-6-react-testing-strategy-best-practice]里详述。
 
 其次，两版单元测试策略最重要的区别在于对React组件的测试策略发生了变化。上一篇轻UI层的“单元”测试策略符合分层理论，但是在前端实践中感觉对重构不友好、未能有效保护功能和增强团队信心。我想这是因为“数据”、“副作用”本身并不构成一个前端应用足够稳定的“分层”，它跟UI关联比较深厚，而UI本身是易变的，这就导致组件和数据的频繁修改是不可避免的，对它们分开做单元测试就会导致测试的频繁不必要修改，从而破坏“有效支撑重构”的目的。因此，这也是本篇尝试从“支撑重构”的根本目的出发，强化对UI层的内容测试的出发点。
 
@@ -1179,7 +1194,7 @@ flowchart TB
 
 #### 这个组件测试策略覆盖的层如此之多，是否还能叫“单元测试”？
 
-正如黑马所提及的，测试主要有两个用途，一个是负责发现问题，一个是负责定位问题。
+正如[Thoughtworks][]的CTO徐昊在内部的开发者培训项目中所提及的，测试主要有两个用途，一个是负责发现问题，一个是负责定位问题。
 
 发现问题的测试更多是从业务的角度出发，比如用户能不能将商品添加到购物车等，从形式上讲可能更多地体现为端到端测试、UI测试等。它的失败可以明确地反映某个业务场景不工作了，但往往不能很精确地汇报可能出问题的技术组件/分层所在。
 
@@ -1193,7 +1208,7 @@ flowchart TB
 
 总结来说，从形式上来讲，这种测试在依赖隔离和运行速度上讲仍然属于单元测试的范畴内，而从因为测试范围扩大而导致的定位问题有所减弱这方面讲，它又不那么像一个单元测试。但有趣的是，以往过于注重以组件为“单元”的测试，反而没有起到有效的支撑重构的效果。因此，笔者认为这种测试是不是称为单元测试并不是重点。重点是，我们以少量的运行速度为代价，收获了一个原本应该由少量（缓慢的）端到端测试才能提供的效果：支撑大范围的重构、更好地留存业务上下文、提升测试表达力。
 
-#### 为什么不用类似MVVM的架构、然后只测是VM不测View(UI)呢？
+#### 为什么不用类似MVVM的架构、然后只测VM而不测View/UI呢？
 
 这也涉及到软件架构的问题。我将在[React系列（五）：React应用软件架构][series-5-react-application-architecture]这篇文章里进行更深入的讨论。
 
@@ -1243,29 +1258,45 @@ flowchart TB
 * [React系列（五）：React应用软件架构][series-5-react-application-architecture]
 * [React系列（六）：React整体测试策略][series-6-react-testing-strategy-best-practice]
 
+<details>
+  <summary>🚧最后的最后还有些todolist，暂时干不动了……</summary>
 
+* [ ] “无效测试”的例子可以从`FFF.test.tsx`里找找例子
+* [ ] 缩小一下几个gif的大小。一个开发者体验的动图5M有点夸张
+* [ ] 润色一下React应用架构图：边界border-radius要不要再调下，显得柔和好看一些
+* [ ] 把以下参考文章再读一遍
+  * Maintainable React: Refactoring to Clean Code
+  * [testing pyramid](https://testingjavascript.com/)
+  * [React Testing Guide](https://components.guide/react+typescript/testing)
+  * [Kent's blog](https://kentcdodds.com)
+* [ ] [Modularizing React Applications with Established UI Patterns][]说的一些内容待讨论：
+  * view-model-data三层架构中，model和data有啥区别？model和view model有啥区别？
+  * Domain是怎么抽出来的？怎么辨别domain逻辑？往DTO上放逻辑？
+  * 实践中真能贯彻View Model的架构方式吗？
+* [ ] 问问邱大师：MF博客中代码片段高亮的部分是怎么做到的？
+</details>
 
-¹：React Hooks的出现使得这种较早时期的人为划分变得不必要了。详见[Presentational and Container Components][]。
+¹：React Hooks的出现使得这种较早时期的人为划分变得不必要了。详见[Presentational and Container Components][]。<br/>
+²：正如“Mock API返回”一节所述，也可以不包含API层④。
 
-<br/>²：正如“Mock API返回”一节所述，也可以不包含API层④。
+[//]: # (references to external articles)
+[Modularizing React Applications with Established UI Patterns]: https://martinfowler.com/articles/modularizing-react-apps.html
+[An example of LLM prompting for programming]: https://martinfowler.com/articles/2023-chatgpt-xu-hao.html
+[Presentational and Container Components]: https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
+[testing-pyramid]: https://martinfowler.com/bliki/TestPyramid.html
+[jimmy-vue-unit-testing-best-practice]: https://blog.jimmylv.info/2018-09-19-vue-application-unit-test-strategy-and-practice-01-introduction
+[clear-architecture-is-a-prior-input-for-testing-strategy]: https://zhuanlan.zhihu.com/p/560276012
 
+[//]: # (references to my blog)
 [react-unit-testing-best-practices]: https://ethan.thoughtworkers.me/#/post/2018-07-13-react-unit-testing-strategy
 [series-3-what-makes-a-good-automation-test]: https://ethan.thoughtworkers.me/#/post/2023-12-24-what-makes-a-good-automation-test
 [series-4-react-hooks-best-practices]: https://ethan.thoughtworkers.me/#/post/2023-12-09-react-hooks-best-practices
 [series-5-react-application-architecture]: https://ethan.thoughtworkers.me/#/post/2024-01-17-react-application-architecture
 [series-6-react-testing-strategy-best-practice]: https://ethan.thoughtworkers.me/#/post/2023-12-25-react-testing-strategy-and-best-practices
 
-[github-code-examples]: https://github.com/EthanLin-TWer/react-testing-strategy
-
-[Modularizing React Applications with Established UI Patterns]: https://martinfowler.com/articles/modularizing-react-apps.html
-[An example of LLM prompting for programming]: https://martinfowler.com/articles/2023-chatgpt-xu-hao.html
-[Presentational and Container Components]: https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0
-[testing-pyramid]: https://martinfowler.com/bliki/TestPyramid.html
-[jimmy-vue-unit-testing-best-practice]: https://blog.jimmylv.info/2018-09-19-vue-application-unit-test-strategy-and-practice-01-introduction
-
+[//]: # (references to mentioned tech stacks / documentations)
 [react-context]: https://react.dev/learn/passing-data-deeply-with-context
 [redux]: https://redux.js.org/
-[redux-thunk]: https://github.com/reduxjs/redux-thunk
 [redux-saga]: https://redux-saga.js.org/
 [mobx]: https://mobx.js.org/README.html
 [react-hook-form]: https://react-hook-form.com/
@@ -1278,5 +1309,6 @@ flowchart TB
 [pretty-dom]: https://testing-library.com/docs/dom-testing-library/api-debugging/#prettydom
 [rtl-debugging]: https://testing-library.com/docs/dom-testing-library/api-debugging/
 
-[clear-architecture-is-a-prior-input-for-testing-strategy]: https://zhuanlan.zhihu.com/p/560276012
+[//]: # (misc)
+[Thoughtworks]: https://www.thoughtworks.com
 [why-layering-is-important-method-of-architecting]: https://w.i.p.com
