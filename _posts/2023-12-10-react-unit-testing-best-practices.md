@@ -1194,7 +1194,7 @@ flowchart TB
 
 #### 这个组件测试策略覆盖的层如此之多，是否还能叫“单元测试”？
 
-正如黑马所提及的，测试主要有两个用途，一个是负责发现问题，一个是负责定位问题。
+正如[Thoughtworks][]的CTO徐昊在内部的开发者培训项目中所提及的，测试主要有两个用途，一个是负责发现问题，一个是负责定位问题。
 
 发现问题的测试更多是从业务的角度出发，比如用户能不能将商品添加到购物车等，从形式上讲可能更多地体现为端到端测试、UI测试等。它的失败可以明确地反映某个业务场景不工作了，但往往不能很精确地汇报可能出问题的技术组件/分层所在。
 
@@ -1310,4 +1310,5 @@ flowchart TB
 [rtl-debugging]: https://testing-library.com/docs/dom-testing-library/api-debugging/
 
 [//]: # (misc)
+[Thoughtworks]: https://www.thoughtworks.com
 [why-layering-is-important-method-of-architecting]: https://w.i.p.com
