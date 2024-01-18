@@ -87,4 +87,32 @@ summary: 这是一份很好的单元测试策略
 
     expect(result).toEqual(expected)
   })
+
+  it('should not freak out when there is other --- in the post - this represents s horizontal line in markdown', () => {
+    const post = `
+---
+title: React 应用单元测试策略
+summary: 这是一份很好的单元测试策略
+---
+          
+我是正文
+
+我还有分段
+
+---
+
+[一些引用]: https://wip.com
+    `
+    const expected = {
+      frontMatters: {
+        title: 'React 应用单元测试策略',
+        summary: '这是一份很好的单元测试策略',
+      },
+      content: expect.stringContaining('我是正文\n\n我还有分段\n\n---\n\n[一些引用]: https://wip.com'),
+    }
+
+    const result = parse(post)
+
+    expect(result.content).toEqual(expected.content)
+  })
 })
