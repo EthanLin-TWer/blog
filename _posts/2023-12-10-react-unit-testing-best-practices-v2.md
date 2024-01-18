@@ -151,22 +151,22 @@ flowchart TB
   route_components("<b>⑥ Route / Page Components</b><br/><br/>Next.js app/, React Router, ..")
   business_components("<b>⑦ Business Components</b><br/><br/>components/<br/>index.tsx<br/>hooks.ts<br/>styles.ts<br/>types.ts<br/>...")
   ui_components("<b>② fa:fa-palatte UI Components</b><br/><br/>MUI, Antd, Semantic UI, Tailwind, ...")
-        
+
   %% definition: hooks layer
   shared_hooks("<br/><b>⑧ Domain logics / shared effects</b><br/>")
-  dom_hooks(<br/><b>DOM APIs</b><br/>)
-  analytics_hooks(<br/><b>Analytics</b><br/>)
+  dom_hooks(<br/><b>&nbsp;&nbsp;&nbsp;&nbsp;DOM APIs&nbsp;&nbsp;&nbsp;&nbsp;</b><br/><br/>)
+  analytics_hooks(<br/><b>&nbsp;&nbsp;&nbsp;&nbsp;Analytics&nbsp;&nbsp;&nbsp;&nbsp;</b><br/><br/>)
   global_store("⑩ <b>Global store</b><br/>(Accessible anywheres in <b>Hooks</b> layer)<br/><br/>React Context, redux, mobx, ..")
   api_hooks("⑨ <b>API Hooks</b><br/><br/>React Query, SWR, RTK Query, ..")
-  etc_hooks(<br/><b>........</b><br/>)
+  etc_hooks(<br/><b>&nbsp;&nbsp;&nbsp;&nbsp;........&nbsp;&nbsp;&nbsp;&nbsp;</b><br/><br/>)
 
   %% definition: api layer
   api_client(<b>API Client</b><br/><br/>axios, fetch, superagent, ..)
-  
+
   %% definition: shared layer
-  utils(<br/><b>Utils</b><br/>)
-  constants(<br/><b>Constants</b><br/>)
-  
+  utils(<br/><b>&nbsp;&nbsp;&nbsp;&nbsp;Utils&nbsp;&nbsp;&nbsp;&nbsp;</b><br/><br/>)
+  constants(<br/><b>&nbsp;&nbsp;&nbsp;&nbsp;Constants&nbsp;&nbsp;&nbsp;&nbsp;</b><br/><br/>)
+
   %% definition: outside of boundaries
   bff("⑪ fa:fa-server <b>Application Bff / Backend</b><br/><br/>Java, Kotlin, NodeJS, ..")
   deps_dom_apis(<b>Dependency: DOM APIs</b><br/><br/>window events, etc.)
@@ -178,7 +178,7 @@ flowchart TB
   style business_components fill:#A5EA88,stroke: #333
   style route_components fill:#A5EA88,stroke: #333
   style ui_components fill:#D8FAC8,stroke: #333
-  
+
   style shared_hooks fill:#F1CFFE,stroke: #333
   style api_hooks fill:#F1CFFE,stroke: #333
   style dom_hooks fill:#F1CFFE,stroke: #333
@@ -198,7 +198,7 @@ flowchart TB
   style deps_dom_apis fill:#FFF,stroke: #333
   style deps_analytics fill:#FFF,stroke: #333
   style deps_others fill:#FFF,stroke: #333
-  
+
   %% start: components & connections
   subgraph app ["React Application (Frontend)"];
     direction TB
@@ -212,7 +212,7 @@ flowchart TB
     route_components --> business_components
     business_components --> ui_components
     route_components -.-> ui_components
- 
+
     subgraph hooks_layer ["③ fa:fa-network-wired <b>Hooks</b> layer"];
       direction TB
       global_store
@@ -242,19 +242,18 @@ flowchart TB
     end
     api_hooks --> api_layer
     %% api_client -. "Response" .-> api_hooks
-
   end
-  
+
   subgraph boundaries ["Boundaries"];
     bff
     deps_dom_apis
     deps_analytics
-    deps_others(<br/>........<br/>)
+    deps_others(<br/>&nbsp;&nbsp;&nbsp;&nbsp;........&nbsp;&nbsp;&nbsp;&nbsp;<br/><br/>)
   end
-  
+
   api_layer -. "HTTP" .-> bff
   dom_hooks -.-> deps_dom_apis
-  analytics_hooks -.-> deps_analytics 
+  analytics_hooks -.-> deps_analytics
   etc_hooks -.-> deps_others
 ```
 
