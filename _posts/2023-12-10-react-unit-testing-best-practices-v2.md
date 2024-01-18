@@ -1273,7 +1273,7 @@ flowchart TB
 * [ ] 润色一下React应用架构图：边界border-radius要不要再调下，显得柔和好看一些
 </details>
 
----
+___
 
 ¹：React Hooks的出现使得这种较早时期的人为划分变得不必要了。详见[Presentational and Container Components][]。<br/>
 ²：正如“Mock API返回”一节所述，也可以不包含API层④。
