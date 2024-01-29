@@ -114,9 +114,9 @@ it('should can search', async () => {
 
 ## React应用典型架构
 
-[软件架构是测试策略的前提要件][clear-architecture-is-a-prior-input-for-testing-strategy]。没有清晰的软件架构和分层定义，就难以制定有效的测试策略并加以实施。
+**[软件架构是测试策略的前提要件][clear-architecture-is-a-prior-input-for-testing-strategy]**。没有清晰的软件架构和分层定义，就难以制定有效的测试策略并加以实施。
 
-[而分层是应用架构的常见手段]()。分层的目的在于隔离变化传播，为上层调用提供透明且简便的功能接入和封装。在React 16引入React Hooks之后，一个常见但不严谨的分层架构往往是这样的：
+**分层是应用架构的常见手段**。分层的目的在于隔离变化传播，为上层调用提供透明且简便的功能接入和封装。在React 16引入React Hooks之后，一个常见但不严谨的分层架构往往是这样的：
 
 ```mermaid
 flowchart TB
@@ -1261,7 +1261,6 @@ flowchart TB
   <summary>🚧最后的最后还有些todolist，暂时干不动了……</summary>
 
 * [ ] 把“无效测试”的例子修改更新一下，可以从`FFF.test.tsx`里找找例子
-* [ ] 整理一下几个群大家提的问题，作为意见输入
 * [ ] 回头拿这个架构把项目代码深度重构一下
 * [ ] 要不要顺便投稿下掘金、蚂蚁等各大平台
 * [ ] 缩小一下几个gif的大小。一个开发者体验的动图5M有点夸张
