@@ -153,7 +153,7 @@ flowchart TB
   ui_components("<b>② fa:fa-palatte UI Components</b><br/><br/>MUI, Antd, Semantic UI, Tailwind, ...")
 
   %% definition: hooks layer
-  shared_hooks("<br/><b>⑧ Domain logics / shared effects</b><br/>")
+  shared_hooks("<br/><b>⑧ Domain logics / shared effects</b><br/><br/>")
   dom_hooks(<br/><b>&nbsp;&nbsp;&nbsp;&nbsp;DOM APIs&nbsp;&nbsp;&nbsp;&nbsp;</b><br/><br/>)
   analytics_hooks(<br/><b>&nbsp;&nbsp;&nbsp;&nbsp;Analytics&nbsp;&nbsp;&nbsp;&nbsp;</b><br/><br/>)
   global_store("⑩ <b>Global store</b><br/>(Accessible anywheres in <b>Hooks</b> layer)<br/><br/>React Context, redux, mobx, ..")
