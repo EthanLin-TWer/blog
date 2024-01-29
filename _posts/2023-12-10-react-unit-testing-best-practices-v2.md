@@ -114,9 +114,9 @@ it('should can search', async () => {
 
 ## React应用典型架构
 
-[软件架构是测试策略的前提要件][clear-architecture-is-a-prior-input-for-testing-strategy]。没有清晰的软件架构和分层定义，就难以制定有效的测试策略并加以实施。
+**[软件架构是测试策略的前提要件][clear-architecture-is-a-prior-input-for-testing-strategy]**。没有清晰的软件架构和分层定义，就难以制定有效的测试策略并加以实施。
 
-[而分层是应用架构的常见手段]()。分层的目的在于隔离变化传播，为上层调用提供透明且简便的功能接入和封装。在React 16引入React Hooks之后，一个常见但不严谨的分层架构往往是这样的：
+**分层是应用架构的常见手段**。分层的目的在于隔离变化传播，为上层调用提供透明且简便的功能接入和封装。在React 16引入React Hooks之后，一个常见但不严谨的分层架构往往是这样的：
 
 ```mermaid
 flowchart TB
