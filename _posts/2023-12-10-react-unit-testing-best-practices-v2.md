@@ -1261,6 +1261,13 @@ flowchart TB
   <summary>🚧最后的最后还有些todolist，暂时干不动了……</summary>
 
 * [ ] 把“无效测试”的例子修改更新一下，可以从`FFF.test.tsx`里找找例子
+* [ ] 一些目前拿到的有意思的反馈，可能可以增补“拾遗”篇或者怎么样添加进来
+  * 测试金字塔revisit。或许理论是没有问题的，但是在前端这个Unit Test的Unit划在什么地方需要讨论。实践证明了不能划在UI组件上，因为它多变的本质，导致加需求、改UI都可能引入UI组件接口变化/重组，测试修改成本高
+  * 测试首先要有效，然后才是成本合算（高效）。测试金字塔必须在满足了“有效”的前提下才有意义，这是核心。速度慢一点可以改进，而且硬件的速度也是越来越快的。
+  * 有效的自动化测试带来的价值，是“测试过就不会出bug”的信心，进而可以继续解锁“feature toggle”、持续集成持续部署等实践。有效是一切的基础
+  * “即使测试过了，ci绿了，开发还是担心会出bug，也的确在后期被qa测试的时候出各种bug。这样的测试就不是财富，而是一种负担了”
+  * “写了测试还是要手工回归，那花时间编写和维护自动化测试意义何在？”
+  * “React组件”不是一个有效的测试金字塔中的“Unit”
 * [ ] 回头拿这个架构把项目代码深度重构一下
 * [ ] 要不要顺便投稿下掘金、蚂蚁等各大平台
 * [ ] 缩小一下几个gif的大小。一个开发者体验的动图5M有点夸张
@@ -1269,6 +1276,7 @@ flowchart TB
   * [testing pyramid](https://testingjavascript.com/)
   * [React Testing Guide](https://components.guide/react+typescript/testing)
   * [Kent's blog](https://kentcdodds.com)
+  * [高效的API端到端测试](https://mp.weixin.qq.com/s/cp8K2j9mFD7TmF96gG-fQA)
 * [ ] 润色一下React应用架构图：边界border-radius要不要再调下，显得柔和好看一些
 </details>
 
