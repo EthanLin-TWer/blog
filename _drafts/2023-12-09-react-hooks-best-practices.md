@@ -74,6 +74,8 @@ fetcher应该是独立出来的一层，至于它是用axios、React Query这是
 * Inline hooks 
 * single v.s. multiple values when using setState()
 * avoid props drilling with useContext()
+* 架构上做DTO，把API回来的东西隔离一层。嵌套对象也要做dto。另外，除了api也可能有其他的时间点创建dto。
+* 对象逻辑都归位之后，就是时序问题了，如何保证能拿到最新或前某几次的数据，保证整个数据更新过程
 
 saveAndNext
 * 同一个hooks有不同行为，拆分开逻辑。
