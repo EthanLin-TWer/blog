@@ -1268,6 +1268,11 @@ flowchart TB
   * “即使测试过了，ci绿了，开发还是担心会出bug，也的确在后期被qa测试的时候出各种bug。这样的测试就不是财富，而是一种负担了”
   * “写了测试还是要手工回归，那花时间编写和维护自动化测试意义何在？”
   * “React组件”不是一个有效的测试金字塔中的“Unit”
+* [ ] 关于这个测试策略可能遇到的问题，也是项目上真实遇到的问题
+  * 测试很快就超长了——真是甜蜜的烦恼。以前是一堆没用的测试，后面是测试文件直接超过4K行。需要分析下原因
+  * 有些测试的given很长。可能的办法：通过不同的describe来复用、优化DSL
+  * 单个测试有可能过长，其间的given-when-then区分不明显，有可能要经过冗长的when才能到then，或者given-when-then-when-then反复交织
+  * multi-actions are needed in `then` stage sometimes. Actions & assertions mixed together. Take more time to read. e.g. button click -> then -> input -> then -> select -> then -> ...
 * [ ] 回头拿这个架构把项目代码深度重构一下
 * [ ] 要不要顺便投稿下掘金、蚂蚁等各大平台
 * [ ] 缩小一下几个gif的大小。一个开发者体验的动图5M有点夸张
