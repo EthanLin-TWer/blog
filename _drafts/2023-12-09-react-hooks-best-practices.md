@@ -65,6 +65,7 @@ fetcher应该是独立出来的一层，至于它是用axios、React Query这是
 
 ## 高级practice
 
+* `[value, setValue]` 就有点暴露内部实现的意思。那么怎么重构？其实就是hooks封装一层。那么hooks暴露些什么行为？
 * 纯函数的操作，面向对象包一下，把行为弄出来
   * Separate Concerns with Multiple Hooks: Split your logic into multiple custom hooks to separate concerns and make your code more modular and reusable. Each custom hook should have a single responsibility. - 单一职责了。那么什么是职责？
 * Large Components 
