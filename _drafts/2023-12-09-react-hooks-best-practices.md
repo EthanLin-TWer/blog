@@ -85,8 +85,9 @@ useEP
 
 ### To-Read
 
+* [Mark Erikson: Hooks, HOCS, and Tradeoffs (🌩) / React Boston 2019](https://www.youtube.com/watch?v=xiKMbmDv-Vw)
 * https://tech.ipalfish.com/blog/2020/03/30/react-hooks/
-[React 最佳实践--如何写出更好的 React 代码（2022 年版）](https://www.freecodecamp.org/chinese/news/best-practices-for-react/)
+* [React 最佳实践--如何写出更好的 React 代码（2022 年版）](https://www.freecodecamp.org/chinese/news/best-practices-for-react/)
 * https://github.com/ychow/Blog/issues/20
 * https://zhuanlan.zhihu.com/p/266566442
 * https://juejin.cn/post/7137655467697766436
