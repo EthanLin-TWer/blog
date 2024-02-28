@@ -64,27 +64,31 @@ fetcher应该是独立出来的一层，至于它是用axios、React Query这是
 
 ## 高级practice
 
-* （超过两个以上的，标准待定）`const [value, setValue] = useState()`就有点像一个只有一个getter/setter的对象，用一次还行，一个组件里有超过两个以上的`useState`就考虑把他们提炼到custom hook里，并暴露出行为（哪怕是`setXXX()`重命个名暴露出去呢）而非内部实现和数据。
+* 🚧（超过两个以上的，标准待定）`const [value, setValue] = useState()`就有点像一个只有一个getter/setter的对象，用一次还行，一个组件里有超过两个以上的`useState`就考虑把他们提炼到custom hook里，并暴露出行为（哪怕是`setXXX()`重命个名暴露出去呢）而非内部实现和数据。
+  * 例子：与其暴露`setAlertStatus`，就不如暴露一个`closeAlert`，封装数据操作，避免外界意外更改你这个内部状态
 * 🚧常见的hooks操作，也要封装出custom hook，可以最大限度地减少细节暴露，让开发者只关注于行为。比如以下常见的功能：
-  * feature toggle: `const { isFeatureEnabled } = useFeatureToggle()`
+  * feature toggle: `const { isFeatureEnabled, orIsDownloadingPdfEnabled } = useFeatureToggle()`
   * form: `const { reader, writer } = useInsuranceForm(getValues()); writer.forProduct().setX();`
+  * `useSelection`重构案例：原来需要监听form变化、自己拿到源数据、自己做filter，同样的逻辑在多处重复。说明观点：声明over命令，封装是为了更好地使用。
+  * 上面的例子其实都有代码，整理一下。
 * 🚧calculate total revenue的例子：从一个对象中取出多项数据，然后用utils进行计算，更好的做法是从这个对象中构建出Domain/DTO（如果本身就是API response），然后把计算逻辑搬移到domain/dto上。你要考虑的问题，就从我从哪里给这个函数搞来正确的参数传递过去，变成我怎么正确地构造出这个对象，然后调用（但是讲真有什么区别）。
 * 🚧重复的逻辑：就应该抽到dto/custom hooks中去。get premium那个例子。
-* 🚧架构上做DTO，把API回来的东西隔离一层。嵌套对象也要做dto。另外，除了api也可能有其他的时间点创建dto，比如back-fill
+* 🚧props传太深的问题(props drilling)可以通过`useContext()`或把数据弄到global store，然后通过hooks来使用
+* ✅架构上做DTO，把API回来的东西隔离一层。嵌套对象也要做dto。另外，除了api也可能有其他的时间点创建dto，比如back-fill
+* 🚧面向对象基本功
 * 对象逻辑都归位之后，就是时序问题了：如何保证修改DTO数据时组件也能更新？如何保证能拿到最新或前某几次的数据？保证整个数据更新过程
+* 同一个hooks有不同行为，拆分开逻辑。- 这个睿睿有文章讲，跳转过去即可。
+
+## To tackle bad smells
 
 * 纯函数的操作，面向对象包一下，把行为弄出来
   * Separate Concerns with Multiple Hooks: Split your logic into multiple custom hooks to separate concerns and make your code more modular and reusable. Each custom hook should have a single responsibility. - 单一职责了。那么什么是职责？
 * Large Components 
 * Long hooks: 
-  * separate hooks 
+  * separate hooks
   * 组件里有find filter是坏味道
 * Inline hooks 
 * single v.s. multiple values when using setState()
-* avoid props drilling with useContext()
-
-saveAndNext
-* 同一个hooks有不同行为，拆分开逻辑。
 
 ### To-Read
 
