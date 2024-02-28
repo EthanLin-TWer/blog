@@ -20,7 +20,6 @@ category: JavaScript, design system
 https://www.knapsack.cloud/calculator
 
 * high level orchestration & support
-*  
 * dedicated UX team
 * dedicated tech team
 * development effort
