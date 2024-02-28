@@ -28,7 +28,6 @@ fetcher应该是独立出来的一层，至于它是用axios、React Query这是
 * 但是问题是，这一层是直接返回API数据，还是包一层返回个领域对象？能不能在里头写`onSuccess`之类的UI代码？
 * 这一层抽出来了有什么用？是测试的时候容易mock掉？还是将来API这一层的东西可以独立替换掉？
 
-
 # placeholder
 
 ## Docs
@@ -38,8 +37,7 @@ fetcher应该是独立出来的一层，至于它是用axios、React Query这是
 * https://react.dev/learn#using-hooks
 * https://react.dev/learn/thinking-in-react
 
-
-## What is react hooks 
+## What is React hooks 
 * reusable code logics compared to class components 
 * difference with utils/tools: can only be used in React components, and the data will be initialized on each hook call in a component, which means: 
 * if you want different hook calls from different components to share states, then we need to rely on useContext() or a global store
@@ -50,7 +48,7 @@ fetcher应该是独立出来的一层，至于它是用axios、React Query这是
 * 只能在functional components里用，只能在React组件里用
 * 只能静态声明，不能在条件或者循环里用（跟实现机制有关系）
 * dependency list
-  * 只调一次的你就不要指定依赖数组 []
+  * 只调一次的你就不要指定依赖数组 []，或者自己封装一个`useMount`/`useUnmount()`
   * 有函数依赖的怎么指定？都写上去吗？函数还怎么可能改变呢？直接在组件里定义的函数咯。
 * 常用hook
   * useState, useContext, useRef - difference? 
@@ -60,12 +58,21 @@ fetcher应该是独立出来的一层，至于它是用axios、React Query这是
     * https://blog.logrocket.com/react-useeffect-vs-uselayouteffect-hooks-examples/
   * useDeferredValue? useId? useTransition? useReducer? 
   * https://blog.logrocket.com/react-hooks-cheat-sheet-solutions-common-problems/
-* custom hooks
-  * 
+* custom hooks:
+  * [React Hooks你真的用对了吗？](https://reeli.github.io/blog/framework_react-hooks-use.html)
+  * [React Hooks 原理剖析](https://reeli.github.io/blog/framework_react-hooks-principle.html)
 
 ## 高级practice
 
-* `[value, setValue]` 就有点暴露内部实现的意思。那么怎么重构？其实就是hooks封装一层。那么hooks暴露些什么行为？
+* （超过两个以上的，标准待定）`const [value, setValue] = useState()`就有点像一个只有一个getter/setter的对象，用一次还行，一个组件里有超过两个以上的`useState`就考虑把他们提炼到custom hook里，并暴露出行为（哪怕是`setXXX()`重命个名暴露出去呢）而非内部实现和数据。
+* 🚧常见的hooks操作，也要封装出custom hook，可以最大限度地减少细节暴露，让开发者只关注于行为。比如以下常见的功能：
+  * feature toggle: `const { isFeatureEnabled } = useFeatureToggle()`
+  * form: `const { reader, writer } = useInsuranceForm(getValues()); writer.forProduct().setX();`
+* 🚧calculate total revenue的例子：从一个对象中取出多项数据，然后用utils进行计算，更好的做法是从这个对象中构建出Domain/DTO（如果本身就是API response），然后把计算逻辑搬移到domain/dto上。你要考虑的问题，就从我从哪里给这个函数搞来正确的参数传递过去，变成我怎么正确地构造出这个对象，然后调用（但是讲真有什么区别）。
+* 🚧重复的逻辑：就应该抽到dto/custom hooks中去。get premium那个例子。
+* 🚧架构上做DTO，把API回来的东西隔离一层。嵌套对象也要做dto。另外，除了api也可能有其他的时间点创建dto，比如back-fill
+* 对象逻辑都归位之后，就是时序问题了：如何保证修改DTO数据时组件也能更新？如何保证能拿到最新或前某几次的数据？保证整个数据更新过程
+
 * 纯函数的操作，面向对象包一下，把行为弄出来
   * Separate Concerns with Multiple Hooks: Split your logic into multiple custom hooks to separate concerns and make your code more modular and reusable. Each custom hook should have a single responsibility. - 单一职责了。那么什么是职责？
 * Large Components 
@@ -75,14 +82,9 @@ fetcher应该是独立出来的一层，至于它是用axios、React Query这是
 * Inline hooks 
 * single v.s. multiple values when using setState()
 * avoid props drilling with useContext()
-* 架构上做DTO，把API回来的东西隔离一层。嵌套对象也要做dto。另外，除了api也可能有其他的时间点创建dto。
-* 对象逻辑都归位之后，就是时序问题了，如何保证能拿到最新或前某几次的数据，保证整个数据更新过程
 
 saveAndNext
 * 同一个hooks有不同行为，拆分开逻辑。
-
-useEP
-* 这个经验是，有针对数据操作的行为给它封装起来。函数+闭包+暴露行为方法(findXXX)一般就够用。
 
 ### To-Read
 
