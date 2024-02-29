@@ -30,13 +30,6 @@ fetcher应该是独立出来的一层，至于它是用axios、React Query这是
 
 # placeholder
 
-## Docs
-* https://overreacted.io/a-complete-guide-to-useeffect/
-* https://react.dev/reference/react/useEffect
-* https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useUnmount/index.ts
-* https://react.dev/learn#using-hooks
-* https://react.dev/learn/thinking-in-react
-
 ## What is React hooks 
 * reusable code logics compared to class components 
 * difference with utils/tools: can only be used in React components, and the data will be initialized on each hook call in a component, which means: 
@@ -64,20 +57,175 @@ fetcher应该是独立出来的一层，至于它是用axios、React Query这是
 
 ## 高级practice
 
-* 🚧（超过两个以上的，标准待定）`const [value, setValue] = useState()`就有点像一个只有一个getter/setter的对象，用一次还行，一个组件里有超过两个以上的`useState`就考虑把他们提炼到custom hook里，并暴露出行为（哪怕是`setXXX()`重命个名暴露出去呢）而非内部实现和数据。
-  * 例子：与其暴露`setAlertStatus`，就不如暴露一个`closeAlert`，封装数据操作，避免外界意外更改你这个内部状态
+* ✅Bad Smell: Floating `setXXX()`。Custom hooks应该避免直接暴露`useState`给的`setXXX()`方法。正确的做法是，封装出具有业务含义的API并暴露出行为，而非暴露内部实现和数据。
+  * `const [value, setValue] = useState()`就有点像一个只有一个getter/setter的对象，用一次还行，一个组件里有超过两个以上的`useState`就考虑把他们提炼到custom hook里，并暴露出行为
 * 🚧常见的hooks操作，也要封装出custom hook，可以最大限度地减少细节暴露，让开发者只关注于行为。比如以下常见的功能：
-  * feature toggle: `const { isFeatureEnabled, orIsDownloadingPdfEnabled } = useFeatureToggle()`
+  * ✅feature toggle: `const { isFeatureEnabled } = useFeatureToggle()`
   * form: `const { reader, writer } = useInsuranceForm(getValues()); writer.forProduct().setX();`
-  * `useSelection`重构案例：原来需要监听form变化、自己拿到源数据、自己做filter，同样的逻辑在多处重复。说明观点：声明over命令，封装是为了更好地使用。
-  * 上面的例子其实都有代码，整理一下。
 * 🚧calculate total revenue的例子：从一个对象中取出多项数据，然后用utils进行计算，更好的做法是从这个对象中构建出Domain/DTO（如果本身就是API response），然后把计算逻辑搬移到domain/dto上。你要考虑的问题，就从我从哪里给这个函数搞来正确的参数传递过去，变成我怎么正确地构造出这个对象，然后调用（但是讲真有什么区别）。
-* 🚧重复的逻辑：就应该抽到dto/custom hooks中去。get premium那个例子。
+* 🚧重复的逻辑：就应该抽到dto/custom hooks中去。
+  * `useSelection`重构案例：原来需要监听form变化、自己拿到源数据、自己做filter，同样的逻辑在多处重复。说明观点：声明over命令，封装是为了更好地使用。
+  * get premium那个例子。
 * 🚧props传太深的问题(props drilling)可以通过`useContext()`或把数据弄到global store，然后通过hooks来使用
-* ✅架构上做DTO，把API回来的东西隔离一层。嵌套对象也要做dto。另外，除了api也可能有其他的时间点创建dto，比如back-fill
 * 🚧面向对象基本功
+* ✅架构上做DTO，把API回来的东西隔离一层。嵌套对象也要做dto。另外，除了api也可能有其他的时间点创建dto，比如back-fill
 * 对象逻辑都归位之后，就是时序问题了：如何保证修改DTO数据时组件也能更新？如何保证能拿到最新或前某几次的数据？保证整个数据更新过程
-* 同一个hooks有不同行为，拆分开逻辑。- 这个睿睿有文章讲，跳转过去即可。
+* ✅同一个hooks有不同行为，拆分开逻辑。- 这个睿睿有文章讲，跳转过去即可。
+
+### 将`useState()`提炼成为custom hooks并暴露出行为
+
+before refactoring:
+
+```tsx
+// src/pages/product-page.tsx
+import { useEffect } from 'react'
+
+export const ProductPage = () => {
+  const { shouldShowAlert, setShowAlert, message } = useProductPromotionAutoAdjust()
+  return (
+    ...
+    {shouldShowAlert && (
+      <Alert
+        onClose={() => {
+          setShowAlert(false)
+        }}
+        message={message}
+      />
+    )}
+  )
+}
+
+// src/hooks/product-promotion.ts
+export const useProductPromotionAutoAdjust = () => {
+  const [shouldShowAlert, setShowAlert] = useState(false)
+  const { response } = useProductPromotion()
+...
+
+  useEffect(() => {
+    const shouldAutoAdjustPriceWhenUserEnjoysPromotion = calculateFrom(response)
+    if (shouldAutoAdjustPriceWhenUserEnjoysPromotion) {
+      setShowAlert(true)
+      ...
+    }
+  }, [response])
+  
+  return { shouldShowAlert, setShowAlert }
+}
+```
+
+这个hook的作用是：根据API的返回确定是否用户享受了折扣，若是，则自动调降用户的应付金额、并为用户展示一个提示信息（alert）。同时，该hook为用户提供了一个关闭提示信息的API。
+
+很多同学在设计API的时候，很容易直接转手就把`useState()`给你的setter直接暴露出去，但这样做有一个缺点，就是破坏了数据封装。我们把setter `setShowAlert`暴露出去，这样任何代码块都可以通过这个API不加限制地将`shouldShowAlert`设置为`true`，这显然违背作者的本意以及真实的业务场景，也使得bug更容易出现、调试更费功夫。
+
+更好的做法是，把`setShowAlert(false)`这个操作封装起来，暴露出一个单独的`closeAlert` API。这个小小的改动有两个好处：一是能更好地表达业务含义，现在调用者没有随意设置`shouldShowAlert`值的方法了，他们能清楚地知道这个hooks将控制提示信息的显示，而用户仅能决定是否关闭它；二是能更好地封装数据，现在数据值不会被意外修改了，甚至对它的修改都被重新限制在hooks之内。这让Hooks维护者的工作变得更轻松了：修改这个Hooks的逻辑时，不需要再排查每一个API的调用点，所有需要检查的逻辑都被封装在这个Hooks之内。
+
+after refactoring: 
+
+```ts
+
+```
+
+这是一个小小的修改，但却能大大增强你的Hooks API可读性、可理解性和可维护性，充分展示你对面向对象的数据封装的理解。
+
+当我们设计hooks的时候，请记住：**应该尽量将所有对数据的操作（主要是增删改）封装成为有业务含义的API，以此将数据与对数据的修改都限制在单个hooks中，而非将修改数据的API/setter进一步对外暴露。这样做既方便了Hooks的维护者——TA修改Hooks的时候不需要进一步排查更多的调用点、逻辑一目了然，也方便了Hooks的使用者**。
+
+### 为常见的功能封装出一个声明式的API
+
+这点看似显而易见，但是在实践中却也常常被忽略，导致我们很容易写出涉及很多操作细节的代码，加重维护者的负担。最常见的就是我们经常从一些通用库中直接导入它们提供的hooks直接使用，而不加一层封装，导致细节到处泛滥。下面试举几例：
+
+#### feature toggle
+
+before refactoring:
+
+```tsx
+import { evaluateFlags } from '@unleash/nextjs'
+import { FEATURE_A, FEATURE_B, FEATURE_H } from '../constants/feature-toggles'
+
+const ProductDetailpage = () => {
+  const toggles = evaluateFlags(...)
+  const isFeatureAEnabled = toggles.find(toggle => toggle.name === FEATURE_A)?.enabled
+  const isFeatureBEnabled = toggles.find(toggle => toggle.name === FEATURE_B)?.enabled
+  const isFeatureHEnabled = toggles.find(toggle => toggle.name === FEATURE_H)?.enabled
+  
+  return (
+    <>
+      {isFeatureAEnabled && (...)}
+      {isFeatureBEnabled && (...)}
+      {isFeatureHEnabled && (...)}
+    </>
+  )
+}
+
+export default ProductDetailPage
+```
+
+上面这段代码并不算复杂——也正是因为不太复杂所以我们很容易通过复制粘贴写出这样的代码——但还是涉及了太多细节：使用者自己使用Unleash提供的API获取全量的toggle数据、手动获取每个toggle的名字、通过一段find逻辑查询出这个toggle是否启用。
+
+更好的做法是将这些细节、源数据获取都封装到一个API——通常是利用custom hooks——背后，这样会让调用者的工作更加简单，也会让维护者的工作更加简单，他们不再需要维护多处重复的`find`逻辑了。
+
+after refactoring:
+
+```tsx
+import useFeatureToggles from './hooks/useFeatureToggles'
+
+const ProductDetailpage = () => {
+  const toggleService = useFeatureToggles()
+
+  return (
+    <>
+      {toggleService.isFeatureAEnabled() && (...)}
+      {toggleService.isFeatureBEnabled() && (...)}
+      {toggleService.isFeatureHEnabled() && (...)}
+    </>
+  )
+}
+
+export default ProductDetailPage
+```
+
+如果这个例子还算简单，没有太多的细节，那么下面我们可以看一个更繁复的例子，表单使用：
+
+#### form
+
+before refactoring:
+
+```ts
+
+```
+
+after refactoring:
+
+```ts
+
+```
+
+###
+
+before refactoring:
+
+```ts
+
+```
+
+after refactoring:
+
+```ts
+
+```
+
+### 
+
+before refactoring:
+
+```ts
+
+```
+
+after refactoring:
+
+```ts
+
+```
 
 ## To tackle bad smells
 
@@ -101,3 +249,8 @@ fetcher应该是独立出来的一层，至于它是用axios、React Query这是
 * https://www.infoq.cn/article/ry4icky5crb1pokvi0ql
 * https://react.dev/learn/reusing-logic-with-custom-hooks
 * https://www.google.com/search?q=%E9%87%8D%E6%9E%84%E5%A4%8D%E6%9D%82%E7%9A%84react+hooks
+* https://overreacted.io/a-complete-guide-to-useeffect/
+* https://react.dev/reference/react/useEffect
+* https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useUnmount/index.ts
+* https://react.dev/learn#using-hooks
+* https://react.dev/learn/thinking-in-react
