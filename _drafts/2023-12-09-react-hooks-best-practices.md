@@ -53,19 +53,17 @@ fetcher应该是独立出来的一层，至于它是用axios、React Query这是
   * https://blog.logrocket.com/react-hooks-cheat-sheet-solutions-common-problems/
 * custom hooks:
   * [React Hooks你真的用对了吗？](https://reeli.github.io/blog/framework_react-hooks-use.html)
-  * [React Hooks 原理剖析](https://reeli.github.io/blog/framework_react-hooks-principle.html)
+  * [React Hooks原理剖析](https://reeli.github.io/blog/framework_react-hooks-principle.html)
 
 ## 高级practice
 
-* ✅Bad Smell: Floating `setXXX()`。Custom hooks应该避免直接暴露`useState`给的`setXXX()`方法。正确的做法是，封装出具有业务含义的API并暴露出行为，而非暴露内部实现和数据。
+* ✅[Bad Smell: Overuse of `setXXX()`](#将usestate提炼成为custom-hooks并暴露出行为)。Custom hooks应该避免直接暴露`useState`给的`setXXX()`方法。正确的做法是，封装出具有业务含义的API并暴露出行为，而非暴露内部实现和数据。
   * `const [value, setValue] = useState()`就有点像一个只有一个getter/setter的对象，用一次还行，一个组件里有超过两个以上的`useState`就考虑把他们提炼到custom hook里，并暴露出行为
-* 🚧常见的hooks操作，也要封装出custom hook，可以最大限度地减少细节暴露，让开发者只关注于行为。比如以下常见的功能：
+* [🚧常见的hooks操作，也要封装出custom hook，可以最大限度地减少细节暴露，让开发者只关注于行为。](#为常见的功能封装出一个声明式的api)
   * ✅feature toggle: `const { isFeatureEnabled } = useFeatureToggle()`
-  * form: `const { reader, writer } = useInsuranceForm(getValues()); writer.forProduct().setX();`
+  * form: `const { reader, writer } = useInsuranceForm(getValues()); writer.fodrProduct().setX();`
 * 🚧calculate total revenue的例子：从一个对象中取出多项数据，然后用utils进行计算，更好的做法是从这个对象中构建出Domain/DTO（如果本身就是API response），然后把计算逻辑搬移到domain/dto上。你要考虑的问题，就从我从哪里给这个函数搞来正确的参数传递过去，变成我怎么正确地构造出这个对象，然后调用（但是讲真有什么区别）。
-* 🚧重复的逻辑：就应该抽到dto/custom hooks中去。
-  * `useSelection`重构案例：原来需要监听form变化、自己拿到源数据、自己做filter，同样的逻辑在多处重复。说明观点：声明over命令，封装是为了更好地使用。
-  * get premium那个例子。
+* [🚧重复的逻辑：就应该抽到dto/custom hooks中去。](#提炼重复的逻辑)
 * 🚧props传太深的问题(props drilling)可以通过`useContext()`或把数据弄到global store，然后通过hooks来使用
 * 🚧面向对象基本功
 * ✅架构上做DTO，把API回来的东西隔离一层。嵌套对象也要做dto。另外，除了api也可能有其他的时间点创建dto，比如back-fill
@@ -200,6 +198,69 @@ after refactoring:
 ```
 
 ###
+
+before refactoring:
+
+```ts
+
+```
+
+after refactoring:
+
+```ts
+
+```
+
+### 提炼重复的逻辑
+
+#### `useSelection`
+
+原来需要监听form变化、自己拿到源数据、自己做filter，同样的逻辑在多处重复。说明观点：声明over命令，封装是为了更好地使用。
+
+before refactoring:
+
+```tsx
+import { useFormContext } from 'react-hook-form'
+import { fieldNames } from '../constants/fieldNames'
+import { useProductCategory } from './hooks/useProductCategory'
+
+const ProductCategoryPage = () => {
+  const { data } = useProductCategory()
+  const { getValues, watch } = useFormContext()
+  const selectedProductCategory = watch({ name: fieldNames.PRODUCT_CATEGORY })
+  const selectedProductId = watch({ name: fieldNames.PRODUCT_ID })
+  const [availableProducts, productDropdownOptions] = useMemo(() => {
+    const products = selectedProductCategory 
+      ? data?.categories?.find(category => category.id === selectedProductCategory)?.products
+      : []
+    const productDropdownOptions = mapToDropdownOptions(products)
+    return [products, productDropdownOptions]
+  }, [selectedProductCategory, data])
+  
+  const onProductChange = (event: Event) => {
+    const selectedProductId = event.target.value;
+    const selectedProduct = availableProducts.find(product => product.id === selectedProductId)
+    if (selectedProduct) {
+      ...
+    }
+  }
+  
+  return (
+    ...
+    <Dropdown label="products" options={productDropdownOptions} onChange={onProductChange} />
+    <Dropdown label="product-quality" options={['STANDARD']} disabled={!selectedProductId} /> 
+    ...
+  )
+}
+```
+
+after refactoring:
+
+```ts
+
+```
+
+#### `getPremium` 
 
 before refactoring:
 
