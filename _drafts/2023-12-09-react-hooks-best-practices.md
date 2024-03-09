@@ -28,12 +28,18 @@ fetcher应该是独立出来的一层，至于它是用axios、React Query这是
 * 但是问题是，这一层是直接返回API数据，还是包一层返回个领域对象？能不能在里头写`onSuccess`之类的UI代码？
 * 这一层抽出来了有什么用？是测试的时候容易mock掉？还是将来API这一层的东西可以独立替换掉？
 
-# placeholder
+## What is React hooks
 
-## What is React hooks 
 * reusable code logics compared to class components 
 * difference with utils/tools: can only be used in React components, and the data will be initialized on each hook call in a component, which means: 
 * if you want different hook calls from different components to share states, then we need to rely on useContext() or a global store
+
+## 解决的问题
+
+1. 函数式组件无法拥有状态，而class增加了新手学习难度和优化难度
+2. 在React组件间复用状态相关逻辑。之前必须用高阶组件或者renderProps
+3. 解决了原先生命周期方法同样代码无法复用、相关逻辑无法聚集的缺陷
+4. 跟一般函数的区别是，它可以接入React相关的功能（其他hooks），比如状态useState，生命周期useEffect，解决嵌套传递的useContext，useRef等。
 
 ## 初级practice - baseline
 
@@ -315,3 +321,12 @@ after refactoring:
 * https://github.com/alibaba/hooks/blob/master/packages/hooks/src/useUnmount/index.ts
 * https://react.dev/learn#using-hooks
 * https://react.dev/learn/thinking-in-react
+* https://codesandbox.io/s/jvvkoo8pq3?file=/src/index.js:259-283
+* https://legacy.reactjs.org/docs/hooks-faq.html#is-there-something-like-instance-variables
+* https://www.robinwieruch.de/react-hooks-fetch-data/
+* https://legacy.reactjs.org/docs/testing-recipes.html
+* https://medium.com/@dan_abramov/making-sense-of-react-hooks-fdbde8803889
+* https://www.youtube.com/watch?v=J-g9ZJha8FE
+* https://www.youtube.com/watch?v=dpw9EHDh2bM&t=2s
+* [When to useMemo and useCallback](https://kentcdodds.com/blog/usememo-and-usecallback)
+* [Hooks API Reference](https://reactjs.org/docs/hooks-reference.html)
