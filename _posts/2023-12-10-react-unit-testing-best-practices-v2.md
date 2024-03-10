@@ -1282,6 +1282,7 @@ flowchart TB
   * [React Testing Guide](https://components.guide/react+typescript/testing)
   * [Kent's blog](https://kentcdodds.com)
   * [高效的API端到端测试](https://mp.weixin.qq.com/s/cp8K2j9mFD7TmF96gG-fQA)
+  * [why we killed our end to end test suite](https://building.nubank.com.br/why-we-killed-our-end-to-end-test-suite/)
 * [ ] 润色一下React应用架构图：边界border-radius要不要再调下，显得柔和好看一些
 </details>
 
