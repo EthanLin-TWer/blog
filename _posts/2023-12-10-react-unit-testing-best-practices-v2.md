@@ -1272,7 +1272,6 @@ flowchart TB
   * 有些测试的given很长。可能的办法：通过不同的describe来复用、优化DSL
   * 单个测试有可能过长，其间的given-when-then区分不明显，有可能要经过冗长的when才能到then，或者given-when-then-when-then反复交织
   * multi-actions are needed in `then` stage sometimes. Actions & assertions mixed together. Take more time to read. e.g. button click -> then -> input -> then -> select -> then -> ...
-* [ ] 回头拿这个架构把项目代码深度重构一下
 * [ ] 要不要顺便投稿下掘金、蚂蚁等各大平台
 * [ ] 缩小一下几个gif的大小。一个开发者体验的动图5M有点夸张
 * [ ] 把以下参考文章再读一遍
