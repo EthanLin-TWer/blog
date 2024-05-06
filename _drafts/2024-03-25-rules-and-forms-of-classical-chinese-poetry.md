@@ -1,5 +1,5 @@
 ---
-title: 诗词格律简读
+title: 诗词格律概要
 category: poetry
 ---
 
