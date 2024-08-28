@@ -45,17 +45,29 @@ category: data-driven-sdlc estimation software-estimation fix-bid statistics
 
 而1-5个点范围内的软件估算，在/tw其实早已有了一套成熟的方法论，那就是黑马第三部分和第四部分所回答的问题：你首先需要知道的是软件架构，从软件架构可以得到测试策略，然后你就可以对任意一个用户故事应用二层分解得到业务用例，而每个业务用例都映射到一个或多个软件架构中的层，进而得到一份任务列表（tasking）。任务列表上的每一项都有明确的输入输出，根据团队或个人日常实践可以得到精确到小时的工时，加总就得到这个用户故事的估点。这个拆解和计算过程就如下图所示。
 
-![low-level-estimation-inputs.png](../_images/2024-08-22-low-level-estimation-inputs.png)
+<p align="center" >
+  <img 
+    src="https://cdn.jsdelivr.net/gh/EthanLin-TWer/blog@gh-pages/_images/2024-08-22-low-level-estimation-inputs.png" 
+  />
+</p>
 
 估算一个更大项目的人天数，显然需要很好地利用这份精确估点作为基线，基于它再做一些更复杂的运算。
 
 ### 估点基线
 
-![typical-react-based-frontend-architecture.png](../_images/2024-08-22-typical-react-based-frontend-architecture.png)
+<p align="center" >
+  <img 
+    src="https://cdn.jsdelivr.net/gh/EthanLin-TWer/blog@gh-pages/_images/2024-08-22-typical-react-based-frontend-architecture.png" 
+  />
+</p>
 
 以上图这个常见的React前端架构为底本[^5]，并以笔者一个过往项目的具体数据进行测算[^6]，可以得到这样一份具体任务的估点基线：
 
-![estimation-baseline.png](../_images/2024-08-22-estimation-baseline.png)
+<p align="center" >
+  <img 
+    src="https://cdn.jsdelivr.net/gh/EthanLin-TWer/blog@gh-pages/_images/2024-08-22-estimation-baseline.png" 
+  />
+</p>
 
 有了这份估点基线，那么我就可以对任意一个1-5个点的任务按照已知的需求和UI信息，进行理想环境下的时间估算了——至于编码占整体项目时间的%多少，这是一个工程问题，没有行业统一的标准答案，但是后文同样会基于经验数据进行讨论。这里大家可能会注意到，这样一份估点基线，是依赖于**技术栈**、**软件架构（及其所决定的测试策略）**以及**团队特定的工作环境**这三个主要因素的。你可能会疑虑，它能否推广到其他的技术栈上？回答是，当然没问题。软件架构和测试策略的最佳实践往往是随着技术栈而确定的，你可以以此为假设固化到你的估点基线中；至于具体任务的时间，你既可以依赖经验，也可以采用过往项目的统计数据。如此一来，你只需要将分类换掉（比如在后端技术栈下，可能就是“API-业务逻辑-DB”的分层），就可以得出一份基于不同的技术栈（比如Vue.js、Spring Boot等）的估点基线。
 
@@ -67,7 +79,11 @@ category: data-driven-sdlc estimation software-estimation fix-bid statistics
 
 比如说，我举个真实的例子。现在，我们的在线会议系统（类似于企业内部自研的Google Calendar吧）有一个需求，是要做一个类似ChatGPT那样可以跟AI聊天的功能。跟AI通过API交互，API由其他团队提供，这里就假设已经准备好了，主要是做个UI。大概长下面这样。现在请你估个点吧。（建议读者可以盖上后面的文章，瞅两眼UI，尝试思考两分钟你会怎么来估这个点~~）
 
-![ai-requirements-mockups.png](../_images/2024-08-22-ai-requirements-mockups.png)
+<p align="center" >
+  <img 
+    src="https://cdn.jsdelivr.net/gh/EthanLin-TWer/blog@gh-pages/_images/2024-08-22-ai-requirements-mockups.png" 
+  />
+</p>
 
 有没有同学是看着UI觉得：“嗯，不用管理会话，不需要支持选择对话模型，不支持上传附件，看起来就是内部AI套壳，1-2个API调用+一个输入框+一个回答框，问什么答什么都是API不需要我处理，很简单，要不了三天，加点保险怎么着最多五天搞定了”的？有这么想的同学请举个手🙋🏻‍♀️🙋🏻‍
 
@@ -113,7 +129,11 @@ category: data-driven-sdlc estimation software-estimation fix-bid statistics
 
 让我们把一个开发者日常编码以外的时间拼凑出来，可以得到这样一个时间比例图[^7]。
 
-![typical-time-spent-of-a-developer.png](../_images/2024-08-22-typical-time-spent-of-a-developer.png)
+<p align="center" >
+  <img 
+    src="https://cdn.jsdelivr.net/gh/EthanLin-TWer/blog@gh-pages/_images/2024-08-22-typical-time-spent-of-a-developer.png" 
+  />
+</p>
 
 总体来说，这幅图上的几个关键数据是：
 * 编码时间其实大约就占总体开发者时间（Dev Manday）的31.5%；
@@ -132,7 +152,11 @@ $$\; \; \; \; \; \; \; , or = Rate \times (Dev\space Estimation \div 0.47 + Non\
 
 这样我们就得到了一个人天合同的（可能较为接近真实情况的）报价。这个大概的流程就是这样：
 
-![overall-estimation-workflow.png](../_images/2024-08-22-overall-estimation-workflow.png)
+<p align="center" >
+  <img 
+    src="https://cdn.jsdelivr.net/gh/EthanLin-TWer/blog@gh-pages/_images/2024-08-22-overall-estimation-workflow.png" 
+  />
+</p>
 
 当然，要得到一个完整准确的模型是不可能的。除了受估点基线中与技术栈和团队、已知信息准确度的影响，也与各个项目、甚至各家供应商内部成本的现实与计算有关系。这当然也并不是本文的意图。文章除了分享一些观点，更重要的是分享一些数字。当然，我也希望本文能够从经验和定性（而非定量）的角度指出，**我们在估点中常用的系数，1.2/1.5是偏小的，2-3才是比较接近真实情况的数字**。
 
@@ -157,6 +181,7 @@ $$\; \; \; \; \; \; \; , or = Rate \times (Dev\space Estimation \div 0.47 + Non\
 ## Work in Progress
 
 * 再快速浏览润色一遍。
+* 手动修正一下引用。用右上角的1 2 3就好了
 * 快速润色一下，发表。不纠结。补全一下艾特来金的部分
 
 [Backlog Refinement Meeting]: https://www.agilealliance.org/glossary/backlog-refinement/
