@@ -148,11 +148,11 @@ category: data-driven-sdlc estimation software-estimation fix-bid statistics
 
 $$SoW (\$) = Rate \times Total\space Mandays$$
 
-$$\; \; \; \; \; \; \; \; \; \; \; \; \; \;  = Rate \times (Dev\; Mandays + Non\text{-}Dev\; Mandays)$$
+$$\; \; \; \; \; \; \; \; \; \; \; \; \; = Rate \times (Dev\; Mandays + Non\text{-}Dev\; Mandays)$$
 
-$$\; \; \; \; \; \; \; \; \; \; \; \; \; \; = Rate \times (Dev\; Estimation \div 0.315 + Non\text{-}Dev\; Mandays)$$
+$$\; \; \; \; \; \; \; \; \; \; \; \; \; = Rate \times (Dev\; Estimation \div 0.315 + Non\text{-}Dev\; Mandays)$$
 
-$$\; \; \; \; \; \; \; \; , or = Rate \times (Dev\space Estimation \div 0.47 + Non\text{-}Dev\space Mandays)$$
+$$\; \; \; \; \; \; \; , or = Rate \times (Dev\space Estimation \div 0.47 + Non\text{-}Dev\space Mandays)$$
 
 这样我们就得到了一个人天合同的（可能较为接近真实情况的）报价。这个大概的流程就是这样：
 
