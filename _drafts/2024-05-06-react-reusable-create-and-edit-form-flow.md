@@ -12,5 +12,6 @@ category: react react-hook-form
 * 表单编辑II：不同的字段校验逻辑：创建时不能重名、编辑时可以重名
 * 表单编辑III：不同的API调用（Create API和Update API）
 * WIP等（participants逻辑等）
+* WIP：可以把Step2这里的逻辑都梳理下，什么不能M1没Add的时候就去Add M2否则会导致main form里没有0只有1了（那么这个又如何判断，组件如何设计了），两个不能同时edit了（跟上点是同样的问题等）。
 
 ## 内容
