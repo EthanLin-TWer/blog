@@ -1,5 +1,5 @@
 ---
-title: 技术公司遇到产能瓶颈，怎么破？
+title: 技术公司遇到产能瓶颈，怎么破局？
 tags: team-topology agile cto
 ---
 
@@ -12,28 +12,25 @@ tags: team-topology agile cto
 公司接到（来自不同培训机构的）项目后，会把客户交给某一个团队全权对接。目前公司共有三个团队，每个团队都对接着两到三个客户的产品开发。每个团队都是全功能团队，配备前后端开发、业务分析师和设计师，业务复杂的团队配备有测试人员。但是开发者工程能力据说还有提升空间。每个团队都跑敏捷，两周一个迭代，上线周期则更长。偶尔也会请客户来参与showcase，看看中途开发的成果，提前反馈。
 
 ```mermaid
-graph TD
-  %% Team A and its Projects
-  subgraph teamA [Team A]
-    direction TB
-    P1[Project P1]:::project
-    P2[Project P2]:::project
-    P3[Project P3]:::project
+graph TB
+  subgraph teamC [Team C]
+      direction TB
+      P7[Project P7]:::project
+      P8[Project P8]:::project
   end
 
-  %% Team B and its Projects
-  subgraph teamB [Team B]
+ subgraph teamB [Team B]
     direction TB
     P4[Project P4]:::project
     P5[Project P5]:::project
     P6[Project P6]:::project
   end
-
-  %% Team C and its Projects
-  subgraph teamC [Team C]
-    direction TB
-    P7[Project P7]:::project
-    P8[Project P8]:::project
+  
+  subgraph teamA [Team A]
+      direction TB
+      P1[Project P1]:::project
+      P2[Project P2]:::project
+      P3[Project P3]:::project
   end
 
   %% Add styles for subgraphs
