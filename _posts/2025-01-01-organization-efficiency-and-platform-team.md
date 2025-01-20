@@ -1,5 +1,5 @@
 ---
-title: 技术公司遇到产能瓶颈，怎么破？
+title: 技术公司遇到产能瓶颈，怎么破局？
 tags: team-topology agile cto
 ---
 
@@ -7,33 +7,30 @@ tags: team-topology agile cto
 
 去年底跟一位自己在开公司的朋友聊了聊他们在建设IT能力方面遇到的一些挑战，我梳理了一下问题和背景，脱敏分享出来，有兴趣的朋友可以想一想，如果由你来牵头解决这个问题，应该从哪里入手。
 
-朋友公司是一家教育行业的科技公司，做K9少儿英语教育垂直领域的2B业务，业务范围主要是为培训机构交付游戏化的课件制作及培训软件等，产品形态以Mobile和Pad为主。团队不超过50人，总开发人员15人左右，主要使用的技术栈是Flutter、NodeJS、Cocos2D等。
+朋友公司是一家教育行业的科技公司，做K9少儿英语教育垂直领域的2B业务，业务范围主要是为中小培训机构赋能，交付游戏化的课件制作、培训软件、作业批改、学情数据等，产品形态以Mobile和Pad为主。团队不超过50人，总开发人员15人左右，主要使用的技术栈是Flutter、NodeJS、Cocos2D等。
 
 公司接到（来自不同培训机构的）项目后，会把客户交给某一个团队全权对接。目前公司共有三个团队，每个团队都对接着两到三个客户的产品开发。每个团队都是全功能团队，配备前后端开发、业务分析师和设计师，业务复杂的团队配备有测试人员。但是开发者工程能力据说还有提升空间。每个团队都跑敏捷，两周一个迭代，上线周期则更长。偶尔也会请客户来参与showcase，看看中途开发的成果，提前反馈。
 
 ```mermaid
-graph TD
-  %% Team A and its Projects
-  subgraph teamA [Team A]
-    direction TB
-    P1[Project P1]:::project
-    P2[Project P2]:::project
-    P3[Project P3]:::project
+graph TB
+  subgraph teamC [Team C]
+      direction TB
+      P7[Project P7]:::project
+      P8[Project P8]:::project
   end
 
-  %% Team B and its Projects
-  subgraph teamB [Team B]
+ subgraph teamB [Team B]
     direction TB
     P4[Project P4]:::project
     P5[Project P5]:::project
     P6[Project P6]:::project
   end
-
-  %% Team C and its Projects
-  subgraph teamC [Team C]
-    direction TB
-    P7[Project P7]:::project
-    P8[Project P8]:::project
+  
+  subgraph teamA [Team A]
+      direction TB
+      P1[Project P1]:::project
+      P2[Project P2]:::project
+      P3[Project P3]:::project
   end
 
   %% Add styles for subgraphs
