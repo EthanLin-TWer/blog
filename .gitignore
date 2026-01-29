@@ -4,6 +4,7 @@
 # NPM
 node_modules
 npm-debug.log
+.pnpm-store
 
 # Dist
 dist
