@@ -2,7 +2,7 @@
 
 * [x] 看看首先能不能用上jsDelivr的压缩+加速先，把main/vendor/runtime都应用一下缓存，要看看Webpack的配置
   * [x] `index.html`不缓存，main/vendor都可以缓存一下
-* 提升一下首屏加载性能，现在加载一个首页1M太扯了 - profile一下，code splitting或者砍掉无用的资源 
+* 提升一下首屏加载性能，现在加载一个首页1M太扯了 
   * [x] 通过摇树和分块，我家这个网在HTML加载完的情况下异步加载所有JS只需要3-4秒了。第二次加载有缓存只需要1-2秒。
   * [x] highlight.js 409.61K -> 248.19K (-39.5%)
     * [x] registerLanguage
@@ -13,16 +13,10 @@
   * parse5 - used by retype-raw, which is used to preserve HTMLs in markdown
   * `pnpm list <dep@version> --depth Infinity` can be used to check dependencies using this library
 * [x] 看图片能不能压缩之后也放到gh-pages，然后通过CDN缓存压缩加速 —— 查看Github单个仓库的上限是多少，估算一下，好处是暂时不容易丢
-  * [x] 工具选用：images / imagemin+imagemin-pngquant (要装全局pnglib去你的) / tinify - 对比下压缩效果
-    * [x] images: https://zhuanlan.zhihu.com/p/93882055 - png支持太差
-    * [x] tinify: https://blog.csdn.net/Danchaofan_23/article/details/125963131
-      * 要上传Tinify服务器处理。但是公开的图片么，不在意。唯一缺点就是放在pre-commit里的话没网的时候就不支持压缩图片/提交了…
-      * 先用着，后面再优化
-    * 原理: https://www.php.cn/faq/502524.html
+  * [x] 工具选用：tinify: 先用着，后面再优化
   * [x] 这个应该可以写个pre-commit的task直接处理一下的
 * [x] 看看能不能缓存下vendor/main里头不常更改的部分 - 这个是可以的，分完组和块后就默认是这样了
 * 然后再搞一个CI monitor，每次提交监控build size
-* https://reeli.github.io 为何睿睿的博客加载速度那么快……
 
 # Todo:
 
