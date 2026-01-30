@@ -1,27 +1,22 @@
 const jsonServer = require('json-server')
-const server = jsonServer.create()
-const middlewares = jsonServer.defaults()
 const path = require('path')
 const fs = require('fs')
+const { generatePosts } = require('../src/util/posts-generator')
+
+const server = jsonServer.create()
+const middlewares = jsonServer.defaults()
 
 server.use(middlewares)
 
 // Custom route for posts list
 server.get('/api/posts.json', (req, res) => {
-  const postsPath = path.resolve(__dirname, '../api/posts.json')
-  fs.readFile(postsPath, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error reading posts.json:', err)
-      return res.status(500).json({ error: 'Internal Server Error' })
-    }
-    try {
-      const jsonData = JSON.parse(data)
-      res.json(jsonData)
-    } catch (parseErr) {
-      console.error('Error parsing posts.json:', parseErr)
-      res.status(500).json({ error: 'Internal Server Error' })
-    }
-  })
+  try {
+    const posts = generatePosts()
+    res.json(posts)
+  } catch (err) {
+    console.error('Error generating posts:', err)
+    res.status(500).json({ error: 'Internal Server Error' })
+  }
 })
 
 // Custom route for blog post details
@@ -45,10 +40,6 @@ server.get('/_posts/:filename', (req, res) => {
     res.send(data)
   })
 })
-
-// Use default router for other things if needed (though we're handling everything custom now)
-// const router = jsonServer.router('mock-server/db.json')
-// server.use(router)
 
 server.listen(4000, () => {
   console.log('JSON Server is running on port 4000')

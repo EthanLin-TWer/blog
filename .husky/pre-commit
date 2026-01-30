@@ -23,6 +23,14 @@ findCommittingImages() {
   findCommittingFiles '_images/'
 }
 
+generatePostsJsonIfAnyPostChanged() {
+  if [[ $(findCommittingPosts) ]]; then
+    echo "Updating api/posts.json..."
+    node scripts/generate-posts.js
+    git add api/posts.json
+  fi
+}
+
 abortWhenTryingToCommitMoreThanOnePost() {
   declare -a committingPosts=($(findCommittingPosts))
   local committingPostsCount=${#committingPosts[@]}
@@ -69,3 +77,5 @@ minifyImagesIfAny() {
 abortWhenTryingToCommitMoreThanOnePost
 abortWhenSanityCheckFailsForTechnicalCommits
 minifyImagesIfAny
+generatePostsJsonIfAnyPostChanged
+

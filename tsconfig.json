@@ -1,5 +1,5 @@
 {
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "mock-server/**/*", "scripts/**/*"],
   "compilerOptions": {
     // output ES version and module resolutions
     "target": "es2015",
@@ -31,7 +31,8 @@
 
     // misc
     "skipLibCheck": true,
-    "preserveSymlinks": true
+    "preserveSymlinks": true,
+    "allowJs": true
   },
   "typeAcquisition": {
     "include": ["jest"]
