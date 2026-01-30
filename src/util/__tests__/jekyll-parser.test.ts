@@ -1,4 +1,4 @@
-import { parse } from './jekyll-parser'
+import { parse } from '../jekyll-parser'
 
 describe('parseJekyllPost()', () => {
   it('should return empty object when post is empty', () => {
