@@ -7,7 +7,7 @@ category: translation, clean-code
 
 > 原文链接🔗：[**Canadian Mind Products**](http://mindprod.com/jgloss/unmain.html) by **Roedy Green**
 > 
-> 首发于Ethan的博客🔗：https://ethan.thoughtworkers.me/#/post/2023-11-25-how-to-write-unmaintainable-code
+> 首发于Ethan的博客🔗：https://ethan.exthoughtworkers.tech/#/post/2023-11-25-how-to-write-unmaintainable-code
 
 ## Ensure a job for life ;-)
 

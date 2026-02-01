@@ -273,7 +273,7 @@ pie showData title TL working hours - Breaking Down
 [实践论]: https://www.mzfxw.com/e/action/ShowInfo.php?classid=6&id=92362
 [pdca]: https://zh.wikipedia.org/wiki/Special:Search/pdca
 [toggl]: https://toggl.com
-[My Tech Lead journey I]: https://ethan.thoughtworkers.me/#/post/2023-08-01-my-tech-lead-journey-i
-[My Tech Lead journey V]: https://ethan.thoughtworkers.me/#/post/2023-09-13-my-tech-lead-journey-v
+[My Tech Lead journey I]: https://ethan.exthoughtworkers.tech/#/post/2023-08-01-my-tech-lead-journey-i
+[My Tech Lead journey V]: https://ethan.exthoughtworkers.tech/#/post/2023-09-13-my-tech-lead-journey-v
 [关于时间管理的一点建议]: https://juejin.cn/post/7225941608225652773
 [Who's got the monkey]: https://hbr.org/1999/11/management-time-whos-got-the-monkey

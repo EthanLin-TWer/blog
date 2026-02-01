@@ -1298,11 +1298,11 @@ ___
 [clear-architecture-is-a-prior-input-for-testing-strategy]: https://zhuanlan.zhihu.com/p/560276012
 
 [//]: # (references to my blog)
-[react-unit-testing-best-practices]: https://ethan.thoughtworkers.me/#/post/2018-07-13-react-unit-testing-strategy
-[series-3-what-makes-a-good-automation-test]: https://ethan.thoughtworkers.me/#/post/2023-12-24-what-makes-a-good-automation-test
-[series-4-react-hooks-best-practices]: https://ethan.thoughtworkers.me/#/post/2023-12-09-react-hooks-best-practices
-[series-5-react-application-architecture]: https://ethan.thoughtworkers.me/#/post/2024-01-17-react-application-architecture
-[series-6-react-testing-strategy-best-practice]: https://ethan.thoughtworkers.me/#/post/2023-12-25-react-testing-strategy-and-best-practices
+[react-unit-testing-best-practices]: https://ethan.exthoughtworkers.tech/#/post/2018-07-13-react-unit-testing-strategy
+[series-3-what-makes-a-good-automation-test]: https://ethan.exthoughtworkers.tech/#/post/2023-12-24-what-makes-a-good-automation-test
+[series-4-react-hooks-best-practices]: https://ethan.exthoughtworkers.tech/#/post/2023-12-09-react-hooks-best-practices
+[series-5-react-application-architecture]: https://ethan.exthoughtworkers.tech/#/post/2024-01-17-react-application-architecture
+[series-6-react-testing-strategy-best-practice]: https://ethan.exthoughtworkers.tech/#/post/2023-12-25-react-testing-strategy-and-best-practices
 
 [//]: # (references to mentioned tech stacks / documentations)
 [react-context]: https://react.dev/learn/passing-data-deeply-with-context

@@ -35,4 +35,4 @@ category: career, tech-lead
 * [最简单的图形与最复杂的信息--The Wall Street Journal, Guide to Information Graphics](https://book.douban.com/subject/25755879/)
 * [金字塔原理](https://book.douban.com/subject/33391219/)
 
-[My Tech Lead journey IV]: https://ethan.thoughtworkers.me/#/post/2023-08-05-my-tech-lead-journey-iv
+[My Tech Lead journey IV]: https://ethan.exthoughtworkers.tech/#/post/2023-08-05-my-tech-lead-journey-iv

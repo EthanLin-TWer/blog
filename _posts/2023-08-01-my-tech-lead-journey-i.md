@@ -161,6 +161,6 @@ gantt
 
 * [Tech Lead之路](https://insights.thoughtworks.cn/tech-lead/)
 
-[My Tech Lead journey II]: https://ethan.thoughtworkers.me/#/post/2023-08-03-my-tech-lead-journey-ii
-[My Tech Lead journey III]: https://ethan.thoughtworkers.me/#/post/2023-08-04-my-tech-lead-journey-iii
-[My Tech Lead journey IV]: https://ethan.thoughtworkers.me/#/post/2023-08-05-my-tech-lead-journey-iv
+[My Tech Lead journey II]: https://ethan.exthoughtworkers.tech/#/post/2023-08-03-my-tech-lead-journey-ii
+[My Tech Lead journey III]: https://ethan.exthoughtworkers.tech/#/post/2023-08-04-my-tech-lead-journey-iii
+[My Tech Lead journey IV]: https://ethan.exthoughtworkers.tech/#/post/2023-08-05-my-tech-lead-journey-iv

@@ -23,7 +23,7 @@ category: data-driven-sdlc estimation software-estimation fix-bid statistics
 
 > **太长不读：本篇以笔者已经结束的一些项目及其统计数据，来谈谈如何做固定金额（Fix Bid）项目的成本估算。在估点侧，我们需要的工具是一个估点基线、一个打开细节的框架；在报价侧，我们可能需要把常用的系数从1.2/1.5根据情况上调到2.5/3。这就是笔者依据一个两百万左右的项目回测和一些数据分析出来的经验结论。**
 
-估算是我们每天的工作中一个司空见惯的话题，尤其是在软件开发行业：在敏捷开发中，我们会[每周定期做业务故事梳理和估点][Backlog Refinement Meeting]，以更好地安排未来两周的工作量；在/**thought**works作为乙方公司，打固定金额（Fix Bid）订单时估算的准确性决定了成本的准确性，进而影响收入的可预测性。就算是在每天的个人工作中，我们常常也需要[估算手头上多个工作的工作量](https://ethan.thoughtworkers.me/#/post/2023-08-05-my-tech-lead-journey-iv)，根据它们带来的价值判断每日每周的工作优先级。可以说，估算做的越准，对个人和生意的帮助就越大。
+估算是我们每天的工作中一个司空见惯的话题，尤其是在软件开发行业：在敏捷开发中，我们会[每周定期做业务故事梳理和估点][Backlog Refinement Meeting]，以更好地安排未来两周的工作量；在/**thought**works作为乙方公司，打固定金额（Fix Bid）订单时估算的准确性决定了成本的准确性，进而影响收入的可预测性。就算是在每天的个人工作中，我们常常也需要[估算手头上多个工作的工作量](https://ethan.exthoughtworkers.tech/#/post/2023-08-05-my-tech-lead-journey-iv)，根据它们带来的价值判断每日每周的工作优先级。可以说，估算做的越准，对个人和生意的帮助就越大。
 
 同时，估算又很难。对于低层级的工作，人们常常容易高估自己、低估未知的工作量；对于高层级的工作，人们又常常因为打开的细节不够，导致估算结果与真实执行成本相去甚远。在固定金额项目或某些生意模式中，成本估算是我们需要面对的一个问题。本篇我们就来聊聊估算相关的那些事。
 
@@ -208,8 +208,8 @@ $$\; \; \; \; \; \; \; , or = Rate \times (Dev\space Estimation \div 0.47 + Non\
 
 ⁴：后文引用的数据也会体现这一点。
 
-⁵：这里略去了与本架构对应的测试策略最佳实践，因为与本文的核心内容相关性不强。感兴趣的读者可以前往笔者文章[React单元测试最佳实践与前端TDD](https://ethan.thoughtworkers.me/#/post/2023-12-10-react-unit-testing-best-practices-v2)及[相关系列](https://ethan.thoughtworkers.me/#/post/2023-12-25-react-testing-strategy-and-best-practices)查看。
+⁵：这里略去了与本架构对应的测试策略最佳实践，因为与本文的核心内容相关性不强。感兴趣的读者可以前往笔者文章[React单元测试最佳实践与前端TDD](https://ethan.exthoughtworkers.tech/#/post/2023-12-10-react-unit-testing-best-practices-v2)及[相关系列](https://ethan.exthoughtworkers.tech/#/post/2023-12-25-react-testing-strategy-and-best-practices)查看。
 
 ⁶：数据集基于个人日常编码时间采集与Git提交时间统计，精确到小时/半天。
 
-⁷：这里，我用的都是我在项目上的真实数据——来源涉及三个项目，但交叉对比过基本可靠：做卡时间中的编码、非编码与Tech Huddle时间的分布，采用的是我在最近一个时长约四个月的项目中作为Senior Developer时的工作内容；参加敏捷三大会议10%（不包括故事卡相关的Kick-off/Desk-check等）这个数据是我在[另外一个10个人团队的项目做TL时采集的数据](https://ethan.thoughtworkers.me/#/post/2023-08-01-my-tech-lead-journey-i)，这与八叉在黑马计划与敏捷101课程中提到的健康团队敏捷时间应该在10%左右的数据是相互印证的；公司层面事务11%也是我在去年作为TL在同一项目上的数据，不同时间段可能有出入；其他项目事务14%是采用我在2019年当Senior Developer时总有效工时82%作为参考，减去(31.5+9+6.5+10+11=68)所得到的推测数据；最后的18%“其他”是扣除82%以外的部分。
+⁷：这里，我用的都是我在项目上的真实数据——来源涉及三个项目，但交叉对比过基本可靠：做卡时间中的编码、非编码与Tech Huddle时间的分布，采用的是我在最近一个时长约四个月的项目中作为Senior Developer时的工作内容；参加敏捷三大会议10%（不包括故事卡相关的Kick-off/Desk-check等）这个数据是我在[另外一个10个人团队的项目做TL时采集的数据](https://ethan.exthoughtworkers.tech/#/post/2023-08-01-my-tech-lead-journey-i)，这与八叉在黑马计划与敏捷101课程中提到的健康团队敏捷时间应该在10%左右的数据是相互印证的；公司层面事务11%也是我在去年作为TL在同一项目上的数据，不同时间段可能有出入；其他项目事务14%是采用我在2019年当Senior Developer时总有效工时82%作为参考，减去(31.5+9+6.5+10+11=68)所得到的推测数据；最后的18%“其他”是扣除82%以外的部分。
