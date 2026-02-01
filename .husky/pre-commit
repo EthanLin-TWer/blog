@@ -31,21 +31,6 @@ generatePostsJsonIfAnyPostChanged() {
   fi
 }
 
-abortWhenTryingToCommitMoreThanOnePost() {
-  declare -a committingPosts=($(findCommittingPosts))
-  local committingPostsCount=${#committingPosts[@]}
-
-  if [[ ${committingPostsCount} -gt 1 ]];
-  then
-    echo ""
-    echo "❗❗❗ 一次提交仅允许提交一篇文章，而你竟想一次提交 ${committingPostsCount} 篇 ❗❗❗"
-    echo "$(findCommittingPosts)"
-    echo ""
-
-    exit 1
-  fi
-}
-
 isTechnicalCommit() {
   declare -a committingFiles=($(git diff --staged --name-only | cat))
   for file in "${committingFiles[@]}"
@@ -74,8 +59,6 @@ minifyImagesIfAny() {
   done
 }
 
-abortWhenTryingToCommitMoreThanOnePost
 abortWhenSanityCheckFailsForTechnicalCommits
 minifyImagesIfAny
 generatePostsJsonIfAnyPostChanged
-
