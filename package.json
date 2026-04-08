@@ -10,8 +10,8 @@
   "author": "Ethan",
   "license": "MIT",
   "engines": {
-    "node": ">=18",
-    "pnpm": ">=7"
+    "node": ">=24",
+    "pnpm": ">=10"
   },
   "scripts": {
     "postinstall": "husky install",

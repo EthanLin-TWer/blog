@@ -1,0 +1,50 @@
+.no-content-container
+  display flex
+  flex-direction column
+  justify-content center
+  align-items center
+  height 100vh
+  color #aaa
+  gap 8px
+
+// simple open-envelope shape via CSS
+.no-content-graphic
+  width 56px
+  height 40px
+  border 2px solid #ccc
+  border-radius 2px
+  position relative
+  margin-bottom 12px
+
+  &::before
+    content ''
+    position absolute
+    top 0
+    left 0
+    width 0
+    height 0
+    border-left 28px solid transparent
+    border-right 28px solid transparent
+    border-top 20px solid #ccc
+
+  &::after
+    content ''
+    position absolute
+    top 0
+    left 0
+    width 0
+    height 0
+    border-left 28px solid transparent
+    border-right 28px solid transparent
+    border-top 20px solid #f9f9f9
+
+.no-content-title
+  font-size 18px
+  font-weight 300
+  color #999
+  margin 0
+
+.no-content-message
+  font-size 13px
+  color #bbb
+  margin 0

@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from 'react'
 
 import { axiosServer } from '../../utils/axios'
+import { Loading } from '../../components/Loading'
 
 import { BlogSummary } from './BlogSummary'
 
@@ -17,18 +18,22 @@ interface Blog {
   date?: string
 }
 
-interface State {
-  blogs: Blog[]
-}
-
 // @ts-ignore
-export const BlogList: FC<Props, State> = () => {
-  const [{ blogs }, setBlogs] = useState<State>({ blogs: [] })
+export const BlogList: FC<Props> = () => {
+  const [blogs, setBlogs] = useState<Blog[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+
   useEffect(() => {
-    axiosServer.get('/api/posts.json').then(({ data }) => {
-      setBlogs({ blogs: data })
-    })
+    axiosServer
+      .get('/api/posts.json')
+      .then(({ data }) => setBlogs(data))
+      .catch(() => {})
+      .finally(() => setIsLoading(false))
   }, [])
+
+  if (isLoading) {
+    return <Loading />
+  }
 
   return blogs.map(({ id, path, title, summary, createdDate }) => (
     <BlogSummary

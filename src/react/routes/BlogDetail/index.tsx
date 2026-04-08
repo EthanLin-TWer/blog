@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom'
 
 import { GithubFlavoredMarkdown } from '../../components/GithubFlavoredMarkdown'
 import { ErrorBoundary } from '../../components/ErrorBoundary'
+import { Loading } from '../../components/Loading'
+import { NoContent } from '../../components/NoContent'
 
 import { useBlogDetail } from './useBlogDetail'
 
@@ -21,11 +23,11 @@ export const BlogDetail: FC = () => {
   }, [blogDetail])
 
   if (isLoading) {
-    return <div>loading ...</div>
+    return <Loading />
   }
 
   if (!blogDetail) {
-    return <div>there is no post at this path</div>
+    return <NoContent message="This post could not be found." />
   }
 
   return (
