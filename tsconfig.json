@@ -2,7 +2,7 @@
   "include": ["src/**/*", "mock-server/**/*", "scripts/**/*"],
   "compilerOptions": {
     // output ES version and module resolutions
-    "target": "es2015",
+    "target": "esnext",
     "module": "es2022",
     "moduleResolution": "node",
     "esModuleInterop": true,
