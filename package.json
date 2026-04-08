@@ -36,7 +36,7 @@
     "@testing-library/user-event": "^14.4.3",
     "@types/hast": "^2.3.4",
     "@types/jest": "^29.2.5",
-    "@types/lodash": "^4.14.191",
+
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.10",
@@ -91,7 +91,7 @@
     "axios": "^0.18.1",
     "github-markdown-css": "^2.10.0",
     "katex": "^0.16.11",
-    "lodash": "^4.17.19",
+
     "mermaid": "~10.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -109,7 +109,7 @@
     "testMatch": [
       "<rootDir>/src/react/**/*.test.ts",
       "<rootDir>/src/react/**/*.test.tsx",
-      "<rootDir>/src/util/**/*.test.ts"
+      "<rootDir>/src/utils/**/*.test.ts"
     ],
     "setupFiles": [],
     "transformIgnorePatterns": [

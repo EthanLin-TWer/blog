@@ -1,6 +1,6 @@
 const path = require('path')
-const { generatePosts } = require('../src/util/posts-generator')
-const { saveToFile } = require('../src/util/fs')
+const { generatePosts } = require('../src/utils/posts-generator')
+const { saveToFile } = require('../src/utils/fs')
 
 const posts = generatePosts()
 const outputPath = path.resolve(__dirname, '../api/posts.json')

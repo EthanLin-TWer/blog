@@ -17,9 +17,6 @@ importers:
       katex:
         specifier: ^0.16.11
         version: 0.16.28
-      lodash:
-        specifier: ^4.17.19
-        version: 4.17.23
       mermaid:
         specifier: ~10.3.0
         version: 10.3.1
@@ -75,9 +72,6 @@ importers:
       '@types/jest':
         specifier: ^29.2.5
         version: 29.5.14
-      '@types/lodash':
-        specifier: ^4.14.191
-        version: 4.17.23
       '@types/node':
         specifier: ^18.11.18
         version: 18.19.130
@@ -696,9 +690,6 @@ packages:
 
   '@types/katex@0.16.8':
     resolution: {integrity: sha512-trgaNyfU+Xh2Tc+ABIb44a5AYUpicB3uwirOioeOkNPPbmgRNtcWyDeeFRzjPZENO9Vq8gvVqfhaaXWLlevVwg==}
-
-  '@types/lodash@4.17.23':
-    resolution: {integrity: sha512-RDvF6wTulMPjrNdCoYRC8gNR880JNGT8uB+REUpC2Ns4pRqQJhGz90wh7rgdXDPpCczF3VGktDuFGVnz8zP7HA==}
 
   '@types/mdast@3.0.15':
     resolution: {integrity: sha512-LnwD+mUEfxWMa1QpDraczIn6k0Ee3SMicuYSSzS6ZYl2gKS09EClnJYGd8Du6rfc5r/GZEk5o1mRb8TaTj03sQ==}
@@ -5773,8 +5764,6 @@ snapshots:
   '@types/json5@0.0.29': {}
 
   '@types/katex@0.16.8': {}
-
-  '@types/lodash@4.17.23': {}
 
   '@types/mdast@3.0.15':
     dependencies:

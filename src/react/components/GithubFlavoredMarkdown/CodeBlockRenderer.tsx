@@ -1,5 +1,4 @@
 import React, { FC } from 'react'
-import sample from 'lodash/sample'
 import SyntaxHighlighter, {
   registerLanguage,
 } from 'react-syntax-highlighter/light'
@@ -23,6 +22,8 @@ import mono from 'react-syntax-highlighter/styles/hljs/mono-blue'
 import qtcreator_light from 'react-syntax-highlighter/styles/hljs/qtcreator_light'
 import eighties from 'react-syntax-highlighter/styles/hljs/tomorrow-night-eighties'
 import vs2015 from 'react-syntax-highlighter/styles/hljs/vs2015'
+
+import { sample } from '../../../utils/lodash'
 
 import { MermaidRenderer } from './MermaidRenderer'
 

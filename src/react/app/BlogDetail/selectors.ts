@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { parse } from '../../../util/jekyll-parser'
+import { parse } from '../../../utils/jekyll-parser'
 
 interface Post {
   title: string

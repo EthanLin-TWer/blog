@@ -9,9 +9,9 @@
   * [x] commit-msg: validate commit message
   * [x] pre-commit: run lint & test
   * [x] pre-push: runs deployment - no need to change  
-* React Query，state managements won't be needed any more for a blog site
-* TypeScript
-* ES2023 while writing code
+* [x] React Query，state managements won't be needed any more for a blog site - overkill for this project
+* [x] TypeScript - already in place
+  * ES2023 while writing code
 * webpack
 * dev server with hot reload
 * folder structure
@@ -23,9 +23,9 @@
   * Add NoContent component when network failed in loading blog detail
   * Add Error component when component rendering goes wrong
 * environment variables
-* [x] redux + @reduxjs/toolkit + examples - currently not used
 * jest + RTL + examples
   * component level testing
 * mock server with msw
+* [x] redux + @reduxjs/toolkit + examples - currently not used
 * [x] README
-* rewrite some code with hooks
+* [x] rewrite some code with hooks

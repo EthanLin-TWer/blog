@@ -54,7 +54,7 @@ module.exports = merge(baseConfig, {
         },
         stable: {
           name: 'stable-chunks.vendor',
-          test: /[\\/]node_modules[\\/]_?(lodash|axios)/,
+          test: /[\\/]node_modules[\\/]_?(axios)/,
           priority: 1,
         },
         default: {
