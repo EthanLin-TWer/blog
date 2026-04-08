@@ -1,7 +1,7 @@
 const jsonServer = require('json-server')
 const path = require('path')
 const fs = require('fs')
-const { generatePosts } = require('../src/util/posts-generator')
+const { generatePosts } = require('../src/utils/posts-generator')
 
 const server = jsonServer.create()
 const middlewares = jsonServer.defaults()

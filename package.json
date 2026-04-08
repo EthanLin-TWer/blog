@@ -23,6 +23,7 @@
     "minify:images": "node scripts/minify-images.js",
     "start:mock-server": "node mock-server/server.js",
     "start": "NODE_ENV=development webpack serve -c webpack.dev.config.js --progress --history-api-fallback",
+    "dev": "npm start & npm run start:mock-server",
     "debug": "npm run build:release & npm run start:release & wait",
     "build:release": "onchange 'src/react/**/*.js' -e 'dist' -v -i -- npm run build:react",
     "start:release": "http-server dist -c-1 -i",
