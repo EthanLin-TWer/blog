@@ -65,13 +65,14 @@ const devServer = {
   open: true,
   port: process.env.PORT || 3000,
   // contentBase: path.join(__dirname, 'src/react'),
-  proxy: {
-    '/api': {
+  proxy: [
+    {
+      context: ['/api'],
       target: 'http://127.0.0.1:4000',
       changeOrigin: true,
       secure: false,
     },
-  },
+  ],
   client: {
     overlay: false,
   },
