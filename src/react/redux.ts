@@ -1,7 +1,7 @@
 import { createStore } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
-import { reducers } from './reducers'
-
+const reducers = (state = {}) => state
 const store = createStore(reducers, {}, composeWithDevTools())
+
 export { store }

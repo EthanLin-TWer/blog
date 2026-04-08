@@ -5,8 +5,8 @@ import {
   Route,
 } from 'react-router-dom'
 
-import { BlogList } from './BlogList'
-import { BlogDetail } from './BlogDetail'
+import { BlogList } from './routes/BlogList'
+import { BlogDetail } from './routes/BlogDetail'
 
 export const AppRoutes = createHashRouter(
   createRoutesFromElements(

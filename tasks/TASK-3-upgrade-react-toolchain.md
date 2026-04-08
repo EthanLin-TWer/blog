@@ -12,20 +12,19 @@
 * [x] React Query，state managements won't be needed any more for a blog site - overkill for this project
 * [x] TypeScript - already in place
   * ES2023 while writing code
-* webpack
-* dev server with hot reload
-* folder structure
-* styling - styled-components + examples
-  * https://stylus.bootcss.com/docs/operators.html - I feel css modules works better
 * UI - MUI + examples
   * Add Loading component when loading blog list
   * Add Loading component when loading blog detail
   * Add NoContent component when network failed in loading blog detail
   * Add Error component when component rendering goes wrong
-* environment variables
-* jest + RTL + examples
-  * component level testing
-* mock server with msw
+* webpack
+* [x] dev server with hot reload - already there
+* [x] folder structure
+* [x] styling - styled-components + examples - overkill for such project
+  * [x] https://stylus.bootcss.com/docs/operators.html - I feel css modules works better
+* [x] jest + RTL + examples: component level testing - overkill for content-driven sites like this
+* [x] mock server with msw - not necessary
 * [x] redux + @reduxjs/toolkit + examples - currently not used
 * [x] README
+* [x] environment variables
 * [x] rewrite some code with hooks
