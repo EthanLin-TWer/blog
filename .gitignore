@@ -22,3 +22,4 @@ coverage
 # Local files
 TODOLIST.md
 .env.local
+.claude/settings.local.json
