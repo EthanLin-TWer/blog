@@ -5,8 +5,7 @@ import { useParams } from 'react-router-dom'
 import { GithubFlavoredMarkdown } from '../../components/GithubFlavoredMarkdown'
 import { ErrorBoundary } from '../../components/ErrorBoundary'
 import { axiosNormal } from '../../utils/axios'
-
-import { parseJekyllPost } from './selectors'
+import { parseJekyllPost } from '../../../utils/selectors'
 
 import './styles.styl'
 

@@ -131,7 +131,8 @@
     "verbose": false,
     "collectCoverage": false,
     "collectCoverageFrom": [
-      "<rootDir>/src/react/**/*.ts"
+      "<rootDir>/src/react/**/*.ts",
+      "<rootDir>/src/utils/**/*.ts"
     ],
     "coverageThreshold": {
       "global": {

@@ -1,4 +1,4 @@
-import { parseJekyllPost } from './selectors'
+import { parseJekyllPost } from '../selectors'
 
 describe('parseJekyllPost()', () => {
   const postContent = `
