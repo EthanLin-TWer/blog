@@ -1,7 +1,2 @@
-import { combineReducers } from 'redux'
-
-import { reducer as detail } from './BlogDetail/reducer'
-
-export const reducers = combineReducers({
-  detail,
-})
+// Redux store kept for future use
+export const reducers = (state = {}) => state

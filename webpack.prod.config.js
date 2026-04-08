@@ -26,7 +26,7 @@ module.exports = merge(baseConfig, {
           name: 'react-data-chunks.vendor',
           // See first warning of why we put [\\/] instead of \/
           // https://webpack.js.org/plugins/split-chunks-plugin/#optimizationsplitchunks
-          test: /[\\/]node_modules[\\/]_?(react-redux|redux|redux-actions|redux-saga|reselect|seamless-immutable)/,
+          test: /[\\/]node_modules[\\/]_?(react-redux|redux)/,
           priority: 5,
         },
         react_markdown: {

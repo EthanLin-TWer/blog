@@ -1,12 +1,11 @@
 // @ts-nocheck
 import React, { FC, useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
 import { GithubFlavoredMarkdown } from '../../components/GithubFlavoredMarkdown'
 import { ErrorBoundary } from '../../components/ErrorBoundary'
+import { axiosNormal } from '../../utils/axios'
 
-import { actions } from './actions'
 import { parseJekyllPost } from './selectors'
 
 import './styles.styl'
@@ -24,14 +23,17 @@ export const BlogDetail: FC<Props, State> = () => {
     summary: '',
     detail: '',
   })
-  const dispatch = useDispatch()
+  const [post, setPost] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const { postId } = useParams()
-  const post = useSelector((store) => store.detail.posts[postId]) || ''
-  const isLoading =
-    useSelector((store) => store.detail.loading[postId]) || false
 
   useEffect(() => {
-    dispatch(actions.fetchBlogDetail(postId))
+    setIsLoading(true)
+    axiosNormal
+      .get(process.env.BLOG_DETAIL_API!.replace('{id}', postId))
+      .then(({ data }) => setPost(data))
+      .catch(() => {})
+      .finally(() => setIsLoading(false))
   }, [postId])
 
   useEffect(() => {
