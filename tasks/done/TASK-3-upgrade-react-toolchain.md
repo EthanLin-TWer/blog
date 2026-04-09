@@ -11,13 +11,13 @@
   * [x] pre-push: runs deployment - no need to change  
 * [x] React Query，state managements won't be needed any more for a blog site - overkill for this project
 * [x] TypeScript - already in place
-  * ES2023 while writing code
-* UI - MUI + examples
-  * Add Loading component when loading blog list
-  * Add Loading component when loading blog detail
-  * Add NoContent component when network failed in loading blog detail
-  * Add Error component when component rendering goes wrong
-* webpack
+  * [x] ES2023 while writing code
+* [x] UI - MUI + examples
+  * [x] Add Loading component when loading blog list
+  * [x] Add Loading component when loading blog detail
+  * [x] Add NoContent component when network failed in loading blog detail
+  * [x] Add Error component when component rendering goes wrong
+* [x] webpack
 * [x] dev server with hot reload - already there
 * [x] folder structure
 * [x] styling - styled-components + examples - overkill for such project

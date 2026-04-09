@@ -13,7 +13,7 @@ import './styles.styl'
 
 export const BlogDetail: FC = () => {
   const { postId } = useParams()
-  const { isLoading, detail } = useBlogDetail(postId)
+  const { isLoading, detail, fetchError } = useBlogDetail(postId)
 
   useEffect(() => {
     if (detail) {
@@ -27,8 +27,12 @@ export const BlogDetail: FC = () => {
     return <Loading />
   }
 
+  if (fetchError) {
+    return <NoContent variant={fetchError} />
+  }
+
   if (!detail) {
-    return <NoContent message="This post could not be found." />
+    return <NoContent variant="not-found" />
   }
 
   return (

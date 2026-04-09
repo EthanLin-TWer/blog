@@ -1,18 +1,18 @@
 import React from 'react'
 
+import { RenderError } from './RenderError'
+
 interface Props {
   children: React.ReactNode
 }
 interface State {
-  hasError: boolean;
+  hasError: boolean
 }
 
 export class ErrorBoundary extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props)
-    this.state = {
-      hasError: false
-    }
+    this.state = { hasError: false }
   }
 
   static getDerivedStateFromError() {
@@ -20,14 +20,12 @@ export class ErrorBoundary extends React.Component<Props, State> {
   }
 
   // eslint-disable-next-line
-  override componentDidCatch(error: Error, info: any): void {
-    console.log('-------- error, info --------')
-    console.log(error, info)
+  override componentDidCatch(_error: Error, _info: any): void {
   }
 
   override render() {
     if (this.state.hasError) {
-      return <div>something goes wrong</div>
+      return <RenderError />
     }
 
     return this.props.children
