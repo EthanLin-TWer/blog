@@ -1,100 +1,89 @@
 import { parse } from '../jekyll-parser'
 
-describe('parseJekyllPost()', () => {
-  it('should return empty object when post is empty', () => {
-    const expected = {
-      frontMatters: {},
-      content: '',
-    }
+describe('parse()', () => {
+  describe('empty / invalid input', () => {
+    it('returns empty frontMatter and content for null', () => {
+      expect(parse(null)).toEqual({
+        frontMatter: {},
+        content: { summary: '', detail: '' },
+      })
+    })
 
-    const result = parse(null)
-
-    expect(result).toEqual(expected)
+    it('returns empty frontMatter and content when front matter is empty', () => {
+      expect(parse('\n---\n---\n')).toEqual({
+        frontMatter: {},
+        content: { summary: '', detail: '' },
+      })
+    })
   })
 
-  it('should return empty object when front matters is empty', () => {
-    const post = `
----
----
-    `
-    const expected = {
-      frontMatters: {},
-      content: '',
-    }
-
-    const result = parse(post)
-
-    expect(result).toEqual(expected)
-  })
-
-  it('should return object with title when front matters contains a title', () => {
-    const post = `
+  describe('frontMatter parsing', () => {
+    it('parses a single field', () => {
+      const post = `
 ---
 title: React 应用单元测试策略
 ---
-    `
-    const expected = {
-      frontMatters: {
+`
+      expect(parse(post).frontMatter).toEqual({ title: 'React 应用单元测试策略' })
+    })
+
+    it('parses multiple fields', () => {
+      const post = `
+---
+title: React 应用单元测试策略
+category: frontend
+tags: react tdd
+---
+`
+      expect(parse(post).frontMatter).toEqual({
         title: 'React 应用单元测试策略',
-      },
-      content: '',
-    }
-
-    const result = parse(post)
-
-    expect(result).toEqual(expected)
+        category: 'frontend',
+        tags: 'react tdd',
+      })
+    })
   })
 
-  it('should return object with front matters key/values when front matters contains multiple values', () => {
-    const post = `
+  describe('content splitting', () => {
+    it('treats the first line as summary and the rest as detail', () => {
+      const post = `
 ---
 title: React 应用单元测试策略
-summary: 这是一份很好的单元测试策略
 ---
-    `
-    const expected = {
-      frontMatters: {
-        title: 'React 应用单元测试策略',
-        summary: '这是一份很好的单元测试策略',
-      },
-      content: '',
-    }
-    const result = parse(post)
 
-    expect(result).toEqual(expected)
-  })
+家人们，第一行默认是summary。
 
-  it('should return object with front matters key/values when front matters contains multiple values', () => {
-    const post = `
+后面的。
+
+全部。
+
+都是内容。
+`
+      const { content } = parse(post)
+      expect(content.summary).toBe('家人们，第一行默认是summary。')
+      expect(content.detail).toContain('后面的。')
+      expect(content.detail).toContain('全部。')
+      expect(content.detail).toContain('都是内容。')
+    })
+
+    it('returns empty detail when body has only one line', () => {
+      const post = `
 ---
-title: React 应用单元测试策略
-summary: 这是一份很好的单元测试策略
+title: Single line
 ---
-          
-我是正文
 
-我还有分段
-    `
-    const expected = {
-      frontMatters: {
-        title: 'React 应用单元测试策略',
-        summary: '这是一份很好的单元测试策略',
-      },
-      content: expect.stringContaining('我是正文\n\n我还有分段'),
-    }
+just one line
+`
+      const { content } = parse(post)
+      expect(content.summary).toBe('just one line')
+      expect(content.detail).toBe('')
+    })
 
-    const result = parse(post)
-
-    expect(result).toEqual(expected)
-  })
-
-  it('should not freak out when there is other --- in the post - this represents s horizontal line in markdown', () => {
-    const post = `
+    it('preserves --- horizontal rules inside the body', () => {
+      const post = `
 ---
 title: React 应用单元测试策略
-summary: 这是一份很好的单元测试策略
 ---
-          
+
 我是正文
 
 我还有分段
@@ -102,17 +91,10 @@ summary: 这是一份很好的单元测试策略
 ---
 
 [一些引用]: https://wip.com
-    `
-    const expected = {
-      frontMatters: {
-        title: 'React 应用单元测试策略',
-        summary: '这是一份很好的单元测试策略',
-      },
-      content: expect.stringContaining('我是正文\n\n我还有分段\n\n---\n\n[一些引用]: https://wip.com'),
-    }
-
-    const result = parse(post)
-
-    expect(result.content).toEqual(expected.content)
+`
+      expect(parse(post).content.detail).toContain(
+        '我还有分段\n\n---\n\n[一些引用]: https://wip.com'
+      )
+    })
   })
 })

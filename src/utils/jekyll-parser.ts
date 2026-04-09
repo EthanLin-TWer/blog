@@ -1,51 +1,64 @@
-interface FrontMatter {
-  [key: string]: string
+export interface FrontMatter {
+  title?: string
+  category?: string
+  categories?: string
+  tags?: string
+  description?: string
 }
 
-interface JekyllPost {
-  frontMatters: FrontMatter
-  content: string
+export interface PostContent {
+  summary: string  // first line of the post body
+  detail: string   // remaining content
 }
 
-const JEKYLL_SEPARATOR = '---\n'
-const JEKYLL_SEPARATOR_NEW = '---'
-// this assumes there is only one pair of front matter separator in 'content'
-const extractFromString = (content: string): FrontMatter =>
-  content
-    .substring(
-      content.indexOf(JEKYLL_SEPARATOR_NEW) + JEKYLL_SEPARATOR_NEW.length,
-      content.lastIndexOf(JEKYLL_SEPARATOR_NEW)
-    )
+export interface ParsedPost {
+  frontMatter: FrontMatter
+  content: PostContent
+}
+
+const JEKYLL_SEPARATOR = '---'
+
+const extractFrontMatter = (raw: string): FrontMatter =>
+  raw
     .split('\n')
-    .map((each) => each)
     .filter((line) => line && line.trim() !== JEKYLL_SEPARATOR)
-    .map((each) => each.split(':'))
-    .map(([key, value]) => ({ [key]: value.trim() }))
-    .reduce((result, next) => ({ ...result, ...next }), {})
+    .map((line) => line.split(':'))
+    .map(([key, value]) => ({ [key.trim()]: value.trim() }))
+    .reduce((acc, next) => ({ ...acc, ...next }), {})
 
-const formatter = (content: string) => {
-  const frontMattersMatcher = new RegExp(
-    `${JEKYLL_SEPARATOR_NEW}(.|\n)*?${JEKYLL_SEPARATOR_NEW}`
-  )
-
-  const [frontMatterString] = frontMattersMatcher.exec(content)!
+const splitBody = (raw: string): PostContent => {
+  const trimmed = raw.trim()
+  const breakAt = trimmed.indexOf('\n')
+  if (breakAt === -1) return { summary: trimmed, detail: '' }
   return {
-    frontMatters: extractFromString(frontMatterString),
-    content: content.substring(
-      content.indexOf(frontMatterString) + frontMatterString.length
-    ),
+    summary: trimmed.slice(0, breakAt).trim(),
+    detail: trimmed.slice(breakAt).trim(),
   }
 }
 
-export const parse = (post: string | null = ''): JekyllPost => {
+const extractBodyAndFrontMatter = (
+  post: string
+): { rawFrontMatter: string; body: string } => {
+  const matcher = new RegExp(`${JEKYLL_SEPARATOR}(.|\n)*?${JEKYLL_SEPARATOR}`)
+  const [frontMatterString] = matcher.exec(post)!
+  return {
+    rawFrontMatter: frontMatterString,
+    body: post.substring(post.indexOf(frontMatterString) + frontMatterString.length),
+  }
+}
+
+export const parse = (post: string | null = ''): ParsedPost => {
   if (!post) {
-    return { frontMatters: {}, content: '' }
+    return { frontMatter: {}, content: { summary: '', detail: '' } }
   }
 
   if (typeof post !== 'string') {
     throw new Error(`post should be a string, instead got: ${typeof post}`)
   }
 
-  const { frontMatters, content } = formatter(post.trim())
-  return { frontMatters, content }
+  const { rawFrontMatter, body } = extractBodyAndFrontMatter(post.trim())
+  return {
+    frontMatter: extractFrontMatter(rawFrontMatter),
+    content: splitBody(body),
+  }
 }

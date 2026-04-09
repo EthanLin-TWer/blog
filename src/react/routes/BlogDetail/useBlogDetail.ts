@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import { axiosNormal } from '../../utils/axios'
-import { parseJekyllPost } from '../../../utils/selectors'
+import { parse } from '../../../utils/jekyll-parser'
 
 interface BlogDetail {
   title: string
@@ -18,8 +18,12 @@ export const useBlogDetail = (postId: string) => {
     axiosNormal
       .get(process.env.BLOG_DETAIL_API!.replace('{id}', postId))
       .then(({ data }) => {
-        const { title, summary, content } = parseJekyllPost(data)
-        setDetail({ title, summary, content })
+        const { frontMatter, content } = parse(data)
+        setDetail({
+          title: frontMatter.title ?? '',
+          summary: content.summary,
+          content: content.detail,
+        })
       })
       .catch(() => {})
       .finally(() => setIsLoading(false))
