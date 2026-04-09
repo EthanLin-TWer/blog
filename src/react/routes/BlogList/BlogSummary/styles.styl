@@ -2,14 +2,18 @@
   max-width: 800px;
   margin: 0 auto;
 
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px dashed var(--color-primary);
 }
 
 .post {
   padding: 35px 25px;
+  border-radius: 0px;
+  transition: background-color 0.25s ease, border-radius 0.25s ease, transform 0.25s ease;
 
   &:hover {
-    background-color: #fafafa;
+    background-color: rgba(59, 78, 61, 0.08);
+    border-radius: 20px;
+    transform: scale(1.02);
   }
 
   .title-container {
@@ -31,6 +35,10 @@
   .summary {
     font-size: 15px;
     line-height: 1.7;
+
+    a {
+      color: var(--color-secondary);
+    }
 
     .markdown-body {
       margin-top: 0;
