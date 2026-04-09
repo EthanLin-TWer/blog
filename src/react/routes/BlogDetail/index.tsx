@@ -13,41 +13,42 @@ import './styles.styl'
 
 export const BlogDetail: FC = () => {
   const { postId } = useParams()
-  const { isLoading, blogDetail } = useBlogDetail(postId)
+  const { isLoading, detail } = useBlogDetail(postId)
 
   useEffect(() => {
-    if (!blogDetail) return
-    const { title, summary } = blogDetail
-    document.title = title
-    document.getElementsByTagName('meta').description.content = summary
-  }, [blogDetail])
+    if (detail) {
+      const { title, summary } = detail
+      document.title = title
+      document.getElementsByTagName('meta').description.content = summary
+    }
+  }, [detail])
 
   if (isLoading) {
     return <Loading />
   }
 
-  if (!blogDetail) {
+  if (!detail) {
     return <NoContent message="This post could not be found." />
   }
 
   return (
     <ErrorBoundary>
       <div className="container-details">
-        {blogDetail.title && (
+        {detail.title && (
           <GithubFlavoredMarkdown
-            data={`# ${blogDetail.title}`}
+            data={`# ${detail.title}`}
             className="article-title"
           />
         )}
-        {blogDetail.summary && (
+        {detail.summary && (
           <GithubFlavoredMarkdown
-            data={blogDetail.summary}
+            data={detail.summary}
             className="article-summary"
           />
         )}
-        {blogDetail.content && (
+        {detail.content && (
           <GithubFlavoredMarkdown
-            data={blogDetail.content}
+            data={detail.content}
             className="article-content"
           />
         )}

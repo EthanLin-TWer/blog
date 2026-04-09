@@ -11,7 +11,7 @@ interface BlogDetail {
 
 export const useBlogDetail = (postId: string) => {
   const [isLoading, setIsLoading] = useState(false)
-  const [blogDetail, setBlogDetail] = useState<BlogDetail | null>(null)
+  const [detail, setDetail] = useState<BlogDetail | null>(null)
 
   useEffect(() => {
     setIsLoading(true)
@@ -19,11 +19,11 @@ export const useBlogDetail = (postId: string) => {
       .get(process.env.BLOG_DETAIL_API!.replace('{id}', postId))
       .then(({ data }) => {
         const { title, summary, content } = parseJekyllPost(data)
-        setBlogDetail({ title, summary, content })
+        setDetail({ title, summary, content })
       })
       .catch(() => {})
       .finally(() => setIsLoading(false))
   }, [postId])
 
-  return { isLoading, blogDetail }
+  return { isLoading, detail }
 }
